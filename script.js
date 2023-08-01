@@ -2,6 +2,7 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 
+
 const termsData = {
   "terms": [
     {
@@ -319,10 +320,3274 @@ const termsData = {
     {
       "term": "Security Awareness Training",
       "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
-    }
+    },
+      {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "VPN (Virtual Private Network)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "VPN (Virtual Private Network)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Malware Analysis",
+    "definition": "The process of dissecting and understanding malware to determine its behavior, purpose, and potential impact."
+  },
+  {
+    "term": "Digital Certificate",
+    "definition": "An electronic document that verifies the identity of an entity and is used in secure communications."
+  },
+  {
+    "term": "Public Key",
+    "definition": "The openly shared key in an asymmetric encryption system used to encrypt data and verify digital signatures."
+  },
+  {
+    "term": "Private Key",
+    "definition": "The secret key in an asymmetric encryption system used to decrypt data and create digital signatures."
+  },
+  {
+    "term": "Certificate Revocation List (CRL)",
+    "definition": "A list of digital certificates that have been revoked or are no longer valid."
+  },
+  {
+    "term": "Secure Coding",
+    "definition": "The practice of writing software code with security considerations to prevent vulnerabilities and exploits."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "An attack that takes advantage of a software vulnerability unknown to the vendor and without available patches."
+  },
+  {
+    "term": "Security Incident Response Team (SIRT)",
+    "definition": "A team responsible for handling and responding to cybersecurity incidents in an organization."
+  },
+  {
+    "term": "Data Masking",
+    "definition": "The process of obscuring original data to protect sensitive information while maintaining its authenticity for testing and analysis."
+  },
+  {
+    "term": "Man-in-the-Middle (MitM) Attack",
+    "definition": "An attack where an attacker secretly intercepts and possibly alters the communication between two parties."
+  },
+  {
+    "term": "Session Hijacking",
+    "definition": "The act of stealing an active session's authentication credentials to impersonate a legitimate user."
+  },
+  {
+    "term": "Cyber Insurance",
+    "definition": "An insurance policy designed to help organizations mitigate the financial impact of cyber incidents and data breaches."
+  },
+  {
+    "term": "Hardware Security Module (HSM)",
+    "definition": "A physical device that generates, stores, and manages cryptographic keys and sensitive data."
+  },
+  {
+    "term": "Cloud Security",
+    "definition": "The practices and technologies used to protect cloud-based services and data from security threats."
+  },
+  {
+    "term": "Data Classification",
+    "definition": "The categorization of data based on its sensitivity and value to determine appropriate security controls."
+  },
+  {
+    "term": "Brute Force Attack",
+    "definition": "An attack that systematically tries all possible combinations of passwords or encryption keys to find the correct one."
+  },
+  {
+    "term": "Keylogger",
+    "definition": "A type of malware that captures and records keystrokes to steal sensitive information like passwords."
+  },
+  {
+    "term": "Pharming",
+    "definition": "A cyber attack that redirects website traffic to a fraudulent website without the user's knowledge."
+  },
+  {
+    "term": "Software Vulnerability",
+    "definition": "A weakness or flaw in software that can be exploited to compromise its security."
+  },
+  {
+    "term": "Incident Severity",
+    "definition": "The level of impact and potential harm caused by a cybersecurity incident."
+  },
+  {
+    "term": "Social Engineering",
+    "definition": "The use of psychological manipulation to trick individuals into revealing confidential information or performing actions."
+  },
+  {
+    "term": "Reconnaissance Attack",
+    "definition": "The initial phase of an attack where the attacker gathers information about the target system or network."
+  },
+  {
+    "term": "Proxy Server",
+    "definition": "An intermediary server that acts as a gateway between a user's device and the internet to enhance security and privacy."
+  },
+  {
+    "term": "Digital Signature",
+    "definition": "A cryptographic technique used to verify the authenticity and integrity of digital documents and messages."
+  },
+  {
+    "term": "Data Wiping",
+    "definition": "The process of permanently erasing data from storage media to prevent data recovery after disposal or decommissioning."
+  },
+  {
+    "term": "Penetration Tester",
+    "definition": "An ethical hacker who simulates cyber attacks to identify vulnerabilities and weaknesses in a system."
+  },
+  {
+    "term": "Wireless Security",
+    "definition": "The protection of wireless networks and devices from unauthorized access and attacks."
+  },
+  {
+    "term": "Digital Footprint",
+    "definition": "The trail of data left by a user's online activity and interactions with websites, applications, and services."
+  },
+  {
+    "term": "Multi-Factor Authentication (MFA)",
+    "definition": "An authentication method that requires users to provide multiple forms of identification for added security."
+  },
+  {
+    "term": "Antivirus Software",
+    "definition": "Software designed to detect, prevent, and remove malware from computer systems."
+  },
+  {
+    "term": "Data Leakage",
+    "definition": "The unauthorized or unintentional release of sensitive data to unauthorized individuals or systems."
+  },
+  {
+    "term": "Cryptanalysis",
+    "definition": "The study of cryptographic systems and algorithms to find weaknesses and potential vulnerabilities."
+  },
+  {
+    "term": "Data Privacy",
+    "definition": "The protection of personal and sensitive information from unauthorized access and disclosure."
+  },
+  {
+    "term": "Security Architecture",
+    "definition": "The design and structure of an organization's security measures and controls to protect its assets and resources."
+  },
+  {
+    "term": "Worm",
+    "definition": "A self-replicating malware that spreads across a network without requiring user intervention."
+  },
+  {
+    "term": "Digital Identity",
+    "definition": "The online representation of an individual's identity and attributes used in authentication and authorization."
+  },
+  {
+    "term": "Identity Verification",
+    "definition": "The process of confirming a user's claimed identity by authenticating their provided credentials."
+  },
+  {
+    "term": "Security Token Service (STS)",
+    "definition": "A service that issues and manages security tokens used for identity verification and authentication."
+  },
+  {
+    "term": "Vulnerability Assessment",
+    "definition": "A systematic evaluation of software, hardware, or network components to identify security weaknesses and potential risks."
+  },
+  {
+    "term": "Adware",
+    "definition": "Software that displays advertisements on a user's device, often without their consent."
+  },
+  {
+    "term": "Patch Tuesday",
+    "definition": "A regular schedule for releasing software updates and security patches by software vendors."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM)",
+    "definition": "A system that collects and analyzes security event data from various sources to identify potential threats."
+  },
+  {
+    "term": "Least Privilege",
+    "definition": "The principle of providing users with the minimum level of access required to perform their duties and nothing more."
+  },
+  {
+    "term": "Secure Software Development Lifecycle (SDLC)",
+    "definition": "A set of practices and guidelines to integrate security into the software development process."
+  },
+  {
+    "term": "Hacking",
+    "definition": "Unauthorized access to computer systems or networks to gain information, cause disruption, or commit other malicious acts."
+  },
+  {
+    "term": "Secure File Transfer Protocol (SFTP)",
+    "definition": "A secure version of FTP that encrypts data during file transfer to protect it from interception."
+  },
+  {
+    "term": "Data-at-Rest",
+    "definition": "Data stored in a device or system that is not actively being used or transmitted."
+  },
+  {
+    "term": "Data-in-Transit",
+    "definition": "Data being transmitted from one location to another over a network."
+  },
+  {
+    "term": "Data-in-Use",
+    "definition": "Data actively being processed or accessed by applications and users."
+  },
+  {
+    "term": "Security Token Authentication",
+    "definition": "A method of authentication that uses security tokens to verify the identity of users."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Data at Rest",
+    "definition": "Data that is stored and not actively being accessed or processed."
+  },
+  {
+    "term": "Data in Motion",
+    "definition": "Data that is being transmitted over a network or between systems."
+  },
+  {
+    "term": "Data in Use",
+    "definition": "Data that is actively being accessed, processed, or modified by applications or users."
+  },
+  {
+    "term": "Security Incident Response Plan",
+    "definition": "A documented plan that outlines the steps to be taken in the event of a cybersecurity incident."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM)",
+    "definition": "A system that collects, correlates, and analyzes security event data from various sources to detect and respond to threats."
+  },
+  {
+    "term": "Security Orchestration, Automation, and Response (SOAR)",
+    "definition": "A framework that combines automation, orchestration, and incident response to streamline cybersecurity operations."
+  },
+  {
+    "term": "Digital Certificate",
+    "definition": "An electronic document used to prove the ownership of a public key and establish secure communication."
+  },
+  {
+    "term": "Man-in-the-Middle (MITM) Attack",
+    "definition": "An attack where an attacker intercepts and possibly alters communication between two parties without their knowledge."
+  },
+  {
+    "term": "Evil Twin Attack",
+    "definition": "A type of Wi-Fi attack where an attacker sets up a fake access point to intercept wireless communications."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "An exploit that takes advantage of a software vulnerability that is not yet known to the vendor or public."
+  },
+  {
+    "term": "Watering Hole Attack",
+    "definition": "An attack where the attacker compromises a website frequented by the target group to deliver malware."
+  },
+  {
+    "term": "Logic Bomb",
+    "definition": "A piece of code that triggers a malicious action when specific conditions are met."
+  },
+  {
+    "term": "Buffer Overflow",
+    "definition": "A type of software vulnerability where a program writes more data to a buffer than it can hold, causing a system crash or code execution."
+  },
+  {
+    "term": "Backdoor",
+    "definition": "A hidden entry point into a system that allows unauthorized access or control."
+  },
+  {
+    "term": "Social Media Engineering",
+    "definition": "A social engineering technique that involves manipulating individuals through social media platforms."
+  },
+  {
+    "term": "Cyber Kill Chain",
+    "definition": "A model that describes the different stages of a cyber attack, from reconnaissance to exfiltration."
+  },
+  {
+    "term": "Pharming",
+    "definition": "An attack that redirects website traffic to a fraudulent website, often through DNS cache poisoning."
+  },
+  {
+    "term": "Spyware",
+    "definition": "Malware that secretly gathers information about a user's activities without their consent."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A threat posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Security Posture",
+    "definition": "An organization's overall cybersecurity strength and readiness to defend against threats."
+  },
+  {
+    "term": "Threat Hunting",
+    "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures."
+  },
+  {
+    "term": "Threat Intelligence Sharing",
+    "definition": "The practice of sharing information about cybersecurity threats and vulnerabilities with other organizations."
+  },
+  {
+    "term": "Cryptojacking",
+    "definition": "Illegally using a computer's processing power to mine cryptocurrency without the owner's consent."
+  },
+  {
+    "term": "Blockchain",
+    "definition": "A decentralized and distributed ledger technology that ensures the integrity and security of data."
+  },
+  {
+    "term": "Smart Contract",
+    "definition": "Self-executing contracts with the terms of the agreement directly written into code."
+  },
+  {
+    "term": "Supply Chain Attack",
+    "definition": "An attack that targets an organization through vulnerabilities in its supply chain partners or vendors."
+  },
+  {
+    "term": "Insecure Direct Object References (IDOR)",
+    "definition": "A vulnerability that allows attackers to access resources they are not authorized to access."
+  },
+  {
+    "term": "Fuzz Testing",
+    "definition": "A software testing technique that involves providing invalid or unexpected inputs to detect vulnerabilities."
+  },
+  {
+    "term": "Security Misconfiguration",
+    "definition": "A security weakness caused by misconfiguring software or systems."
+  },
+  {
+    "term": "Incident Response Plan",
+    "definition": "A documented plan that outlines the steps to be taken in the event of a cybersecurity incident."
+  },
+  {
+    "term": "Vulnerability Assessment",
+    "definition": "An evaluation of a system's weaknesses and potential security flaws."
+  },
+  {
+    "term": "Credential Stuffing",
+    "definition": "An attack where attackers use leaked usernames and passwords to gain unauthorized access to user accounts."
+  },
+  {
+    "term": "Password Spraying",
+    "definition": "An attack where attackers use common passwords against multiple accounts to avoid detection."
+  },
+  {
+    "term": "Patch Tuesday",
+    "definition": "The second Tuesday of each month when software vendors release security patches."
+  },
+  {
+    "term": "Data Wiping",
+    "definition": "A malicious action that permanently deletes data from a system, making it unrecoverable."
+  },
+  {
+    "term": "Ransomware as a Service (RaaS)",
+    "definition": "A model where cybercriminals rent ransomware from developers in exchange for a share of the profits."
+  },
+  {
+    "term": "Secure Software Development Life Cycle (SDLC)",
+    "definition": "An approach that integrates security practices throughout the software development process."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Malware Analysis",
+    "definition": "The process of dissecting and understanding malware to determine its behavior, purpose, and potential impact."
+  },
+  {
+    "term": "Digital Certificate",
+    "definition": "An electronic document that verifies the identity of an entity and is used in secure communications."
+  },
+  {
+    "term": "Public Key",
+    "definition": "The openly shared key in an asymmetric encryption system used to encrypt data and verify digital signatures."
+  },
+  {
+    "term": "Private Key",
+    "definition": "The secret key in an asymmetric encryption system used to decrypt data and create digital signatures."
+  },
+  {
+    "term": "Certificate Revocation List (CRL)",
+    "definition": "A list of digital certificates that have been revoked or are no longer valid."
+  },
+  {
+    "term": "Secure Coding",
+    "definition": "The practice of writing software code with security considerations to prevent vulnerabilities and exploits."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "An attack that takes advantage of a software vulnerability unknown to the vendor and without available patches."
+  },
+  {
+    "term": "Security Incident Response Team (SIRT)",
+    "definition": "A team responsible for handling and responding to cybersecurity incidents in an organization."
+  },
+  {
+    "term": "Data Masking",
+    "definition": "The process of obscuring original data to protect sensitive information while maintaining its authenticity for testing and analysis."
+  },
+  {
+    "term": "Man-in-the-Middle (MitM) Attack",
+    "definition": "An attack where an attacker secretly intercepts and possibly alters the communication between two parties."
+  },
+  {
+    "term": "Session Hijacking",
+    "definition": "The act of stealing an active session's authentication credentials to impersonate a legitimate user."
+  },
+  {
+    "term": "Cyber Insurance",
+    "definition": "An insurance policy designed to help organizations mitigate the financial impact of cyber incidents and data breaches."
+  },
+  {
+    "term": "Hardware Security Module (HSM)",
+    "definition": "A physical device that generates, stores, and manages cryptographic keys and sensitive data."
+  },
+  {
+    "term": "Cloud Security",
+    "definition": "The practices and technologies used to protect cloud-based services and data from security threats."
+  },
+  {
+    "term": "Data Classification",
+    "definition": "The categorization of data based on its sensitivity and value to determine appropriate security controls."
+  },
+  {
+    "term": "Brute Force Attack",
+    "definition": "An attack that systematically tries all possible combinations of passwords or encryption keys to find the correct one."
+  },
+  {
+    "term": "Keylogger",
+    "definition": "A type of malware that captures and records keystrokes to steal sensitive information like passwords."
+  },
+  {
+    "term": "Pharming",
+    "definition": "A cyber attack that redirects website traffic to a fraudulent website without the user's knowledge."
+  },
+  {
+    "term": "Software Vulnerability",
+    "definition": "A weakness or flaw in software that can be exploited to compromise its security."
+  },
+  {
+    "term": "Incident Severity",
+    "definition": "The level of impact and potential harm caused by a cybersecurity incident."
+  },
+  {
+    "term": "Social Engineering",
+    "definition": "The use of psychological manipulation to trick individuals into revealing confidential information or performing actions."
+  },
+  {
+    "term": "Reconnaissance Attack",
+    "definition": "The initial phase of an attack where the attacker gathers information about the target system or network."
+  },
+  {
+    "term": "Proxy Server",
+    "definition": "An intermediary server that acts as a gateway between a user's device and the internet to enhance security and privacy."
+  },
+  {
+    "term": "Digital Signature",
+    "definition": "A cryptographic technique used to verify the authenticity and integrity of digital documents and messages."
+  },
+  {
+    "term": "Data Wiping",
+    "definition": "The process of permanently erasing data from storage media to prevent data recovery after disposal or decommissioning."
+  },
+  {
+    "term": "Penetration Tester",
+    "definition": "An ethical hacker who simulates cyber attacks to identify vulnerabilities and weaknesses in a system."
+  },
+  {
+    "term": "Wireless Security",
+    "definition": "The protection of wireless networks and devices from unauthorized access and attacks."
+  },
+  {
+    "term": "Digital Footprint",
+    "definition": "The trail of data left by a user's online activity and interactions with websites, applications, and services."
+  },
+  {
+    "term": "Multi-Factor Authentication (MFA)",
+    "definition": "An authentication method that requires users to provide multiple forms of identification for added security."
+  },
+  {
+    "term": "Antivirus Software",
+    "definition": "Software designed to detect, prevent, and remove malware from computer systems."
+  },
+  {
+    "term": "Data Leakage",
+    "definition": "The unauthorized or unintentional release of sensitive data to unauthorized individuals or systems."
+  },
+  {
+    "term": "Cryptanalysis",
+    "definition": "The study of cryptographic systems and algorithms to find weaknesses and potential vulnerabilities."
+  },
+  {
+    "term": "Data Privacy",
+    "definition": "The protection of personal and sensitive information from unauthorized access and disclosure."
+  },
+  {
+    "term": "Security Architecture",
+    "definition": "The design and structure of an organization's security measures and controls to protect its assets and resources."
+  },
+  {
+    "term": "Worm",
+    "definition": "A self-replicating malware that spreads across a network without requiring user intervention."
+  },
+  {
+    "term": "Digital Identity",
+    "definition": "The online representation of an individual's identity and attributes used in authentication and authorization."
+  },
+  {
+    "term": "Identity Verification",
+    "definition": "The process of confirming a user's claimed identity by authenticating their provided credentials."
+  },
+  {
+    "term": "Security Token Service (STS)",
+    "definition": "A service that issues and manages security tokens used for identity verification and authentication."
+  },
+  {
+    "term": "Vulnerability Assessment",
+    "definition": "A systematic evaluation of software, hardware, or network components to identify security weaknesses and potential risks."
+  },
+  {
+    "term": "Adware",
+    "definition": "Software that displays advertisements on a user's device, often without their consent."
+  },
+  {
+    "term": "Patch Tuesday",
+    "definition": "A regular schedule for releasing software updates and security patches by software vendors."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM)",
+    "definition": "A system that collects and analyzes security event data from various sources to identify potential threats."
+  },
+  {
+    "term": "Least Privilege",
+    "definition": "The principle of providing users with the minimum level of access required to perform their duties and nothing more."
+  },
+  {
+    "term": "Secure Software Development Lifecycle (SDLC)",
+    "definition": "A set of practices and guidelines to integrate security into the software development process."
+  },
+  {
+    "term": "Hacking",
+    "definition": "Unauthorized access to computer systems or networks to gain information, cause disruption, or commit other malicious acts."
+  },
+  {
+    "term": "Secure File Transfer Protocol (SFTP)",
+    "definition": "A secure version of FTP that encrypts data during file transfer to protect it from interception."
+  },
+  {
+    "term": "Data-at-Rest",
+    "definition": "Data stored in a device or system that is not actively being used or transmitted."
+  },
+  {
+    "term": "Data-in-Transit",
+    "definition": "Data being transmitted from one location to another over a network."
+  },
+  {
+    "term": "Data-in-Use",
+    "definition": "Data actively being processed or accessed by applications and users."
+  },
+  {
+    "term": "Security Token Authentication",
+    "definition": "A method of authentication that uses security tokens to verify the identity of users."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Red Team",
+    "definition": "A group of ethical hackers who simulate real-world cyberattacks to test an organization's security defenses."
+  },
+  {
+    "term": "Blue Team",
+    "definition": "A group responsible for defending an organization against cyber threats and responding to security incidents."
+  },
+  {
+    "term": "Threat Intelligence",
+    "definition": "Information about potential and current cyber threats, including indicators of compromise and attack patterns."
+  },
+  {
+    "term": "Digital Forensics",
+    "definition": "The process of collecting, preserving, and analyzing digital evidence to investigate and respond to cyber incidents."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Data at Rest",
+    "definition": "Data that is stored and not actively being accessed or processed."
+  },
+  {
+    "term": "Data in Motion",
+    "definition": "Data that is being transmitted over a network or between systems."
+  },
+  {
+    "term": "Data in Use",
+    "definition": "Data that is actively being accessed, processed, or modified by applications or users."
+  },
+  {
+    "term": "Security Incident Response Plan",
+    "definition": "A documented plan that outlines the steps to be taken in the event of a cybersecurity incident."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM)",
+    "definition": "A system that collects, correlates, and analyzes security event data from various sources to detect and respond to threats."
+  },
+  {
+    "term": "Security Orchestration, Automation, and Response (SOAR)",
+    "definition": "A framework that combines automation, orchestration, and incident response to streamline cybersecurity operations."
+  },
+  {
+    "term": "Digital Certificate",
+    "definition": "An electronic document used to prove the ownership of a public key and establish secure communication."
+  },
+  {
+    "term": "Man-in-the-Middle (MITM) Attack",
+    "definition": "An attack where an attacker intercepts and possibly alters communication between two parties without their knowledge."
+  },
+  {
+    "term": "Evil Twin Attack",
+    "definition": "A type of Wi-Fi attack where an attacker sets up a fake access point to intercept wireless communications."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "An exploit that takes advantage of a software vulnerability that is not yet known to the vendor or public."
+  },
+  {
+    "term": "Watering Hole Attack",
+    "definition": "An attack where the attacker compromises a website frequented by the target group to deliver malware."
+  },
+  {
+    "term": "Logic Bomb",
+    "definition": "A piece of code that triggers a malicious action when specific conditions are met."
+  },
+  {
+    "term": "Buffer Overflow",
+    "definition": "A type of software vulnerability where a program writes more data to a buffer than it can hold, causing a system crash or code execution."
+  },
+  {
+    "term": "Backdoor",
+    "definition": "A hidden entry point into a system that allows unauthorized access or control."
+  },
+  {
+    "term": "Social Media Engineering",
+    "definition": "A social engineering technique that involves manipulating individuals through social media platforms."
+  },
+  {
+    "term": "Cyber Kill Chain",
+    "definition": "A model that describes the different stages of a cyber attack, from reconnaissance to exfiltration."
+  },
+  {
+    "term": "Pharming",
+    "definition": "An attack that redirects website traffic to a fraudulent website, often through DNS cache poisoning."
+  },
+  {
+    "term": "Spyware",
+    "definition": "Malware that secretly gathers information about a user's activities without their consent."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A threat posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Security Posture",
+    "definition": "An organization's overall cybersecurity strength and readiness to defend against threats."
+  },
+  {
+    "term": "Threat Hunting",
+    "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures."
+  },
+  {
+    "term": "Threat Intelligence Sharing",
+    "definition": "The practice of sharing information about cybersecurity threats and vulnerabilities with other organizations."
+  },
+  {
+    "term": "Cryptojacking",
+    "definition": "Illegally using a computer's processing power to mine cryptocurrency without the owner's consent."
+  },
+  {
+    "term": "Blockchain",
+    "definition": "A decentralized and distributed ledger technology that ensures the integrity and security of data."
+  },
+  {
+    "term": "Smart Contract",
+    "definition": "Self-executing contracts with the terms of the agreement directly written into code."
+  },
+  {
+    "term": "Supply Chain Attack",
+    "definition": "An attack that targets an organization through vulnerabilities in its supply chain partners or vendors."
+  },
+  {
+    "term": "Insecure Direct Object References (IDOR)",
+    "definition": "A vulnerability that allows attackers to access resources they are not authorized to access."
+  },
+  {
+    "term": "Fuzz Testing",
+    "definition": "A software testing technique that involves providing invalid or unexpected inputs to detect vulnerabilities."
+  },
+  {
+    "term": "Security Misconfiguration",
+    "definition": "A security weakness caused by misconfiguring software or systems."
+  },
+  {
+    "term": "Incident Response Plan",
+    "definition": "A documented plan that outlines the steps to be taken in the event of a cybersecurity incident."
+  },
+  {
+    "term": "Vulnerability Assessment",
+    "definition": "An evaluation of a system's weaknesses and potential security flaws."
+  },
+  {
+    "term": "Credential Stuffing",
+    "definition": "An attack where attackers use leaked usernames and passwords to gain unauthorized access to user accounts."
+  },
+  {
+    "term": "Password Spraying",
+    "definition": "An attack where attackers use common passwords against multiple accounts to avoid detection."
+  },
+  {
+    "term": "Patch Tuesday",
+    "definition": "The second Tuesday of each month when software vendors release security patches."
+  },
+  {
+    "term": "Data Wiping",
+    "definition": "A malicious action that permanently deletes data from a system, making it unrecoverable."
+  },
+  {
+    "term": "Ransomware as a Service (RaaS)",
+    "definition": "A model where cybercriminals rent ransomware from developers in exchange for a share of the profits."
+  },
+  {
+    "term": "Secure Software Development Life Cycle (SDLC)",
+    "definition": "An approach that integrates security practices throughout the software development process."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
+  },
+  {
+    "term": "Intrusion Detection System (IDS)",
+    "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS)",
+    "definition": "An advanced security solution that can detect and block suspicious network activities."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
+  },
+  {
+    "term": "Virtual Private Network (VPN)",
+    "definition": "A secure network connection that allows users to access resources securely over the internet."
+  },
+  {
+    "term": "Two-Factor Authentication (2FA)",
+    "definition": "An authentication method that requires users to provide two forms of identification for added security."
+  },
+  {
+    "term": "Botnet",
+    "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
+  },
+  {
+    "term": "Spoofing",
+    "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
+  },
+  {
+    "term": "Biometric Authentication",
+    "definition": "Authentication based on unique physical or behavioral characteristics, such as fingerprint or facial recognition."
+  },
+  {
+    "term": "Network Segmentation",
+    "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
+  },
+  {
+    "term": "Honeypot",
+    "definition": "A decoy system or network designed to attract and detect unauthorized access attempts, gathering information on attackers."
+  },
+  {
+    "term": "Security Awareness Training",
+    "definition": "Educational programs that teach individuals about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Security Information Sharing",
+    "definition": "The practice of sharing cybersecurity threat intelligence and incident data with other organizations to improve overall security."
+  },
+  {
+    "term": "Security Clearance",
+    "definition": "Authorization granted to individuals to access classified information or restricted areas based on their background and trustworthiness."
+  },
+  {
+    "term": "Distributed Ledger Technology (DLT)",
+    "definition": "A decentralized digital system that records and verifies transactions across multiple locations, commonly known as blockchain."
+  },
+  {
+    "term": "Digital Certificate",
+    "definition": "An electronic document that verifies the identity of an entity and is used in secure communication, often in conjunction with encryption."
+  },
+  {
+    "term": "Secure Boot",
+    "definition": "A security feature that ensures only authorized and digitally signed software is allowed to run during a device's startup process."
+  },
+  {
+    "term": "Security Posture",
+    "definition": "The overall strength and effectiveness of an organization's cybersecurity measures and practices."
+  },
+  {
+    "term": "Adware",
+    "definition": "Software that displays unwanted advertisements to users, often bundled with legitimate programs."
+  },
+  {
+    "term": "Attack Surface",
+    "definition": "The total number of potential vulnerabilities or entry points that attackers can exploit in a system or network."
+  },
+  {
+    "term": "Breach",
+    "definition": "A successful cyber attack that results in unauthorized access to sensitive data or systems."
+  },
+  {
+    "term": "Business Continuity",
+    "definition": "The ability of an organization to continue essential operations during and after a cyber attack or other disruptive events."
+  },
+  {
+    "term": "Ciphertext",
+    "definition": "Data that has been encrypted and is in an unreadable form until decrypted with the appropriate key."
+  },
+  {
+    "term": "Decryption",
+    "definition": "The process of converting encrypted data back into its original, readable form using a decryption key."
+  },
+  {
+    "term": "Dictionary Attack",
+    "definition": "An automated technique where attackers use a list of commonly used passwords to attempt unauthorized access to user accounts."
+  },
+  {
+    "term": "Digital Signature",
+    "definition": "A cryptographic signature that ensures the authenticity and integrity of digital documents or messages."
+  },
+  {
+    "term": "Egress Filtering",
+    "definition": "A security measure that controls outgoing network traffic to prevent unauthorized data exfiltration."
+  },
+  {
+    "term": "Firewall Rule",
+    "definition": "A predefined set of instructions that determines how a firewall should handle incoming or outgoing network traffic."
+  },
+  {
+    "term": "Hacking",
+    "definition": "The act of unauthorized access to computer systems, networks, or digital devices with malicious intent."
+  },
+  {
+    "term": "Incident Response Plan",
+    "definition": "A documented and organized approach for responding to cybersecurity incidents and mitigating their impact."
+  },
+  {
+    "term": "Information Security",
+    "definition": "The practice of protecting information and data from unauthorized access, use, disclosure, disruption, modification, or destruction."
+  },
+  {
+    "term": "Insider Threat Detection",
+    "definition": "Methods and technologies used to identify potential insider threats within an organization."
+  },
+  {
+    "term": "Internet of Things (IoT)",
+    "definition": "A network of physical objects embedded with sensors, software, and other technologies that enable them to connect and exchange data over the internet."
+  },
+  {
+    "term": "Keylogger",
+    "definition": "A type of malware that records keystrokes on a computer or device, often used to capture sensitive information like passwords and credit card numbers."
+  },
+  {
+    "term": "Man-in-the-Middle (MITM) Attack",
+    "definition": "An attack where an attacker secretly intercepts and possibly alters communications between two parties without their knowledge."
+  },
+  {
+    "term": "Network Access Control (NAC)",
+    "definition": "A security approach that controls and manages access to a network based on the user's identity, device, and location."
+  },
+  {
+    "term": "Non-Repudiation",
+    "definition": "A security property that prevents an individual from denying the authenticity or origin of a message or transaction."
+  },
+  {
+    "term": "Password Manager",
+    "definition": "A tool or software that securely stores and manages passwords, allowing users to use strong and unique passwords for each account."
+  },
+  {
+    "term": "Patch Tuesday",
+    "definition": "The second Tuesday of each month when software vendors release security patches and updates for their products."
+  },
+  {
+    "term": "Perimeter Security",
+    "definition": "The security measures put in place to protect the boundary or edge of a network from unauthorized access."
+  },
+  {
+    "term": "Phishing Kit",
+    "definition": "A package or set of tools used by attackers to create and host phishing websites or emails to deceive victims."
+  },
+  {
+    "term": "Ransomware-as-a-Service (RaaS)",
+    "definition": "A model where cybercriminals rent or lease ransomware and associated infrastructure to launch attacks."
+  },
+  {
+    "term": "Reconnaissance",
+    "definition": "The initial phase of an attack where attackers gather information about the target system or network to identify vulnerabilities."
+  },
+  {
+    "term": "Risk Assessment",
+    "definition": "The process of identifying, evaluating, and prioritizing potential cybersecurity risks to an organization."
+  },
+  {
+    "term": "Security Controls",
+    "definition": "Measures and countermeasures implemented to protect systems, data, and networks from security risks."
+  },
+  {
+    "term": "Security Through Obscurity",
+    "definition": "A security approach that relies on keeping system details secret, which is generally considered insufficient as the sole security measure."
+  },
+  {
+    "term": "Secure Coding",
+    "definition": "The practice of writing software code in a way that is resistant to vulnerabilities and security exploits."
+  },
+  {
+    "term": "Security Patch Management",
+    "definition": "The process of systematically applying security patches and updates to software and systems to mitigate security vulnerabilities."
+  },
+  {
+    "term": "Security Protocol",
+    "definition": "A set of rules and procedures governing how data is transmitted and secured over a network."
+  },
+  {
+    "term": "Security Token Authentication",
+    "definition": "A method of user authentication that uses a physical or digital token to generate one-time passwords for added security."
+  },
+  {
+    "term": "Session Hijacking",
+    "definition": "An attack where an attacker takes control of a user's session on a website or application after successfully logging in."
+  },
+  {
+    "term": "Social Media Engineering",
+    "definition": "The use of social media platforms to gather information about individuals or organizations for malicious purposes."
+  },
+  {
+    "term": "Supply Chain Attack",
+    "definition": "An attack that targets vulnerabilities in the supply chain to compromise the final product or service delivered to customers."
+  },
+  {
+    "term": "Threat Actor",
+    "definition": "An individual, group, or entity responsible for carrying out a cyber attack or other malicious activities."
+  },
+  {
+    "term": "Virus",
+    "definition": "A type of malware that attaches itself to a legitimate program and spreads by infecting other files or programs."
+  },
+  {
+    "term": "Vulnerability Assessment",
+    "definition": "The process of identifying, quantifying, and prioritizing vulnerabilities in a system or network."
+  },
+  {
+    "term": "Web Application Firewall (WAF)",
+    "definition": "A security solution that filters and monitors HTTP requests and responses to protect web applications from various attacks."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "A cyber attack that exploits a software vulnerability unknown to the software vendor or security community."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "A cyber attack that targets a software vulnerability that is not yet known to the vendor or the public."
+  },
+  {
+    "term": "Vulnerability Assessment",
+    "definition": "The process of identifying and evaluating security vulnerabilities in systems or networks."
+  },
+  {
+    "term": "Web Application Firewall (WAF)",
+    "definition": "A security solution that filters and monitors HTTP/HTTPS requests to protect web applications from various attacks."
+  },
+  {
+    "term": "Hacker",
+    "definition": "An individual with advanced technical skills who explores and exploits weaknesses in computer systems and networks."
+  },
+  {
+    "term": "Data Leakage",
+    "definition": "The unintentional or unauthorized transmission of sensitive data outside the intended network or organization."
+  },
+  {
+    "term": "Data Masking",
+    "definition": "A technique used to protect sensitive data by hiding original data with random characters or other data."
+  },
+  {
+    "term": "Authentication",
+    "definition": "The process of verifying the identity of a user, device, or application to grant access to specific resources."
+  },
+  {
+    "term": "Authorization",
+    "definition": "The process of granting or denying access to specific resources or actions based on a user's identity and permissions."
+  },
+  {
+    "term": "Data Loss",
+    "definition": "The unintentional or accidental loss or destruction of data, often due to hardware failure or human error."
+  },
+  {
+    "term": "Data Recovery",
+    "definition": "The process of restoring lost, corrupted, or deleted data from backups or other sources."
+  },
+  {
+    "term": "Rogue Software",
+    "definition": "Malicious or unauthorized software that disguises itself as legitimate or beneficial software."
+  },
+  {
+    "term": "Logic Bomb",
+    "definition": "A piece of code intentionally inserted into software to trigger a malicious action when certain conditions are met."
+  },
+  {
+    "term": "Watering Hole Attack",
+    "definition": "An attack in which cybercriminals compromise websites frequented by their target users to distribute malware."
+  },
+  {
+    "term": "Session Hijacking",
+    "definition": "A type of attack where an attacker steals or takes over an authenticated session to gain unauthorized access."
+  },
+  {
+    "term": "Brute Force Attack",
+    "definition": "An attack in which an attacker systematically tries all possible combinations of passwords or encryption keys until the correct one is found."
+  },
+  {
+    "term": "Dictionary Attack",
+    "definition": "A type of brute force attack that uses a list of commonly used passwords or known words as potential passwords."
+  },
+  {
+    "term": "Rainbow Table",
+    "definition": "A precomputed table used in password cracking to reverse cryptographic hash functions into their original plaintext passwords."
+  },
+  {
+    "term": "Denial-of-Service (DoS) Protection",
+    "definition": "Security measures and technologies designed to defend against and mitigate denial-of-service attacks."
+  },
+  {
+    "term": "Password Manager",
+    "definition": "A software application that securely stores and manages passwords for various online accounts."
+  },
+  {
+    "term": "Security Token",
+    "definition": "A physical or digital device that generates one-time passwords or authentication codes for secure access."
+  },
+  {
+    "term": "Secure File Transfer Protocol (SFTP)",
+    "definition": "A secure version of FTP (File Transfer Protocol) that uses encryption for secure data transfer."
+  },
+  {
+    "term": "Security Audit",
+    "definition": "An independent review and evaluation of an organization's security policies, practices, and controls to assess their effectiveness and compliance."
+  },
+  {
+    "term": "Security Awareness",
+    "definition": "The understanding and knowledge of potential cybersecurity risks and best practices among individuals and organizations."
+  },
+  {
+    "term": "Social Engineering",
+    "definition": "The use of psychological manipulation to trick individuals into revealing confidential information or performing certain actions."
+  },
+  {
+    "term": "Data Breach Notification",
+    "definition": "The process of notifying individuals or authorities about a data breach, as required by data protection regulations."
+  },
+  {
+    "term": "Security Incident Response Plan",
+    "definition": "A documented set of procedures and guidelines to be followed in the event of a cybersecurity incident or breach."
+  },
+  {
+    "term": "Security Risk Assessment",
+    "definition": "An evaluation of potential threats and vulnerabilities to identify and prioritize security risks in an organization."
+  },
+  {
+    "term": "Zero Trust Network",
+    "definition": "A security model that assumes no trust by default and requires verification for all devices and users attempting to access resources."
+  },
+  {
+    "term": "Security Token Service (STS)",
+    "definition": "A service that issues security tokens for authentication and access control in distributed systems."
+  },
+  {
+    "term": "Security Operations Center (SOC) Analyst",
+    "definition": "A cybersecurity professional responsible for monitoring and responding to security incidents in a SOC."
+  },
+  {
+    "term": "Security Incident and Event Management (SIEM) Analyst",
+    "definition": "A cybersecurity professional responsible for managing and analyzing security event data in a SIEM system."
+  },
+  {
+    "term": "Wireless Network Security",
+    "definition": "Measures and protocols used to secure wireless networks from unauthorized access and attacks."
+  },
+  {
+    "term": "Multifactor Authentication (MFA)",
+    "definition": "An authentication method that requires users to provide multiple forms of identification to access resources."
+  },
+  {
+    "term": "Intrusion Detection System (IDS) Analyst",
+    "definition": "A cybersecurity professional responsible for monitoring and analyzing network traffic for signs of intrusion in an IDS."
+  },
+  {
+    "term": "Intrusion Prevention System (IPS) Analyst",
+    "definition": "A cybersecurity professional responsible for managing and configuring an IPS to block potential threats."
+  },
+  {
+    "term": "Cybersecurity Operations Manager",
+    "definition": "A managerial role responsible for overseeing the daily operations of a cybersecurity team and implementing security measures."
+  },
+  {
+    "term": "Cybersecurity Policy",
+    "definition": "A documented set of rules, guidelines, and procedures to govern an organization's cybersecurity practices and procedures."
+  },
+  {
+    "term": "Cybersecurity Awareness Training",
+    "definition": "Educational programs that teach employees and users about cybersecurity risks and best practices."
+  },
+  {
+    "term": "Antivirus Software",
+    "definition": "Software designed to detect, prevent, and remove malicious software (malware) from computer systems."
+  },
+  {
+    "term": "Firewall",
+    "definition": "A network security device that monitors and filters incoming and outgoing network traffic based on predetermined security rules."
+  },
+  {
+    "term": "Incident Response Team",
+    "definition": "A group of cybersecurity professionals responsible for responding to and managing security incidents and breaches."
+  },
+  {
+    "term": "Security Testing",
+    "definition": "The process of evaluating and assessing the security of a system or application by simulating cyber attacks."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and patches to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Rootkit",
+    "definition": "A type of malware designed to provide unauthorized access to a computer system while concealing its presence from users and security software."
+  },
+  {
+    "term": "Security Operations Center (SOC) Manager",
+    "definition": "A managerial role responsible for overseeing the operations of a Security Operations Center and coordinating incident response."
+  },
+  {
+    "term": "Network Security Engineer",
+    "definition": "A cybersecurity professional specialized in designing, implementing, and managing network security infrastructure."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM) Engineer",
+    "definition": "A cybersecurity professional specialized in configuring and managing SIEM systems to monitor and analyze security event data."
+  },
+  {
+    "term": "Penetration Testing",
+    "definition": "The process of simulating cyber attacks on a system or network to identify vulnerabilities and weaknesses."
+  },
+  {
+    "term": "Cybersecurity Consultant",
+    "definition": "A professional who provides expert advice and guidance on cybersecurity matters to organizations and individuals."
+  },
+  {
+    "term": "Cyber Insurance",
+    "definition": "An insurance policy that provides financial protection against losses and damages resulting from cyber incidents and data breaches."
+  },
+  {
+    "term": "Steganography",
+    "definition": "The practice of concealing secret information within seemingly innocuous digital media, such as images or audio files."
+  },
+  {
+    "term": "Cyber Warfare",
+    "definition": "The use of digital attacks, including hacking and malware, to disrupt or destroy an enemy's computer systems and infrastructure."
+  },
+  {
+    "term": "Supply Chain Attack",
+    "definition": "An attack that targets vulnerabilities in the supply chain, aiming to compromise products or services before they reach end-users."
+  },
+  {
+    "term": "Security Orchestration, Automation, and Response (SOAR)",
+    "definition": "An approach that combines security orchestration, automation, and incident response to streamline cybersecurity operations."
+  },
+  {
+    "term": "Cyber Kill Chain",
+    "definition": "A concept that breaks down the stages of a cyber attack into discrete steps, from initial reconnaissance to data exfiltration."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "An attack that targets a software vulnerability that is not yet known to the vendor and has no available patch or fix."
+  },
+  {
+    "term": "Man-in-the-Middle (MitM) Attack",
+    "definition": "An attack where an attacker intercepts and potentially alters communication between two parties, without their knowledge."
+  },
+  {
+    "term": "Cyber Insurance",
+    "definition": "An insurance policy that provides coverage against financial losses resulting from cyber attacks and data breaches."
+  },
+  {
+    "term": "Hacking",
+    "definition": "The act of exploiting vulnerabilities in computer systems or networks to gain unauthorized access or control."
+  },
+  {
+    "term": "Cybersecurity Maturity Model Certification (CMMC)",
+    "definition": "A standard used to assess and certify the cybersecurity maturity of defense contractors in the United States."
+  },
+  {
+    "term": "Malware Analysis",
+    "definition": "The process of dissecting and understanding the behavior and characteristics of malware to develop countermeasures."
+  },
+  {
+    "term": "Brute Force Attack",
+    "definition": "An attack that involves systematically trying all possible combinations of passwords or encryption keys until the correct one is found."
+  },
+  {
+    "term": "Rainbow Table",
+    "definition": "A precomputed table used to crack password hashes quickly, converting them back into plaintext passwords."
+  },
+  {
+    "term": "Cybersecurity Information Sharing",
+    "definition": "The practice of exchanging cybersecurity-related information and threat intelligence between organizations."
+  },
+  {
+    "term": "Security Audit",
+    "definition": "An examination of an organization's security policies, controls, and practices to assess their effectiveness and compliance."
+  },
+  {
+    "term": "Distributed Ledger Technology (DLT)",
+    "definition": "A decentralized digital system that records transactions across multiple locations, such as blockchain."
+  },
+  {
+    "term": "Digital Certificate",
+    "definition": "A digital document issued by a Certificate Authority that verifies the authenticity of a website or entity."
+  },
+  {
+    "term": "Cyber Range",
+    "definition": "A simulated environment used for training cybersecurity professionals in realistic attack and defense scenarios."
+  },
+  {
+    "term": "Cyber Hygiene",
+    "definition": "The practice of maintaining good cybersecurity habits and following best practices to protect against attacks."
+  },
+  {
+    "term": "Root Certificate",
+    "definition": "A digital certificate that is used to sign other certificates, establishing trust in a Certificate Authority's hierarchy."
+  },
+  {
+    "term": "Security Token Service (STS)",
+    "definition": "A service that issues and manages security tokens used for authentication and access control in federated identity systems."
+  },
+  {
+    "term": "Web Application Firewall (WAF)",
+    "definition": "A security system that monitors, filters, and blocks HTTP/HTTPS requests to a web application to protect it from attacks."
+  },
+  {
+    "term": "Data Masking",
+    "definition": "The process of concealing original data with modified content to protect sensitive information during testing and development."
+  },
+  {
+    "term": "Password Manager",
+    "definition": "A tool or application that securely stores and manages passwords for various online accounts."
+  },
+  {
+    "term": "Hacker",
+    "definition": "An individual skilled in computer programming and cybersecurity, often used to describe both malicious and ethical hackers."
+  },
+  {
+    "term": "Security Token",
+    "definition": "A physical or digital device used to authenticate users or provide one-time passwords for secure access."
+  },
+  {
+    "term": "Logic Bomb",
+    "definition": "A piece of code inserted into a software program that triggers a malicious action when certain conditions are met."
+  },
+  {
+    "term": "Buffer Overflow",
+    "definition": "A vulnerability that occurs when a program writes data beyond the boundaries of an allocated memory buffer, potentially causing a crash or enabling remote code execution."
+  },
+  {
+    "term": "Cybersecurity Incident Response Plan",
+    "definition": "A documented and organized approach for handling cybersecurity incidents and data breaches."
+  },
+  {
+    "term": "Cybersecurity Operations Center (CSOC)",
+    "definition": "A centralized unit responsible for continuous monitoring and management of an organization's security posture."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM)",
+    "definition": "A system that provides real-time analysis of security alerts and logs, helping identify and respond to cybersecurity threats."
+  },
+  {
+    "term": "Personally Identifiable Information (PII)",
+    "definition": "Any data that can be used to identify an individual, such as name, social security number, address, or biometric records."
+  },
+  {
+    "term": "Secure Development Lifecycle (SDL)",
+    "definition": "A software development process that integrates security at every stage to create more secure and resilient applications."
+  },
+  {
+    "term": "Ransomware as a Service (RaaS)",
+    "definition": "A cybercriminal business model where ransomware creators lease their malicious software to other attackers."
+  },
+  {
+    "term": "Swarm Intelligence",
+    "definition": "A collective behavior in which decentralized systems, like a group of bots, work together to achieve a common goal."
+  },
+  {
+    "term": "Cybersecurity Governance",
+    "definition": "The framework, processes, and policies that guide an organization's cybersecurity strategy and decision-making."
+  },
+  {
+    "term": "Fuzz Testing",
+    "definition": "A technique used to discover vulnerabilities in software by inputting random or malformed data to trigger unexpected behavior."
+  },
+  {
+    "term": "Cyber Range",
+    "definition": "A simulated environment used for training cybersecurity professionals in realistic attack and defense scenarios."
+  },
+  {
+    "term": "Cyber Hygiene",
+    "definition": "The practice of maintaining good cybersecurity habits and following best practices to protect against attacks."
+  },
+  {
+    "term": "Root Certificate",
+    "definition": "A digital certificate that is used to sign other certificates, establishing trust in a Certificate Authority's hierarchy."
+  },
+  {
+    "term": "Security Token Service (STS)",
+    "definition": "A service that issues and manages security tokens used for authentication and access control in federated identity systems."
+  },
+  {
+    "term": "Web Application Firewall (WAF)",
+    "definition": "A security system that monitors, filters, and blocks HTTP/HTTPS requests to a web application to protect it from attacks."
+  },
+  {
+    "term": "Data Masking",
+    "definition": "The process of concealing original data with modified content to protect sensitive information during testing and development."
+  },
+  {
+    "term": "Password Manager",
+    "definition": "A tool or application that securely stores and manages passwords for various online accounts."
+  },
+  {
+    "term": "Hacker",
+    "definition": "An individual skilled in computer programming and cybersecurity, often used to describe both malicious and ethical hackers."
+  },
+  {
+    "term": "Security Token",
+    "definition": "A physical or digital device used to authenticate users or provide one-time passwords for secure access."
+  },
+  {
+    "term": "Logic Bomb",
+    "definition": "A piece of code inserted into a software program that triggers a malicious action when certain conditions are met."
+  },
+  {
+    "term": "Buffer Overflow",
+    "definition": "A vulnerability that occurs when a program writes data beyond the boundaries of an allocated memory buffer, potentially causing a crash or enabling remote code execution."
+  },
+  {
+    "term": "Cybersecurity Incident Response Plan",
+    "definition": "A documented and organized approach for handling cybersecurity incidents and data breaches."
+  },
+  {
+    "term": "Cybersecurity Operations Center (CSOC)",
+    "definition": "A centralized unit responsible for continuous monitoring and management of an organization's security posture."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM)",
+    "definition": "A system that provides real-time analysis of security alerts and logs, helping identify and respond to cybersecurity threats."
+  },
+  {
+    "term": "Personally Identifiable Information (PII)",
+    "definition": "Any data that can be used to identify an individual, such as name, social security number, address, or biometric records."
+  },
+  {
+    "term": "Secure Development Lifecycle (SDL)",
+    "definition": "A software development process that integrates security at every stage to create more secure and resilient applications."
+  },
+  {
+    "term": "Ransomware as a Service (RaaS)",
+    "definition": "A cybercriminal business model where ransomware creators lease their malicious software to other attackers."
+  },
+  {
+    "term": "Swarm Intelligence",
+    "definition": "A collective behavior in which decentralized systems, like a group of bots, work together to achieve a common goal."
+  },
+  {
+    "term": "Cybersecurity Governance",
+    "definition": "The framework, processes, and policies that guide an organization's cybersecurity strategy and decision-making."
+  },
+  {
+    "term": "Fuzz Testing",
+    "definition": "A technique used to discover vulnerabilities in software by inputting random or malformed data to trigger unexpected behavior."
+  },
+  {
+    "term": "Cyber Threat Intelligence (CTI)",
+    "definition": "Information about potential and emerging cybersecurity threats, gathered from various sources and analyzed for relevance and reliability."
+  },
+  {
+    "term": "Rogue Access Point",
+    "definition": "An unauthorized wireless access point that poses as a legitimate network to capture sensitive information from connected devices."
+  },
+  {
+    "term": "Social Engineering",
+    "definition": "Manipulating individuals into divulging confidential information or performing actions that compromise security."
+  },
+  {
+    "term": "Cybersecurity Framework",
+    "definition": "A set of guidelines and best practices to manage and improve an organization's cybersecurity posture."
+  },
+  {
+    "term": "Zero Trust Security",
+    "definition": "A security model that assumes no trust and verifies every user and device accessing the network before granting access."
+  },
+  {
+    "term": "Cyber Threat Hunting",
+    "definition": "Proactive and iterative searching for cyber threats and vulnerabilities within an organization's network."
+  },
+  {
+    "term": "CISO (Chief Information Security Officer)",
+    "definition": "An executive responsible for the development and implementation of an organization's information security strategy."
+  },
+  {
+    "term": "Identity and Access Management (IAM)",
+    "definition": "A framework for managing digital identities, user access, and authentication within an organization."
+  },
+  {
+    "term": "Security Operations",
+    "definition": "The ongoing activities and processes to monitor, detect, and respond to cybersecurity threats and incidents."
+  },
+  {
+    "term": "Patch Management",
+    "definition": "The process of regularly applying updates and fixes to software and systems to address security vulnerabilities."
+  },
+  {
+    "term": "Data Breach",
+    "definition": "Unauthorized access to sensitive or confidential data, leading to its exposure, theft, or disclosure."
+  },
+  {
+    "term": "Endpoint Protection",
+    "definition": "Security measures taken to protect individual devices like computers, laptops, and smartphones from cyber threats."
+  },
+  {
+    "term": "Security Incident",
+    "definition": "An adverse event or series of events that indicate a security breach or potential threat to information assets."
+  },
+  {
+    "term": "Insider Threat",
+    "definition": "A security risk posed by individuals within an organization who have access to sensitive information and misuse it."
+  },
+  {
+    "term": "Nmap",
+    "definition": "A powerful open-source network scanning tool used for port scanning, host discovery, and vulnerability identification."
+  },
+  {
+    "term": "Metasploit",
+    "definition": "An advanced penetration testing framework that helps security professionals find and exploit vulnerabilities in networks and systems."
+  },
+  {
+    "term": "Wireshark",
+    "definition": "A popular open-source network protocol analyzer used for capturing and analyzing network traffic in real-time."
+  },
+  {
+    "term": "Burp Suite",
+    "definition": "A web vulnerability scanner and penetration testing tool used for identifying security flaws in web applications."
+  },
+  {
+    "term": "Snort",
+    "definition": "An open-source intrusion detection and prevention system (IDS/IPS) that analyzes network traffic for malicious activities."
+  },
+  {
+    "term": "Nikto",
+    "definition": "A web server vulnerability scanner that checks for various security issues, including outdated software and configuration problems."
+  },
+  {
+    "term": "Kali Linux",
+    "definition": "A popular Linux distribution specifically designed for penetration testing, digital forensics, and security auditing."
+  },
+  {
+    "term": "OpenVAS",
+    "definition": "An open-source vulnerability assessment system that scans and reports on security vulnerabilities in networks and web applications."
+  },
+  {
+    "term": "Aircrack-ng",
+    "definition": "A suite of tools for assessing Wi-Fi network security, including cracking WEP and WPA-PSK keys."
+  },
+  {
+    "term": "Hydra",
+    "definition": "A fast and flexible password-cracking tool that supports numerous protocols and services for brute-forcing login credentials."
+  },
+  {
+    "term": "DirBuster",
+    "definition": "A web application security tool used for directory brute-forcing and file discovery."
+  },
+  {
+    "term": "OWASP ZAP (Zed Attack Proxy)",
+    "definition": "An open-source web application security scanner designed to find security vulnerabilities in web applications during development and testing."
+  },
+  {
+    "term": "Ghidra",
+    "definition": "A software reverse engineering (SRE) suite developed by the National Security Agency (NSA) for analyzing binary executables."
+  },
+  {
+    "term": "IDA Pro",
+    "definition": "A commercial interactive disassembler used by software analysts and security researchers to examine binary files and understand their structure and behavior."
+  },
+  {
+    "term": "Autopsy",
+    "definition": "An open-source digital forensics platform used for analyzing and investigating hard drives and mobile devices."
+  },
+  {
+    "term": "Sleuth Kit",
+    "definition": "A collection of command-line tools for digital forensics, including disk imaging and file system analysis."
+  },
+  {
+    "term": "GRR Rapid Response",
+    "definition": "An open-source incident response framework developed by Google for remote live forensics and investigations."
+  },
+  {
+    "term": "Volatility",
+    "definition": "An open-source memory forensics framework used to analyze volatile memory (RAM) for evidence of malware and attacks."
+  },
+  {
+    "term": "Remnux",
+    "definition": "A Linux distribution designed for analyzing and reverse-engineering malware."
+  },
+  {
+    "term": "YARA",
+    "definition": "A pattern matching tool used for identifying and classifying malware based on textual or binary patterns."
+  },
+  {
+    "term": "Cuckoo Sandbox",
+    "definition": "An automated malware analysis system that uses virtualization to execute suspicious files in a controlled environment."
+  },
+  {
+    "term": "Bro/Zeek",
+    "definition": "An open-source network security monitoring tool used for network traffic analysis and intrusion detection."
+  },
+  {
+    "term": "Suricata",
+    "definition": "An open-source network intrusion detection and prevention system (IDS/IPS) engine that inspects network traffic for malicious activities."
+  },
+  {
+    "term": "Sn1per",
+    "definition": "An automated penetration testing framework that performs recon, scanning, and enumeration of targets."
+  },
+  {
+    "term": "The Sleuth Kit (TSK)",
+    "definition": "A collection of command-line tools used for digital forensics and analysis of disk images and file systems."
+  },
+  {
+    "term": "GRR Rapid Response",
+    "definition": "An incident response framework developed by Google for remote live forensics and investigations."
+  },
+  {
+    "term": "Zed Attack Proxy (ZAP)",
+    "definition": "An open-source web application security scanner designed to find vulnerabilities in web applications."
+  },
+  {
+    "term": "Cuckoo Sandbox",
+    "definition": "An automated malware analysis system that uses virtualization to execute suspicious files in a controlled environment."
+  },
+  {
+    "term": "Osquery",
+    "definition": "An open-source tool that allows you to query your operating system as if it were a relational database, providing insights into system and process activity."
+  },
+  {
+    "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+    "definition": "An open-source threat intelligence platform designed to improve the sharing of structured threat information."
+  },
+  {
+    "term": "Sparta",
+    "definition": "A network infrastructure pen-testing tool designed to simplify scanning and enumeration."
+  },
+  {
+    "term": "Responder",
+    "definition": "A tool used for LLMNR, NBT-NS, and MDNS poisoning, allowing attackers to capture user credentials."
+  },
+  {
+    "term": "John the Ripper",
+    "definition": "A powerful password-cracking tool used for dictionary attacks and brute-force attacks on password hashes."
+  },
+  {
+    "term": "Hashcat",
+    "definition": "An advanced password recovery tool that can crack password hashes using various attack methods, including dictionary attacks and brute-force attacks."
+  },
+  {
+    "term": "CrackMapExec (CME)",
+    "definition": "A post-exploitation tool used for reconnaissance and lateral movement within Windows networks."
+  },
+  {
+    "term": "PowerShell Empire",
+    "definition": "A post-exploitation framework used for Windows domain reconnaissance and control."
+  },
+  {
+    "term": "Netcat",
+    "definition": "A versatile networking utility used for reading from and writing to network connections, making it useful for network debugging and security testing."
+  },
+  {
+    "term": "Masscan",
+    "definition": "A fast and efficient open-source network scanner used for scanning the entire internet or large networks quickly."
+  },
+  {
+    "term": "Powersploit",
+    "definition": "A collection of PowerShell scripts for offensive security tasks, including post-exploitation and privilege escalation."
+  },
+  {
+    "term": "Empire",
+    "definition": "A PowerShell and Python post-exploitation agent, mainly used for Windows domain environments."
+  },
+  {
+    "term": "Evil-WinRM",
+    "definition": "A tool that allows attackers to perform lateral movement on Windows systems through WinRM (Windows Remote Management)."
+  },
+  {
+    "term": "BloodHound",
+    "definition": "A tool used for visualizing and analyzing active directory trust relationships, helping identify attack paths for privilege escalation."
+  },
+  {
+    "term": "GoPhish",
+    "definition": "An open-source phishing framework used for conducting simulated phishing campaigns to assess an organization's security awareness."
+  },
+  {
+    "term": "Covenant",
+    "definition": "A .NET command and control (C2) framework used for post-exploitation and remote control of compromised systems."
+  },
+  {
+    "term": "Veil",
+    "definition": "A framework for generating various types of shellcode and bypassing antivirus solutions."
+  },
+  {
+    "term": "Responder",
+    "definition": "A tool used for LLMNR, NBT-NS, and MDNS poisoning, allowing attackers to capture user credentials."
+  },
+  {
+    "term": "Bettercap",
+    "definition": "A powerful, modular, and portable framework for network monitoring and MITM (Man-in-the-Middle) attacks."
+  },
+  {
+    "term": "CrackMapExec (CME)",
+    "definition": "A post-exploitation tool used for reconnaissance and lateral movement within Windows networks."
+  },
+  {
+    "term": "Metagoofil",
+    "definition": "A tool used for extracting metadata and documents from public sources to gather intelligence on a target."
+  },
+  {
+    "term": "EyeWitness",
+    "definition": "A tool used for taking screenshots of websites from various web browsers, providing visual reconnaissance."
+  },
+  {
+    "term": "SpiderFoot",
+    "definition": "An open-source footprinting and intelligence-gathering tool used to collect information about a target's online presence."
+  },
+  {
+    "term": "Mimikatz",
+    "definition": "A post-exploitation tool used for extracting plaintext passwords, hashes, and other credentials from memory in Windows systems."
+  },
+  {
+    "term": "BeEF (Browser Exploitation Framework)",
+    "definition": "A powerful security tool used to exploit web browsers and gather client-side information during penetration tests."
+  },
+  {
+    "term": "DNSRecon",
+    "definition": "A DNS reconnaissance tool used for probing DNS servers, gathering information, and identifying potential DNS misconfigurations."
+  },
+  {
+    "term": "Sublist3r",
+    "definition": "A subdomain enumeration tool used for discovering subdomains associated with a domain."
+  },
+  {
+    "term": "SQLMap",
+    "definition": "An open-source penetration testing tool used for detecting and exploiting SQL injection vulnerabilities in web applications."
+  },
+  {
+    "term": "Moloch",
+    "definition": "An open-source large-scale, full-packet capturing, indexing, and database system designed for security monitoring and threat hunting."
+  },
+  {
+    "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+    "definition": "An open-source threat intelligence platform designed to improve the sharing of structured threat information."
+  },
+  {
+    "term": "The Hive",
+    "definition": "An open-source incident response and threat collaboration platform that enables integration with various security tools and data sharing."
+  },
+  {
+    "term": "CuckooDroid",
+    "definition": "An extension of Cuckoo Sandbox, specifically designed for analyzing Android malware by running apps in a controlled environment."
+  },
+  {
+    "term": "Brakeman",
+    "definition": "An open-source static analysis tool used to identify security vulnerabilities in Ruby on Rails applications."
+  },
+  {
+    "term": "OWTF (Offensive Web Testing Framework)",
+    "definition": "An open-source web application penetration testing framework that emphasizes manual testing and advanced features."
+  },
+  {
+    "term": "PowerSploit",
+    "definition": "An open-source PowerShell post-exploitation framework used for offensive security tasks in Windows environments."
+  },
+  {
+    "term": "BloodHound",
+    "definition": "An open-source tool used for visualizing and analyzing active directory trust relationships, helping identify attack paths for privilege escalation."
+  },
+  {
+    "term": "Evil-WinRM",
+    "definition": "A tool that allows attackers to perform lateral movement on Windows systems through WinRM (Windows Remote Management)."
+  },
+  {
+    "term": "Mimikatz",
+    "definition": "A post-exploitation tool used for extracting plaintext passwords, hashes, and other credentials from memory in Windows systems."
+  },
+  {
+    "term": "Veil",
+    "definition": "A framework for generating various types of shellcode and bypassing antivirus solutions."
+  },
+  {
+    "term": "Bettercap",
+    "definition": "A powerful, modular, and portable framework for network monitoring and MITM (Man-in-the-Middle) attacks."
+  },
+  {
+    "term": "CrackMapExec (CME)",
+    "definition": "A post-exploitation tool used for reconnaissance and lateral movement within Windows networks."
+  },
+  {
+    "term": "Metagoofil",
+    "definition": "A tool used for extracting metadata and documents from public sources to gather intelligence on a target."
+  },
+  {
+    "term": "EyeWitness",
+    "definition": "A tool used for taking screenshots of websites from various web browsers, providing visual reconnaissance."
+  },
+  {
+    "term": "SpiderFoot",
+    "definition": "An open-source footprinting and intelligence-gathering tool used to collect information about a target's online presence."
+  },
+  {
+    "term": "Mimipenguin",
+    "definition": "An open-source post-exploitation tool that can extract credentials from memory on Linux systems."
+  },
+  {
+    "term": "Volatility",
+    "definition": "An open-source memory forensics framework used to analyze volatile memory (RAM) for evidence of malware and attacks."
+  },
+  {
+    "term": "GRR Rapid Response",
+    "definition": "An incident response framework developed by Google for remote live forensics and investigations."
+  },
+  {
+    "term": "SecLists",
+    "definition": "A collection of multiple types of security-related lists, including passwords, usernames, URLs, and more, used for various security tasks."
+  },
+  {
+    "term": "Zed Attack Proxy (ZAP)",
+    "definition": "An open-source web application security scanner designed to find vulnerabilities in web applications."
+  },
+  {
+    "term": "Snort",
+    "definition": "An open-source intrusion detection and prevention system (IDS/IPS) that analyzes network traffic for malicious activities."
+  },
+  {
+    "term": "W3af",
+    "definition": "A web application attack and audit framework that helps identify and exploit web application vulnerabilities."
+  },
+  {
+    "term": "Scapy",
+    "definition": "An interactive packet manipulation tool used for crafting and sending packets, and analyzing network protocols."
+  },
+  {
+    "term": "Sparta",
+    "definition": "A network infrastructure pen-testing tool designed to simplify scanning and enumeration."
+  },
+  {
+    "term": "Responder",
+    "definition": "A tool used for LLMNR, NBT-NS, and MDNS poisoning, allowing attackers to capture user credentials."
+  },
+  {
+    "term": "BDFProxy",
+    "definition": "A tool used for intercepting, modifying, and replaying binary and non-binary network protocols in order to manipulate traffic."
+  },
+  {
+    "term": "Gobuster",
+    "definition": "An open-source directory and file brute-forcing tool used to discover hidden resources on web servers."
+  },
+  {
+    "term": "RITA (Real Intelligence Threat Analytics)",
+    "definition": "An open-source threat hunting tool that analyzes NetFlow and PCAP data to identify potential threats and anomalies."
+  },
+  {
+    "term": "CSRFTester",
+    "definition": "A penetration testing tool used for testing Cross-Site Request Forgery (CSRF) vulnerabilities in web applications."
+  },
+  {
+    "term": "GhostPhisher",
+    "definition": "An open-source phishing and social engineering tool used for creating fake wireless access points and phishing attacks."
+  },
+  {
+    "term": "Wireshark",
+    "definition": "A popular open-source network protocol analyzer used for capturing and analyzing network traffic in real-time."
+  },
+  {
+    "term": "Cloud Security Scanner",
+    "definition": "A tool provided by cloud service providers to scan and identify security vulnerabilities in cloud infrastructure and services."
+  },
+  {
+    "term": "Nikto",
+    "definition": "A web server vulnerability scanner that checks for various security issues, including outdated software and configuration problems."
+  },
+  {
+    "term": "Kali Linux",
+    "definition": "A popular Linux distribution specifically designed for penetration testing, digital forensics, and security auditing."
+  },
+  {
+    "term": "Aircrack-ng",
+    "definition": "A suite of tools for assessing Wi-Fi network security, including cracking WEP and WPA-PSK keys."
+  },
+  {
+    "term": "Nessus",
+    "definition": "A widely used commercial vulnerability scanner used for detecting security vulnerabilities in networks and systems."
+  },
+  {
+    "term": "OpenVAS",
+    "definition": "An open-source vulnerability assessment system that scans and reports on security vulnerabilities in networks and web applications."
+  },
+  {
+    "term": "Armitage",
+    "definition": "A graphical cyber attack management tool for Metasploit, allowing collaboration among team members."
+  },
+  {
+    "term": "w3m",
+    "definition": "A terminal web browser often used in phishing campaigns to send emails containing malicious links."
+  },
+  {
+    "term": "Subfinder",
+    "definition": "A subdomain discovery tool that helps penetration testers and bug bounty hunters find subdomains for a given domain."
+  },
+  {
+    "term": "CherryTree",
+    "definition": "An open-source note-taking application with a hierarchical structure, often used for documenting cybersecurity research and findings."
+  },
+  {
+    "term": "Empire",
+    "definition": "A post-exploitation framework that provides a modular and user-friendly interface for managing and controlling compromised systems."
+  },
+  {
+    "term": "WiFite",
+    "definition": "A tool used for automated wireless network attacks, including cracking WEP and WPA-PSK keys."
+  },
+  {
+    "term": "Recon-ng",
+    "definition": "An open-source reconnaissance framework that helps gather valuable information about a target using various data sources and modules."
+  },
+  {
+    "term": "Lynis",
+    "definition": "An open-source security auditing tool used to assess and harden Linux and Unix-based systems."
+  },
+  {
+    "term": "Seth",
+    "definition": "A tool used to perform session hijacking on Windows systems by stealing session cookies and performing pass-the-hash attacks."
+  },
+  {
+    "term": "ChopShop",
+    "definition": "A framework for protocol analysis and decoding, often used in network forensics to examine packet captures."
+  },
+  {
+    "term": "Commix",
+    "definition": "An open-source command injection exploitation tool used for identifying and exploiting command injection vulnerabilities in web applications."
+  },
+  {
+    "term": "Rapid7 Nexpose",
+    "definition": "A commercial vulnerability scanner used to identify and prioritize security risks across networks and web applications."
+  },
+  {
+    "term": "CMSmap",
+    "definition": "A Python-based tool used to enumerate and exploit security weaknesses in Content Management Systems (CMS)."
+  },
+  {
+    "term": "SQLNinja",
+    "definition": "A tool used to exploit SQL injection vulnerabilities in web applications to gain unauthorized access to databases."
+  },
+  {
+    "term": "Crunch",
+    "definition": "A wordlist generation tool that creates custom password lists based on specified criteria, such as character sets and lengths."
+  },
+  {
+    "term": "DAST (Dynamic Application Security Testing)",
+    "definition": "A type of security testing that analyzes web applications for vulnerabilities while they are running."
+  },
+  {
+    "term": "HSTS (HTTP Strict Transport Security)",
+    "definition": "A web security policy that enforces the use of HTTPS, helping protect against man-in-the-middle attacks."
+  },
+  {
+    "term": "CORS (Cross-Origin Resource Sharing)",
+    "definition": "A security feature that controls how web browsers allow web pages to request resources from other domains."
+  },
+  {
+    "term": "Fuzz Testing",
+    "definition": "A software testing technique that involves providing random, invalid, or unexpected data inputs to find vulnerabilities and crashes."
+  },
+  {
+    "term": "Bleeding Edge",
+    "definition": "Refers to using the latest and newest technologies, often with potential risks due to limited testing and stability."
+  },
+  {
+    "term": "VLAN Hopping",
+    "definition": "An attack that takes advantage of improperly configured Virtual LANs (VLANs) to gain unauthorized access to network segments."
+  },
+  {
+    "term": "Port Knocking",
+    "definition": "A security technique that involves sending a sequence of connection attempts to specific ports to trigger access to a service or network."
+  },
+  {
+    "term": "Evil Twin",
+    "definition": "A rogue Wi-Fi access point set up to mimic a legitimate one, tricking users into connecting to it to capture sensitive data."
+  },
+  {
+    "term": "Agile Security",
+    "definition": "The incorporation of security practices into Agile software development to address security concerns throughout the development process."
+  },
+  {
+    "term": "Jailbreaking",
+    "definition": "The process of removing software restrictions on mobile devices to allow the installation of unauthorized applications and software."
+  },
+  {
+    "term": "Data Masking",
+    "definition": "A technique used to protect sensitive data by disguising original data with fictional, yet realistic, data."
+  },
+  {
+    "term": "Deobfuscation",
+    "definition": "The process of converting obfuscated or encrypted code back into its original, readable form to analyze and understand its functionality."
+  },
+  {
+    "term": "Threat Intelligence Platform (TIP)",
+    "definition": "A software solution that collects, correlates, and analyzes threat intelligence data to provide actionable insights for security teams."
+  },
+  {
+    "term": "XSS Filter",
+    "definition": "A security feature in web browsers that attempts to prevent Cross-Site Scripting (XSS) attacks by sanitizing web page inputs."
+  },
+  {
+    "term": "Contextual Authentication",
+    "definition": "An authentication method that considers contextual factors (location, device, behavior) to determine the level of trust before granting access."
+  },
+  {
+    "term": "Logic Bomb",
+    "definition": "A piece of code inserted into software that remains dormant until specific conditions are met, triggering malicious actions."
+  },
+  {
+    "term": "IP Spoofing",
+    "definition": "A technique where an attacker disguises their IP address to impersonate a trusted source and bypass security measures."
+  },
+  {
+    "term": "Cyber Range",
+    "definition": "A controlled, simulated environment used for cybersecurity training, testing, and conducting realistic cyber attack scenarios."
+  },
+  {
+    "term": "Secure Development Lifecycle (SDL)",
+    "definition": "An approach to software development that integrates security practices throughout the entire software development process."
+  },
+  {
+    "term": "Zero-Day Exploit",
+    "definition": "A software vulnerability that is exploited by attackers before the vendor becomes aware of it or has time to release a patch."
+  },
+  {
+    "term": "FIDO (Fast Identity Online)",
+    "definition": "An open standard for strong authentication that aims to reduce reliance on passwords and improve online security."
+  },
+  {
+    "term": "Application Whitelisting",
+    "definition": "A security practice that allows only approved applications to run on a system, preventing unauthorized or malicious software from executing."
+  },
+  {
+    "term": "Kerberos",
+    "definition": "A network authentication protocol that provides secure authentication for users and services on a network."
+  },
+  {
+    "term": "Rainbow Table",
+    "definition": "A precomputed table used in password cracking to reverse hash functions and find the original plaintext password."
+  },
+  {
+    "term": "Side-Channel Attack",
+    "definition": "An attack that targets a system's physical implementation rather than directly exploiting software or hardware vulnerabilities."
+  },
+  {
+    "term": "Security Information and Event Management (SIEM)",
+    "definition": "A technology that aggregates and analyzes security log data from various sources to detect and respond to security incidents."
+  },
+  {
+    "term": "Firmware",
+    "definition": "Software embedded in hardware devices, such as routers and printers, that provides low-level control over the hardware."
+  },
+  {
+    "term": "Vulnerability Disclosure Policy",
+    "definition": "A documented approach taken by organizations to encourage responsible reporting and handling of security vulnerabilities by external parties."
+  },
+  {
+    "term": "Hash Function",
+    "definition": "A mathematical function that converts input data (plaintext) into a fixed-length string of characters (hash value) for data integrity and security."
+  },
+  {
+    "term": "Bastion Host",
+    "definition": "A heavily fortified and strategically positioned server or device that acts as a bridge between an organization's internal network and external networks, often used for remote access."
+  },
+  {
+    "term": "Cipher Suite",
+    "definition": "A combination of cryptographic algorithms used in SSL/TLS to secure communications between clients and servers."
+  },
+  {
+    "term": "Trusted Platform Module (TPM)",
+    "definition": "A hardware-based security chip that provides secure storage and cryptographic services for authentication and encryption purposes."
+  },
+  {
+    "term": "Single Sign-On (SSO)",
+    "definition": "An authentication mechanism that allows users to access multiple applications or systems with a single set of credentials."
+  },
+  {
+    "term": "Black Box Testing",
+    "definition": "A method of software testing that examines the functionality of an application without knowledge of its internal structure or code."
+  },
+  {
+    "term": "Cyber Kill Chain",
+    "definition": "A model used to describe the stages of a cyber attack, from reconnaissance and weaponization to exfiltration and impact."
+  },
+  {
+    "term": "VirusTotal",
+    "definition": "An online service that analyzes files and URLs for potential malware by scanning them with multiple antivirus engines."
+  },
+  {
+    "term": "Bootkit",
+    "definition": "A type of malware that infects a computer's boot process to gain persistence and control over the system."
+  },
+  {
+    "term": "Cross-Site Script Inclusion (XSSI)",
+    "definition": "A web vulnerability that allows attackers to include external scripts and read sensitive data on web pages."
+  },
+  {
+    "term": "Honeynet",
+    "definition": "A network of intentionally vulnerable systems and resources designed to attract and study cyber attackers' techniques and behavior."
+  },
+  {
+    "term": "Evil Maid Attack",
+    "definition": "A physical attack where an attacker gains unauthorized access to a victim's computer by tampering with the device, often when left unattended."
+  },
+  {
+    "term": "Threat Hunting Platform",
+    "definition": "A software solution that automates threat hunting processes, enabling security teams to proactively detect and respond to advanced threats."
+  },
+  {
+    "term": "Certificate Pinning",
+    "definition": "A security technique that associates a specific SSL/TLS certificate with a domain to prevent man-in-the-middle attacks."
+  },
+  {
+    "term": "Security Onion",
+    "definition": "An open-source network security monitoring platform that includes various security tools for threat detection and analysis."
+  },
+  {
+    "term": "Common Vulnerability Scoring System (CVSS)",
+    "definition": "A standardized method for rating and prioritizing the severity of security vulnerabilities."
+  },
+  {
+    "term": "Mantrap",
+    "definition": "A physical access control system that restricts individuals from entering a secure area simultaneously and prevents tailgating."
+  },
+  {
+    "term": "Address Space Layout Randomization (ASLR)",
+    "definition": "A security technique that randomizes the memory addresses used by processes to make it harder for attackers to exploit memory vulnerabilities."
+  },
+  {
+    "term": "Evil Cursor Attack",
+    "definition": "A web-based attack that replaces the cursor on a website with a malicious one, aiming to deceive and trick users."
+  },
+  {
+    "term": "Pwned",
+    "definition": "A slang term derived from 'owned,' referring to a system or application that has been compromised or exploited by an attacker."
+  }
+
+        
   ]
 };
 
+function removeDuplicateTermsAndDefinitions() {
+  const uniqueTerms = new Set();
+  const uniqueTermsData = [];
+
+  termsData.terms.forEach((item) => {
+    const lowerCaseTerm = item.term.toLowerCase();
+    if (!uniqueTerms.has(lowerCaseTerm)) {
+      uniqueTerms.add(lowerCaseTerm);
+      uniqueTermsData.push(item);
+    }
+  });
+
+  termsData.terms = uniqueTermsData;
+}
 
 function displayDictionary() {
   termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
@@ -346,9 +3611,10 @@ function displayDictionary() {
     termsList.appendChild(termDiv);
   });
 }
-// Call the displayDictionary function when the page loads
-displayDictionary();
 
+// Call the removeDuplicateTermsAndDefinitions function before displaying the dictionary
+removeDuplicateTermsAndDefinitions();
+displayDictionary();
 
 function populateTermsList() {
   termsList.innerHTML = ""; 
@@ -364,7 +3630,6 @@ function populateTermsList() {
   });
 }
 
-
 function isMatchingTerm(term) {
   const searchValue = searchInput.value.trim().toLowerCase();
   if (searchValue === "") return true; // Show all terms when the search input is empty
@@ -377,4 +3642,4 @@ function displayDefinition(term) {
 }
 
 // Handle the search input event
-searchInput.addEventListener("input", populateTermsList);
+searchInput.addEventListener("input", populateTermsList); 
