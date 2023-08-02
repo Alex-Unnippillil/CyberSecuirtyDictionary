@@ -3,6 +3,7 @@ const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 
 
+
 const termsData = {
   "terms": [
     {
@@ -3568,9 +3569,2271 @@ const termsData = {
   {
     "term": "Pwned",
     "definition": "A slang term derived from 'owned,' referring to a system or application that has been compromised or exploited by an attacker."
-  }
-
-        
+  },
+    {
+      "term": "Bro",
+      "definition": "An open-source network security monitor and analyzer that inspects network traffic in real-time."
+    },
+    {
+      "term": "Volatility",
+      "definition": "An open-source memory forensics framework used for analyzing volatile memory (RAM) in computer systems."
+    },
+    {
+      "term": "PowerSploit",
+      "definition": "An open-source PowerShell script collection used for penetration testing and post-exploitation tasks."
+    },
+    {
+      "term": "Cobalt Strike",
+      "definition": "A commercial penetration testing tool that provides post-exploitation capabilities and threat emulation."
+    },
+    {
+      "term": "GRR Rapid Response",
+      "definition": "An open-source incident response framework that allows remote live forensics and investigations."
+    },
+    {
+      "term": "Mimikatz",
+      "definition": "An open-source post-exploitation tool used for extracting credentials and performing pass-the-hash attacks."
+    },
+    {
+      "term": "Social-Engineer Toolkit (SET)",
+      "definition": "An open-source penetration testing framework designed for social engineering attacks."
+    },
+    {
+      "term": "BloodHound",
+      "definition": "An open-source tool for analyzing Active Directory and identifying attack paths and privilege escalation opportunities."
+    },
+    {
+      "term": "Kali Linux",
+      "definition": "A popular Linux distribution used for penetration testing, ethical hacking, and digital forensics."
+    },
+    {
+      "term": "Metasploit Framework",
+      "definition": "An open-source penetration testing framework that provides tools for exploiting vulnerabilities."
+    },
+    {
+      "term": "Nmap",
+      "definition": "An open-source network scanner used for network discovery and security auditing."
+    },
+    {
+      "term": "Wireshark",
+      "definition": "An open-source network protocol analyzer used for capturing and inspecting network packets."
+    },
+    {
+      "term": "OWASP ZAP",
+      "definition": "An open-source web application security scanner designed for finding vulnerabilities in web applications."
+    },
+    {
+      "term": "Snort",
+      "definition": "An open-source network intrusion prevention and detection system (NIDS/NIPS)."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Sysmon",
+      "definition": "A Windows system service that logs system activity to detect and investigate security incidents."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+    },
+    {
+      "term": "FortiGate",
+      "definition": "A commercial firewall appliance used for network security and threat prevention."
+    },
+    {
+      "term": "Sophos",
+      "definition": "A commercial cybersecurity company that offers various products, including endpoint protection and firewall solutions."
+    },
+    {
+      "term": "F-Secure",
+      "definition": "A commercial cybersecurity company that provides various services, including threat intelligence and incident response."
+    },
+    {
+      "term": "Trustwave SpiderLabs",
+      "definition": "A commercial cybersecurity company that offers services such as penetration testing and managed security."
+    },
+    {
+      "term": "Tripwire",
+      "definition": "A commercial security and compliance platform used for file integrity monitoring and change detection."
+    },
+    {
+      "term": "SecureWorks",
+      "definition": "A commercial cybersecurity company that provides managed security services and threat intelligence."
+    },
+    {
+      "term": "IBM X-Force",
+      "definition": "IBM's commercial threat intelligence and research team that provides cybersecurity insights and solutions."
+    },
+    {
+      "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+      "definition": "An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise."
+    },
+    {
+      "term": "CISA (Cybersecurity and Infrastructure Security Agency)",
+      "definition": "A U.S. government agency responsible for enhancing cybersecurity and resilience of the nation's infrastructure."
+    },
+    {
+      "term": "Security Onion",
+      "definition": "An open-source network security monitoring and intrusion detection system based on Ubuntu."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "Zeek (formerly Bro)",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic in real-time."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+    },
+    {
+      "term": "FortiGate",
+      "definition": "A commercial firewall appliance used for network security and threat prevention."
+    },
+    {
+      "term": "Sophos",
+      "definition": "A commercial cybersecurity company that offers various products, including endpoint protection and firewall solutions."
+    },
+    {
+      "term": "F-Secure",
+      "definition": "A commercial cybersecurity company that provides various services, including threat intelligence and incident response."
+    },
+    {
+      "term": "Trustwave SpiderLabs",
+      "definition": "A commercial cybersecurity company that offers services such as penetration testing and managed security."
+    },
+    {
+      "term": "Tripwire",
+      "definition": "A commercial security and compliance platform used for file integrity monitoring and change detection."
+    },
+    {
+      "term": "SecureWorks",
+      "definition": "A commercial cybersecurity company that provides managed security services and threat intelligence."
+    },
+    {
+      "term": "IBM X-Force",
+      "definition": "IBM's commercial threat intelligence and research team that provides cybersecurity insights and solutions."
+    },
+    {
+      "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+      "definition": "An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise."
+    },
+    {
+      "term": "CISA (Cybersecurity and Infrastructure Security Agency)",
+      "definition": "A U.S. government agency responsible for enhancing cybersecurity and resilience of the nation's infrastructure."
+    },
+    {
+      "term": "Security Onion",
+      "definition": "An open-source network security monitoring and intrusion detection system based on Ubuntu."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+    },
+    {
+      "term": "FortiGate",
+      "definition": "A commercial firewall appliance used for network security and threat prevention."
+    },
+    {
+      "term": "Sophos",
+      "definition": "A commercial cybersecurity company that offers various products, including endpoint protection and firewall solutions."
+    },
+    {
+      "term": "F-Secure",
+      "definition": "A commercial cybersecurity company that provides various services, including threat intelligence and incident response."
+    },
+    {
+      "term": "Trustwave SpiderLabs",
+      "definition": "A commercial cybersecurity company that offers services such as penetration testing and managed security."
+    },
+    {
+      "term": "Tripwire",
+      "definition": "A commercial security and compliance platform used for file integrity monitoring and change detection."
+    },
+    {
+      "term": "SecureWorks",
+      "definition": "A commercial cybersecurity company that provides managed security services and threat intelligence."
+    },
+    {
+      "term": "IBM X-Force",
+      "definition": "IBM's commercial threat intelligence and research team that provides cybersecurity insights and solutions."
+    },
+    {
+      "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+      "definition": "An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise."
+    },
+    {
+      "term": "CISA (Cybersecurity and Infrastructure Security Agency)",
+      "definition": "A U.S. government agency responsible for enhancing cybersecurity and resilience of the nation's infrastructure."
+    },
+    {
+      "term": "Security Onion",
+      "definition": "An open-source network security monitoring and intrusion detection system based on Ubuntu."
+    },
+    {
+      "term": "Metasploit",
+      "definition": "An open-source penetration testing framework used for developing and executing exploit code against a remote target."
+    },
+    {
+      "term": "Nmap",
+      "definition": "An open-source network scanning tool used for network exploration and security auditing."
+    },
+    {
+      "term": "Wireshark",
+      "definition": "An open-source packet analyzer used for network troubleshooting, analysis, and communication protocol development."
+    },
+    {
+      "term": "Snort",
+      "definition": "An open-source intrusion detection and prevention system used for network security monitoring and packet analysis."
+    },
+    {
+      "term": "Suricata",
+      "definition": "An open-source network threat detection engine used for intrusion detection and intrusion prevention."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+    },
+    {
+      "term": "FortiGate",
+      "definition": "A commercial firewall appliance used for network security and threat prevention."
+    },
+    {
+      "term": "Sophos",
+      "definition": "A commercial cybersecurity company that offers various products, including endpoint protection and firewall solutions."
+    },
+    {
+      "term": "F-Secure",
+      "definition": "A commercial cybersecurity company that provides various services, including threat intelligence and incident response."
+    },
+    {
+      "term": "Trustwave SpiderLabs",
+      "definition": "A commercial cybersecurity company that offers services such as penetration testing and managed security."
+    },
+    {
+      "term": "Tripwire",
+      "definition": "A commercial security and compliance platform used for file integrity monitoring and change detection."
+    },
+    {
+      "term": "SecureWorks",
+      "definition": "A commercial cybersecurity company that provides managed security services and threat intelligence."
+    },
+    {
+      "term": "IBM X-Force",
+      "definition": "IBM's commercial threat intelligence and research team that provides cybersecurity insights and solutions."
+    },
+    {
+      "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+      "definition": "An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise."
+    },
+    {
+      "term": "CISA (Cybersecurity and Infrastructure Security Agency)",
+      "definition": "A U.S. government agency responsible for enhancing cybersecurity and resilience of the nation's infrastructure."
+    },
+    {
+      "term": "Security Onion",
+      "definition": "An open-source network security monitoring and intrusion detection system based on Ubuntu."
+    },
+    {
+      "term": "Metasploit",
+      "definition": "An open-source penetration testing framework used for developing and executing exploit code against a remote target."
+    },
+    {
+      "term": "Nmap",
+      "definition": "An open-source network scanning tool used for network exploration and security auditing."
+    },
+    {
+      "term": "Wireshark",
+      "definition": "An open-source packet analyzer used for network troubleshooting, analysis, and communication protocol development."
+    },
+    {
+      "term": "Snort",
+      "definition": "An open-source intrusion detection and prevention system used for network security monitoring and packet analysis."
+    },
+    {
+      "term": "Suricata",
+      "definition": "An open-source network threat detection engine used for intrusion detection and intrusion prevention."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+    },
+    {
+      "term": "FortiGate",
+      "definition": "A commercial firewall appliance used for network security and threat prevention."
+    },
+    {
+      "term": "Sophos",
+      "definition": "A commercial cybersecurity company that offers various products, including endpoint protection and firewall solutions."
+    },
+    {
+      "term": "F-Secure",
+      "definition": "A commercial cybersecurity company that provides various services, including threat intelligence and incident response."
+    },
+    {
+      "term": "Trustwave SpiderLabs",
+      "definition": "A commercial cybersecurity company that offers services such as penetration testing and managed security."
+    },
+    {
+      "term": "Tripwire",
+      "definition": "A commercial security and compliance platform used for file integrity monitoring and change detection."
+    },
+    {
+      "term": "SecureWorks",
+      "definition": "A commercial cybersecurity company that provides managed security services and threat intelligence."
+    },
+    {
+      "term": "IBM X-Force",
+      "definition": "IBM's commercial threat intelligence and research team that provides cybersecurity insights and solutions."
+    },
+    {
+      "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+      "definition": "An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise."
+    },
+    {
+      "term": "CISA (Cybersecurity and Infrastructure Security Agency)",
+      "definition": "A U.S. government agency responsible for enhancing cybersecurity and resilience of the nation's infrastructure."
+    },
+    {
+      "term": "Security Onion",
+      "definition": "An open-source network security monitoring and intrusion detection system based on Ubuntu."
+    },
+    {
+      "term": "Metasploit",
+      "definition": "An open-source penetration testing framework used for developing and executing exploit code against a remote target."
+    },
+    {
+      "term": "Nmap",
+      "definition": "An open-source network scanning tool used for network exploration and security auditing."
+    },
+    {
+      "term": "Wireshark",
+      "definition": "An open-source packet analyzer used for network troubleshooting, analysis, and communication protocol development."
+    },
+    {
+      "term": "Snort",
+      "definition": "An open-source intrusion detection and prevention system used for network security monitoring and packet analysis."
+    },
+    {
+      "term": "Suricata",
+      "definition": "An open-source network threat detection engine used for intrusion detection and intrusion prevention."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+    },
+    {
+      "term": "FortiGate",
+      "definition": "A commercial firewall appliance used for network security and threat prevention."
+    },
+    {
+      "term": "Sophos",
+      "definition": "A commercial cybersecurity company that offers various products, including endpoint protection and firewall solutions."
+    },
+    {
+      "term": "F-Secure",
+      "definition": "A commercial cybersecurity company that provides various services, including threat intelligence and incident response."
+    },
+    {
+      "term": "Trustwave SpiderLabs",
+      "definition": "A commercial cybersecurity company that offers services such as penetration testing and managed security."
+    },
+    {
+      "term": "Tripwire",
+      "definition": "A commercial security and compliance platform used for file integrity monitoring and change detection."
+    },
+    {
+      "term": "SecureWorks",
+      "definition": "A commercial cybersecurity company that provides managed security services and threat intelligence."
+    },
+    {
+      "term": "IBM X-Force",
+      "definition": "IBM's commercial threat intelligence and research team that provides cybersecurity insights and solutions."
+    },
+    {
+      "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+      "definition": "An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise."
+    },
+    {
+      "term": "CISA (Cybersecurity and Infrastructure Security Agency)",
+      "definition": "A U.S. government agency responsible for enhancing cybersecurity and resilience of the nation's infrastructure."
+    },
+    {
+      "term": "Security Onion",
+      "definition": "An open-source network security monitoring and intrusion detection system based on Ubuntu."
+    },
+    {
+      "term": "Metasploit",
+      "definition": "An open-source penetration testing framework used for developing and executing exploit code against a remote target."
+    },
+    {
+      "term": "Nmap",
+      "definition": "An open-source network scanning tool used for network exploration and security auditing."
+    },
+    {
+      "term": "Wireshark",
+      "definition": "An open-source packet analyzer used for network troubleshooting, analysis, and communication protocol development."
+    },
+    {
+      "term": "Snort",
+      "definition": "An open-source intrusion detection and prevention system used for network security monitoring and packet analysis."
+    },
+    {
+      "term": "Suricata",
+      "definition": "An open-source network threat detection engine used for intrusion detection and intrusion prevention."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+    },
+    {
+      "term": "FortiGate",
+      "definition": "A commercial firewall appliance used for network security and threat prevention."
+    },
+    {
+      "term": "Sophos",
+      "definition": "A commercial cybersecurity company that offers various products, including endpoint protection and firewall solutions."
+    },
+    {
+      "term": "F-Secure",
+      "definition": "A commercial cybersecurity company that provides various services, including threat intelligence and incident response."
+    },
+    {
+      "term": "Trustwave SpiderLabs",
+      "definition": "A commercial cybersecurity company that offers services such as penetration testing and managed security."
+    },
+    {
+      "term": "Tripwire",
+      "definition": "A commercial security and compliance platform used for file integrity monitoring and change detection."
+    },
+    {
+      "term": "SecureWorks",
+      "definition": "A commercial cybersecurity company that provides managed security services and threat intelligence."
+    },
+    {
+      "term": "IBM X-Force",
+      "definition": "IBM's commercial threat intelligence and research team that provides cybersecurity insights and solutions."
+    },
+    {
+      "term": "MISP (Malware Information Sharing Platform & Threat Sharing)",
+      "definition": "An open-source threat intelligence platform used for sharing, storing, and correlating indicators of compromise."
+    },
+    {
+      "term": "CISA (Cybersecurity and Infrastructure Security Agency)",
+      "definition": "A U.S. government agency responsible for enhancing cybersecurity and resilience of the nation's infrastructure."
+    },
+    {
+      "term": "Security Onion",
+      "definition": "An open-source network security monitoring and intrusion detection system based on Ubuntu."
+    },
+    {
+      "term": "Metasploit",
+      "definition": "An open-source penetration testing framework used for developing and executing exploit code against a remote target."
+    },
+    {
+      "term": "Nmap",
+      "definition": "An open-source network scanning tool used for network exploration and security auditing."
+    },
+    {
+      "term": "Wireshark",
+      "definition": "An open-source packet analyzer used for network troubleshooting, analysis, and communication protocol development."
+    },
+    {
+      "term": "Snort",
+      "definition": "An open-source intrusion detection and prevention system used for network security monitoring and packet analysis."
+    },
+    {
+      "term": "Suricata",
+      "definition": "An open-source network threat detection engine used for intrusion detection and intrusion prevention."
+    },
+    {
+      "term": "Bro/Zeek",
+      "definition": "An open-source network analysis framework used for monitoring and analyzing network traffic."
+    },
+    {
+      "term": "TheHive",
+      "definition": "An open-source incident response platform designed to manage and automate security incident response."
+    },
+    {
+      "term": "VulnHub",
+      "definition": "An online platform that provides vulnerable virtual machines for practicing penetration testing."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner used for finding potential security vulnerabilities in web servers."
+    },
+    {
+      "term": "Hydra",
+      "definition": "An open-source password-cracking tool used for performing online brute-force attacks against various protocols."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "An open-source password-cracking tool used for offline password cracking."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "An open-source wireless security tool used for capturing and analyzing Wi-Fi data packets."
+    },
+    {
+      "term": "Netcat",
+      "definition": "An open-source networking utility used for reading from and writing to network connections."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An open-source password recovery tool used for recovering passwords from hashes."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "A commercial web vulnerability scanner used for web application security testing."
+    },
+    {
+      "term": "Sublist3r",
+      "definition": "An open-source subdomain enumeration tool used for discovering subdomains of a domain."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of internet-connected devices and systems."
+    },
+    {
+      "term": "Recon-ng",
+      "definition": "An open-source reconnaissance framework used for information gathering and web reconnaissance."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for gathering information about a target."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering tool developed by the NSA."
+    },
+    {
+      "term": "YARA",
+      "definition": "An open-source pattern matching tool used for malware classification and threat hunting."
+    },
+    {
+      "term": "Osquery",
+      "definition": "An open-source endpoint security tool used for querying and monitoring system information."
+    },
+    {
+      "term": "Carbon Black",
+      "definition": "A commercial endpoint security platform that provides threat hunting and incident response capabilities."
+    },
+    {
+      "term": "Tanium",
+      "definition": "A commercial endpoint management and security platform with real-time threat detection and incident response."
+    },
+    {
+      "term": "RSA NetWitness",
+      "definition": "A commercial security analytics platform that provides network and endpoint visibility."
+    },
+    {
+      "term": "ArcSight",
+      "definition": "A commercial security information and event management (SIEM) system for log management and correlation."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An open-source automated malware analysis system used for analyzing and detecting malware."
+    },
+    {
+      "term": "FireEye",
+      "definition": "A commercial cybersecurity company that offers various threat intelligence and detection products."
+    },
+    {
+      "term": "Darktrace",
+      "definition": "A commercial artificial intelligence-based cybersecurity platform for threat detection and response."
+    },
+    {
+      "term": "Cisco Umbrella",
+      "definition": "A cloud security platform that provides DNS filtering and secure web gateway services."
+    },
+    {
+      "term": "Palo Alto Networks",
+      "definition": "A commercial cybersecurity company that offers a range of security products, including firewalls and endpoint protection."
+    },
+    {
+      "term": "Splunk",
+      "definition": "A commercial platform used for collecting, indexing, and analyzing machine-generated data for security and IT operations."
+    },
+    {
+      "term": "Elastic Stack",
+      "definition": "An open-source platform used for searching, analyzing, and visualizing large datasets, including security logs."
+    },
+    {
+      "term": "AlienVault OSSIM",
+      "definition": "An open-source security information and event management (SIEM) system for threat detection and analysis."
+    },
+    {
+      "term": "Veracode",
+      "definition": "A commercial application security testing platform used for identifying and fixing security vulnerabilities in software."
+    },
+    {
+      "term": "CrowdStrike Falcon",
+      "definition": "A commercial cloud-based endpoint protection platform that uses artificial intelligence and machine learning for threat detection."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability scanning tool used for identifying security issues in networks and applications."
+    },
+    {
+      "term": "Acunetix",
+      "definition": "A commercial web vulnerability scanner used for identifying and managing web application security issues."
+    },
+    {
+      "term": "Qualys",
+      "definition": "A commercial cloud-based security and compliance platform used for vulnerability management and assessment."
+    },
+    {
+      "term": "RSA Archer",
+      "definition": "A commercial governance, risk management, and compliance (GRC) platform used for managing cybersecurity risks."
+    },
+    {
+      "term": "IBM QRadar",
+      "definition": "A commercial security information and event management (SIEM) system for real-time threat detection and incident response."
+    },
+    {
+      "term": "Rapid7 Nexpose",
+      "definition": "A commercial vulnerability management tool used for identifying and prioritizing security risks."
+   },
+  {
+    "term": "Cryptography",
+    "definition": "The practice of securing communication and data through the use of mathematical algorithms."
+  },
+  {
+    "term": "Encryption",
+    "definition": "The process of converting plaintext into ciphertext using a cryptographic algorithm and a key."
+  },
+  {
+    "term": "Decryption",
+    "definition": "The process of converting ciphertext back to plaintext using the corresponding decryption key."
+  },
+  {
+    "term": "Plaintext",
+    "definition": "The original, unencrypted message or data."
+  },
+  {
+    "term": "Ciphertext",
+    "definition": "The encrypted message or data produced after applying encryption."
+  },
+  {
+    "term": "Key",
+    "definition": "A parameter used by cryptographic algorithms to control the encryption and decryption processes."
+  },
+  {
+    "term": "Symmetric Encryption",
+    "definition": "A type of encryption where the same key is used for both encryption and decryption."
+  },
+  {
+    "term": "Asymmetric Encryption",
+    "definition": "A type of encryption where a key pair (public key and private key) is used for encryption and decryption, respectively."
+  },
+  {
+    "term": "Public Key",
+    "definition": "The part of an asymmetric key pair that is openly shared and used for encryption."
+  },
+  {
+    "term": "Private Key",
+    "definition": "The part of an asymmetric key pair that is kept secret and used for decryption."
+  },
+  {
+    "term": "RSA",
+    "definition": "A widely-used asymmetric encryption algorithm named after its inventors, Ron Rivest, Adi Shamir, and Leonard Adleman."
+  },
+  {
+    "term": "AES (Advanced Encryption Standard)",
+    "definition": "A widely-used symmetric encryption algorithm for securing sensitive data."
+  },
+  {
+    "term": "Diffie-Hellman Key Exchange",
+    "definition": "A method for securely exchanging cryptographic keys over an insecure communication channel."
+  },
+  {
+    "term": "Digital Signature",
+    "definition": "A cryptographic technique used to verify the authenticity and integrity of a message or document."
+  },
+  {
+    "term": "Hash Function",
+    "definition": "A one-way mathematical function that generates a fixed-size output (hash value) from variable-size input data."
+  },
+  {
+    "term": "HMAC (Hash-based Message Authentication Code)",
+    "definition": "A specific type of hash function used for message authentication."
+  },
+  {
+    "term": "Salt",
+    "definition": "Random data added to passwords before hashing to increase security."
+  },
+  {
+    "term": "Key Derivation Function (KDF)",
+    "definition": "A function used to derive one or more cryptographic keys from a given secret."
+  },
+  {
+    "term": "SSL/TLS (Secure Sockets Layer/Transport Layer Security)",
+    "definition": "Protocols used to secure communication over the internet."
+  },
+  {
+    "term": "Digital Certificate",
+    "definition": "A digital document that binds a public key to an entity, verifying its authenticity."
+  },
+  {
+    "term": "Certificate Authority (CA)",
+    "definition": "An entity that issues digital certificates and validates their authenticity."
+  },
+  {
+    "term": "Key Exchange",
+    "definition": "The process of securely sharing cryptographic keys between parties."
+  },
+  {
+    "term": "Digital Envelope",
+    "definition": "A technique that combines symmetric and asymmetric encryption to secure data."
+  },
+  {
+    "term": "PKI (Public Key Infrastructure)",
+    "definition": "A system that manages digital certificates and provides services for secure communication."
+  },
+  {
+    "term": "PGP (Pretty Good Privacy)",
+    "definition": "A popular encryption program used for email and data encryption."
+  },
+  {
+    "term": "SSL/TLS Handshake",
+    "definition": "The initial process in establishing a secure connection using SSL/TLS."
+  },
+  {
+    "term": "Stream Cipher",
+    "definition": "A type of symmetric encryption that encrypts data bit by bit."
+  },
+  {
+    "term": "Block Cipher",
+    "definition": "A type of symmetric encryption that processes data in fixed-size blocks."
+  },
+  {
+    "term": "IV (Initialization Vector)",
+    "definition": "A random value used in encryption algorithms to ensure unique ciphertext."
+  },
+  {
+    "term": "Digital Timestamp",
+    "definition": "A cryptographic technique used to prove the time of creation or modification of a document."
+  },
+  {
+    "term": "Digital Watermarking",
+    "definition": "A technique to embed hidden data within digital media to verify authenticity."
+  },
+  {
+    "term": "XOR (Exclusive OR)",
+    "definition": "A logical operation used in cryptographic algorithms."
+  },
+  {
+    "term": "Nonce",
+    "definition": "A number used only once in cryptographic protocols to prevent replay attacks."
+  },
+  {
+    "term": "One-Time Pad",
+    "definition": "A type of symmetric encryption that uses a random key as long as the message."
+  },
+  {
+    "term": "Homomorphic Encryption",
+    "definition": "A type of encryption that allows computations to be performed on encrypted data without decryption."
+  },
+  {
+    "term": "Zero-Knowledge Proof",
+    "definition": "A cryptographic method to prove the validity of a statement without revealing specific information."
+  },
+  {
+    "term": "Perfect Forward Secrecy",
+    "definition": "A property where a new key is generated for each session to protect past communications."
+  },
+  {
+    "term": "Elliptic Curve Cryptography (ECC)",
+    "definition": "A type of asymmetric encryption based on the mathematics of elliptic curves."
+  },
+  {
+    "term": "Key Escrow",
+    "definition": "A mechanism where a trusted third party holds a copy of encryption keys for recovery purposes."
+  },
+  {
+    "term": "Key Management",
+    "definition": "The process of generating, storing, and distributing cryptographic keys securely."
+  },
+  {
+    "term": "Quantum Key Distribution (QKD)",
+    "definition": "A method to securely distribute cryptographic keys using the principles of quantum mechanics."
+  },
+  {
+    "term": "Steganography",
+    "definition": "The practice of concealing information within other media, such as hiding messages in images."
+  },
+  {
+    "term": "Confusion",
+    "definition": "A property of cryptographic algorithms where the relationship between the key and ciphertext is complex."
+  },
+  {
+    "term": "Diffusion",
+    "definition": "A property of cryptographic algorithms where changing one bit of plaintext affects multiple bits in the ciphertext."
+  },
+  {
+    "term": "Key Space",
+    "definition": "The total number of possible keys in a cryptographic algorithm."
+  },
+  {
+    "term": "Birthday Attack",
+    "definition": "A cryptographic attack that exploits the probability of collisions in hash functions."
+  },
+  {
+    "term": "Brute Force Attack",
+    "definition": "An attack that tries every possible key to decrypt encrypted data."
+  },
+  {
+    "term": "Rainbow Table",
+    "definition": "A precomputed table used to speed up password cracking."
+  },
+  {
+    "term": "Side-Channel Attack",
+    "definition": "An attack that exploits information leaked by a cryptographic system (e.g., power consumption or timing)."
+  },
+  {
+    "term": "Man-in-the-Middle (MITM) Attack",
+    "definition": "An attack where an attacker intercepts and possibly alters communication between two parties."
+  },
+  {
+    "term": "Chosen Plaintext Attack (CPA)",
+    "definition": "An attack where the attacker can choose the plaintext to be encrypted and observe the corresponding ciphertext."
+  },
+  {
+    "term": "Chosen Ciphertext Attack (CCA)",
+    "definition": "An attack where the attacker can choose the ciphertext to be decrypted and observe the corresponding plaintext."
+  },
+  {
+    "term": "Known Plaintext Attack (KPA)",
+    "definition": "An attack where the attacker has access to both the plaintext and its corresponding ciphertext."
+  },
+  {
+    "term": "Differential Cryptanalysis",
+    "definition": "A technique used to find the key of a block cipher by analyzing the differences in input and output pairs."
+  },
+  {
+    "term": "Meet-in-the-Middle Attack",
+    "definition": "An attack that combines brute force and known plaintext techniques to break certain cryptographic algorithms."
+  },
+  {
+    "term": "Key Schedule",
+    "definition": "The algorithm used to generate round keys in block ciphers."
+  },
+  {
+    "term": "CCA2 (Adaptive Chosen Ciphertext Attack)",
+    "definition": "An extension of CCA1 where the attacker can adaptively choose ciphertexts based on previous decryptions."
+  },
+  {
+    "term": "Collision Resistance",
+    "definition": "A property of hash functions where it is computationally infeasible to find two different inputs producing the same hash."
+  },
+  {
+    "term": "Preimage Resistance",
+    "definition": "A property of hash functions where it is computationally infeasible to find an input producing a specific hash."
+  },
+  {
+    "term": "Salting Passwords",
+    "definition": "The process of adding random data to passwords before hashing to increase security."
+  },
+  {
+    "term": "Key Stretching",
+    "definition": "A process that uses KDFs to increase the computational cost of brute force attacks."
+  },
+  {
+    "term": "Quantum Cryptography",
+    "definition": "The study of cryptographic systems based on the principles of quantum mechanics."
+  },
+  {
+    "term": "Hybrid Encryption",
+    "definition": "A combination of symmetric and asymmetric encryption techniques to achieve efficiency and security."
+  },
+  {
+    "term": "Cryptanalysis",
+    "definition": "The study of breaking cryptographic algorithms and systems."
+  },
+  {
+    "term": "Substitution Cipher",
+    "definition": "A type of symmetric encryption where each letter is replaced with another according to a fixed rule."
+  },
+  {
+    "term": "Caesar Cipher",
+    "definition": "A simple substitution cipher where each letter is shifted a fixed number of positions in the alphabet."
+  },
+  {
+    "term": "Vigenere Cipher",
+    "definition": "A polyalphabetic substitution cipher using a keyword to encrypt plaintext."
+  },
+  {
+    "term": "Enigma Machine",
+    "definition": "An electro-mechanical encryption device used during World War II."
+  },
+  {
+    "term": "Index of Coincidence",
+    "definition": "A statistical technique used to analyze ciphertext to determine the length of the key."
+  },
+  {
+    "term": "Playfair Cipher",
+    "definition": "A digraph substitution cipher that encrypts plaintext in pairs of letters."
+  },
+  {
+    "term": "Autokey Cipher",
+    "definition": "A variation of the Vigenere Cipher where each plaintext letter becomes the next key letter."
+  },
+  {
+    "term": "Rotor Machine",
+    "definition": "A type of encryption machine that used rotating disks to perform encryption and decryption."
+  },
+  {
+    "term": "Transposition Cipher",
+    "definition": "A type of symmetric encryption where the positions of letters in plaintext are rearranged."
+  },
+  {
+    "term": "Rail Fence Cipher",
+    "definition": "A transposition cipher that writes the plaintext in a zigzag pattern and then reads off the ciphertext."
+  },
+  {
+    "term": "Columnar Transposition Cipher",
+    "definition": "A transposition cipher that arranges the plaintext into a grid and then reads off the ciphertext column by column."
+  },
+  {
+    "term": "Fractionated Morse Cipher",
+    "definition": "A type of encryption that converts plaintext to Morse code and then enciphers the Morse code."
+  },
+  {
+    "term": "Public Key Infrastructure (PKI)",
+    "definition": "A system of hardware, software, policies, and standards used to manage public key encryption and digital certificates."
+  },
+  {
+    "term": "Certificate Authority (CA)",
+    "definition": "An entity responsible for issuing, revoking, and managing digital certificates."
+  },
+  {
+    "term": "Certificate",
+    "definition": "A digital document that associates a public key with an entity and is signed by a trusted third party."
+  },
+  {
+    "term": "Digital Signature",
+    "definition": "A cryptographic technique used to verify the authenticity and integrity of a message or document."
+  },
+  {
+    "term": "Certificate Chain",
+    "definition": "A series of certificates, each signed by the next certificate's private key, linking a public key to a specific entity."
+  },
+  {
+    "term": "Root Certificate",
+    "definition": "The top-level certificate in a certificate chain, usually self-signed and used to verify other certificates."
+  },
+  {
+    "term": "Intermediate Certificate",
+    "definition": "A certificate that sits between the root certificate and end-entity certificates and is used to create certificate chains."
+  },
+  {
+    "term": "End-entity Certificate",
+    "definition": "A certificate issued to an individual or entity and signed by an intermediate certificate."
+  },
+  {
+    "term": "X.509",
+    "definition": "A standard defining the format for public key certificates, including fields such as subject, issuer, validity period, and public key."
+  },
+  {
+    "term": "Certificate Revocation",
+    "definition": "The process of invalidating a certificate before its expiration date due to compromised private keys or other reasons."
+  },
+  {
+    "term": "Certificate Revocation List (CRL)",
+    "definition": "A list of revoked certificates that clients can check to determine if a certificate is still valid."
+  },
+  {
+    "term": "Online Certificate Status Protocol (OCSP)",
+    "definition": "A protocol used to obtain the revocation status of a certificate directly from the issuing certificate authority."
+  },
+  {
+    "term": "Transport Layer Security (TLS)",
+    "definition": "A cryptographic protocol used to secure communications over a computer network."
+  },
+  {
+    "term": "Secure Sockets Layer (SSL)",
+    "definition": "The predecessor to TLS, a cryptographic protocol used for secure communication over a computer network."
+  },
+  {
+    "term": "Handshake Protocol",
+    "definition": "The first phase of the TLS/SSL protocol that establishes the cryptographic parameters for the secure connection."
+  },
+  {
+    "term": "Record Protocol",
+    "definition": "The second phase of the TLS/SSL protocol that handles the encrypted transmission of data."
+  },
+  {
+    "term": "Cipher Suite",
+    "definition": "A combination of encryption, authentication, and key exchange algorithms used in the TLS/SSL handshake."
+  },
+  {
+    "term": "Forward Secrecy",
+    "definition": "A property of cryptographic systems where the compromise of long-term keys does not compromise past session keys."
+  },
+  {
+    "term": "Perfect Forward Secrecy (PFS)",
+    "definition": "A feature of certain cryptographic protocols that ensures each session uses a unique key, enhancing security."
+  },
+  {
+    "term": "Diffie-Hellman (DH)",
+    "definition": "A key exchange algorithm used to securely establish a shared secret over an insecure communication channel."
+  },
+  {
+    "term": "Elliptic Curve Diffie-Hellman (ECDH)",
+    "definition": "A variation of the Diffie-Hellman key exchange based on elliptic curve cryptography."
+  },
+  {
+    "term": "RSA Key Exchange",
+    "definition": "A key exchange method using RSA encryption to establish a shared secret between parties."
+  },
+  {
+    "term": "Data Encryption Standard (DES)",
+    "definition": "A symmetric-key algorithm used for data encryption until replaced by AES."
+  },
+  {
+    "term": "Triple DES (3DES)",
+    "definition": "A variant of DES that applies the DES algorithm three times to each data block for added security."
+  },
+  {
+    "term": "Blowfish",
+    "definition": "A symmetric-key block cipher designed as an alternative to DES, known for its fast performance."
+  },
+  {
+    "term": "Twofish",
+    "definition": "A symmetric-key block cipher designed to be secure and flexible."
+  },
+  {
+    "term": "Advanced Encryption Standard (AES)",
+    "definition": "A symmetric-key block cipher adopted by the U.S. government and widely used for data encryption."
+  },
+  {
+    "term": "Block Size",
+    "definition": "The fixed number of bits processed by a block cipher in each encryption/decryption operation."
+  },
+  {
+    "term": "Cipher Block Chaining (CBC)",
+    "definition": "A block cipher mode of operation that XORs each block of plaintext with the previous ciphertext block before encryption."
+  },
+  {
+    "term": "Electronic Codebook (ECB)",
+    "definition": "A block cipher mode of operation that encrypts each block of plaintext independently, leading to vulnerabilities."
+  },
+  {
+    "term": "Cipher Feedback (CFB)",
+    "definition": "A block cipher mode of operation that uses ciphertext as feedback to encrypt subsequent plaintext blocks."
+  },
+  {
+    "term": "Output Feedback (OFB)",
+    "definition": "A block cipher mode of operation that encrypts a feedback register to produce keystream used for encryption."
+  },
+  {
+    "term": "Counter (CTR)",
+    "definition": "A block cipher mode of operation that turns a block cipher into a stream cipher."
+  },
+  {
+    "term": "Galios/Counter Mode (GCM)",
+    "definition": "A mode of operation that combines the Counter (CTR) mode with Galois Message Authentication Code (GMAC)."
+  },
+  {
+    "term": "Initialization Vector (IV)",
+    "definition": "A random value used to ensure unique ciphertext when using block cipher modes of operation."
+  },
+  {
+    "term": "Salt",
+    "definition": "Random data added to passwords before hashing to increase security."
+  },
+  {
+    "term": "Key Derivation Function (KDF)",
+    "definition": "A function used to derive cryptographic keys from a given secret, such as a password."
+  },
+  {
+    "term": "Password-Based Key Derivation Function 2 (PBKDF2)",
+    "definition": "A widely used key derivation function that converts passwords into cryptographic keys."
+  },
+  {
+    "term": "bcrypt",
+    "definition": "A password-hashing function designed to be slow and computationally expensive, increasing resistance to brute force attacks."
+  },
+  {
+    "term": "scrypt",
+    "definition": "A password-based key derivation function designed to make brute force attacks more difficult."
+  },
+  {
+    "term": "Argon2",
+    "definition": "A password-hashing function that won the Password Hashing Competition (PHC) in 2015."
+  },
+  {
+    "term": "Secure Hash Algorithm 1 (SHA-1)",
+    "definition": "A cryptographic hash function used in various security applications but now considered insecure due to vulnerabilities."
+  },
+  {
+    "term": "Secure Hash Algorithm 2 (SHA-2)",
+    "definition": "A family of cryptographic hash functions, including SHA-256 and SHA-512, considered secure for various applications."
+  },
+  {
+    "term": "SHA-256",
+    "definition": "A 256-bit cryptographic hash function belonging to the SHA-2 family."
+  },
+  {
+    "term": "SHA-512",
+    "definition": "A 512-bit cryptographic hash function belonging to the SHA-2 family."
+  },
+  {
+    "term": "Keccak",
+    "definition": "A cryptographic hash function that won the SHA-3 competition organized by NIST."
+  },
+  {
+    "term": "Message Authentication Code (MAC)",
+    "definition": "A cryptographic code that authenticates the integrity and origin of a message."
+  },
+  {
+    "term": "Hash-based Message Authentication Code (HMAC)",
+    "definition": "A specific type of message authentication code that uses a cryptographic hash function."
+  },
+  {
+    "term": "Cryptographic Salt",
+    "definition": "Random data used as input to a one-way function to protect passwords against rainbow table attacks."
+  },
+  {
+    "term": "Initialization Vector (IV)",
+    "definition": "A random or pseudorandom value used with certain encryption algorithms to ensure different ciphertexts for the same plaintext."
+  },
+  {
+    "term": "Nonce",
+    "definition": "A value that can be used only once, typically to ensure message integrity and prevent replay attacks."
+  },
+  {
+    "term": "Random Number Generator (RNG)",
+    "definition": "A device or algorithm that generates numbers that cannot be reasonably predicted, used in cryptography for generating keys and nonces."
+  },
+  {
+    "term": "Key Stretching",
+    "definition": "A technique used to increase the security of encryption keys by slowing down brute-force attacks."
+  },
+  {
+    "term": "Salted Password Hashing",
+    "definition": "A method of securely storing passwords by adding random data (salt) to the passwords before hashing."
+  },
+  {
+    "term": "Secure Multi-Party Computation (SMPC)",
+    "definition": "A cryptographic method that allows multiple parties to jointly compute a function while keeping their inputs private."
+  },
+  {
+    "term": "Oblivious Transfer",
+    "definition": "A cryptographic protocol that allows one party to transfer information to another party without knowing what information was sent."
+  },
+  {
+    "term": "Garbled Circuits",
+    "definition": "A cryptographic technique that allows computation on encrypted data without revealing the inputs or outputs."
+  },
+  {
+    "term": "Zero-Knowledge Proof",
+    "definition": "A cryptographic protocol that proves the validity of a statement without revealing any additional information."
+  },
+  {
+    "term": "Distributed Key Generation (DKG)",
+    "definition": "A cryptographic protocol that allows multiple parties to jointly generate a private key without revealing individual secret information."
+  },
+  {
+    "term": "Threshold Cryptography",
+    "definition": "A cryptographic scheme that requires a minimum number of shares (participants) to perform cryptographic operations."
+  },
+  {
+    "term": "Homomorphic Encryption",
+    "definition": "A cryptographic technique that allows computation on encrypted data without decrypting it."
+  },
+  {
+    "term": "Fully Homomorphic Encryption (FHE)",
+    "definition": "A type of homomorphic encryption that supports arbitrary computations on encrypted data."
+  },
+  {
+    "term": "Partially Homomorphic Encryption (PHE)",
+    "definition": "A type of homomorphic encryption that supports only specific computations, such as addition or multiplication."
+  },
+  {
+    "term": "Lattice-Based Cryptography",
+    "definition": "A type of cryptography that relies on the hardness of certain mathematical problems related to lattices."
+  },
+  {
+    "term": "Post-Quantum Cryptography (PQC)",
+    "definition": "A branch of cryptography that aims to develop cryptographic algorithms resistant to attacks by quantum computers."
+  },
+  {
+    "term": "Quantum Key Distribution (QKD)",
+    "definition": "A method of securely distributing cryptographic keys using the principles of quantum mechanics."
+  },
+  {
+    "term": "Side-Channel Attack",
+    "definition": "An attack that exploits information leaked through physical implementation of a cryptographic system, such as power consumption or timing."
+  },
+  {
+    "term": "Timing Attack",
+    "definition": "A type of side-channel attack that relies on measuring the time taken by cryptographic operations to reveal information about the secret key."
+  },
+  {
+    "term": "Power Analysis Attack",
+    "definition": "A type of side-channel attack that involves measuring the power consumption of a cryptographic device to extract sensitive information."
+  },
+  {
+    "term": "Fault Injection Attack",
+    "definition": "A type of side-channel attack that involves deliberately inducing faults in a cryptographic device to extract sensitive information."
+  },
+  {
+    "term": "Tempest Attack",
+    "definition": "A type of side-channel attack that involves capturing electromagnetic emissions from a cryptographic device to extract sensitive information."
+  },
+  {
+    "term": "Physical Unclonable Function (PUF)",
+    "definition": "A cryptographic technique that utilizes inherent physical variations in a device to create unique and unpredictable identifiers."
+  },
+  {
+    "term": "Key Management",
+    "definition": "The process of generating, distributing, storing, and disposing of cryptographic keys."
+  },
+  {
+    "term": "Key Generation",
+    "definition": "The process of creating cryptographic keys for use in encryption and decryption."
+  },
+  {
+    "term": "Key Distribution",
+    "definition": "The process of securely delivering cryptographic keys to authorized parties for secure communication."
+  },
+  {
+    "term": "Key Agreement",
+    "definition": "The process by which two or more parties agree on a shared secret key without directly transmitting the key."
+  },
+  {
+    "term": "Key Wrapping",
+    "definition": "The process of encrypting a cryptographic key to protect it during storage or transmission."
+  },
+  {
+    "term": "Key Rotation",
+    "definition": "The practice of periodically changing cryptographic keys to enhance security."
+  },
+  {
+    "term": "Key Escrow",
+    "definition": "The process of keeping a copy of cryptographic keys with a trusted third party for recovery purposes."
+  },
+  {
+    "term": "Cryptographic Module",
+    "definition": "A hardware, software, or firmware component that performs cryptographic operations and maintains security."
+  },
+  {
+    "term": "Hardware Security Module (HSM)",
+    "definition": "A specialized hardware device designed to generate, store, and manage cryptographic keys and perform cryptographic operations securely."
+  },
+  {
+    "term": "Key Management System (KMS)",
+    "definition": "A centralized system that manages the generation, distribution, rotation, and revocation of cryptographic keys."
+  }    
   ]
 };
 
