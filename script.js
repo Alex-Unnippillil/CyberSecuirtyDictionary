@@ -6741,6 +6741,258 @@ const termsData = {
     {
       "term": "IPv6 (Internet Protocol version 6)",
       "definition": "The most recent version of the Internet Protocol, which uses 128-bit addresses and is designed to replace IPv4 to accommodate the growth of the internet."
+    },
+    {
+      "term": "Exploit",
+      "definition": "A piece of software or code that takes advantage of a vulnerability in a system or application to gain unauthorized access or perform malicious actions."
+    },
+    {
+      "term": "Buffer Overflow",
+      "definition": "A type of vulnerability where a program writes more data to a buffer than it can hold, causing the extra data to overflow into adjacent memory and potentially overwrite other data or execute arbitrary code."
+    },
+    {
+      "term": "Fuzz Testing",
+      "definition": "A testing technique where automated tools send a large number of random or invalid inputs to a target application to identify vulnerabilities or crashes."
+    },
+    {
+      "term": "Rooting",
+      "definition": "The process of gaining administrative (root) access to a device or system, usually in the context of mobile devices or embedded systems."
+    },
+    {
+      "term": "Payload",
+      "definition": "In the context of an exploit, the part of the code that performs the malicious actions on a victim's system, such as running a shell or gaining control of the system."
+    },
+    {
+      "term": "Metasploit",
+      "definition": "A popular penetration testing framework that provides a collection of exploits, payloads, and tools for testing and exploiting vulnerabilities."
+    },
+    {
+      "term": "Reverse Engineering",
+      "definition": "The process of analyzing a software application or system to understand its structure, behavior, and functionality, often with the goal of finding vulnerabilities or copying proprietary code."
+    },
+    {
+      "term": "Vulnerability Scanning",
+      "definition": "The process of scanning a network or system to identify potential security weaknesses, misconfigurations, or vulnerabilities."
+    },
+    {
+      "term": "Brute Force Attack",
+      "definition": "A type of attack where an attacker tries all possible combinations of characters or keys to crack a password or encryption key."
+    },
+    {
+      "term": "Dictionary Attack",
+      "definition": "An attack that uses a pre-generated list of words or commonly used passwords to attempt to crack passwords or encryption keys."
+    },
+    {
+      "term": "Rainbow Table",
+      "definition": "A precomputed table used in password cracking that contains a large number of hash values and their corresponding plaintext passwords."
+    },
+    {
+      "term": "Password Spraying",
+      "definition": "An attack where an attacker uses a small number of commonly used passwords against a large number of user accounts to gain unauthorized access."
+    },
+    {
+      "term": "Phishing",
+      "definition": "A social engineering attack where attackers deceive individuals to reveal sensitive information or perform actions, usually through emails, messages, or fake websites."
+    },
+    {
+      "term": "Spear Phishing",
+      "definition": "A targeted form of phishing where attackers focus on a specific individual or organization, using personalized information to increase the success rate of the attack."
+    },
+    {
+      "term": "Whitelist",
+      "definition": "A list of trusted entities, applications, or IP addresses that are allowed to access a network or system while blocking everything else."
+    },
+    {
+      "term": "Blacklist",
+      "definition": "A list of blocked or banned entities, applications, or IP addresses that are not allowed to access a network or system."
+    },
+    {
+      "term": "Privilege Escalation",
+      "definition": "The act of gaining higher levels of access or permissions in a system or network than originally granted."
+    },
+    {
+      "term": "Session Hijacking",
+      "definition": "An attack where an attacker takes control of an active user session to gain unauthorized access to an application or system."
+    },
+    {
+      "term": "Man-in-the-Middle (MITM) Attack",
+      "definition": "An attack where an attacker intercepts and relays communication between two parties, often to eavesdrop, tamper with, or steal sensitive information."
+    },
+    {
+      "term": "Cross-Site Scripting (XSS)",
+      "definition": "A web application vulnerability where attackers inject malicious scripts into web pages viewed by other users, leading to the execution of the script in the user's browser."
+    },
+    {
+      "term": "Cross-Site Request Forgery (CSRF)",
+      "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website, usually exploiting the trust relationship between the user and the website."
+    },
+    {
+      "term": "SQL Injection",
+      "definition": "A web application vulnerability that allows attackers to execute malicious SQL statements to gain unauthorized access to a database."
+    },
+    {
+      "term": "Command Injection",
+      "definition": "A type of injection attack where an attacker executes arbitrary commands on a vulnerable system by manipulating data input."
+    },
+    {
+      "term": "XML External Entity (XXE) Attack",
+      "definition": "A vulnerability in XML parsing where an attacker can include external entities to access local files or cause denial of service."
+    },
+    {
+      "term": "Clickjacking",
+      "definition": "A deceptive technique where attackers trick users into clicking on a hidden or disguised element on a web page, often leading to unintended actions."
+    },
+    {
+      "term": "Web Application Firewall (WAF)",
+      "definition": "A security appliance or service that filters and monitors HTTP requests and responses between a web application and the Internet to protect against web-based attacks."
+    },
+    {
+      "term": "Banner Grabbing",
+      "definition": "The process of retrieving information from network banners or service banners to gather information about a target system."
+    },
+    {
+      "term": "Shodan",
+      "definition": "A search engine that allows users to find specific types of Internet-connected devices, such as webcams, routers, and servers."
+    },
+    {
+      "term": "Netcat",
+      "definition": "A versatile networking utility for reading from and writing to network connections using TCP or UDP protocols, often used for port scanning and backdoor access."
+    },
+    {
+      "term": "Wireshark",
+      "definition": "A widely used network protocol analyzer that captures and inspects packets in real-time to troubleshoot network issues and analyze traffic."
+    },
+    {
+      "term": "Nmap",
+      "definition": "A powerful open-source network scanning tool used for discovering hosts and services on a computer network, as well as detecting vulnerabilities."
+    },
+    {
+      "term": "Burp Suite",
+      "definition": "An integrated platform for performing web application security testing, including scanning for vulnerabilities and testing the security of web applications."
+    },
+    {
+      "term": "Hydra",
+      "definition": "A popular password-cracking tool that supports numerous protocols and services, used for brute-force and dictionary attacks."
+    },
+    {
+      "term": "John the Ripper",
+      "definition": "A widely used password-cracking tool that can perform dictionary attacks and brute-force attacks against password hashes."
+    },
+    {
+      "term": "Medusa",
+      "definition": "A fast and parallel, login brute-forcer that supports numerous protocols and services for penetrating remote systems."
+    },
+    {
+      "term": "Dirb",
+      "definition": "A web content scanner that uses a wordlist to find directories and files on web servers, helping identify potential vulnerabilities."
+    },
+    {
+      "term": "Dirbuster",
+      "definition": "A web application security tool that performs directory brute-forcing by trying to find hidden files and directories on web servers."
+    },
+    {
+      "term": "SQLMap",
+      "definition": "An open-source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws."
+    },
+    {
+      "term": "OWASP ZAP",
+      "definition": "An open-source web application security scanner used for finding vulnerabilities and performing penetration testing of web applications."
+    },
+    {
+      "term": "Nikto",
+      "definition": "An open-source web server scanner that detects potential security issues and vulnerabilities on web servers."
+    },
+    {
+      "term": "Metagoofil",
+      "definition": "A tool for extracting metadata from public documents, such as PDFs and Word documents, to gather information about a target."
+    },
+    {
+      "term": "Armitage",
+      "definition": "A graphical cyber attack management tool that facilitates penetration testing by providing a GUI interface to the Metasploit Framework."
+    },
+    {
+      "term": "Aircrack-ng",
+      "definition": "A suite of tools for assessing Wi-Fi network security, including packet capture, password cracking, and WEP/WPA/WPA2 key cracking."
+    },
+    {
+      "term": "Bettercap",
+      "definition": "An advanced, cross-platform network attack and penetration testing framework used for network monitoring and attacks."
+    },
+    {
+      "term": "Snort",
+      "definition": "An open-source intrusion detection system (IDS) that analyzes network traffic in real-time and alerts about suspicious or malicious activities."
+    },
+    {
+      "term": "Suricata",
+      "definition": "An open-source network intrusion detection and prevention system (IDS/IPS) that inspects network packets and prevents attacks."
+    },
+    {
+      "term": "Zeek (formerly Bro)",
+      "definition": "An open-source network security monitoring platform used for network traffic analysis and protocol analysis."
+    },
+    {
+      "term": "Gobuster",
+      "definition": "A tool used for directory and file brute-forcing on web servers, often used in penetration testing."
+    },
+    {
+      "term": "Netdiscover",
+      "definition": "A network address discovery tool that uses ARP and ICMP to discover active hosts on a local network."
+    },
+    {
+      "term": "Responder",
+      "definition": "A rogue LLMNR, NBT-NS, and MDNS responder used to capture credentials and conduct pass-the-hash attacks."
+    },
+    {
+      "term": "BloodHound",
+      "definition": "A tool used to analyze Active Directory permissions and relationships to identify potential attack paths and privilege escalation opportunities."
+    },
+    {
+      "term": "Sqlmap",
+      "definition": "An open-source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source software reverse engineering framework developed by the NSA that helps analyze malicious code and malware."
+    },
+    {
+      "term": "Radare2",
+      "definition": "A powerful open-source reverse engineering framework used for analyzing malware, firmware, and binaries."
+    },
+    {
+      "term": "Volatility",
+      "definition": "An open-source memory forensics framework used for extracting and analyzing information from running processes in memory."
+    },
+    {
+      "term": "Autopsy",
+      "definition": "An open-source digital forensics platform used for analyzing and recovering data from storage media or disk images."
+    },
+    {
+      "term": "WiFite",
+      "definition": "An automated wireless attack tool used to audit wireless networks by automatically attacking WEP, WPA, and WPS encrypted networks."
+    },
+    {
+      "term": "BeEF (The Browser Exploitation Framework)",
+      "definition": "A penetration testing tool that focuses on exploiting web browsers by targeting client-side vulnerabilities."
+    },
+    {
+      "term": "SpiderFoot",
+      "definition": "An open-source intelligence (OSINT) automation tool used for reconnaissance and footprinting of targets."
+    },
+    {
+      "term": "OWASP Amass",
+      "definition": "An open-source tool used for information gathering and enumeration of DNS and IP address ranges."
+    },
+    {
+      "term": "CrackMapExec (CME)",
+      "definition": "A post-exploitation tool used to automate the enumeration, exploitation, and pivoting within a network."
+    },
+    {
+      "term": "Hashcat",
+      "definition": "An advanced password recovery tool used to crack various types of hashed passwords through brute-force and dictionary attacks."
+    },
+    {
+      "term": "OpenVAS",
+      "definition": "An open-source vulnerability assessment scanner used to discover and assess security vulnerabilities in systems and networks."
     }
   ]
 };
