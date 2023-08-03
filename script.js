@@ -7440,8 +7440,328 @@ const termsData = {
     },
     {
       "term": "Cyber Threat Hunting",
-      "definition": "Proactive and iterative search for potential threats and attackers in an organization's network to detect and respond before any damage occurs."
-     }
+      "definition": "Proactive and iterative search for potential threats and attackers in an organization's network to detect and respond before any damage occurs."{
+    },
+    {
+      "term": "Internet Protocol (IP)",
+      "definition": "A set of rules and conventions that enable data packets to be transmitted across a network."
+    },
+    {
+      "term": "Transmission Control Protocol (TCP)",
+      "definition": "A reliable and connection-oriented protocol that ensures data packets are delivered accurately and in order."
+    },
+    {
+      "term": "User Datagram Protocol (UDP)",
+      "definition": "A connectionless and unreliable protocol used for transmitting data packets without the need for establishing a connection."
+    },
+    {
+      "term": "Dynamic Host Configuration Protocol (DHCP)",
+      "definition": "A network management protocol that automatically assigns IP addresses and other network configuration settings to devices."
+    },
+    {
+      "term": "Domain Name System (DNS)",
+      "definition": "A hierarchical decentralized naming system that translates human-readable domain names into numerical IP addresses."
+    },
+    {
+      "term": "HyperText Transfer Protocol (HTTP)",
+      "definition": "An application protocol used for transmitting hypermedia documents, such as web pages, over the internet."
+    },
+    {
+      "term": "HyperText Markup Language (HTML)",
+      "definition": "The standard markup language used for creating and structuring web pages and web applications."
+    },
+    {
+      "term": "Cascading Style Sheets (CSS)",
+      "definition": "A style sheet language used for describing the presentation and layout of HTML documents."
+    },
+    {
+      "term": "JavaScript",
+      "definition": "A high-level programming language used to add interactivity and dynamic content to web pages."
+    },
+    {
+      "term": "Python",
+      "definition": "An interpreted, high-level programming language known for its readability and versatility."
+    },
+    {
+      "term": "Java",
+      "definition": "A popular, object-oriented programming language used for developing cross-platform applications."
+    },
+    {
+      "term": "C++",
+      "definition": "A general-purpose programming language and an extension of the C language, often used for system/application software development."
+    },
+    {
+      "term": "C#",
+      "definition": "A modern, object-oriented programming language developed by Microsoft, commonly used for Windows applications and game development."
+    },
+    {
+      "term": "Ruby",
+      "definition": "An interpreted, object-oriented programming language known for its simplicity and productivity."
+    },
+    {
+      "term": "PHP",
+      "definition": "A server-side scripting language commonly used for web development to create dynamic web pages."
+    },
+    {
+      "term": "Swift",
+      "definition": "A programming language developed by Apple for iOS, macOS, watchOS, and tvOS app development."
+    },
+    {
+      "term": "Kotlin",
+      "definition": "A modern, statically-typed programming language used for Android app development, fully interoperable with Java."
+    },
+    {
+      "term": "Assembly Language",
+      "definition": "A low-level programming language that closely corresponds to machine code, used for direct hardware manipulation."
+    },
+    {
+      "term": "Machine Code",
+      "definition": "A set of instructions in binary form that a computer's CPU can directly execute."
+    },
+    {
+      "term": "Object-Oriented Programming (OOP)",
+      "definition": "A programming paradigm that organizes data and behavior into reusable objects, promoting modularity and code reusability."
+    },
+    {
+      "term": "Functional Programming",
+      "definition": "A programming paradigm that treats computation as the evaluation of mathematical functions, avoiding state and mutable data."
+    },
+    {
+      "term": "Algorithm",
+      "definition": "A step-by-step procedure or set of rules for solving a specific problem or performing a task."
+    },
+    {
+      "term": "Data Structure",
+      "definition": "A way of organizing and storing data in a computer to facilitate efficient access and modification."
+    },
+    {
+      "term": "Binary Search",
+      "definition": "An efficient search algorithm that finds the position of a target value within a sorted array."
+    },
+    {
+      "term": "Merge Sort",
+      "definition": "An efficient, comparison-based sorting algorithm that divides the unsorted list into smaller sublists, then merges them in order."
+    },
+    {
+      "term": "Linked List",
+      "definition": "A linear data structure where each element points to the next element, forming a chain of data nodes."
+    },
+    {
+      "term": "Stack",
+      "definition": "A linear data structure that follows the Last-In-First-Out (LIFO) principle, where the last element added is the first to be removed."
+    },
+    {
+      "term": "Queue",
+      "definition": "A linear data structure that follows the First-In-First-Out (FIFO) principle, where the first element added is the first to be removed."
+    },
+    {
+      "term": "Tree",
+      "definition": "A hierarchical data structure consisting of nodes connected by edges, with a single root node and no cycles."
+    },
+    {
+      "term": "Graph",
+      "definition": "A data structure that represents a set of nodes (vertices) and their connections (edges) between pairs of nodes."
+    },
+    {
+      "term": "Binary Tree",
+      "definition": "A tree data structure in which each node has at most two children, referred to as the left child and the right child."
+    },
+    {
+      "term": "Dijkstra's Algorithm",
+      "definition": "An algorithm for finding the shortest path between nodes in a weighted graph."
+    },
+    {
+      "term": "Artificial Neural Network (ANN)",
+      "definition": "A computing system inspired by the structure and function of the human brain, used for pattern recognition and machine learning."
+    },
+    {
+      "term": "Backpropagation",
+      "definition": "A supervised learning algorithm used to train artificial neural networks by adjusting the weights based on error."
+    },
+    {
+      "term": "Big O Notation",
+      "definition": "A mathematical notation used to describe the performance or complexity of an algorithm concerning its input size."
+    },
+    {
+      "term": "Cache Memory",
+      "definition": "A small, fast storage component used to store frequently accessed data for quick retrieval."
+    },
+    {
+      "term": "Deadlock",
+      "definition": "A situation where two or more processes are unable to proceed because each is waiting for the other to release a resource."
+    },
+    {
+      "term": "Interprocess Communication (IPC)",
+      "definition": "Mechanisms that allow multiple processes to communicate and exchange data in a multi-programming operating system."
+    },
+    {
+      "term": "Operating System",
+      "definition": "Software that manages computer hardware and software resources, providing services for computer programs and users."
+    },
+    {
+      "term": "File System",
+      "definition": "A method of organizing and storing computer files and data in a structured way on a storage medium."
+    },
+    {
+      "term": "Cloud Storage",
+      "definition": "A service that allows users to store, access, and manage data over the internet on remote servers."
+    },
+    {
+      "term": "Virtual Machine (VM)",
+      "definition": "A software-based emulation of a computer system that allows multiple operating systems to run on a single physical host."
+    },
+    {
+      "term": "Emulator",
+      "definition": "Software or hardware that enables a computer system to imitate the behavior of another system."
+    },
+    {
+      "term": "Debugging",
+      "definition": "The process of identifying and fixing errors and defects in software code or hardware components."
+    },
+    {
+      "term": "Version Control",
+      "definition": "The management of changes to documents, code, or any collection of information, allowing multiple contributors to collaborate."
+    },
+    {
+      "term": "Agile Software Development",
+      "definition": "A methodology that promotes iterative and incremental development, with a focus on flexibility and customer collaboration."
+    },
+    {
+      "term": "Waterfall Model",
+      "definition": "A traditional software development approach where progress flows sequentially through various phases, like a waterfall."
+    },
+    {
+      "term": "Software Testing",
+      "definition": "The process of evaluating and verifying that software applications or systems meet specified requirements and produce the desired results."
+    },
+    {
+      "term": "Integration Testing",
+      "definition": "A type of software testing that examines the interaction between different modules or components to ensure they work together correctly."
+    },
+    {
+      "term": "User Interface (UI)",
+      "definition": "The visual and interactive part of a computer program or system through which users interact with and control the software."
+    },
+    {
+      "term": "User Experience (UX)",
+      "definition": "The overall experience and satisfaction a user gains from interacting with a product or system, especially in terms of usability and accessibility."
+    },
+    {
+      "term": "Responsive Web Design",
+      "definition": "A design approach that ensures web pages and applications adapt to various screen sizes and devices, providing an optimal user experience."
+    },
+    {
+      "term": "Artificial Reality (AR)",
+      "definition": "An interactive experience where computer-generated objects are overlaid onto the real world, enhancing the user's perception of reality."
+    },
+    {
+      "term": "Virtual Reality (VR)",
+      "definition": "A computer-generated simulation that immerses users in a three-dimensional, interactive environment, often using head-mounted displays."
+    },
+    {
+      "term": "Augmented Reality (AR)",
+      "definition": "A technology that overlays digital information, such as images and text, onto the user's view of the physical world."
+    },
+    {
+      "term": "Machine Vision",
+      "definition": "The ability of computers to interpret and understand visual information from the environment using cameras and sensors."
+    },
+    {
+      "term": "Robotics",
+      "definition": "The branch of technology that deals with the design, construction, operation, and application of robots and autonomous systems."
+    },
+    {
+      "term": "Internet of Robotic Things (IoRT)",
+      "definition": "A concept where robotic devices are connected to the internet, enabling them to share data and interact with each other autonomously."
+    },
+    {
+      "term": "Internet of Medical Things (IoMT)",
+      "definition": "A network of medical devices and applications connected to healthcare IT systems through online computer networks."
+    },
+    {
+      "term": "Computer Vision",
+      "definition": "The field of study that enables computers to interpret and understand visual information from the world."
+    },
+    {
+      "term": "Natural Language Processing (NLP)",
+      "definition": "A branch of artificial intelligence that enables computers to understand, interpret, and respond to human language."
+    },
+    {
+      "term": "Cloud-Native",
+      "definition": "A software development approach that utilizes cloud services and architecture patterns to build scalable and flexible applications."
+    },
+    {
+      "term": "Microservices",
+      "definition": "An architectural style where applications are broken down into smaller, loosely coupled services that can be developed and deployed independently."
+    },
+    {
+      "term": "Serverless Computing",
+      "definition": "A cloud computing execution model where cloud providers manage the infrastructure, and users only pay for actual usage."
+    },
+    {
+      "term": "API (Application Programming Interface)",
+      "definition": "A set of rules and protocols that allow different software applications to communicate and share data with each other."
+    },
+    {
+      "term": "Git",
+      "definition": "A distributed version control system used to track changes in source code during software development."
+    },
+    {
+      "term": "JSON (JavaScript Object Notation)",
+      "definition": "A lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate."
+    },
+    {
+      "term": "REST (Representational State Transfer)",
+      "definition": "A software architectural style used for designing networked applications based on stateless, client-server communication."
+    },
+    {
+      "term": "GraphQL",
+      "definition": "A query language for APIs that enables clients to request specific data from servers, reducing over-fetching and under-fetching issues."
+    },
+    {
+      "term": "Server",
+      "definition": "A computer or software program that provides services to other programs or devices, often over a network."
+    },
+    {
+      "term": "Client",
+      "definition": "A computer or software program that requests services or resources from a server, typically over a network."
+    },
+    {
+      "term": "Cloud Service Provider (CSP)",
+      "definition": "A company that offers cloud computing services and solutions, such as infrastructure, platforms, or software, to other organizations."
+    },
+    {
+      "term": "Open Source",
+      "definition": "Software that is freely available and can be modified and distributed by users, often developed collaboratively by a community of developers."
+    },
+    {
+      "term": "Closed Source",
+      "definition": "Software that is proprietary and its source code is not made available to the public, limiting modifications and distribution."
+    },
+    {
+      "term": "Bug Bounty Program",
+      "definition": "An initiative by organizations that rewards individuals for reporting security vulnerabilities in their software or systems."
+    },
+    {
+      "term": "Distributed Denial of Service (DDoS)",
+      "definition": "An attack in which multiple compromised systems are used to flood a target with high volumes of traffic, causing service disruption."
+    },
+    {
+      "term": "Cross-Site Scripting (XSS)",
+      "definition": "A type of security vulnerability in web applications that allows attackers to inject malicious scripts into web pages viewed by other users."
+    },
+    {
+      "term": "Cross-Site Request Forgery (CSRF)",
+      "definition": "An attack that tricks a user's web browser into submitting an unintended request to a website where the user is authenticated."
+    },
+    {
+      "term": "SQL Injection",
+      "definition": "A type of cyber attack where malicious SQL code is inserted into an application's database query, potentially allowing unauthorized access."
+    },
+    {
+      "term": "Zero-Day Vulnerability",
+      "definition": "A security flaw in software or hardware that is unknown to the vendor and has not been patched or fixed yet."
+   }
   ]
 };
 
