@@ -7020,7 +7020,6 @@ const termsData = {
     {
       "term": "Zero-Day Vulnerability",
       "definition": "A security flaw in software or hardware that is unknown to the vendor and has not been patched or fixed yet."
-      
    }
   ]
 };
