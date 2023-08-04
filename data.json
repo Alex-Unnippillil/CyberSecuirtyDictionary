@@ -1,10 +1,6 @@
 {
   "terms": [
     {
-      "term": "Malware",
-      "definition": "Malicious software designed to damage, disrupt, or gain unauthorized access to computer systems or networks."
-    },
-    {
       "term": "Phishing",
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
