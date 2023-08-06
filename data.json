@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Ransomware",
-      "definition": "A type of malware that encrypts files and demands payment (ransom) to decrypt them."
-    },
-    {
       "term": "Firewall",
       "definition": "A network security device that monitors and controls incoming and outgoing traffic based on predefined security rules."
     },
