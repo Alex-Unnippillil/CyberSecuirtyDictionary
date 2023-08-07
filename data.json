@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Intrusion Detection System (IDS)",
-      "definition": "Monitors network traffic for suspicious activities and alerts administrators of potential security breaches."
-    },
-    {
       "term": "Intrusion Prevention System (IPS)",
       "definition": "An advanced security solution that can detect and block suspicious network activities."
     },
