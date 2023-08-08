@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Intrusion Prevention System (IPS)",
-      "definition": "An advanced security solution that can detect and block suspicious network activities."
-    },
-    {
       "term": "Encryption",
       "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
     },
