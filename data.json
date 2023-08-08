@@ -9,10 +9,6 @@
       "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
     },
     {
-      "term": "VPN (Virtual Private Network)",
-      "definition": "A secure network connection that allows users to access resources securely over the internet."
-    },
-    {
       "term": "Two-Factor Authentication (2FA)",
       "definition": "An authentication method that requires users to provide two forms of identification for added security."
     },
