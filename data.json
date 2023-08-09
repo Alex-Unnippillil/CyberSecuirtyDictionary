@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Encryption",
-      "definition": "The process of converting plaintext data into ciphertext to protect it from unauthorized access."
-    },
-    {
       "term": "Two-Factor Authentication (2FA)",
       "definition": "An authentication method that requires users to provide two forms of identification for added security."
     },
