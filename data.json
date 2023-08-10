@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Two-Factor Authentication (2FA)",
-      "definition": "An authentication method that requires users to provide two forms of identification for added security."
-    },
-    {
       "term": "Brute Force Attack",
       "definition": "An attack that systematically tries all possible combinations of passwords until the correct one is found."
     },
