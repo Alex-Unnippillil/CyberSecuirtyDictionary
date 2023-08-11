@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Brute Force Attack",
-      "definition": "An attack that systematically tries all possible combinations of passwords until the correct one is found."
-    },
-    {
       "term": "Zero-Day Exploit",
       "definition": "An unknown software vulnerability that attackers exploit before the software vendor can provide a patch."
     },
