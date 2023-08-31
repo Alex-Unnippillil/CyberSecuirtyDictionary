@@ -9,10 +9,6 @@
       "definition": "Software designed to detect, prevent, and remove malware from a computer system."
     },
     {
-      "term": "Man-in-the-Middle (MITM) Attack",
-      "definition": "A type of attack where an attacker intercepts and potentially alters communication between two parties."
-    },
-    {
       "term": "Multi-Factor Authentication (MFA)",
       "definition": "A security process that requires users to provide multiple forms of identification for access."
     },
