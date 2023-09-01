@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Antivirus",
-      "definition": "Software designed to detect, prevent, and remove malware from a computer system."
-    },
-    {
       "term": "Multi-Factor Authentication (MFA)",
       "definition": "A security process that requires users to provide multiple forms of identification for access."
     },
