@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Multi-Factor Authentication (MFA)",
-      "definition": "A security process that requires users to provide multiple forms of identification for access."
-    },
-    {
       "term": "Botnet",
       "definition": "A network of compromised computers, controlled by attackers, used to perform coordinated actions."
     },
