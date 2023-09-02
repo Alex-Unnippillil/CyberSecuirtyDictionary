@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Rootkit",
-      "definition": "A type of malware that provides unauthorized access to a computer system while hiding its presence."
-    },
-    {
       "term": "Spoofing",
       "definition": "Impersonating a legitimate user, device, or network to gain unauthorized access."
     },
