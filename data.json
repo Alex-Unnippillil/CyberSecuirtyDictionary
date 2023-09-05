@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Honeypot",
-      "definition": "A decoy system designed to attract and trap attackers to study their methods and gather information."
-    },
-    {
       "term": "Zero Trust",
       "definition": "A security model that assumes no trust, even among internal users, and requires strict identity verification and access controls."
     },
