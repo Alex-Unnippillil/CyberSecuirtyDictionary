@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Network Segmentation",
-      "definition": "Dividing a network into smaller, isolated segments to limit the impact of a security breach."
-    },
-    {
       "term": "Honeypot",
       "definition": "A decoy system designed to attract and trap attackers to study their methods and gather information."
     },
