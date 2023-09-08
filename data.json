@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Social Media Engineering",
-      "definition": "Using social media to gather information about individuals or organizations for targeted attacks or scams."
-    },
-    {
       "term": "Pharming",
       "definition": "A cyber attack that redirects users to malicious websites by tampering with DNS or hosts file entries."
     },
