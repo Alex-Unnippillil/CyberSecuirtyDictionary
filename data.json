@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Exploit Kit",
-      "definition": "A toolkit used by attackers to automate the process of exploiting known vulnerabilities in software."
-    },
-    {
       "term": "Zero-Day Vulnerability",
       "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers."
     },
