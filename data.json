@@ -5,10 +5,6 @@
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
-      "term": "Cross-Site Scripting (XSS)",
-      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users."
-    },
-    {
       "term": "Cross-Site Request Forgery (CSRF)",
       "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
     },
