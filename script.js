@@ -1,7 +1,7 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
-const alphaNav = document.getElementById("alpha-nav");
+
 
 let currentLetterFilter = "All";
 =======
@@ -109,26 +109,49 @@ function buildAlphaNav() {
 }
 
 function displayDictionary() {
-  termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+  termsList.innerHTML = "";
+  const searchValue = searchInput.value.trim().toLowerCase();
+  termsData.terms
+    .sort((a, b) => a.term.localeCompare(b.term))
+    .forEach((item) => {
+      const matchesSearch = item.term.toLowerCase().includes(searchValue);
+      const matchesFavorites =
+        !showFavoritesToggle.checked || favorites.has(item.term);
+      if (matchesSearch && matchesFavorites) {
+        const termDiv = document.createElement("div");
+        termDiv.classList.add("dictionary-item");
 
-  termsData.terms.forEach((item) => {
-    const termDiv = document.createElement("div");
-    termDiv.classList.add("dictionary-item");
+        const termHeader = document.createElement("h3");
+        termHeader.textContent = item.term;
 
-    const termHeader = document.createElement("h3");
-    termHeader.textContent = item.term;
-    termDiv.appendChild(termHeader);
+        const star = document.createElement("span");
+        star.classList.add("favorite-star");
+        star.textContent = "★";
+        if (favorites.has(item.term)) {
+          star.classList.add("favorited");
+        }
+        star.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleFavorite(item.term);
+          star.classList.toggle("favorited");
+          if (showFavoritesToggle.checked) {
+            displayDictionary();
+          }
+        });
+        termHeader.appendChild(star);
+        termDiv.appendChild(termHeader);
 
-    const definitionPara = document.createElement("p");
-    definitionPara.textContent = item.definition;
-    termDiv.appendChild(definitionPara);
+        const definitionPara = document.createElement("p");
+        definitionPara.textContent = item.definition;
+        termDiv.appendChild(definitionPara);
 
-    termDiv.addEventListener("click", () => {
-      displayDefinition(item);
+        termDiv.addEventListener("click", () => {
+          displayDefinition(item);
+        });
+
+        termsList.appendChild(termDiv);
+      }
     });
-
-    termsList.appendChild(termDiv);
-  });
 }
 
 // Prepare data and render
@@ -137,43 +160,7 @@ termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
 buildAlphaNav();
 populateTermsList();
 
-function populateTermsList() {
-  termsList.innerHTML = "";
-=======
-function populateTermsList() {
-  termsList.innerHTML = "";
-=======
-  const searchValue = searchInput.value.trim().toLowerCase();
-=======
-  termsData.terms.forEach((term) => {
-    if (isMatchingTerm(term)) {
-      const listItem = document.createElement("li");
-      if (searchValue) {
-        const termText = term.term;
-        const index = termText.toLowerCase().indexOf(searchValue);
-        const before = termText.slice(0, index);
-        const match = termText.slice(index, index + searchValue.length);
-        const after = termText.slice(index + searchValue.length);
-        listItem.innerHTML = `${before}<mark>${match}</mark>${after}`;
-      } else {
-        listItem.textContent = term.term;
-      }
-      listItem.addEventListener("click", () => {
-        displayDefinition(term);
-      });
-      termsList.appendChild(listItem);
-    }
-  });
-}
 
-function isMatchingTerm(term) {
-  const searchValue = searchInput.value.trim().toLowerCase();
-  const matchesSearch =
-    searchValue === "" || term.term.toLowerCase().includes(searchValue);
-  const matchesLetter =
-    currentLetterFilter === "All" ||
-    term.term.charAt(0).toUpperCase() === currentLetterFilter;
-  return matchesSearch && matchesLetter;
 }
 
 function displayDefinition(term) {
@@ -181,25 +168,3 @@ function displayDefinition(term) {
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
 }
 
-// Handle the search input event
-=======
-searchInput.addEventListener("input", populateTermsList); 
-const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-const scrollThreshold = 200;
-
-function toggleScrollToTopBtn() {
-  if (window.scrollY > scrollThreshold) {
-    scrollToTopBtn.style.display = "block";
-  } else {
-    scrollToTopBtn.style.display = "none";
-  }
-}
-
-window.addEventListener("scroll", toggleScrollToTopBtn);
-scrollToTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-toggleScrollToTopBtn();
-=======
-searchInput.addEventListener("input", populateTermsList);

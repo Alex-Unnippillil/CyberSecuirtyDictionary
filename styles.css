@@ -95,47 +95,6 @@ mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-#alpha-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
-  justify-content: center;
-}
-
-#alpha-nav button {
-  padding: 6px 10px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-#alpha-nav button:hover,
-#alpha-nav button.active {
-  background-color: #007bff;
-  color: #fff;
-}
-=======
-.search-bar {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.search-bar input {
-  flex: 1;
-}
-
-#dark-mode-toggle {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  cursor: pointer;
-}
 
 /* Scroll to Top button styles */
 #scrollToTopBtn {
