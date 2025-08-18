@@ -1,6 +1,37 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+=======
+// Apply persisted theme preference
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
+}
+
+// Toggle dark mode and store the preference
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem(
+    "darkMode",
+    document.body.classList.contains("dark-mode")
+  );
+});
+=======
+
+// Apply persisted theme preference
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
+}
+
+// Toggle dark mode and store the preference
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem(
+    "darkMode",
+    document.body.classList.contains("dark-mode")
+  );
+});
 
 let termsData = { terms: [] };
 
@@ -65,10 +96,22 @@ function displayDictionary() {
 
 function populateTermsList() {
   termsList.innerHTML = "";
+=======
+  const searchValue = searchInput.value.trim().toLowerCase();
+=======
   termsData.terms.forEach((term) => {
     if (isMatchingTerm(term)) {
       const listItem = document.createElement("li");
-      listItem.textContent = term.term;
+      if (searchValue) {
+        const termText = term.term;
+        const index = termText.toLowerCase().indexOf(searchValue);
+        const before = termText.slice(0, index);
+        const match = termText.slice(index, index + searchValue.length);
+        const after = termText.slice(index + searchValue.length);
+        listItem.innerHTML = `${before}<mark>${match}</mark>${after}`;
+      } else {
+        listItem.textContent = term.term;
+      }
       listItem.addEventListener("click", () => {
         displayDefinition(term);
       });
@@ -89,4 +132,24 @@ function displayDefinition(term) {
 }
 
 // Handle the search input event
+=======
+searchInput.addEventListener("input", populateTermsList); 
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const scrollThreshold = 200;
+
+function toggleScrollToTopBtn() {
+  if (window.scrollY > scrollThreshold) {
+    scrollToTopBtn.style.display = "block";
+  } else {
+    scrollToTopBtn.style.display = "none";
+  }
+}
+
+window.addEventListener("scroll", toggleScrollToTopBtn);
+scrollToTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+toggleScrollToTopBtn();
+=======
 searchInput.addEventListener("input", populateTermsList);
