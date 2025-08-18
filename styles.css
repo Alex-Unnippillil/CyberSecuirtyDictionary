@@ -117,7 +117,6 @@ mark {
   background-color: #007bff;
   color: #fff;
 }
-=======
 .search-bar {
   display: flex;
   gap: 10px;
@@ -205,4 +204,60 @@ body.dark-mode .dictionary-item p {
 body.dark-mode #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+#quiz-btn {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.quiz-container {
+  margin-top: 20px;
+}
+
+.quiz-question {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-option {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.quiz-option:hover {
+  background-color: #f5f5f5;
+}
+
+.quiz-results {
+  font-weight: bold;
+  margin-top: 15px;
+}
+body.dark-mode #quiz-btn {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode .quiz-option {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-color: #333;
+}
+
+body.dark-mode .quiz-option:hover {
+  background-color: #333;
 }
