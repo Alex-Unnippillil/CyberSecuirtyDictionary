@@ -7066,3 +7066,20 @@ function displayDefinition(term) {
 
 // Handle the search input event
 searchInput.addEventListener("input", populateTermsList); 
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+const scrollThreshold = 200;
+
+function toggleScrollToTopBtn() {
+  if (window.scrollY > scrollThreshold) {
+    scrollToTopBtn.style.display = "block";
+  } else {
+    scrollToTopBtn.style.display = "none";
+  }
+}
+
+window.addEventListener("scroll", toggleScrollToTopBtn);
+scrollToTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+toggleScrollToTopBtn();
