@@ -2,45 +2,27 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const alphaNav = document.getElementById("alpha-nav");
-
-let currentLetterFilter = "All";
-=======
+const categoryFilter = document.getElementById("categoryFilter");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 
-=======
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-=======
-
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-
+let currentLetterFilter = "All";
+let currentCategoryFilter = "All";
 let termsData = { terms: [] };
 
+// Apply persisted theme preference
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
+}
+
+// Toggle dark mode and store the preference
+
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+});
+
 window.addEventListener("DOMContentLoaded", () => {
-  fetch('data.json')
+  fetch("data.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -50,7 +32,8 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
-      displayDictionary();
+      populateCategoryOptions();
+      buildAlphaNav();
       populateTermsList();
     })
     .catch((error) => {
@@ -75,9 +58,19 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
-function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
-  button.classList.add("active");
+function populateCategoryOptions() {
+  const categories = Array.from(new Set(termsData.terms.map((t) => t.category))).sort();
+  const allOption = document.createElement("option");
+  allOption.value = "All";
+  allOption.textContent = "All Categories";
+  categoryFilter.appendChild(allOption);
+
+  categories.forEach((cat) => {
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    categoryFilter.appendChild(option);
+  });
 }
 
 function buildAlphaNav() {
@@ -108,45 +101,17 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
-function displayDictionary() {
-  termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-
-  termsData.terms.forEach((item) => {
-    const termDiv = document.createElement("div");
-    termDiv.classList.add("dictionary-item");
-
-    const termHeader = document.createElement("h3");
-    termHeader.textContent = item.term;
-    termDiv.appendChild(termHeader);
-
-    const definitionPara = document.createElement("p");
-    definitionPara.textContent = item.definition;
-    termDiv.appendChild(definitionPara);
-
-    termDiv.addEventListener("click", () => {
-      displayDefinition(item);
-    });
-
-    termsList.appendChild(termDiv);
-  });
+function highlightActiveButton(button) {
+  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  button.classList.add("active");
 }
 
-// Prepare data and render
-removeDuplicateTermsAndDefinitions();
-termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-buildAlphaNav();
-populateTermsList();
-
 function populateTermsList() {
   termsList.innerHTML = "";
-=======
-function populateTermsList() {
-  termsList.innerHTML = "";
-=======
   const searchValue = searchInput.value.trim().toLowerCase();
-=======
+
   termsData.terms.forEach((term) => {
-    if (isMatchingTerm(term)) {
+    if (isMatchingTerm(term, searchValue)) {
       const listItem = document.createElement("li");
       if (searchValue) {
         const termText = term.term;
@@ -166,14 +131,13 @@ function populateTermsList() {
   });
 }
 
-function isMatchingTerm(term) {
-  const searchValue = searchInput.value.trim().toLowerCase();
-  const matchesSearch =
-    searchValue === "" || term.term.toLowerCase().includes(searchValue);
+function isMatchingTerm(term, searchValue) {
+  const matchesSearch = searchValue === "" || term.term.toLowerCase().includes(searchValue);
   const matchesLetter =
-    currentLetterFilter === "All" ||
-    term.term.charAt(0).toUpperCase() === currentLetterFilter;
-  return matchesSearch && matchesLetter;
+    currentLetterFilter === "All" || term.term.charAt(0).toUpperCase() === currentLetterFilter;
+  const matchesCategory =
+    currentCategoryFilter === "All" || term.category === currentCategoryFilter;
+  return matchesSearch && matchesLetter && matchesCategory;
 }
 
 function displayDefinition(term) {
@@ -181,9 +145,12 @@ function displayDefinition(term) {
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
 }
 
-// Handle the search input event
-=======
-searchInput.addEventListener("input", populateTermsList); 
+searchInput.addEventListener("input", populateTermsList);
+categoryFilter.addEventListener("change", () => {
+  currentCategoryFilter = categoryFilter.value;
+  populateTermsList();
+});
+
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 const scrollThreshold = 200;
 
@@ -197,9 +164,7 @@ function toggleScrollToTopBtn() {
 
 window.addEventListener("scroll", toggleScrollToTopBtn);
 scrollToTopBtn.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 toggleScrollToTopBtn();
-=======
-searchInput.addEventListener("input", populateTermsList);

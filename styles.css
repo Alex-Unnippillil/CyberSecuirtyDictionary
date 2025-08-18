@@ -86,13 +86,17 @@ mark {
   margin-bottom: 20px;
 }
 
-#search {
+#search, #categoryFilter {
   width: 100%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#categoryFilter {
+  margin-bottom: 10px;
 }
 
 #alpha-nav {
@@ -117,7 +121,6 @@ mark {
   background-color: #007bff;
   color: #fff;
 }
-=======
 .search-bar {
   display: flex;
   gap: 10px;
@@ -167,7 +170,8 @@ body.dark-mode .container {
   background-color: #1e1e1e;
 }
 
-body.dark-mode #search {
+body.dark-mode #search,
+body.dark-mode #categoryFilter {
   background-color: #1e1e1e;
   color: #fff;
   border-color: #333;
