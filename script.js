@@ -1,5 +1,7 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
+const definitionContent = document.getElementById("definition-content");
+const speakButton = document.getElementById("speak-btn");
 const searchInput = document.getElementById("search");
 const alphaNav = document.getElementById("alpha-nav");
 
@@ -177,8 +179,17 @@ function isMatchingTerm(term) {
 }
 
 function displayDefinition(term) {
+  window.speechSynthesis.cancel();
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContent.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  speakButton.onclick = () => {
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+    } else {
+      const utterance = new SpeechSynthesisUtterance(term.definition);
+      window.speechSynthesis.speak(utterance);
+    }
+  };
 }
 
 // Handle the search input event
