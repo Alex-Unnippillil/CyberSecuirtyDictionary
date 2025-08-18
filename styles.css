@@ -89,6 +89,28 @@ li:hover {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
+datalist {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+datalist option {
+  padding: 5px;
+}
+
+mark {
+  background-color: #ffeb3b;
+  color: #000;
+}
+
+.definition-snippet {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-top: 4px;
+}
 /* Scroll to Top button styles */
 #scrollToTopBtn {
   display: none;

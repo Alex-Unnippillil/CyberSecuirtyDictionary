@@ -1,6 +1,7 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
+const suggestionsList = document.getElementById("suggestions");
 
 
 
@@ -7039,12 +7040,40 @@ function displayDictionary() {
 removeDuplicateTermsAndDefinitions();
 displayDictionary();
 
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 function populateTermsList() {
-  termsList.innerHTML = ""; 
+  const searchValue = searchInput.value.trim();
+  const regex = new RegExp(`(${escapeRegExp(searchValue)})`, "gi");
+  termsList.innerHTML = "";
   termsData.terms.forEach((term) => {
     if (isMatchingTerm(term)) {
       const listItem = document.createElement("li");
-      listItem.textContent = term.term;
+      const highlightedTerm = searchValue
+        ? term.term.replace(regex, "<mark>$1</mark>")
+        : term.term;
+      let snippet = "";
+      if (searchValue) {
+        const index = term.definition
+          .toLowerCase()
+          .indexOf(searchValue.toLowerCase());
+        if (index !== -1) {
+          const start = Math.max(0, index - 30);
+          const end = Math.min(
+            term.definition.length,
+            index + searchValue.length + 30
+          );
+          snippet = term.definition
+            .substring(start, end)
+            .replace(regex, "<mark>$1</mark>");
+          if (end < term.definition.length) snippet += "...";
+        }
+      }
+      listItem.innerHTML = snippet
+        ? `<span class="term-name">${highlightedTerm}</span><div class="definition-snippet">${snippet}</div>`
+        : `<span class="term-name">${highlightedTerm}</span>`;
       listItem.addEventListener("click", () => {
         displayDefinition(term);
       });
@@ -7056,7 +7085,10 @@ function populateTermsList() {
 function isMatchingTerm(term) {
   const searchValue = searchInput.value.trim().toLowerCase();
   if (searchValue === "") return true; // Show all terms when the search input is empty
-  return term.term.toLowerCase().includes(searchValue);
+  return (
+    term.term.toLowerCase().includes(searchValue) ||
+    term.definition.toLowerCase().includes(searchValue)
+  );
 }
 
 function displayDefinition(term) {
@@ -7065,4 +7097,21 @@ function displayDefinition(term) {
 }
 
 // Handle the search input event
-searchInput.addEventListener("input", populateTermsList); 
+function updateSuggestions() {
+  suggestionsList.innerHTML = "";
+  const searchValue = searchInput.value.trim().toLowerCase();
+  if (searchValue === "") return;
+  termsData.terms
+    .filter((term) => term.term.toLowerCase().includes(searchValue))
+    .slice(0, 10)
+    .forEach((term) => {
+      const option = document.createElement("option");
+      option.value = term.term;
+      suggestionsList.appendChild(option);
+    });
+}
+
+searchInput.addEventListener("input", () => {
+  populateTermsList();
+  updateSuggestions();
+});
