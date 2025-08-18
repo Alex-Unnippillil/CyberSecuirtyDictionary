@@ -7062,7 +7062,29 @@ function isMatchingTerm(term) {
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  window.location.hash = encodeURIComponent(term.term);
+}
+
+function clearDefinition() {
+  definitionContainer.style.display = "none";
+  definitionContainer.innerHTML = "";
+  history.replaceState(null, "", window.location.pathname + window.location.search);
 }
 
 // Handle the search input event
-searchInput.addEventListener("input", populateTermsList); 
+searchInput.addEventListener("input", () => {
+  clearDefinition();
+  populateTermsList();
+});
+
+definitionContainer.addEventListener("click", clearDefinition);
+
+if (window.location.hash) {
+  const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+  const matchedTerm = termsData.terms.find(
+    (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+  );
+  if (matchedTerm) {
+    displayDefinition(matchedTerm);
+  }
+}
