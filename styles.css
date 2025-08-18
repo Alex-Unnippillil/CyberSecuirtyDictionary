@@ -96,6 +96,31 @@ mark {
 }
 
 
+/* Controls styling */
+#dark-mode-toggle {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#dark-mode-toggle:hover {
+  background-color: #0056b3;
+}
+
+label {
+  margin-left: 10px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+#show-favorites {
+  margin-right: 5px;
+}
+
 /* Scroll to Top button styles */
 #scrollToTopBtn {
   display: none;
