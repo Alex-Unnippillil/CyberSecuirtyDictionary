@@ -7065,4 +7065,11 @@ function displayDefinition(term) {
 }
 
 // Handle the search input event
-searchInput.addEventListener("input", populateTermsList); 
+searchInput.addEventListener("input", populateTermsList);
+
+// Register the service worker after the window loads
+window.addEventListener('load', () => {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+});
