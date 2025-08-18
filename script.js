@@ -5,25 +5,7 @@ const randomButton = document.getElementById("random-term");
 
 
 let currentLetterFilter = "All";
-=======
 const darkModeToggle = document.getElementById("dark-mode-toggle");
-
-=======
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-=======
-
 // Apply persisted theme preference
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -160,9 +142,6 @@ removeDuplicateTermsAndDefinitions();
 termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
 buildAlphaNav();
 populateTermsList();
-
-
-}
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
