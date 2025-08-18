@@ -1,6 +1,9 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
+const alphaNav = document.getElementById("alpha-nav");
+
+let currentLetterFilter = "All";
 
 
 
@@ -7012,6 +7015,39 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function highlightActiveButton(button) {
+  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  button.classList.add("active");
+}
+
+function buildAlphaNav() {
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))
+  ).sort();
+
+  const allButton = document.createElement("button");
+  allButton.textContent = "All";
+  allButton.addEventListener("click", () => {
+    currentLetterFilter = "All";
+    highlightActiveButton(allButton);
+    populateTermsList();
+  });
+  alphaNav.appendChild(allButton);
+
+  letters.forEach((letter) => {
+    const btn = document.createElement("button");
+    btn.textContent = letter;
+    btn.addEventListener("click", () => {
+      currentLetterFilter = letter;
+      highlightActiveButton(btn);
+      populateTermsList();
+    });
+    alphaNav.appendChild(btn);
+  });
+
+  highlightActiveButton(allButton);
+}
+
 function displayDictionary() {
   termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
 
@@ -7035,12 +7071,14 @@ function displayDictionary() {
   });
 }
 
-// Call the removeDuplicateTermsAndDefinitions function before displaying the dictionary
+// Prepare data and render
 removeDuplicateTermsAndDefinitions();
-displayDictionary();
+termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+buildAlphaNav();
+populateTermsList();
 
 function populateTermsList() {
-  termsList.innerHTML = ""; 
+  termsList.innerHTML = "";
   termsData.terms.forEach((term) => {
     if (isMatchingTerm(term)) {
       const listItem = document.createElement("li");
@@ -7055,8 +7093,12 @@ function populateTermsList() {
 
 function isMatchingTerm(term) {
   const searchValue = searchInput.value.trim().toLowerCase();
-  if (searchValue === "") return true; // Show all terms when the search input is empty
-  return term.term.toLowerCase().includes(searchValue);
+  const matchesSearch =
+    searchValue === "" || term.term.toLowerCase().includes(searchValue);
+  const matchesLetter =
+    currentLetterFilter === "All" ||
+    term.term.charAt(0).toUpperCase() === currentLetterFilter;
+  return matchesSearch && matchesLetter;
 }
 
 function displayDefinition(term) {

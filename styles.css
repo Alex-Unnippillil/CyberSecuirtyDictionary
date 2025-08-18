@@ -89,6 +89,29 @@ li:hover {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
+#alpha-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+#alpha-nav button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#alpha-nav button:hover,
+#alpha-nav button.active {
+  background-color: #007bff;
+  color: #fff;
+}
 /* Scroll to Top button styles */
 #scrollToTopBtn {
   display: none;
