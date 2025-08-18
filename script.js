@@ -7040,11 +7040,21 @@ removeDuplicateTermsAndDefinitions();
 displayDictionary();
 
 function populateTermsList() {
-  termsList.innerHTML = ""; 
+  termsList.innerHTML = "";
+  const searchValue = searchInput.value.trim().toLowerCase();
   termsData.terms.forEach((term) => {
     if (isMatchingTerm(term)) {
       const listItem = document.createElement("li");
-      listItem.textContent = term.term;
+      if (searchValue) {
+        const termText = term.term;
+        const index = termText.toLowerCase().indexOf(searchValue);
+        const before = termText.slice(0, index);
+        const match = termText.slice(index, index + searchValue.length);
+        const after = termText.slice(index + searchValue.length);
+        listItem.innerHTML = `${before}<mark>${match}</mark>${after}`;
+      } else {
+        listItem.textContent = term.term;
+      }
       listItem.addEventListener("click", () => {
         displayDefinition(term);
       });
