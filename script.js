@@ -1,6 +1,10 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
+const showFavoritesToggle = document.getElementById("show-favorites");
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]")
+);
 
 
 
@@ -7013,50 +7017,62 @@ function removeDuplicateTermsAndDefinitions() {
 }
 
 function displayDictionary() {
-  termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+  termsList.innerHTML = "";
+  const searchValue = searchInput.value.trim().toLowerCase();
+  termsData.terms
+    .sort((a, b) => a.term.localeCompare(b.term))
+    .forEach((item) => {
+      const matchesSearch = item.term.toLowerCase().includes(searchValue);
+      const matchesFavorites =
+        !showFavoritesToggle.checked || favorites.has(item.term);
+      if (matchesSearch && matchesFavorites) {
+        const termDiv = document.createElement("div");
+        termDiv.classList.add("dictionary-item");
 
-  termsData.terms.forEach((item) => {
-    const termDiv = document.createElement("div");
-    termDiv.classList.add("dictionary-item");
+        const termHeader = document.createElement("h3");
+        termHeader.textContent = item.term;
 
-    const termHeader = document.createElement("h3");
-    termHeader.textContent = item.term;
-    termDiv.appendChild(termHeader);
+        const star = document.createElement("span");
+        star.classList.add("favorite-star");
+        star.textContent = "★";
+        if (favorites.has(item.term)) {
+          star.classList.add("favorited");
+        }
+        star.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleFavorite(item.term);
+          star.classList.toggle("favorited");
+          if (showFavoritesToggle.checked) {
+            displayDictionary();
+          }
+        });
+        termHeader.appendChild(star);
+        termDiv.appendChild(termHeader);
 
-    const definitionPara = document.createElement("p");
-    definitionPara.textContent = item.definition;
-    termDiv.appendChild(definitionPara);
+        const definitionPara = document.createElement("p");
+        definitionPara.textContent = item.definition;
+        termDiv.appendChild(definitionPara);
 
-    termDiv.addEventListener("click", () => {
-      displayDefinition(item);
+        termDiv.addEventListener("click", () => {
+          displayDefinition(item);
+        });
+
+        termsList.appendChild(termDiv);
+      }
     });
-
-    termsList.appendChild(termDiv);
-  });
 }
 
 // Call the removeDuplicateTermsAndDefinitions function before displaying the dictionary
 removeDuplicateTermsAndDefinitions();
 displayDictionary();
 
-function populateTermsList() {
-  termsList.innerHTML = ""; 
-  termsData.terms.forEach((term) => {
-    if (isMatchingTerm(term)) {
-      const listItem = document.createElement("li");
-      listItem.textContent = term.term;
-      listItem.addEventListener("click", () => {
-        displayDefinition(term);
-      });
-      termsList.appendChild(listItem);
-    }
-  });
-}
-
-function isMatchingTerm(term) {
-  const searchValue = searchInput.value.trim().toLowerCase();
-  if (searchValue === "") return true; // Show all terms when the search input is empty
-  return term.term.toLowerCase().includes(searchValue);
+function toggleFavorite(term) {
+  if (favorites.has(term)) {
+    favorites.delete(term);
+  } else {
+    favorites.add(term);
+  }
+  localStorage.setItem("favorites", JSON.stringify([...favorites]));
 }
 
 function displayDefinition(term) {
@@ -7064,5 +7080,5 @@ function displayDefinition(term) {
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
 }
 
-// Handle the search input event
-searchInput.addEventListener("input", populateTermsList); 
+searchInput.addEventListener("input", displayDictionary);
+showFavoritesToggle.addEventListener("change", displayDictionary);

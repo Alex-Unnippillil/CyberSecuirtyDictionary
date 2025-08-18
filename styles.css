@@ -89,6 +89,19 @@ li:hover {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
+
+.favorite-star {
+  cursor: pointer;
+  font-size: 20px;
+  margin-left: 10px;
+  color: transparent;
+  -webkit-text-stroke: 1px #ccc;
+}
+
+.favorite-star.favorited {
+  color: gold;
+  -webkit-text-stroke: 0;
+}
 /* Scroll to Top button styles */
 #scrollToTopBtn {
   display: none;
