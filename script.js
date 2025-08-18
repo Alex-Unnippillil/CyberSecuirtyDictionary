@@ -1,6 +1,7 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
+const randomButton = document.getElementById("random-term");
 
 
 
@@ -7064,5 +7065,37 @@ function displayDefinition(term) {
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
 }
 
-// Handle the search input event
-searchInput.addEventListener("input", populateTermsList); 
+function showRandomTerm() {
+  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  displayDefinition(randomTerm);
+
+  const today = new Date().toDateString();
+  try {
+    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+// Handle the search input and random term events
+searchInput.addEventListener("input", populateTermsList);
+randomButton.addEventListener("click", showRandomTerm);
+
+// Show the stored term if it's from today; otherwise display a new random term
+(function initializeDailyTerm() {
+  const today = new Date().toDateString();
+  try {
+    const stored = localStorage.getItem("lastRandomTerm");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (parsed.date === today && parsed.term) {
+        displayDefinition(parsed.term);
+        return;
+      }
+    }
+  } catch (e) {
+    // Ignore parse errors and fall back to showing a random term
+  }
+
+  showRandomTerm();
+})();
