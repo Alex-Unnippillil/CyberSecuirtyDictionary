@@ -2,23 +2,35 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
-
+const alphaNav = document.getElementById("alpha-nav");
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+const showFavoritesToggle = document.getElementById("show-favorites");
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]")
+);
 
 let currentLetterFilter = "All";
-const darkModeToggle = document.getElementById("dark-mode-toggle");
+
 // Apply persisted theme preference
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
 
 // Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
+if (darkModeToggle) {
+  darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode")
+    );
+  });
+=======
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+// Apply persisted theme preference
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
+}
 
 let termsData = { terms: [] };
 
@@ -33,7 +45,7 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
-      displayDictionary();
+      buildAlphaNav();
       populateTermsList();
     })
     .catch((error) => {
@@ -91,7 +103,20 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
-function displayDictionary() {
+function toggleFavorite(term) {
+  if (favorites.has(term)) {
+    favorites.delete(term);
+  } else {
+    favorites.add(term);
+  }
+  try {
+    localStorage.setItem("favorites", JSON.stringify(Array.from(favorites)));
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
   termsData.terms
@@ -99,8 +124,12 @@ function displayDictionary() {
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites =
-        !showFavoritesToggle.checked || favorites.has(item.term);
-      if (matchesSearch && matchesFavorites) {
+        !(showFavoritesToggle && showFavoritesToggle.checked) ||
+        favorites.has(item.term);
+      const matchesLetter =
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
+      if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -117,8 +146,8 @@ function displayDictionary() {
           e.stopPropagation();
           toggleFavorite(item.term);
           star.classList.toggle("favorited");
-          if (showFavoritesToggle.checked) {
-            displayDictionary();
+          if (showFavoritesToggle && showFavoritesToggle.checked) {
+            populateTermsList();
           }
         });
         termHeader.appendChild(star);
@@ -137,6 +166,7 @@ function displayDictionary() {
     });
 }
 
+=======
 // Prepare data and render
 removeDuplicateTermsAndDefinitions();
 termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
@@ -170,6 +200,9 @@ function showRandomTerm() {
 // Handle the search input and random term events
 searchInput.addEventListener("input", populateTermsList);
 randomButton.addEventListener("click", showRandomTerm);
+if (showFavoritesToggle) {
+  showFavoritesToggle.addEventListener("change", populateTermsList);
+}
 
 // Show the stored term if it's from today; otherwise display a new random term
 (function initializeDailyTerm() {
