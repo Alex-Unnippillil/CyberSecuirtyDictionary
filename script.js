@@ -2,46 +2,32 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
+const alphaNav = document.getElementById("alpha-nav");
 
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+if (darkModeToggle) {
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
+
+  darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode")
+    );
+  });
+}
+
+const showFavoritesToggle =
+  document.getElementById("show-favorites-toggle") || { checked: false };
+const favorites = new Set();
 
 let currentLetterFilter = "All";
-=======
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-
-=======
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-=======
-
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-
 let termsData = { terms: [] };
 
 window.addEventListener("DOMContentLoaded", () => {
-  fetch('data.json')
+  fetch("data.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -51,8 +37,21 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
-      displayDictionary();
+      termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      buildAlphaNav();
       populateTermsList();
+
+      if (window.location.hash) {
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1)
+        );
+        const matchedTerm = termsData.terms.find(
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+        );
+        if (matchedTerm) {
+          displayDefinition(matchedTerm);
+        }
+      }
     })
     .catch((error) => {
       definitionContainer.style.display = "block";
@@ -76,8 +75,18 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function toggleFavorite(term) {
+  if (favorites.has(term)) {
+    favorites.delete(term);
+  } else {
+    favorites.add(term);
+  }
+}
+
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
@@ -109,7 +118,7 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
-function displayDictionary() {
+function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
   termsData.terms
@@ -118,7 +127,10 @@ function displayDictionary() {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites =
         !showFavoritesToggle.checked || favorites.has(item.term);
-      if (matchesSearch && matchesFavorites) {
+      const matchesLetter =
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
+      if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -136,7 +148,7 @@ function displayDictionary() {
           toggleFavorite(item.term);
           star.classList.toggle("favorited");
           if (showFavoritesToggle.checked) {
-            displayDictionary();
+            populateTermsList();
           }
         });
         termHeader.appendChild(star);
@@ -153,15 +165,6 @@ function displayDictionary() {
         termsList.appendChild(termDiv);
       }
     });
-}
-
-// Prepare data and render
-removeDuplicateTermsAndDefinitions();
-termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-buildAlphaNav();
-populateTermsList();
-
-
 }
 
 function displayDefinition(term) {
@@ -188,8 +191,7 @@ function showRandomTerm() {
   }
 }
 
-// Handle the search input and random term events
-searchInput.addEventListener("input", populateTermsList);
+// Handle random term events
 randomButton.addEventListener("click", showRandomTerm);
 
 // Show the stored term if it's from today; otherwise display a new random term
@@ -219,13 +221,3 @@ searchInput.addEventListener("input", () => {
 });
 
 definitionContainer.addEventListener("click", clearDefinition);
-
-if (window.location.hash) {
-  const termFromHash = decodeURIComponent(window.location.hash.substring(1));
-  const matchedTerm = termsData.terms.find(
-    (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
-  );
-  if (matchedTerm) {
-    displayDefinition(matchedTerm);
-  }
-}
