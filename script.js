@@ -2,42 +2,23 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const alphaNav = document.getElementById("alpha-nav");
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+const recentTermsContainer = document.getElementById("recent-terms");
+const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
 let currentLetterFilter = "All";
-=======
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-
-=======
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-=======
-
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-
 let termsData = { terms: [] };
+let recentTerms = JSON.parse(localStorage.getItem("recentTerms")) || [];
+
+// Apply persisted theme preference
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
+}
+
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+});
 
 window.addEventListener("DOMContentLoaded", () => {
   fetch('data.json')
@@ -50,8 +31,9 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
-      displayDictionary();
+      buildAlphaNav();
       populateTermsList();
+      renderRecentTerms();
     })
     .catch((error) => {
       definitionContainer.style.display = "block";
@@ -108,43 +90,9 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
-function displayDictionary() {
-  termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-
-  termsData.terms.forEach((item) => {
-    const termDiv = document.createElement("div");
-    termDiv.classList.add("dictionary-item");
-
-    const termHeader = document.createElement("h3");
-    termHeader.textContent = item.term;
-    termDiv.appendChild(termHeader);
-
-    const definitionPara = document.createElement("p");
-    definitionPara.textContent = item.definition;
-    termDiv.appendChild(definitionPara);
-
-    termDiv.addEventListener("click", () => {
-      displayDefinition(item);
-    });
-
-    termsList.appendChild(termDiv);
-  });
-}
-
-// Prepare data and render
-removeDuplicateTermsAndDefinitions();
-termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-buildAlphaNav();
-populateTermsList();
-
 function populateTermsList() {
   termsList.innerHTML = "";
-=======
-function populateTermsList() {
-  termsList.innerHTML = "";
-=======
   const searchValue = searchInput.value.trim().toLowerCase();
-=======
   termsData.terms.forEach((term) => {
     if (isMatchingTerm(term)) {
       const listItem = document.createElement("li");
@@ -179,14 +127,53 @@ function isMatchingTerm(term) {
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  updateRecentTerms(term.term);
 }
 
-// Handle the search input event
-=======
-searchInput.addEventListener("input", populateTermsList); 
-const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-const scrollThreshold = 200;
+function updateRecentTerms(term) {
+  recentTerms = recentTerms.filter((t) => t !== term);
+  recentTerms.unshift(term);
+  if (recentTerms.length > 5) recentTerms.pop();
+  localStorage.setItem("recentTerms", JSON.stringify(recentTerms));
+  renderRecentTerms();
+}
 
+function renderRecentTerms() {
+  recentTermsContainer.innerHTML = "";
+  if (recentTerms.length === 0) return;
+
+  const title = document.createElement("h4");
+  title.textContent = "Recent Terms";
+  recentTermsContainer.appendChild(title);
+
+  const list = document.createElement("ul");
+  recentTerms.forEach((t) => {
+    const li = document.createElement("li");
+    li.textContent = t;
+    li.addEventListener("click", () => {
+      const termObj = termsData.terms.find((item) => item.term === t);
+      if (termObj) displayDefinition(termObj);
+    });
+    list.appendChild(li);
+  });
+  recentTermsContainer.appendChild(list);
+
+  const clearBtn = document.createElement("button");
+  clearBtn.id = "clear-history";
+  clearBtn.textContent = "Clear History";
+  clearBtn.addEventListener("click", clearHistory);
+  recentTermsContainer.appendChild(clearBtn);
+}
+
+function clearHistory() {
+  recentTerms = [];
+  localStorage.removeItem("recentTerms");
+  renderRecentTerms();
+}
+
+searchInput.addEventListener("input", populateTermsList);
+
+const scrollThreshold = 200;
 function toggleScrollToTopBtn() {
   if (window.scrollY > scrollThreshold) {
     scrollToTopBtn.style.display = "block";
@@ -201,5 +188,6 @@ scrollToTopBtn.addEventListener("click", () => {
 });
 
 toggleScrollToTopBtn();
-=======
-searchInput.addEventListener("input", populateTermsList);
+
+// Initial render of recent terms if available
+renderRecentTerms();
