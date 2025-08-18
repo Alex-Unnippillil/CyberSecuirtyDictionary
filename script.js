@@ -2,6 +2,7 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const alphaNav = document.getElementById("alpha-nav");
+const printBtn = document.getElementById("print-btn");
 
 let currentLetterFilter = "All";
 =======
@@ -178,12 +179,21 @@ function isMatchingTerm(term) {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `
+    <h3>${term.term}</h3>
+    <p>${term.definition}</p>
+    <button id="print-term-btn" class="print-btn">Print</button>
+  `;
+  const termPrintBtn = document.getElementById("print-term-btn");
+  termPrintBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    window.print();
+  });
 }
 
 // Handle the search input event
 =======
-searchInput.addEventListener("input", populateTermsList); 
+searchInput.addEventListener("input", populateTermsList);
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 const scrollThreshold = 200;
 
@@ -203,3 +213,9 @@ scrollToTopBtn.addEventListener("click", () => {
 toggleScrollToTopBtn();
 =======
 searchInput.addEventListener("input", populateTermsList);
+
+if (printBtn) {
+  printBtn.addEventListener("click", () => {
+    window.print();
+  });
+}

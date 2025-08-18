@@ -206,3 +206,28 @@ body.dark-mode #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
+
+@media print {
+  #alpha-nav,
+  .search-bar,
+  #scrollToTopBtn,
+  .print-btn {
+    display: none;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .container,
+  #definition-container {
+    box-shadow: none;
+    background: none;
+  }
+
+  #terms-list li {
+    page-break-inside: avoid;
+  }
+}
+
