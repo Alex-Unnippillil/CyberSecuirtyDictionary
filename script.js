@@ -3,6 +3,7 @@ const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 
+=======
 // Apply persisted theme preference
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -95,6 +96,7 @@ function displayDictionary() {
 
 function populateTermsList() {
   termsList.innerHTML = "";
+=======
   const searchValue = searchInput.value.trim().toLowerCase();
 =======
   termsData.terms.forEach((term) => {
@@ -130,6 +132,7 @@ function displayDefinition(term) {
 }
 
 // Handle the search input event
+=======
 searchInput.addEventListener("input", populateTermsList); 
 const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 const scrollThreshold = 200;
