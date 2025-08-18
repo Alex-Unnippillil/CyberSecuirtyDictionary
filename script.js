@@ -2,42 +2,29 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
-
+const alphaNav = document.getElementById("alpha-nav");
+const showFavoritesToggle = document.getElementById("show-favorites");
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]")
+);
 
 let currentLetterFilter = "All";
-=======
 const darkModeToggle = document.getElementById("dark-mode-toggle");
+if (darkModeToggle) {
+  // Apply persisted theme preference
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+  }
 
-=======
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
+  // Toggle dark mode and store the preference
+  darkModeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode")
+    );
+  });
 }
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-=======
-
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  localStorage.setItem(
-    "darkMode",
-    document.body.classList.contains("dark-mode")
-  );
-});
-
 let termsData = { terms: [] };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -51,7 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
-      displayDictionary();
+      buildAlphaNav();
       populateTermsList();
     })
     .catch((error) => {
@@ -109,6 +96,10 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
+function populateTermsList() {
+  displayDictionary();
+}
+
 function displayDictionary() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
@@ -117,8 +108,11 @@ function displayDictionary() {
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites =
-        !showFavoritesToggle.checked || favorites.has(item.term);
-      if (matchesSearch && matchesFavorites) {
+        !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const matchesLetter =
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
+      if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -131,14 +125,14 @@ function displayDictionary() {
         if (favorites.has(item.term)) {
           star.classList.add("favorited");
         }
-        star.addEventListener("click", (e) => {
-          e.stopPropagation();
-          toggleFavorite(item.term);
-          star.classList.toggle("favorited");
-          if (showFavoritesToggle.checked) {
-            displayDictionary();
-          }
-        });
+          star.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleFavorite(item.term);
+            star.classList.toggle("favorited");
+            if (showFavoritesToggle && showFavoritesToggle.checked) {
+              populateTermsList();
+            }
+          });
         termHeader.appendChild(star);
         termDiv.appendChild(termHeader);
 
@@ -153,15 +147,15 @@ function displayDictionary() {
         termsList.appendChild(termDiv);
       }
     });
-}
+  }
 
-// Prepare data and render
-removeDuplicateTermsAndDefinitions();
-termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-buildAlphaNav();
-populateTermsList();
-
-
+function toggleFavorite(term) {
+  if (favorites.has(term)) {
+    favorites.delete(term);
+  } else {
+    favorites.add(term);
+  }
+  localStorage.setItem("favorites", JSON.stringify([...favorites]));
 }
 
 function displayDefinition(term) {
@@ -188,8 +182,7 @@ function showRandomTerm() {
   }
 }
 
-// Handle the search input and random term events
-searchInput.addEventListener("input", populateTermsList);
+// Handle the random term event
 randomButton.addEventListener("click", showRandomTerm);
 
 // Show the stored term if it's from today; otherwise display a new random term
@@ -217,6 +210,13 @@ searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
 });
+
+if (showFavoritesToggle) {
+  showFavoritesToggle.addEventListener("change", () => {
+    clearDefinition();
+    populateTermsList();
+  });
+}
 
 definitionContainer.addEventListener("click", clearDefinition);
 
