@@ -3,6 +3,10 @@ const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
+
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+if (darkModeToggle) {
+=======
 =======
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
@@ -18,6 +22,7 @@ if (darkModeToggle) {
     document.body.classList.add("dark-mode");
   }
 
+=======
   // Toggle dark mode and store the preference
 =======
 
@@ -36,6 +41,14 @@ if (darkModeToggle) {
     );
   });
 }
+
+const showFavoritesToggle =
+  document.getElementById("show-favorites-toggle") || { checked: false };
+const favorites = new Set();
+
+let currentLetterFilter = "All";
+=======
+}
 =======
 =======
 const darkModeToggle = document.getElementById("dark-mode-toggle");
@@ -47,7 +60,7 @@ if (localStorage.getItem("darkMode") === "true") {
 let termsData = { terms: [] };
 
 window.addEventListener("DOMContentLoaded", () => {
-  fetch('data.json')
+  fetch("data.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -57,8 +70,22 @@ window.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
+      termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+=======
       buildAlphaNav();
       populateTermsList();
+
+      if (window.location.hash) {
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1)
+        );
+        const matchedTerm = termsData.terms.find(
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+        );
+        if (matchedTerm) {
+          displayDefinition(matchedTerm);
+        }
+      }
     })
     .catch((error) => {
       definitionContainer.style.display = "block";
@@ -82,8 +109,18 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function toggleFavorite(term) {
+  if (favorites.has(term)) {
+    favorites.delete(term);
+  } else {
+    favorites.add(term);
+  }
+}
+
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
@@ -116,6 +153,7 @@ function buildAlphaNav() {
 }
 
 function populateTermsList() {
+=======
   displayDictionary();
 }
 
@@ -142,6 +180,8 @@ function populateTermsList() {
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites =
+        !showFavoritesToggle.checked || favorites.has(item.term);
+=======
         !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
 =======
         !(showFavoritesToggle && showFavoritesToggle.checked) ||
@@ -175,6 +215,8 @@ function populateTermsList() {
           e.stopPropagation();
           toggleFavorite(item.term);
           star.classList.toggle("favorited");
+          if (showFavoritesToggle.checked) {
+=======
           if (showFavoritesToggle && showFavoritesToggle.checked) {
             populateTermsList();
           }
@@ -208,6 +250,7 @@ function toggleFavorite(term) {
 }
 
 =======
+=======
 // Prepare data and render
 removeDuplicateTermsAndDefinitions();
 termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
@@ -238,6 +281,8 @@ function showRandomTerm() {
   }
 }
 
+// Handle random term events
+=======
 // Handle the random term event
 randomButton.addEventListener("click", showRandomTerm);
 if (showFavoritesToggle) {
@@ -278,13 +323,3 @@ if (showFavoritesToggle) {
 }
 
 definitionContainer.addEventListener("click", clearDefinition);
-
-if (window.location.hash) {
-  const termFromHash = decodeURIComponent(window.location.hash.substring(1));
-  const matchedTerm = termsData.terms.find(
-    (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
-  );
-  if (matchedTerm) {
-    displayDefinition(matchedTerm);
-  }
-}
