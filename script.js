@@ -25,6 +25,11 @@ if (darkModeToggle) {
       document.body.classList.contains("dark-mode")
     );
   });
+=======
+const darkModeToggle = document.getElementById("dark-mode-toggle");
+// Apply persisted theme preference
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
 }
 
 let termsData = { terms: [] };
@@ -160,6 +165,13 @@ function populateTermsList() {
       }
     });
 }
+
+=======
+// Prepare data and render
+removeDuplicateTermsAndDefinitions();
+termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+buildAlphaNav();
+populateTermsList();
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
