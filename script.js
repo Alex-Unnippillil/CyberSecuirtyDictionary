@@ -3,61 +3,27 @@ const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
-
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-if (darkModeToggle) {
-=======
-=======
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const scrollBtn = document.getElementById("scrollToTopBtn");
+
 const favorites = new Set(
   JSON.parse(localStorage.getItem("favorites") || "[]")
 );
-
 let currentLetterFilter = "All";
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-if (darkModeToggle) {
-  // Apply persisted theme preference
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark-mode");
-  }
-
-=======
-  // Toggle dark mode and store the preference
-=======
-
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
-// Toggle dark mode and store the preference
-if (darkModeToggle) {
-  darkModeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem(
-      "darkMode",
-      document.body.classList.contains("dark-mode")
-    );
-  });
-}
-
-const showFavoritesToggle =
-  document.getElementById("show-favorites-toggle") || { checked: false };
-const favorites = new Set();
-
-let currentLetterFilter = "All";
-=======
-}
-=======
-=======
-const darkModeToggle = document.getElementById("dark-mode-toggle");
-// Apply persisted theme preference
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
-}
-
 let termsData = { terms: [] };
+
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark-mode");
+}
+
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem(
+    "darkMode",
+    document.body.classList.contains("dark-mode")
+  );
+});
 
 window.addEventListener("DOMContentLoaded", () => {
   fetch("data.json")
@@ -71,7 +37,6 @@ window.addEventListener("DOMContentLoaded", () => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-=======
       buildAlphaNav();
       populateTermsList();
 
@@ -115,6 +80,11 @@ function toggleFavorite(term) {
   } else {
     favorites.add(term);
   }
+  try {
+    localStorage.setItem("favorites", JSON.stringify([...favorites]));
+  } catch (e) {
+    // Ignore storage errors
+  }
 }
 
 function highlightActiveButton(button) {
@@ -153,109 +123,52 @@ function buildAlphaNav() {
 }
 
 function populateTermsList() {
-=======
-  displayDictionary();
-}
-
-function displayDictionary() {
-=======
-function toggleFavorite(term) {
-  if (favorites.has(term)) {
-    favorites.delete(term);
-  } else {
-    favorites.add(term);
-  }
-  try {
-    localStorage.setItem("favorites", JSON.stringify(Array.from(favorites)));
-  } catch (e) {
-    // Ignore storage errors
-  }
-}
-
-function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
-  termsData.terms
-    .sort((a, b) => a.term.localeCompare(b.term))
-    .forEach((item) => {
-      const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites =
-        !showFavoritesToggle.checked || favorites.has(item.term);
-=======
-        !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
-=======
-        !(showFavoritesToggle && showFavoritesToggle.checked) ||
-        favorites.has(item.term);
-      const matchesLetter =
-        currentLetterFilter === "All" ||
-        item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
-        const termDiv = document.createElement("div");
-        termDiv.classList.add("dictionary-item");
+  termsData.terms.forEach((item) => {
+    const matchesSearch = item.term.toLowerCase().includes(searchValue);
+    const matchesFavorites =
+      !showFavoritesToggle.checked || favorites.has(item.term);
+    const matchesLetter =
+      currentLetterFilter === "All" ||
+      item.term.charAt(0).toUpperCase() === currentLetterFilter;
 
-        const termHeader = document.createElement("h3");
-        termHeader.textContent = item.term;
+    if (matchesSearch && matchesFavorites && matchesLetter) {
+      const termDiv = document.createElement("div");
+      termDiv.classList.add("dictionary-item");
 
-        const star = document.createElement("span");
-        star.classList.add("favorite-star");
-        star.textContent = "★";
-        if (favorites.has(item.term)) {
-          star.classList.add("favorited");
-        }
-          star.addEventListener("click", (e) => {
-            e.stopPropagation();
-            toggleFavorite(item.term);
-            star.classList.toggle("favorited");
-            if (showFavoritesToggle && showFavoritesToggle.checked) {
-              populateTermsList();
-            }
-          });
-=======
-        star.addEventListener("click", (e) => {
-          e.stopPropagation();
-          toggleFavorite(item.term);
-          star.classList.toggle("favorited");
-          if (showFavoritesToggle.checked) {
-=======
-          if (showFavoritesToggle && showFavoritesToggle.checked) {
-            populateTermsList();
-          }
-        });
-        termHeader.appendChild(star);
-        termDiv.appendChild(termHeader);
+      const termHeader = document.createElement("h3");
+      termHeader.textContent = item.term;
 
-        const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
-        termDiv.appendChild(definitionPara);
-
-        termDiv.addEventListener("click", () => {
-          displayDefinition(item);
-        });
-
-        termsList.appendChild(termDiv);
+      const star = document.createElement("span");
+      star.classList.add("favorite-star");
+      star.textContent = "★";
+      if (favorites.has(item.term)) {
+        star.classList.add("favorited");
       }
-    });
-  }
+      star.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleFavorite(item.term);
+        star.classList.toggle("favorited");
+        if (showFavoritesToggle.checked) {
+          populateTermsList();
+        }
+      });
+      termHeader.appendChild(star);
+      termDiv.appendChild(termHeader);
 
-function toggleFavorite(term) {
-  if (favorites.has(term)) {
-    favorites.delete(term);
-  } else {
-    favorites.add(term);
-  }
-  localStorage.setItem("favorites", JSON.stringify([...favorites]));
+      const definitionPara = document.createElement("p");
+      definitionPara.textContent = item.definition;
+      termDiv.appendChild(definitionPara);
+
+      termDiv.addEventListener("click", () => {
+        displayDefinition(item);
+      });
+
+      termsList.appendChild(termDiv);
+    }
+  });
 }
-
-=======
-}
-
-=======
-=======
-// Prepare data and render
-removeDuplicateTermsAndDefinitions();
-termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-buildAlphaNav();
-populateTermsList();
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
@@ -270,26 +183,21 @@ function clearDefinition() {
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm })
+    );
   } catch (e) {
     // Ignore storage errors
   }
 }
 
-// Handle random term events
-=======
-// Handle the random term event
-randomButton.addEventListener("click", showRandomTerm);
-if (showFavoritesToggle) {
-  showFavoritesToggle.addEventListener("change", populateTermsList);
-}
-
-// Show the stored term if it's from today; otherwise display a new random term
 (function initializeDailyTerm() {
   const today = new Date().toDateString();
   try {
@@ -308,24 +216,25 @@ if (showFavoritesToggle) {
   showRandomTerm();
 })();
 
-
-// Handle the search input event
 searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
 });
 
-if (showFavoritesToggle) {
-  showFavoritesToggle.addEventListener("change", () => {
-    clearDefinition();
-    populateTermsList();
-  });
-}
-const scrollBtn = document.getElementById("scrollToTopBtn");
+randomButton.addEventListener("click", showRandomTerm);
+
+showFavoritesToggle.addEventListener("change", () => {
+  clearDefinition();
+  populateTermsList();
+});
+
+definitionContainer.addEventListener("click", clearDefinition);
+
 window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
-scrollBtn.addEventListener("click", () => window.scrollTo({top: 0, behavior: "smooth"}));
-=======
 
-definitionContainer.addEventListener("click", clearDefinition);
+scrollBtn.addEventListener("click", () =>
+  window.scrollTo({ top: 0, behavior: "smooth" })
+);
+
