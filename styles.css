@@ -126,6 +126,53 @@ label {
   margin-right: 5px;
 }
 
+/* Favorite star styles */
+.favorite-star {
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: color 0.2s;
+}
+
+.favorite-star:hover,
+.favorite-star:focus {
+  color: #999;
+}
+
+.favorited {
+  color: #ffd700;
+}
+
+/* Alphabet navigation styles */
+#alpha-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+#alpha-nav button {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#alpha-nav button:hover,
+#alpha-nav button:focus {
+  background-color: #ddd;
+}
+
+#alpha-nav button.active {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
 /* Scroll to Top button styles */
 #scrollToTopBtn {
   display: none;
@@ -194,4 +241,33 @@ body.dark-mode .dictionary-item p {
 body.dark-mode #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .favorite-star {
+  color: #888;
+}
+
+body.dark-mode .favorite-star:hover,
+body.dark-mode .favorite-star:focus {
+  color: #bbb;
+}
+
+body.dark-mode .favorited {
+  color: #ffd700;
+}
+
+body.dark-mode #alpha-nav button {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode #alpha-nav button:hover,
+body.dark-mode #alpha-nav button:focus {
+  background-color: #555;
+}
+
+body.dark-mode #alpha-nav button.active {
+  background-color: #007bff;
+  border-color: #007bff;
 }
