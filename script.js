@@ -60,6 +60,10 @@ if (localStorage.getItem("darkMode") === "true") {
 let termsData = { terms: [] };
 
 window.addEventListener("DOMContentLoaded", () => {
+  loadTerms();
+});
+
+function loadTerms() {
   fetch("data.json")
     .then((response) => {
       if (!response.ok) {
@@ -71,7 +75,6 @@ window.addEventListener("DOMContentLoaded", () => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
-=======
       buildAlphaNav();
       populateTermsList();
 
@@ -88,11 +91,20 @@ window.addEventListener("DOMContentLoaded", () => {
       }
     })
     .catch((error) => {
+      console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
-      definitionContainer.textContent = "Failed to load dictionary data.";
-      console.error("Error fetching data:", error);
+      definitionContainer.innerHTML =
+        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
+        '<button id="retry-fetch">Retry</button>';
+      const retryBtn = document.getElementById("retry-fetch");
+      if (retryBtn) {
+        retryBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          loadTerms();
+        });
+      }
     });
-});
+}
 
 function removeDuplicateTermsAndDefinitions() {
   const uniqueTerms = new Set();
