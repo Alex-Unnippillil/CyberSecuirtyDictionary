@@ -194,7 +194,13 @@ function populateTermsList() {
         termDiv.classList.add("dictionary-item");
 
         const termHeader = document.createElement("h3");
-        termHeader.textContent = item.term;
+        if (searchValue) {
+          const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          const regex = new RegExp(`(${escaped})`, "gi");
+          termHeader.innerHTML = item.term.replace(regex, "<mark>$1</mark>");
+        } else {
+          termHeader.textContent = item.term;
+        }
 
         const star = document.createElement("span");
         star.classList.add("favorite-star");

@@ -52,6 +52,11 @@ mark {
   color: inherit;
 }
 
+body.dark-mode mark {
+  background-color: #ffeb3b;
+  color: #000;
+}
+
 .dictionary-item {
   margin-bottom: 20px;
   padding: 10px;
