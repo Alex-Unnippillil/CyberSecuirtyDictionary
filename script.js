@@ -11,6 +11,7 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let featureFlags = { hovercards: false };
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -23,7 +24,20 @@ if (darkModeToggle) {
   });
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+async function loadFlags() {
+  try {
+    const response = await fetch("flags.json");
+    if (response.ok) {
+      const data = await response.json();
+      featureFlags = { ...featureFlags, ...data };
+    }
+  } catch (e) {
+    console.warn("Using default feature flags:", e);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadFlags();
   loadTerms();
 });
 
@@ -140,6 +154,9 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        if (featureFlags.hovercards) {
+          termDiv.setAttribute("title", item.definition);
+        }
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
