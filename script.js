@@ -165,6 +165,15 @@ function populateTermsList() {
           }
         });
         termHeader.appendChild(star);
+
+        const badge = document.createElement("span");
+        badge.classList.add(
+          "difficulty-badge",
+          `difficulty-${item.difficulty.label.toLowerCase()}`
+        );
+        badge.textContent = item.difficulty.label;
+        termHeader.appendChild(badge);
+
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
@@ -182,7 +191,7 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term} <span class="difficulty-badge difficulty-${term.difficulty.label.toLowerCase()}">${term.difficulty.label}</span></h3><p>${term.definition}</p>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(

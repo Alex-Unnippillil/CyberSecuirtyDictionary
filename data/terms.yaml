@@ -12,6 +12,10 @@
     - NVD
   sources:
     - https://cve.mitre.org
+  prerequisites: []
+  edit_history:
+    - 2024-01-01: Initial entry
+    - 2024-06-01: Updated details
 - name: CWE
   slug: cwe
   definition: >-
@@ -24,6 +28,10 @@
     - OWASP Top 10
   sources:
     - https://cwe.mitre.org
+  prerequisites:
+    - cve
+  edit_history:
+    - 2024-02-01: Initial entry
 - name: CVSS
   slug: cvss
   definition: >-
@@ -36,6 +44,11 @@
     - NVD
   sources:
     - https://www.first.org/cvss/
+  prerequisites:
+    - cve
+  edit_history:
+    - 2024-02-15: Initial entry
+    - 2024-08-10: Updated metrics
 - name: NVD
   slug: nvd
   definition: >-
@@ -48,6 +61,11 @@
     - CVSS
   sources:
     - https://nvd.nist.gov/
+  prerequisites:
+    - cve
+    - cvss
+  edit_history:
+    - 2024-03-15: Initial entry
 - name: MITRE ATT&CK
   slug: mitre-attack
   definition: >-
@@ -61,6 +79,11 @@
     - CWE
   sources:
     - https://attack.mitre.org/
+  prerequisites:
+    - cve
+    - cwe
+  edit_history:
+    - 2024-04-20: Initial entry
 - name: OWASP Top 10
   slug: owasp-top-10
   definition: >-
@@ -73,3 +96,7 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+  prerequisites:
+    - cwe
+  edit_history:
+    - 2024-05-05: Initial entry
