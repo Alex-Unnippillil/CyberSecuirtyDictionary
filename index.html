@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cyber Security Dictionary</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet" integrity="sha384-QLtLsWkm4K1LJIx85AECMgBdNWyYx3d9pykqVnGenPZjRVss9IMhyxjKBYIGSKHV" crossorigin="anonymous">
 </head>
 <body>
   <main class="container">
     <h1>Cyber Security Dictionary</h1>
-    <div id="definition-container" style="display: none;"></div>
+    <div id="definition-container"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
     <input type="text" id="search" placeholder="Search...">
 
@@ -24,6 +25,7 @@
   </main>
   <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
 
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js" integrity="sha384-zPE55eyESN+FxCWGEnlNxGyAPJud6IZ6TtJmXb56OFRGhxZPN4akj9rjA3gw5Qqa" crossorigin="anonymous"></script>
   <script src="script.js"></script>
 </body>
 </html>
