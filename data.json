@@ -131,6 +131,26 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "ISO/IEC 27001",
+      "definition": "An international standard for information security management systems that helps organizations protect data and support compliance efforts like <a href=\"#GDPR\">GDPR</a>; comparable to <a href=\"#NIST%20SP%20800-53\">NIST SP 800-53</a> and often used alongside <a href=\"#SOC%202\">SOC 2</a>.",
+      "url": "https://www.iso.org/isoiec-27001-information-security.html"
+    },
+    {
+      "term": "NIST SP 800-53",
+      "definition": "A catalog of security and privacy controls for U.S. federal information systems, aligning with <a href=\"#ISO%2FIEC%2027001\">ISO/IEC 27001</a> and mapping to <a href=\"#SOC%202\">SOC 2</a> requirements.",
+      "url": "https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final"
+    },
+    {
+      "term": "SOC 2",
+      "definition": "An auditing framework for service organizations to manage customer data based on five trust service principles; complements <a href=\"#ISO%2FIEC%2027001\">ISO/IEC 27001</a>, maps to <a href=\"#NIST%20SP%20800-53\">NIST SP 800-53</a> controls, and is not related to <a href=\"#Security%20Operations%20Center%20(SOC)\">Security Operations Center (SOC)</a>.",
+      "url": "https://www.aicpa.org/resources/article/what-is-soc-2"
+    },
+    {
+      "term": "GDPR",
+      "definition": "A European Union regulation governing data protection and privacy for individuals; organizations often implement frameworks like <a href=\"#ISO%2FIEC%2027001\">ISO/IEC 27001</a> or <a href=\"#SOC%202\">SOC 2</a> and technologies such as <a href=\"#Data%20Loss%20Prevention%20(DLP)\">Data Loss Prevention (DLP)</a> to meet its requirements.",
+      "url": "https://gdpr-info.eu/"
     }
   ]
 }

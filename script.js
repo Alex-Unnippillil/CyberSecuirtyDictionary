@@ -180,7 +180,11 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.url) {
+    html += `<p><a href="${term.url}" target="_blank" rel="noopener noreferrer">Source</a></p>`;
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
 }
 
@@ -242,4 +246,14 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+window.addEventListener("hashchange", () => {
+  const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+  const matchedTerm = termsData.terms.find(
+    (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+  );
+  if (matchedTerm) {
+    displayDefinition(matchedTerm);
+  }
+});
 
