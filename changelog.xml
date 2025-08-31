@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Changelog</title>
+  <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary</link>
+  <description>Changelog</description>
+  <item>
+    <title><![CDATA[2025-08-31]]></title>
+    <description><![CDATA[- Added RSS feeds for latest terms and changelog.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/CHANGELOG.md#2025-08-31</link>
+  </item>
+  <item>
+    <title><![CDATA[2025-07-15]]></title>
+    <description><![CDATA[- Initial dataset of cybersecurity terms.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/CHANGELOG.md#2025-07-15</link>
+  </item>
+</channel>
+</rss>

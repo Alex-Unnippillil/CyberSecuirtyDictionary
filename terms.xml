@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Latest Terms</title>
+  <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary</link>
+  <description>Latest Terms</description>
+  <item>
+    <title><![CDATA[Phishing]]></title>
+    <description><![CDATA[An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/phishing.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Phishing Email]]></title>
+    <description><![CDATA[An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/phishing-email.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Social Engineering Toolkit (SET)]]></title>
+    <description><![CDATA[A framework for simulating social engineering attacks, helping organizations test their security awareness.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/social-engineering-toolkit-set.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Advanced Persistent Threat (APT)]]></title>
+    <description><![CDATA[A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/advanced-persistent-threat-apt.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Cyber Espionage]]></title>
+    <description><![CDATA[The use of cyber techniques to steal sensitive information from governments, organizations, or individuals.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cyber-espionage.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Zero-Knowledge Proof]]></title>
+    <description><![CDATA[A cryptographic method that allows a party to prove knowledge of a secret without revealing the secret itself.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/zero-knowledge-proof.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Security Operations Center (SOC)]]></title>
+    <description><![CDATA[A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-operations-center-soc.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Data Loss Prevention (DLP)]]></title>
+    <description><![CDATA[A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/data-loss-prevention-dlp.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Endpoint Security]]></title>
+    <description><![CDATA[The protection of devices like laptops, desktops, and smartphones from various security threats.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/endpoint-security.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Security Token]]></title>
+    <description><![CDATA[A physical or digital device used to authenticate users or provide one-time passwords for secure access.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-token.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Network Security]]></title>
+    <description><![CDATA[The protection of network infrastructure and data from unauthorized access or attacks.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/network-security.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Payload]]></title>
+    <description><![CDATA[The part of a malware or exploit that performs malicious actions on a victim's system.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/payload.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Cryptography]]></title>
+    <description><![CDATA[The practice of secure communication by converting plaintext into ciphertext and vice versa.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cryptography.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Social Engineering Attack Vectors]]></title>
+    <description><![CDATA[Different methods and techniques used in social engineering attacks to manipulate victims.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/social-engineering-attack-vectors.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Threat Hunting]]></title>
+    <description><![CDATA[Proactively searching for and identifying cyber threats that have evaded traditional security measures.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/threat-hunting.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Incident Response]]></title>
+    <description><![CDATA[The process of managing and mitigating the impact of a cybersecurity incident or breach.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/incident-response.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Privilege Escalation]]></title>
+    <description><![CDATA[The act of gaining higher levels of access or permissions in a system or network than originally granted.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/privilege-escalation.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Security Assessment]]></title>
+    <description><![CDATA[A systematic evaluation of an organization's security measures to identify vulnerabilities and weaknesses.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-assessment.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Data Encryption Standard (DES)]]></title>
+    <description><![CDATA[An early symmetric key encryption algorithm used to secure electronic data.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/data-encryption-standard-des.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Advanced Encryption Standard (AES)]]></title>
+    <description><![CDATA[A widely used symmetric key encryption algorithm known for its security and efficiency.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/advanced-encryption-standard-aes.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Public Key Infrastructure (PKI)]]></title>
+    <description><![CDATA[A system for managing digital certificates and public-private key pairs used in asymmetric encryption.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/public-key-infrastructure-pki.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Certificate Authority (CA)]]></title>
+    <description><![CDATA[An entity responsible for issuing and managing digital certificates used in PKI.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/certificate-authority-ca.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Secure Sockets Layer (SSL)]]></title>
+    <description><![CDATA[An older cryptographic protocol that provides secure communication over a computer network.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/secure-sockets-layer-ssl.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Transport Layer Security (TLS)]]></title>
+    <description><![CDATA[A more secure successor to SSL, providing encryption and authentication for secure communication.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/transport-layer-security-tls.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Key Exchange]]></title>
+    <description><![CDATA[The process of securely sharing encryption keys between parties to establish a secure communication channel.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/key-exchange.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Malvertising]]></title>
+    <description><![CDATA[Malicious online advertisements that deliver malware or lead to malicious websites.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/malvertising.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Eavesdropping]]></title>
+    <description><![CDATA[Unauthorized interception and monitoring of private communications, often done surreptitiously.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/eavesdropping.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Identity Theft]]></title>
+    <description><![CDATA[The fraudulent acquisition and use of an individual's personal information to impersonate them for malicious purposes.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/identity-theft.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Zero-Day Vulnerability]]></title>
+    <description><![CDATA[A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/zero-day-vulnerability.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Security Patch]]></title>
+    <description><![CDATA[An update released by software vendors to fix security vulnerabilities in their products.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-patch.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Cross-Site Scripting (XSS)]]></title>
+    <description><![CDATA[A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cross-site-scripting-xss.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Cross-Site Request Forgery (CSRF)]]></title>
+    <description><![CDATA[An attack that tricks a user into unknowingly submitting a malicious request on a trusted website.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cross-site-request-forgery-csrf.html</link>
+  </item>
+  <item>
+    <title><![CDATA[Phishing Email]]></title>
+    <description><![CDATA[An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.]]></description>
+    <link>https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/phishing-email.html</link>
+  </item>
+</channel>
+</rss>
