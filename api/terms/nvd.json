@@ -1,0 +1,16 @@
+{
+  "name": "NVD",
+  "slug": "nvd",
+  "definition": "A U.S. government repository of standards-based vulnerability management data.",
+  "category": "Database",
+  "synonyms": [
+    "National Vulnerability Database"
+  ],
+  "see_also": [
+    "CVE",
+    "CVSS"
+  ],
+  "sources": [
+    "https://nvd.nist.gov/"
+  ]
+}

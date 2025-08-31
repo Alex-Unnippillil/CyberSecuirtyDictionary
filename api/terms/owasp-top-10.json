@@ -1,0 +1,15 @@
+{
+  "name": "OWASP Top 10",
+  "slug": "owasp-top-10",
+  "definition": "A regularly updated report outlining the ten most critical web application security risks, published by the Open Web Application Security Project.",
+  "category": "Awareness Document",
+  "synonyms": [
+    "OWASP Top Ten"
+  ],
+  "see_also": [
+    "CWE"
+  ],
+  "sources": [
+    "https://owasp.org/www-project-top-ten/"
+  ]
+}

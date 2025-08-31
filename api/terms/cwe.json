@@ -1,0 +1,16 @@
+{
+  "name": "CWE",
+  "slug": "cwe",
+  "definition": "A community-developed list of common software and hardware weakness types.",
+  "category": "Weakness Classification",
+  "synonyms": [
+    "Common Weakness Enumeration"
+  ],
+  "see_also": [
+    "CVE",
+    "OWASP Top 10"
+  ],
+  "sources": [
+    "https://cwe.mitre.org"
+  ]
+}
