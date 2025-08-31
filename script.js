@@ -6,6 +6,7 @@ const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const progress = JSON.parse(localStorage.getItem("progress") || "{}");
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
@@ -39,6 +40,9 @@ function loadTerms() {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      termsData.terms.forEach((t) => {
+        t.studyTimes = generateStudyTimes(t.term);
+      });
       buildAlphaNav();
       populateTermsList();
 
@@ -81,6 +85,24 @@ function removeDuplicateTermsAndDefinitions() {
   });
 
   termsData.terms = uniqueTermsData;
+}
+
+function generateStudyTimes(term) {
+  const length = term.length;
+  return {
+    "Security+": `${10 + Math.floor(length / 2)} mins`,
+    OSCP: `${20 + length} mins`,
+    CISSP: `${15 + Math.floor(length / 1.5)} mins`,
+  };
+}
+
+function toggleProgress(term) {
+  progress[term] = !progress[term];
+  try {
+    localStorage.setItem("progress", JSON.stringify(progress));
+  } catch (e) {
+    // Ignore storage errors
+  }
 }
 
 function toggleFavorite(term) {
@@ -150,6 +172,17 @@ function populateTermsList() {
           termHeader.textContent = item.term;
         }
 
+        const progressBox = document.createElement("input");
+        progressBox.type = "checkbox";
+        progressBox.classList.add("progress-box");
+        progressBox.checked = !!progress[item.term];
+        progressBox.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleProgress(item.term);
+          progressBox.checked = !!progress[item.term];
+        });
+        termHeader.appendChild(progressBox);
+
         const star = document.createElement("span");
         star.classList.add("favorite-star");
         star.textContent = "★";
@@ -182,7 +215,11 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  const certList = Object.entries(term.studyTimes)
+    .map(([cert, time]) => `<li>${cert}: ${time}</li>`)
+    .join("");
+  definitionContainer.innerHTML =
+    `<h3>${term.term}</h3><p>${term.definition}</p><h4>Certification Study Times</h4><ul>${certList}</ul>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
