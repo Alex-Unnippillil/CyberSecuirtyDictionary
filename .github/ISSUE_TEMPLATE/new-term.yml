@@ -1,0 +1,26 @@
+name: "New Term"
+description: Propose a new term for the dictionary
+title: "New term: <term>"
+labels: ["new term"]
+body:
+  - type: input
+    id: term
+    attributes:
+      label: Term
+      description: What is the term?
+    validations:
+      required: true
+  - type: textarea
+    id: definition
+    attributes:
+      label: Definition
+      description: Provide a clear and concise definition.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: Optional reference or citation
+    validations:
+      required: false
