@@ -1,0 +1,10 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Secuirty",
+    "Malvertising",
+    "ciphertext"
+  ],
+  "ignorePaths": ["node_modules"]
+}
