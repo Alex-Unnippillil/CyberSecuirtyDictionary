@@ -1,0 +1,7 @@
+{
+  "title": "Cybersecurity Dictionary",
+  "tagline": "A quick reference for cybersecurity terms",
+  "description": "Definitions and explanations of cybersecurity concepts.",
+  "baseUrl": "/",
+  "siteUrl": "https://<username>.github.io/cybersec-dictionary/"
+}
