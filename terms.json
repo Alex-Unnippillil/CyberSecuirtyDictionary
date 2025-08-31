@@ -1,0 +1,202 @@
+{
+  "terms": [
+    {
+      "term": "Phishing",
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Phishing Email",
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Social Engineering Toolkit (SET)",
+      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Advanced Persistent Threat (APT)",
+      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Cyber Espionage",
+      "definition": "The use of cyber techniques to steal sensitive information from governments, organizations, or individuals.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Zero-Knowledge Proof",
+      "definition": "A cryptographic method that allows a party to prove knowledge of a secret without revealing the secret itself.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Security Operations Center (SOC)",
+      "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Data Loss Prevention (DLP)",
+      "definition": "A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Endpoint Security",
+      "definition": "The protection of devices like laptops, desktops, and smartphones from various security threats.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Security Token",
+      "definition": "A physical or digital device used to authenticate users or provide one-time passwords for secure access.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Network Security",
+      "definition": "The protection of network infrastructure and data from unauthorized access or attacks.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Payload",
+      "definition": "The part of a malware or exploit that performs malicious actions on a victim's system.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Cryptography",
+      "definition": "The practice of secure communication by converting plaintext into ciphertext and vice versa.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Social Engineering Attack Vectors",
+      "definition": "Different methods and techniques used in social engineering attacks to manipulate victims.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Threat Hunting",
+      "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Incident Response",
+      "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Privilege Escalation",
+      "definition": "The act of gaining higher levels of access or permissions in a system or network than originally granted.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Security Assessment",
+      "definition": "A systematic evaluation of an organization's security measures to identify vulnerabilities and weaknesses.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Data Encryption Standard (DES)",
+      "definition": "An early symmetric key encryption algorithm used to secure electronic data.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Advanced Encryption Standard (AES)",
+      "definition": "A widely used symmetric key encryption algorithm known for its security and efficiency.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Public Key Infrastructure (PKI)",
+      "definition": "A system for managing digital certificates and public-private key pairs used in asymmetric encryption.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Certificate Authority (CA)",
+      "definition": "An entity responsible for issuing and managing digital certificates used in PKI.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Secure Sockets Layer (SSL)",
+      "definition": "An older cryptographic protocol that provides secure communication over a computer network.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Transport Layer Security (TLS)",
+      "definition": "A more secure successor to SSL, providing encryption and authentication for secure communication.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Key Exchange",
+      "definition": "The process of securely sharing encryption keys between parties to establish a secure communication channel.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Malvertising",
+      "definition": "Malicious online advertisements that deliver malware or lead to malicious websites.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Eavesdropping",
+      "definition": "Unauthorized interception and monitoring of private communications, often done surreptitiously.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Identity Theft",
+      "definition": "The fraudulent acquisition and use of an individual's personal information to impersonate them for malicious purposes.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Zero-Day Vulnerability",
+      "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Security Patch",
+      "definition": "An update released by software vendors to fix security vulnerabilities in their products.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Cross-Site Scripting (XSS)",
+      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Cross-Site Request Forgery (CSRF)",
+      "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website.",
+      "references": [],
+      "tags": []
+    },
+    {
+      "term": "Phishing Email",
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "references": [],
+      "tags": []
+    }
+  ]
+}
