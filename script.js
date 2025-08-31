@@ -180,8 +180,37 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.category) {
+    html += `<p><strong>Category:</strong> ${term.category}</p>`;
+  }
+  if (term.source) {
+    html += `<p><a href="${term.source}" target="_blank" rel="noopener noreferrer">Source</a></p>`;
+  }
+  if (term.related && term.related.length > 0) {
+    const links = term.related
+      .map(
+        (t) =>
+          `<a href="#${encodeURIComponent(t)}" class="related-term" data-term="${t}">${t}</a>`
+      )
+      .join(", ");
+    html += `<p><strong>See also:</strong> ${links}</p>`;
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
+
+  definitionContainer.querySelectorAll(".related-term").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const target = termsData.terms.find(
+        (t) => t.term.toLowerCase() === link.dataset.term.toLowerCase()
+      );
+      if (target) {
+        displayDefinition(target);
+      }
+    });
+  });
 }
 
 function clearDefinition() {
