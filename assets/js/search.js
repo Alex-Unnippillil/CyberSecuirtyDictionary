@@ -24,6 +24,9 @@
     if(!query){
       return;
     }
+    if(window.analytics){
+      window.analytics.trackSearch(query);
+    }
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
       .filter(item => item.score > 0)
