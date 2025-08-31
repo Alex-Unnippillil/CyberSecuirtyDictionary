@@ -8,10 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main class="container">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="container">
     <h1>Cyber Security Dictionary</h1>
-    <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
+  </header>
+
+  <main id="main-content" class="container">
+    <div id="definition-container" style="display: none;"></div>
     <input type="text" id="search" placeholder="Search...">
 
     <button id="random-term" aria-label="Show random term">Random Term</button>
@@ -22,7 +27,12 @@
 
     <ul id="terms-list"></ul>
   </main>
+
   <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
+
+  <footer class="container">
+    <p>&copy; 2023 Cyber Security Dictionary</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
