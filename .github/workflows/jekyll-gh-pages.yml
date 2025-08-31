@@ -21,6 +21,10 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  BASE_URL: /
+  SITE_URL: https://${{ github.repository_owner }}.github.io/
+
 jobs:
   # Build job
   build:
