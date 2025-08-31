@@ -11,6 +11,7 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let abbreviations = {};
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -25,6 +26,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  loadAbbreviations();
 });
 
 function loadTerms() {
@@ -65,6 +67,17 @@ function loadTerms() {
           loadTerms();
         });
       }
+    });
+}
+
+function loadAbbreviations() {
+  fetch("abbreviations.json")
+    .then((response) => (response.ok ? response.json() : {}))
+    .then((data) => {
+      abbreviations = data;
+    })
+    .catch((error) => {
+      console.error("Error loading abbreviations:", error);
     });
 }
 
@@ -129,7 +142,10 @@ function buildAlphaNav() {
 
 function populateTermsList() {
   termsList.innerHTML = "";
-  const searchValue = searchInput.value.trim().toLowerCase();
+  const rawSearch = searchInput.value.trim();
+  const expanded = abbreviations[rawSearch.toUpperCase()];
+  const searchValue = (expanded || rawSearch).toLowerCase();
+  updateSearchHint(rawSearch, expanded);
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
@@ -178,6 +194,21 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+}
+
+function updateSearchHint(original, expanded) {
+  let hint = document.getElementById("search-expansion-hint");
+  if (expanded) {
+    if (!hint) {
+      hint = document.createElement("div");
+      hint.id = "search-expansion-hint";
+      hint.classList.add("search-hint");
+      termsList.parentNode.insertBefore(hint, termsList);
+    }
+    hint.textContent = `Showing results for "${expanded}" (expanded from "${original}")`;
+  } else if (hint) {
+    hint.remove();
+  }
 }
 
 function displayDefinition(term) {

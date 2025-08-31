@@ -326,6 +326,12 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+.search-hint {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;
