@@ -73,3 +73,10 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+- name: Identity and Access Management
+  slug: identity-and-access-management
+  definition: >-
+    The policies and technologies that ensure the right individuals access the correct resources at the right times.
+  category: Access Control
+  sources:
+    - https://en.wikipedia.org/wiki/Identity_management
