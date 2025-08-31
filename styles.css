@@ -158,6 +158,21 @@ label {
   margin-right: 5px;
 }
 
+.deprecated-badge {
+  background-color: #c00;
+  color: #fff;
+  font-size: 0.8em;
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.deprecated-note {
+  font-style: italic;
+  color: #c00;
+}
+
 /* Favorite star styles */
 .favorite-star {
   font-size: 20px;

@@ -73,3 +73,21 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+
+- name: Secure Sockets Layer (SSL)
+  slug: ssl
+  definition: >-
+    An older cryptographic protocol that provides secure communication over a computer network.
+  category: Protocol
+  deprecated: true
+  replacement: transport-layer-security-tls
+  sources:
+    - https://www.rfc-editor.org/rfc/rfc6101
+
+- name: Transport Layer Security (TLS)
+  slug: transport-layer-security-tls
+  definition: >-
+    A more secure successor to SSL, providing encryption and authentication for secure communication.
+  category: Protocol
+  sources:
+    - https://www.rfc-editor.org/rfc/rfc8446

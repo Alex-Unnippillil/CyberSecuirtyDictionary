@@ -90,7 +90,9 @@
     },
     {
       "term": "Secure Sockets Layer (SSL)",
-      "definition": "An older cryptographic protocol that provides secure communication over a computer network."
+      "definition": "An older cryptographic protocol that provides secure communication over a computer network.",
+      "deprecated": true,
+      "replacement": "Transport Layer Security (TLS)"
     },
     {
       "term": "Transport Layer Security (TLS)",
