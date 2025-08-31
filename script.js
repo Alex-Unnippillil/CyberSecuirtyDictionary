@@ -3,7 +3,10 @@ const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
-const darkModeToggle = document.getElementById("dark-mode-toggle");
+const themeToggle = document.getElementById("theme-toggle");
+const themes = ["light", "dark", "high-contrast"];
+let currentTheme = localStorage.getItem("theme") || "light";
+applyTheme(currentTheme);
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
@@ -12,15 +15,25 @@ const canonicalLink = document.getElementById("canonical-link");
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
-if (localStorage.getItem("darkMode") === "true") {
-  document.body.classList.add("dark-mode");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    let idx = themes.indexOf(currentTheme);
+    currentTheme = themes[(idx + 1) % themes.length];
+    applyTheme(currentTheme);
+    localStorage.setItem("theme", currentTheme);
+  });
 }
 
-if (darkModeToggle) {
-  darkModeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
-  });
+function applyTheme(theme) {
+  document.body.classList.remove("dark-mode", "high-contrast");
+  if (theme === "dark") {
+    document.body.classList.add("dark-mode");
+  } else if (theme === "high-contrast") {
+    document.body.classList.add("high-contrast");
+  }
+  if (themeToggle) {
+    themeToggle.textContent = `Theme: ${theme.replace("-", " ")}`;
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {

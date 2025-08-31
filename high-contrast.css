@@ -1,0 +1,48 @@
+/* High contrast theme tokens */
+body.high-contrast {
+  --hc-bg: #000000;
+  --hc-text: #ffffff;
+  --hc-primary: #ffff00;
+  --hc-primary-hover: #e6e600;
+}
+
+body.high-contrast {
+  background-color: var(--hc-bg);
+  color: var(--hc-text);
+}
+
+body.high-contrast .container,
+body.high-contrast #definition-container,
+body.high-contrast li,
+body.high-contrast .dictionary-item,
+body.high-contrast #search {
+  background-color: var(--hc-bg);
+  color: var(--hc-text);
+  border-color: var(--hc-text);
+}
+
+body.high-contrast li:hover,
+body.high-contrast #alpha-nav button:hover,
+body.high-contrast #alpha-nav button:focus {
+  background-color: #222222;
+}
+
+body.high-contrast #random-term,
+body.high-contrast #theme-toggle,
+body.high-contrast #scrollToTopBtn,
+body.high-contrast #alpha-nav button.active {
+  background-color: var(--hc-primary);
+  color: #000000;
+  border-color: var(--hc-primary);
+}
+
+body.high-contrast #alpha-nav button {
+  background-color: var(--hc-bg);
+  color: var(--hc-text);
+  border: 1px solid var(--hc-text);
+}
+
+body.high-contrast .favorite-star,
+body.high-contrast .favorited {
+  color: var(--hc-primary);
+}
