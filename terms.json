@@ -129,8 +129,108 @@
       "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
     },
     {
-      "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "term": "Firewall",
+      "definition": "A security device or software that filters traffic between networks based on rules. See also <a href=\"#Web%20Application%20Firewall%20%28WAF%29\">WAF</a> and <a href=\"#Proxy%20Server\">Proxy Server</a>."
+    },
+    {
+      "term": "Intrusion Detection System (IDS)",
+      "definition": "Monitors network traffic for suspicious activity and alerts defenders. See also <a href=\"#Intrusion%20Prevention%20System%20%28IPS%29\">IPS</a>, <a href=\"#Snort\">Snort</a>, <a href=\"#Suricata\">Suricata</a>, and <a href=\"#Zeek\">Zeek</a>."
+    },
+    {
+      "term": "Intrusion Prevention System (IPS)",
+      "definition": "Inspects network traffic and blocks malicious activity in real time. See also <a href=\"#Intrusion%20Detection%20System%20%28IDS%29\">IDS</a> and <a href=\"#Suricata\">Suricata</a>."
+    },
+    {
+      "term": "Packet Capture (PCAP)",
+      "definition": "The process of recording raw network packets for analysis. Often used by tools like <a href=\"#Zeek\">Zeek</a> and <a href=\"#Suricata\">Suricata</a> for <a href=\"#Network%20Traffic%20Analysis%20%28NTA%29\">NTA</a>."
+    },
+    {
+      "term": "NetFlow",
+      "definition": "A network protocol that collects IP traffic statistics for flow-based analysis. Useful for <a href=\"#Network%20Traffic%20Analysis%20%28NTA%29\">NTA</a> and feeding <a href=\"#Security%20Information%20and%20Event%20Management%20%28SIEM%29\">SIEM</a> platforms."
+    },
+    {
+      "term": "Zeek",
+      "definition": "An open-source network security monitor that analyzes <a href=\"#Packet%20Capture%20%28PCAP%29\">PCAP</a> data and <a href=\"#NetFlow\">NetFlow</a> records."
+    },
+    {
+      "term": "Suricata",
+      "definition": "An open-source IDS/IPS engine capable of parsing <a href=\"#Packet%20Capture%20%28PCAP%29\">PCAP</a> data. Works alongside <a href=\"#Intrusion%20Detection%20System%20%28IDS%29\">IDS</a> or <a href=\"#Intrusion%20Prevention%20System%20%28IPS%29\">IPS</a> deployments and complements <a href=\"#Zeek\">Zeek</a>."
+    },
+    {
+      "term": "Snort",
+      "definition": "A widely used open-source <a href=\"#Intrusion%20Detection%20System%20%28IDS%29\">IDS</a>/<a href=\"#Intrusion%20Prevention%20System%20%28IPS%29\">IPS</a> for real-time traffic analysis."
+    },
+    {
+      "term": "Security Information and Event Management (SIEM)",
+      "definition": "Aggregates and correlates logs from sources like <a href=\"#Intrusion%20Detection%20System%20%28IDS%29\">IDS</a>, <a href=\"#NetFlow\">NetFlow</a>, and <a href=\"#Log%20Aggregation\">Log Aggregation</a> systems. Often integrated with <a href=\"#Security%20Orchestration%2C%20Automation%20and%20Response%20%28SOAR%29\">SOAR</a>."
+    },
+    {
+      "term": "Security Orchestration, Automation and Response (SOAR)",
+      "definition": "Automates incident response by integrating with <a href=\"#Security%20Information%20and%20Event%20Management%20%28SIEM%29\">SIEM</a> and tools such as <a href=\"#Endpoint%20Detection%20and%20Response%20%28EDR%29\">EDR</a>."
+    },
+    {
+      "term": "Honeypot",
+      "definition": "A decoy system designed to lure attackers and study their behavior. A core component of <a href=\"#Deception%20Technology\">Deception Technology</a>."
+    },
+    {
+      "term": "Deception Technology",
+      "definition": "Security controls that mislead attackers using assets like <a href=\"#Honeypot\">Honeypots</a>."
+    },
+    {
+      "term": "Network Segmentation",
+      "definition": "Dividing a network into isolated segments to limit attack spread. Related to <a href=\"#Virtual%20Local%20Area%20Network%20%28VLAN%29\">VLAN</a> and <a href=\"#Demilitarized%20Zone%20%28DMZ%29\">DMZ</a>."
+    },
+    {
+      "term": "Virtual Local Area Network (VLAN)",
+      "definition": "A logical grouping of network devices that enables <a href=\"#Network%20Segmentation\">Network Segmentation</a> without physical separation."
+    },
+    {
+      "term": "Demilitarized Zone (DMZ)",
+      "definition": "An isolated network zone that exposes services while protecting the internal network. Typically placed behind a <a href=\"#Firewall\">Firewall</a>."
+    },
+    {
+      "term": "Network Access Control (NAC)",
+      "definition": "Enforces security policies on devices seeking network access. Works with <a href=\"#Network%20Segmentation\">Network Segmentation</a> and <a href=\"#Virtual%20Private%20Network%20%28VPN%29\">VPN</a> solutions."
+    },
+    {
+      "term": "Virtual Private Network (VPN)",
+      "definition": "Creates an encrypted tunnel across public networks. Complements <a href=\"#Network%20Access%20Control%20%28NAC%29\">NAC</a> and can route through a <a href=\"#Proxy%20Server\">Proxy Server</a>."
+    },
+    {
+      "term": "Web Application Firewall (WAF)",
+      "definition": "A specialized <a href=\"#Firewall\">Firewall</a> that filters HTTP/S traffic to protect web applications. Often deployed with a <a href=\"#Proxy%20Server\">Proxy Server</a>."
+    },
+    {
+      "term": "Proxy Server",
+      "definition": "An intermediary server that forwards client requests, providing privacy or filtering. Commonly paired with a <a href=\"#Firewall\">Firewall</a> or <a href=\"#Web%20Application%20Firewall%20%28WAF%29\">WAF</a>."
+    },
+    {
+      "term": "DNS Sinkhole",
+      "definition": "A DNS server that redirects queries for malicious domains to safe addresses, often informed by a <a href=\"#Threat%20Intelligence%20Feed\">Threat Intelligence Feed</a>."
+    },
+    {
+      "term": "Threat Intelligence Feed",
+      "definition": "Curated data about emerging threats, consumed by tools like <a href=\"#Security%20Information%20and%20Event%20Management%20%28SIEM%29\">SIEM</a> or <a href=\"#DNS%20Sinkhole\">DNS Sinkholes</a>."
+    },
+    {
+      "term": "Anomaly Detection",
+      "definition": "Identifying unusual patterns in network behavior to flag potential threats. Supports <a href=\"#Intrusion%20Detection%20System%20%28IDS%29\">IDS</a> and <a href=\"#Network%20Traffic%20Analysis%20%28NTA%29\">NTA</a>."
+    },
+    {
+      "term": "Log Aggregation",
+      "definition": "Collecting logs from multiple sources for centralized analysis, feeding <a href=\"#Security%20Information%20and%20Event%20Management%20%28SIEM%29\">SIEM</a> and <a href=\"#Security%20Orchestration%2C%20Automation%20and%20Response%20%28SOAR%29\">SOAR</a> platforms."
+    },
+    {
+      "term": "Endpoint Detection and Response (EDR)",
+      "definition": "Monitors endpoint activities for threats and integrates with <a href=\"#Endpoint%20Security\">Endpoint Security</a> and <a href=\"#Security%20Orchestration%2C%20Automation%20and%20Response%20%28SOAR%29\">SOAR</a>."
+    },
+    {
+      "term": "Breach and Attack Simulation (BAS)",
+      "definition": "Automated testing that emulates threats to assess defenses like <a href=\"#Intrusion%20Detection%20System%20%28IDS%29\">IDS</a>, <a href=\"#Intrusion%20Prevention%20System%20%28IPS%29\">IPS</a>, and <a href=\"#Firewall\">Firewalls</a>."
+    },
+    {
+      "term": "Network Traffic Analysis (NTA)",
+      "definition": "Inspecting network communications to detect threats and performance issues. Often combines <a href=\"#Packet%20Capture%20%28PCAP%29\">PCAP</a>, <a href=\"#NetFlow\">NetFlow</a>, and <a href=\"#Anomaly%20Detection\">Anomaly Detection</a>."
     }
   ]
 }
