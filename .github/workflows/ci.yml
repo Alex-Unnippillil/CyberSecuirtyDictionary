@@ -24,3 +24,31 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+      - name: Bias language scan
+        id: bias
+        run: node scripts/check-bias.js || true
+      - name: Comment bias findings
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('bias_report.json', 'utf8'));
+            if (report.length > 0) {
+              const lines = report.map(r => `- **${r.term}**: contains "${r.phrase}"`);
+              const body = ['## Biased language detected', '', ...lines].join('\n');
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body
+              });
+              core.setFailed('Biased language found');
+            }
+      - name: Fail if bias detected
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ -s bias_report.json ] && [ "$(cat bias_report.json)" != "[]" ]; then
+            echo 'Biased language found';
+            exit 1;
+          fi
