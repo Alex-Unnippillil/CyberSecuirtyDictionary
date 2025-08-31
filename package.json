@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "log-server": "node scripts/log-server.js",
+    "daily-summary": "node scripts/daily-summary.js"
   },
   "keywords": [],
   "author": "",

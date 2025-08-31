@@ -3,6 +3,15 @@
   const searchInput = document.getElementById('search-box');
   let terms = [];
 
+  function logEvent(type, data){
+    const payload = JSON.stringify({ type, ...data, timestamp: new Date().toISOString() });
+    if(navigator.sendBeacon){
+      navigator.sendBeacon('/log', payload);
+    } else {
+      fetch('/log', { method: 'POST', body: payload, headers: { 'Content-Type': 'application/json' }});
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
     fetch(`${baseUrl}/terms.json`)
@@ -24,13 +33,14 @@
     if(!query){
       return;
     }
+    logEvent('search', { query });
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
       .filter(item => item.score > 0)
       .sort((a,b) => b.score - a.score);
 
-    matches.forEach(({ term }) => {
-      resultsContainer.appendChild(renderCard(term));
+    matches.forEach(({ term }, idx) => {
+      resultsContainer.appendChild(renderCard(term, idx + 1, query));
     });
   }
 
@@ -47,7 +57,7 @@
     return s;
   }
 
-  function renderCard(term){
+  function renderCard(term, rank, query){
     const card = document.createElement('div');
     card.className = 'result-card';
 
@@ -72,6 +82,11 @@
       syn.textContent = `Synonyms: ${term.synonyms.join(', ')}`;
       card.appendChild(syn);
     }
+
+    card.addEventListener('click', () => {
+      logEvent('click', { query, rank });
+    });
+
     return card;
   }
 })();
