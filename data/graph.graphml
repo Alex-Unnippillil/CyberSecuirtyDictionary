@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+  <graph id="G" edgedefault="directed">
+    <node id="phishing"/>
+    <node id="malware"/>
+    <node id="ransomware"/>
+    <edge id="e0" source="phishing" target="malware"/>
+    <edge id="e1" source="malware" target="ransomware"/>
+  </graph>
+</graphml>
