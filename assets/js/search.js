@@ -27,7 +27,14 @@
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
       .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
+      .sort((a,b) => {
+        if (b.score === a.score) {
+          const aDate = Date.parse(a.term.lastUpdated || 0);
+          const bDate = Date.parse(b.term.lastUpdated || 0);
+          return bDate - aDate;
+        }
+        return b.score - a.score;
+      });
 
     matches.forEach(({ term }) => {
       resultsContainer.appendChild(renderCard(term));
@@ -44,6 +51,14 @@
     if(def.includes(query)) s += 1;
     if(category.includes(query)) s += 1;
     if(syns.some(syn => syn.includes(query))) s += 2;
+
+    const updated = Date.parse(term.lastUpdated || 0);
+    if (!isNaN(updated)) {
+      const ageDays = (Date.now() - updated) / (1000 * 60 * 60 * 24);
+      const recencyBoost = Math.max(0, 1 - ageDays / 365);
+      s += recencyBoost;
+    }
+
     return s;
   }
 
