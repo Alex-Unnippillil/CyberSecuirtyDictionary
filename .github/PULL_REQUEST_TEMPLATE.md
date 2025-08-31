@@ -1,7 +1,7 @@
 ## Summary
 - Describe your changes.
 
-## Related Issues
+## Related issues
 - Closes #<issue-number>
 
 ## Checklist

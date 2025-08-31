@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "lint:markdown": "remark ."
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,12 @@
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "remark-cli": "^12.0.1",
+    "remark-lint": "^10.0.1",
+    "remark-lint-prohibited-strings": "^4.0.0",
+    "remark-lint-write-good": "^1.2.0",
+    "unist-util-visit": "^5.0.0",
+    "mdast-util-to-string": "^4.0.0"
   }
 }
