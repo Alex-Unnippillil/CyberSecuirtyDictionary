@@ -158,6 +158,47 @@ label {
   margin-right: 5px;
 }
 
+#collections {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+#collections input[type="text"],
+#collections select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-height: 44px;
+}
+
+#collections button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.collection-add {
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+  margin-left: 5px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collection-add.in-collection {
+  color: #28a745;
+}
+
 /* Favorite star styles */
 .favorite-star {
   font-size: 20px;
