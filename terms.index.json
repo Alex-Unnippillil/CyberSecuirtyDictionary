@@ -1,0 +1,200 @@
+[
+  {
+    "term": "Phishing",
+    "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+    "slug": "phishing",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/phishing.html"
+  },
+  {
+    "term": "Phishing Email",
+    "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+    "slug": "phishing-email",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/phishing-email.html"
+  },
+  {
+    "term": "Social Engineering Toolkit (SET)",
+    "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness.",
+    "slug": "social-engineering-toolkit-set",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/social-engineering-toolkit-set.html"
+  },
+  {
+    "term": "Advanced Persistent Threat (APT)",
+    "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network.",
+    "slug": "advanced-persistent-threat-apt",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/advanced-persistent-threat-apt.html"
+  },
+  {
+    "term": "Cyber Espionage",
+    "definition": "The use of cyber techniques to steal sensitive information from governments, organizations, or individuals.",
+    "slug": "cyber-espionage",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cyber-espionage.html"
+  },
+  {
+    "term": "Zero-Knowledge Proof",
+    "definition": "A cryptographic method that allows a party to prove knowledge of a secret without revealing the secret itself.",
+    "slug": "zero-knowledge-proof",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/zero-knowledge-proof.html"
+  },
+  {
+    "term": "Security Operations Center (SOC)",
+    "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time.",
+    "slug": "security-operations-center-soc",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-operations-center-soc.html"
+  },
+  {
+    "term": "Data Loss Prevention (DLP)",
+    "definition": "A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data.",
+    "slug": "data-loss-prevention-dlp",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/data-loss-prevention-dlp.html"
+  },
+  {
+    "term": "Endpoint Security",
+    "definition": "The protection of devices like laptops, desktops, and smartphones from various security threats.",
+    "slug": "endpoint-security",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/endpoint-security.html"
+  },
+  {
+    "term": "Security Token",
+    "definition": "A physical or digital device used to authenticate users or provide one-time passwords for secure access.",
+    "slug": "security-token",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-token.html"
+  },
+  {
+    "term": "Network Security",
+    "definition": "The protection of network infrastructure and data from unauthorized access or attacks.",
+    "slug": "network-security",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/network-security.html"
+  },
+  {
+    "term": "Payload",
+    "definition": "The part of a malware or exploit that performs malicious actions on a victim's system.",
+    "slug": "payload",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/payload.html"
+  },
+  {
+    "term": "Cryptography",
+    "definition": "The practice of secure communication by converting plaintext into ciphertext and vice versa.",
+    "slug": "cryptography",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cryptography.html"
+  },
+  {
+    "term": "Social Engineering Attack Vectors",
+    "definition": "Different methods and techniques used in social engineering attacks to manipulate victims.",
+    "slug": "social-engineering-attack-vectors",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/social-engineering-attack-vectors.html"
+  },
+  {
+    "term": "Threat Hunting",
+    "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures.",
+    "slug": "threat-hunting",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/threat-hunting.html"
+  },
+  {
+    "term": "Incident Response",
+    "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach.",
+    "slug": "incident-response",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/incident-response.html"
+  },
+  {
+    "term": "Privilege Escalation",
+    "definition": "The act of gaining higher levels of access or permissions in a system or network than originally granted.",
+    "slug": "privilege-escalation",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/privilege-escalation.html"
+  },
+  {
+    "term": "Security Assessment",
+    "definition": "A systematic evaluation of an organization's security measures to identify vulnerabilities and weaknesses.",
+    "slug": "security-assessment",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-assessment.html"
+  },
+  {
+    "term": "Data Encryption Standard (DES)",
+    "definition": "An early symmetric key encryption algorithm used to secure electronic data.",
+    "slug": "data-encryption-standard-des",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/data-encryption-standard-des.html"
+  },
+  {
+    "term": "Advanced Encryption Standard (AES)",
+    "definition": "A widely used symmetric key encryption algorithm known for its security and efficiency.",
+    "slug": "advanced-encryption-standard-aes",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/advanced-encryption-standard-aes.html"
+  },
+  {
+    "term": "Public Key Infrastructure (PKI)",
+    "definition": "A system for managing digital certificates and public-private key pairs used in asymmetric encryption.",
+    "slug": "public-key-infrastructure-pki",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/public-key-infrastructure-pki.html"
+  },
+  {
+    "term": "Certificate Authority (CA)",
+    "definition": "An entity responsible for issuing and managing digital certificates used in PKI.",
+    "slug": "certificate-authority-ca",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/certificate-authority-ca.html"
+  },
+  {
+    "term": "Secure Sockets Layer (SSL)",
+    "definition": "An older cryptographic protocol that provides secure communication over a computer network.",
+    "slug": "secure-sockets-layer-ssl",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/secure-sockets-layer-ssl.html"
+  },
+  {
+    "term": "Transport Layer Security (TLS)",
+    "definition": "A more secure successor to SSL, providing encryption and authentication for secure communication.",
+    "slug": "transport-layer-security-tls",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/transport-layer-security-tls.html"
+  },
+  {
+    "term": "Key Exchange",
+    "definition": "The process of securely sharing encryption keys between parties to establish a secure communication channel.",
+    "slug": "key-exchange",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/key-exchange.html"
+  },
+  {
+    "term": "Malvertising",
+    "definition": "Malicious online advertisements that deliver malware or lead to malicious websites.",
+    "slug": "malvertising",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/malvertising.html"
+  },
+  {
+    "term": "Eavesdropping",
+    "definition": "Unauthorized interception and monitoring of private communications, often done surreptitiously.",
+    "slug": "eavesdropping",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/eavesdropping.html"
+  },
+  {
+    "term": "Identity Theft",
+    "definition": "The fraudulent acquisition and use of an individual's personal information to impersonate them for malicious purposes.",
+    "slug": "identity-theft",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/identity-theft.html"
+  },
+  {
+    "term": "Zero-Day Vulnerability",
+    "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers.",
+    "slug": "zero-day-vulnerability",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/zero-day-vulnerability.html"
+  },
+  {
+    "term": "Security Patch",
+    "definition": "An update released by software vendors to fix security vulnerabilities in their products.",
+    "slug": "security-patch",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/security-patch.html"
+  },
+  {
+    "term": "Cross-Site Scripting (XSS)",
+    "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users.",
+    "slug": "cross-site-scripting-xss",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cross-site-scripting-xss.html"
+  },
+  {
+    "term": "Cross-Site Request Forgery (CSRF)",
+    "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website.",
+    "slug": "cross-site-request-forgery-csrf",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/cross-site-request-forgery-csrf.html"
+  },
+  {
+    "term": "Phishing Email",
+    "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+    "slug": "phishing-email",
+    "url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms/phishing-email.html"
+  }
+]

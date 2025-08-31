@@ -1,16 +1,24 @@
 {
-  "name": "cybersecuirtydictionary",
+  "name": "@yourscope/cli-term",
   "version": "1.0.0",
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
+  "bin": {
+    "cli-term": "bin/cli-term.js"
+  },
   "scripts": {
     "build": "node scripts/build.js",
+    "build:index": "node scripts/build-index.js",
     "test": "html-validate index.html",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "fuse.js": "^6.6.2",
+    "open": "^9.1.0"
+  },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",
