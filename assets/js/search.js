@@ -1,6 +1,7 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const suggestionsContainer = document.getElementById('suggestions');
   let terms = [];
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -21,30 +22,34 @@
   function handleSearch(){
     const query = searchInput.value.trim().toLowerCase();
     resultsContainer.innerHTML = '';
+    if(suggestionsContainer) suggestionsContainer.innerHTML = '';
     if(!query){
       return;
     }
-    const matches = terms
-      .map(term => ({ term, score: score(term, query) }))
-      .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
-
-    matches.forEach(({ term }) => {
-      resultsContainer.appendChild(renderCard(term));
+    const suggestions = [];
+    terms.forEach(term => {
+      const name = (term.name || term.term || '').toLowerCase();
+      const def = (term.definition || '').toLowerCase();
+      const category = (term.category || '').toLowerCase();
+      const syns = (term.synonyms || []).map(s=>s.toLowerCase());
+      const includes =
+        name.includes(query) ||
+        def.includes(query) ||
+        category.includes(query) ||
+        syns.some(syn => syn.includes(query));
+      const dist = damerauLevenshtein(name, query);
+      if(includes || dist <= 2){
+        resultsContainer.appendChild(renderCard(term));
+        if(!includes && dist <=2){
+          suggestions.push({term: term.name || term.term, dist});
+        }
+      }
     });
-  }
-
-  function score(term, query){
-    let s = 0;
-    const name = (term.name || term.term || '').toLowerCase();
-    const def = (term.definition || '').toLowerCase();
-    const category = (term.category || '').toLowerCase();
-    const syns = (term.synonyms || []).map(s=>s.toLowerCase());
-    if(name.includes(query)) s += 3;
-    if(def.includes(query)) s += 1;
-    if(category.includes(query)) s += 1;
-    if(syns.some(syn => syn.includes(query))) s += 2;
-    return s;
+    if(suggestionsContainer && suggestions.length){
+      suggestions.sort((a,b)=>a.dist - b.dist);
+      const text = suggestions.slice(0,3).map(s=>s.term).join(', ');
+      suggestionsContainer.textContent = `Did you mean: ${text}?`;
+    }
   }
 
   function renderCard(term){

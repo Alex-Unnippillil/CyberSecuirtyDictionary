@@ -10,11 +10,13 @@
   <main class="container">
     <h1>Search</h1>
     <input id="search-box" type="text" placeholder="Search terms..." />
+    <div id="suggestions"></div>
     <div id="results"></div>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
   </script>
+  <script src="assets/js/damerau.js"></script>
   <script src="assets/js/search.js"></script>
 </body>
 </html>

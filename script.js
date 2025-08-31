@@ -1,6 +1,7 @@
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
+const suggestionsDiv = document.getElementById("suggestions");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
@@ -129,12 +130,19 @@ function buildAlphaNav() {
 
 function populateTermsList() {
   termsList.innerHTML = "";
+  if (suggestionsDiv) suggestionsDiv.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
+  const suggestions = [];
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
-      const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const termLower = item.term.toLowerCase();
+      const dist = searchValue ? damerauLevenshtein(termLower, searchValue) : Infinity;
+      const isSubstring = termLower.includes(searchValue);
+      const isDistanceMatch = dist <= 2;
+      const matchesSearch = !searchValue || isSubstring || isDistanceMatch;
+      const matchesFavorites =
+        !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
       if (matchesSearch && matchesFavorites && matchesLetter) {
@@ -177,7 +185,18 @@ function populateTermsList() {
 
         termsList.appendChild(termDiv);
       }
+      if (searchValue && !isSubstring && isDistanceMatch) {
+        suggestions.push({ term: item.term, dist });
+      }
     });
+  if (suggestionsDiv && searchValue && suggestions.length) {
+    suggestions.sort((a, b) => a.dist - b.dist);
+    const text = suggestions
+      .slice(0, 3)
+      .map((s) => s.term)
+      .join(", ");
+    suggestionsDiv.textContent = `Did you mean: ${text}?`;
+  }
 }
 
 function displayDefinition(term) {
