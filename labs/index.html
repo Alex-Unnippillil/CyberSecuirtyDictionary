@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice Labs</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Practice Labs</h1>
+    <nav class="site-nav"><a href="../index.html">Home</a></nav>
+    <div class="filters">
+      <label for="domain-filter">Domain:</label>
+      <select id="domain-filter" aria-label="Filter by domain">
+        <option value="">All</option>
+      </select>
+      <label for="difficulty-filter">Difficulty:</label>
+      <select id="difficulty-filter" aria-label="Filter by difficulty">
+        <option value="">All</option>
+      </select>
+    </div>
+    <ul id="labs-list"></ul>
+  </main>
+  <script src="labs.js"></script>
+</body>
+</html>
