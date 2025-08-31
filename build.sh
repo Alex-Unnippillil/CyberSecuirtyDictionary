@@ -12,3 +12,6 @@ Contact: mailto:security@example.com
 TXT
 
 echo "Generated .well-known/security.txt"
+
+# Update contributors page
+node scripts/contributors.js
