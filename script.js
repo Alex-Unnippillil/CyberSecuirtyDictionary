@@ -8,6 +8,27 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const readLaterKey = "readLaterQueue";
+
+function getReadLaterQueue() {
+  try {
+    return JSON.parse(localStorage.getItem(readLaterKey)) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function addToReadLater(term) {
+  const queue = getReadLaterQueue();
+  if (!queue.includes(term)) {
+    queue.push(term);
+    try {
+      localStorage.setItem(readLaterKey, JSON.stringify(queue));
+    } catch (e) {
+      // Ignore storage errors
+    }
+  }
+}
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -182,7 +203,21 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><button id="read-later-btn">Read later</button>`;
+  const readLaterBtn = document.getElementById("read-later-btn");
+  if (readLaterBtn) {
+    const queue = getReadLaterQueue();
+    if (queue.includes(term.term)) {
+      readLaterBtn.textContent = "In queue";
+      readLaterBtn.disabled = true;
+    }
+    readLaterBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      addToReadLater(term.term);
+      readLaterBtn.textContent = "Added!";
+      readLaterBtn.disabled = true;
+    });
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
