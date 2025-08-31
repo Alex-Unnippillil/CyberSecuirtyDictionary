@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>{{ title }}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:title" content="{{ og_title }}" />
-  <meta property="og:description" content="{{ og_description }}" />
-  <meta property="og:type" content="{{ og_type }}" />
-  <meta property="og:url" content="{{ canonical_url }}" />
-  <meta property="og:image" content="{{ og_image }}" />
+  <meta property="og:title" content="{{ og_title }}">
+  <meta property="og:description" content="{{ og_description }}">
+  <meta property="og:type" content="{{ og_type }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:image" content="{{ og_image }}">
 
-  <meta name="twitter:card" content="{{ twitter_card }}" />
-  <meta name="twitter:site" content="{{ twitter_site }}" />
-  <meta name="twitter:title" content="{{ twitter_title }}" />
-  <meta name="twitter:description" content="{{ twitter_description }}" />
-  <meta name="twitter:image" content="{{ twitter_image }}" />
+  <meta name="twitter:card" content="{{ twitter_card }}">
+  <meta name="twitter:site" content="{{ twitter_site }}">
+  <meta name="twitter:title" content="{{ twitter_title }}">
+  <meta name="twitter:description" content="{{ twitter_description }}">
+  <meta name="twitter:image" content="{{ twitter_image }}">
 
-  <link rel="canonical" href="{{ canonical_url }}" />
-  <link rel="manifest" href="{{ manifest_url }}" />
-  <link rel="icon" href="{{ favicon_url }}" />
-  <link rel="stylesheet" href="{{ stylesheet_url }}" />
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="manifest" href="{{ manifest_url }}">
+  <link rel="icon" href="{{ favicon_url }}">
+  <link rel="stylesheet" href="{{ stylesheet_url }}">
 
   <script>
     const BASE_URL = "{{ base_url }}";
@@ -32,20 +32,21 @@
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
-  <header role="banner">
-    <nav role="navigation" aria-label="Primary">
+  <header>
+    <nav aria-label="Primary">
       {{ navigation }}
     </nav>
   </header>
-  <main id="main" role="main">
+  <main id="main">
     {{ content }}
   </main>
-  <footer role="contentinfo">
+  <footer>
     <ul>
       <li><a href="{{ privacy_url }}">{{ privacy_label }}</a></li>
       <li><a href="{{ contact_url }}">{{ contact_label }}</a></li>
     </ul>
   </footer>
+  <script src="{{ base_url }}/assets/js/shortcuts.js"></script>
   <script src="{{ base_url }}/assets/js/app.js"></script>
 </body>
 </html>
