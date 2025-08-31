@@ -5,11 +5,13 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const tagFilter = document.getElementById("tag-filter");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
+let currentTagFilter = "All";
 let termsData = { terms: [] };
 
 if (localStorage.getItem("darkMode") === "true") {
@@ -20,6 +22,14 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+if (tagFilter) {
+  tagFilter.addEventListener("change", () => {
+    currentTagFilter = tagFilter.value;
+    clearDefinition();
+    populateTermsList();
   });
 }
 
@@ -137,7 +147,9 @@ function populateTermsList() {
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      const matchesTag =
+        currentTagFilter === "All" || (item.tags && item.tags.includes(currentTagFilter));
+      if (matchesSearch && matchesFavorites && matchesLetter && matchesTag) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 

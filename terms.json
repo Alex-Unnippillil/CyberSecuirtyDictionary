@@ -131,6 +131,202 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Access Token",
+      "definition": "A credential issued by an authorization server that allows a client to access protected resources.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Attribute-Based Access Control (ABAC)",
+      "definition": "An access control model that grants permissions based on attributes of users, resources, and environment.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Authorization Code Grant",
+      "definition": "An OAuth 2.0 flow where an authorization code is exchanged for an access token via the client’s backend.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Client Credentials Grant",
+      "definition": "An OAuth 2.0 flow where a client application uses its own credentials to obtain an access token.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Conditional Access",
+      "definition": "A policy-based approach to enforce specific access requirements based on user, device, or location signals.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Deprovisioning",
+      "definition": "The removal of user accounts and access rights when they are no longer needed.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Device Code Flow",
+      "definition": "An OAuth 2.0 flow designed for devices with limited input capabilities, using a user code and verification URL.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Federated Identity",
+      "definition": "A system that enables users to use the same identity across multiple organizations or domains.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Identity Governance and Administration (IGA)",
+      "definition": "Processes and technologies for managing digital identities and access rights across an organization.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Identity Provider (IdP)",
+      "definition": "A service that creates, maintains, and manages identity information and provides authentication services.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Implicit Grant",
+      "definition": "An OAuth 2.0 flow optimized for public clients where tokens are returned directly in the redirect URI.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "JSON Web Token (JWT)",
+      "definition": "A compact, URL-safe token format used to securely transmit claims between parties.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Just-in-Time Provisioning",
+      "definition": "A provisioning approach that creates user accounts on demand during the first sign-in.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Least Privilege",
+      "definition": "A principle that restricts users to the minimum level of access required to perform their tasks.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Multi-Factor Authentication (MFA)",
+      "definition": "A security method that requires users to provide two or more verification factors to gain access.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "OAuth 2.0",
+      "definition": "An authorization framework that enables applications to obtain limited access to user accounts on HTTP services.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "OpenID Connect (OIDC)",
+      "definition": "An authentication layer built on OAuth 2.0 that allows clients to verify user identities.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Passwordless Authentication",
+      "definition": "An authentication method that does not require users to remember or enter a password.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Proof Key for Code Exchange (PKCE)",
+      "definition": "An extension to OAuth 2.0 that mitigates authorization code interception attacks using a dynamically generated secret.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Privileged Access Management (PAM)",
+      "definition": "Tools and practices used to secure, control, and monitor access to critical systems by privileged users.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Refresh Token",
+      "definition": "A long-lived credential used to obtain new access tokens without re-authenticating the user.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Resource Owner Password Credentials Grant",
+      "definition": "An OAuth 2.0 flow where the user provides credentials directly to the client to obtain an access token.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Role-Based Access Control (RBAC)",
+      "definition": "An access control model that assigns permissions to users based on their roles.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Single Sign-On (SSO)",
+      "definition": "An authentication process that allows a user to access multiple applications with one set of login credentials.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Single Sign-Out",
+      "definition": "A process that logs a user out of multiple applications simultaneously.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "System for Cross-domain Identity Management (SCIM)",
+      "definition": "An open standard for automating the exchange of user identity information between identity domains or IT systems.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "Token Introspection",
+      "definition": "An OAuth 2.0 endpoint that allows resource servers to validate and obtain metadata about a token.",
+      "tags": [
+        "IAM"
+      ]
+    },
+    {
+      "term": "User Provisioning",
+      "definition": "The creation of user accounts and access rights in applications and systems.",
+      "tags": [
+        "IAM"
+      ]
     }
   ]
 }
