@@ -129,8 +129,76 @@
       "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
     },
     {
-      "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "term": "Botnet",
+      "definition": "A network of compromised computers controlled by an attacker to perform coordinated tasks."
+    },
+    {
+      "term": "Firewall",
+      "definition": "A security system that monitors and controls incoming and outgoing network traffic based on predetermined rules."
+    },
+    {
+      "term": "Virtual Private Network (VPN)",
+      "definition": "A service that encrypts internet traffic and routes it through a remote server to provide privacy and secure access."
+    },
+    {
+      "term": "Denial of Service (DoS)",
+      "definition": "An attack that disrupts the availability of a system or network by overwhelming it with traffic or requests."
+    },
+    {
+      "term": "Distributed Denial of Service (DDoS)",
+      "definition": "A DoS attack that uses multiple compromised systems to flood a target with traffic."
+    },
+    {
+      "term": "Malware",
+      "definition": "Malicious software designed to damage, disrupt, or gain unauthorized access to systems."
+    },
+    {
+      "term": "Ransomware",
+      "definition": "Malware that encrypts data and demands payment for its release."
+    },
+    {
+      "term": "Spyware",
+      "definition": "Malware that secretly monitors user activity and collects information."
+    },
+    {
+      "term": "Trojan Horse",
+      "definition": "Malware disguised as legitimate software that enables unauthorized access."
+    },
+    {
+      "term": "Computer Worm",
+      "definition": "A self-replicating program that spreads across networks without human intervention."
+    },
+    {
+      "term": "Brute Force Attack",
+      "definition": "An attempt to crack passwords or keys by trying many combinations systematically."
+    },
+    {
+      "term": "Keylogger",
+      "definition": "Software or hardware that records keystrokes to capture sensitive information."
+    },
+    {
+      "term": "Patch Management",
+      "definition": "The process of distributing and applying updates to software to fix vulnerabilities."
+    },
+    {
+      "term": "Security Information and Event Management (SIEM)",
+      "definition": "A system that aggregates and analyzes security logs from multiple sources."
+    },
+    {
+      "term": "Intrusion Detection System (IDS)",
+      "definition": "A tool that monitors networks or systems for malicious activity or policy violations."
+    },
+    {
+      "term": "Intrusion Prevention System (IPS)",
+      "definition": "A security tool that detects and blocks malicious activity in real time."
+    },
+    {
+      "term": "Penetration Testing",
+      "definition": "Authorized simulated attacks on systems to evaluate security."
+    },
+    {
+      "term": "Man-in-the-Middle (MitM) Attack",
+      "definition": "An attack where a malicious actor secretly relays and possibly alters communication between two parties."
     }
   ]
 }
