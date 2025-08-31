@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Security Operations Center (SOC)</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div id="definition"></div>
+  <script id="term-data" type="application/json">{"term":"Security Operations Center (SOC)","definition":"A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time."}</script>
+  <script>
+    const term = JSON.parse(document.getElementById("term-data").textContent);
+    document.getElementById("definition").innerHTML = "<h3>" + term.term + "</h3><p>" + term.definition + "</p>";
+  </script>
+</body>
+</html>
