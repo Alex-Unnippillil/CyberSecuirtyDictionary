@@ -24,3 +24,5 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+      - name: Allowed domains
+        run: npm run check:md-links

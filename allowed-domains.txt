@@ -1,0 +1,3 @@
+# Allowed domains for Markdown files
+alex-unnippillil.github.io
+github.com
