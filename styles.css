@@ -172,6 +172,10 @@ label {
   justify-content: center;
 }
 
+.progress-box {
+  margin-right: 5px;
+}
+
 .favorite-star:hover,
 .favorite-star:focus {
   color: #999;
