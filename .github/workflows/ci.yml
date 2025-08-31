@@ -24,3 +24,7 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+      - name: Install Lighthouse CI
+        run: npm install --no-save @lhci/cli
+      - name: Lighthouse CI
+        run: npx lhci autorun
