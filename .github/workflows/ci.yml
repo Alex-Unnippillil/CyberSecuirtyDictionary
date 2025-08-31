@@ -24,3 +24,5 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+      - name: Verify standard links
+        run: node scripts/check-links.js

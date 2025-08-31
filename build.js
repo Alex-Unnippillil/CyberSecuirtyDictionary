@@ -1,7 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const dataPath = path.join(__dirname, 'data.json');
+const { linkify, accessDate } = require('./scripts/standard-links');
+
+// Source data containing dictionary terms
+const dataPath = path.join(__dirname, 'terms.json');
 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
 const termsDir = path.join(__dirname, 'terms');
@@ -21,6 +24,8 @@ function slugify(term) {
 for (const term of data.terms) {
   const slug = slugify(term.term);
   const metaRobots = term.draft ? '<meta name="robots" content="noindex">' : '';
+  const definitionHtml = linkify(term.definition, accessDate);
+  term.definition = definitionHtml;
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +35,7 @@ for (const term of data.terms) {
 </head>
 <body>
   <h1>${term.term}</h1>
-  <p>${term.definition}</p>
+  <p>${definitionHtml}</p>
 </body>
 </html>`;
   fs.writeFileSync(path.join(termsDir, `${slug}.html`), html);
@@ -46,3 +51,6 @@ ${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
 `;
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
+
+// Persist the linkified definitions back to the source file
+fs.writeFileSync(dataPath, JSON.stringify(data, null, 2) + '\n');
