@@ -2,23 +2,38 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "references": [
+        "https://en.wikipedia.org/wiki/Phishing"
+      ]
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "references": [
+        "https://www.cisa.gov/news-events/news/avoiding-social-engineering-and-phishing-attacks"
+      ]
     },
     {
       "term": "Social Engineering Toolkit (SET)",
-      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness."
+      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness.",
+      "references": [
+        "https://github.com/trustedsec/social-engineer-toolkit"
+      ]
     },
     {
       "term": "Advanced Persistent Threat (APT)",
-      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network."
+      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network.",
+      "references": [
+        "https://en.wikipedia.org/wiki/Advanced_persistent_threat"
+      ]
     },
     {
       "term": "Cyber Espionage",
-      "definition": "The use of cyber techniques to steal sensitive information from governments, organizations, or individuals."
+      "definition": "The use of cyber techniques to steal sensitive information from governments, organizations, or individuals.",
+      "references": [
+        "https://en.wikipedia.org/wiki/Cyber-espionage"
+      ]
     },
     {
       "term": "Zero-Knowledge Proof",
