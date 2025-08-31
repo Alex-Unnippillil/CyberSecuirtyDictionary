@@ -7,22 +7,22 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 50rem;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem;
   background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
 }
 
 h1 {
   text-align: center;
   font-family: 'Cinzel', serif;
   font-weight: 700;
-  font-size: 48px;
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
   color: #333;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0.0625rem 0.0625rem 0.125rem rgba(0, 0, 0, 0.1);
 }
 
 ul {
@@ -32,9 +32,9 @@ ul {
 }
 
 li {
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 0.0625rem solid #e0e0e0;
   cursor: pointer;
   transition: background-color 0.2s;
 }
@@ -58,24 +58,24 @@ body.dark-mode mark {
 }
 
 .dictionary-item {
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin-bottom: 1.25rem;
+  padding: 0.625rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.3125rem;
   cursor: pointer;
   transition: transform 0.2s;
 }
 
 .dictionary-item h3 {
-  font-size: 24px;
+  font-size: 1.5rem;
   margin: 0;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.625rem;
+  border-bottom: 0.0625rem solid #ccc;
   color: #333;
 }
 
 .dictionary-item p {
-  font-size: 16px;
+  font-size: 1rem;
   color: #666;
 }
 
@@ -84,29 +84,29 @@ body.dark-mode mark {
 }
 
 #definition-container {
-  padding: 20px;
+  padding: 1.25rem;
   background-color: #f2f2f2;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.25rem;
 }
 
 #search {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 0.625rem;
+  font-size: 1rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.1);
 }
 
 
 /* Controls styling */
 #dark-mode-toggle {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin-top: 0.625rem;
+  padding: 0.625rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.3125rem;
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
@@ -117,21 +117,21 @@ body.dark-mode mark {
 }
 
 label {
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-left: 0.625rem;
+  margin-top: 0.625rem;
   display: inline-block;
 }
 
 #show-favorites {
-  margin-right: 5px;
+  margin-right: 0.3125rem;
 }
 
 /* Favorite star styles */
 .favorite-star {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: #ccc;
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: 0.3125rem;
   transition: color 0.2s;
 }
 
@@ -148,16 +148,16 @@ label {
 #alpha-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 0.3125rem;
   justify-content: center;
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
 }
 
 #alpha-nav button {
   background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px 8px;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.25rem;
+  padding: 0.3125rem 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
 }
@@ -177,15 +177,15 @@ label {
 #scrollToTopBtn {
   display: none;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  font-size: 20px;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  font-size: 1.25rem;
   border: none;
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
 }
 
@@ -217,7 +217,7 @@ body.dark-mode #dark-mode-toggle {
 
 body.dark-mode li {
   background-color: #1e1e1e;
-  border-bottom: 1px solid #333;
+  border-bottom: 0.0625rem solid #333;
 }
 
 body.dark-mode li:hover {
@@ -240,7 +240,7 @@ body.dark-mode .dictionary-item p {
 
 body.dark-mode #definition-container {
   background-color: #1e1e1e;
-  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0.3125rem rgba(255, 255, 255, 0.1);
 }
 
 body.dark-mode .favorite-star {
@@ -270,4 +270,38 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 40rem) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  #alpha-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  #alpha-nav button {
+    flex: 0 0 auto;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  #terms-list li {
+    padding: 0.5rem 1rem;
+  }
+
+  .dictionary-item {
+    margin-bottom: 1rem;
+  }
+
+  .dictionary-item h3 {
+    font-size: 1.25rem;
+  }
+
+  .dictionary-item p {
+    font-size: 0.875rem;
+  }
 }
