@@ -5,6 +5,7 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const frameworkFilter = document.getElementById("framework-filter");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -130,6 +131,7 @@ function buildAlphaNav() {
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
+  const selectedFramework = frameworkFilter ? frameworkFilter.value : "All";
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
@@ -137,7 +139,10 @@ function populateTermsList() {
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      const matchesFramework =
+        selectedFramework === "All" ||
+        (item.frameworks && item.frameworks[selectedFramework]);
+      if (matchesSearch && matchesFavorites && matchesLetter && matchesFramework) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -182,7 +187,17 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.frameworks) {
+    const fwList = Object.entries(term.frameworks)
+      .filter(([, val]) => val && val.length)
+      .map(([key, val]) => `<strong>${key}:</strong> ${val.join(", ")}`)
+      .join("<br>");
+    if (fwList) {
+      html += `<p>${fwList}</p>`;
+    }
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -216,6 +231,13 @@ function showRandomTerm() {
 randomButton.addEventListener("click", showRandomTerm);
 if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
+    clearDefinition();
+    populateTermsList();
+  });
+}
+
+if (frameworkFilter) {
+  frameworkFilter.addEventListener("change", () => {
     clearDefinition();
     populateTermsList();
   });
