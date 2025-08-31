@@ -129,6 +129,11 @@
       "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
     },
     {
+      "term": "Web Application Firewall",
+      "definition": "A security system that monitors, filters, and blocks HTTP traffic to and from a web application to protect against attacks.",
+      "synonyms": ["WAF"]
+    },
+    {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
     }

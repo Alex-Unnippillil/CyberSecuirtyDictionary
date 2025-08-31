@@ -2,9 +2,11 @@
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
   let terms = [];
+  let localeMappings = { synonyms: {}, acronyms: {} };
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
+    const locale = (navigator.language || 'en').toLowerCase().split('-')[0];
     fetch(`${baseUrl}/terms.json`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
@@ -15,11 +17,20 @@
         console.error('Failed to load terms.json', err);
       });
 
+    fetch(`${baseUrl}/locales/${locale}.json`)
+      .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
+      .then(data => {
+        localeMappings = data;
+      })
+      .catch(err => {
+        console.warn('Failed to load locale mappings', err);
+      });
+
     searchInput.addEventListener('input', handleSearch);
   });
 
   function handleSearch(){
-    const query = searchInput.value.trim().toLowerCase();
+    const query = applyMappings(searchInput.value.trim().toLowerCase());
     resultsContainer.innerHTML = '';
     if(!query){
       return;
@@ -45,6 +56,16 @@
     if(category.includes(query)) s += 1;
     if(syns.some(syn => syn.includes(query))) s += 2;
     return s;
+  }
+
+  function applyMappings(q){
+    if(localeMappings.acronyms && localeMappings.acronyms[q]){
+      return localeMappings.acronyms[q];
+    }
+    if(localeMappings.synonyms && localeMappings.synonyms[q]){
+      return localeMappings.synonyms[q];
+    }
+    return q;
   }
 
   function renderCard(term){

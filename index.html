@@ -11,25 +11,25 @@
 <body>
   <main class="container">
     <h1>Cyber Security Dictionary</h1>
-    <nav class="site-nav"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
+    <nav class="site-nav" aria-label="Site navigation"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
     <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
     <input type="text" id="search" placeholder="Search...">
 
-    <button id="random-term" aria-label="Show random term">Random Term</button>
+    <button id="random-term" type="button" aria-label="Show random term">Random Term</button>
 
-    <button id="dark-mode-toggle" aria-label="Toggle dark mode">Toggle Dark Mode</button>
+    <button id="dark-mode-toggle" type="button" aria-label="Toggle dark mode">Toggle Dark Mode</button>
     <input type="checkbox" id="show-favorites" aria-label="Show favorites">
     <label for="show-favorites">Show Favorites</label>
 
     <ul id="terms-list"></ul>
   </main>
-  <footer class="container">
+  <footer class="container" aria-label="Primary footer">
     <p><a href="templates/contribute.html">Contribute</a></p>
   </footer>
-  <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
+  <button id="scrollToTopBtn" type="button" aria-label="Scroll to top">↑</button>
 
-  <footer>
+  <footer aria-label="Secondary footer">
     <p><a href="CONTRIBUTING.md">Contribute to this project</a></p>
   </footer>
   <script src="script.js"></script>
