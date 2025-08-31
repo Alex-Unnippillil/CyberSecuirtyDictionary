@@ -8,9 +8,35 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const newCollectionInput = document.getElementById("new-collection-name");
+const createCollectionBtn = document.getElementById("create-collection");
+const collectionSelect = document.getElementById("collection-select");
+const exportCollectionBtn = document.getElementById("export-collection");
+const importInput = document.getElementById("import-url");
+const importCollectionBtn = document.getElementById("import-collection");
+let collections = JSON.parse(localStorage.getItem("collections") || "{}");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+
+function saveCollections() {
+  try {
+    localStorage.setItem("collections", JSON.stringify(collections));
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+function populateCollectionSelect() {
+  if (!collectionSelect) return;
+  collectionSelect.innerHTML = "";
+  Object.keys(collections).forEach((name) => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    collectionSelect.appendChild(opt);
+  });
+}
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -21,6 +47,73 @@ if (darkModeToggle) {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
   });
+}
+
+populateCollectionSelect();
+
+if (createCollectionBtn) {
+  createCollectionBtn.addEventListener("click", () => {
+    const name = newCollectionInput.value.trim();
+    if (name && !collections[name]) {
+      collections[name] = [];
+      saveCollections();
+      populateCollectionSelect();
+      collectionSelect.value = name;
+      populateTermsList();
+    }
+    newCollectionInput.value = "";
+  });
+}
+
+if (collectionSelect) {
+  collectionSelect.addEventListener("change", () => {
+    populateTermsList();
+  });
+}
+
+if (exportCollectionBtn) {
+  exportCollectionBtn.addEventListener("click", () => {
+    const name = collectionSelect.value;
+    if (!name) return;
+    const encoded = encodeCollection(name, collections[name] || []);
+    const url = `${window.location.origin}${window.location.pathname}?import=${encoded}`;
+    prompt("Shareable URL", url);
+  });
+}
+
+if (importCollectionBtn) {
+  importCollectionBtn.addEventListener("click", () => {
+    const str = importInput.value.trim();
+    if (!str) return;
+    try {
+      const data = decodeCollection(str);
+      if (data.name && Array.isArray(data.terms)) {
+        collections[data.name] = data.terms;
+        saveCollections();
+        populateCollectionSelect();
+        populateTermsList();
+        alert(`Imported collection: ${data.name}`);
+      }
+    } catch (e) {
+      console.error("Failed to import collection", e);
+    }
+  });
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has("import")) {
+  try {
+    const data = decodeCollection(urlParams.get("import"));
+    if (data.name && Array.isArray(data.terms)) {
+      collections[data.name] = data.terms;
+      saveCollections();
+      populateCollectionSelect();
+      populateTermsList();
+      alert(`Imported collection: ${data.name}`);
+    }
+  } catch (e) {
+    console.error("Failed to import collection from URL", e);
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -165,6 +258,35 @@ function populateTermsList() {
           }
         });
         termHeader.appendChild(star);
+
+        const add = document.createElement("span");
+        add.classList.add("collection-add");
+        add.textContent = "+";
+        const currentCollection = collectionSelect ? collectionSelect.value : null;
+        if (
+          currentCollection &&
+          collections[currentCollection] &&
+          collections[currentCollection].includes(item.term)
+        ) {
+          add.classList.add("in-collection");
+        }
+        add.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const name = collectionSelect.value;
+          if (!name) return;
+          const terms = collections[name] || [];
+          const idx = terms.indexOf(item.term);
+          if (idx > -1) {
+            terms.splice(idx, 1);
+            add.classList.remove("in-collection");
+          } else {
+            terms.push(item.term);
+            add.classList.add("in-collection");
+          }
+          collections[name] = terms;
+          saveCollections();
+        });
+        termHeader.appendChild(add);
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
