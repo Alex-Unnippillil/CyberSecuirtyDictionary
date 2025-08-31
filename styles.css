@@ -163,11 +163,22 @@ label {
 }
 
 #alpha-nav button:hover,
-#alpha-nav button:focus {
+#alpha-nav button:focus-visible {
   background-color: #ddd;
 }
 
-#alpha-nav button.active {
+#alpha-nav button:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+#alpha-nav button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#alpha-nav button.active,
+#alpha-nav button[aria-current="true"] {
   background-color: #007bff;
   border-color: #007bff;
   color: #fff;
@@ -263,11 +274,23 @@ body.dark-mode #alpha-nav button {
 }
 
 body.dark-mode #alpha-nav button:hover,
-body.dark-mode #alpha-nav button:focus {
+body.dark-mode #alpha-nav button:focus-visible {
   background-color: #555;
 }
 
-body.dark-mode #alpha-nav button.active {
+body.dark-mode #alpha-nav button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+body.dark-mode #alpha-nav button[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: #444;
+}
+
+body.dark-mode #alpha-nav button.active,
+body.dark-mode #alpha-nav button[aria-current="true"] {
   background-color: #007bff;
   border-color: #007bff;
 }
