@@ -12,6 +12,41 @@ const canonicalLink = document.getElementById("canonical-link");
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
+// Prevent the browser from automatically restoring the scroll position.
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+function updateHistoryState() {
+  const state = {
+    scrollY: window.scrollY,
+    search: searchInput ? searchInput.value : "",
+    letter: currentLetterFilter,
+    favorites: showFavoritesToggle ? showFavoritesToggle.checked : false,
+  };
+  history.replaceState(state, "", window.location.href);
+}
+
+function restoreState(state) {
+  if (!state) return;
+  if (searchInput) {
+    searchInput.value = state.search || "";
+  }
+  currentLetterFilter = state.letter || "All";
+  if (showFavoritesToggle) {
+    showFavoritesToggle.checked = !!state.favorites;
+  }
+
+  const btn = Array.from(alphaNav.querySelectorAll("button")).find(
+    (b) => b.textContent === currentLetterFilter
+  );
+  if (btn) {
+    highlightActiveButton(btn);
+  }
+  populateTermsList();
+  window.scrollTo(0, state.scrollY || 0);
+}
+
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
@@ -40,7 +75,12 @@ function loadTerms() {
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
-      populateTermsList();
+      if (history.state) {
+        restoreState(history.state);
+      } else {
+        populateTermsList();
+        updateHistoryState();
+      }
 
       if (window.location.hash) {
         const termFromHash = decodeURIComponent(window.location.hash.substring(1));
@@ -110,6 +150,7 @@ function buildAlphaNav() {
     currentLetterFilter = "All";
     highlightActiveButton(allButton);
     populateTermsList();
+    updateHistoryState();
   });
   alphaNav.appendChild(allButton);
 
@@ -120,6 +161,7 @@ function buildAlphaNav() {
       currentLetterFilter = letter;
       highlightActiveButton(btn);
       populateTermsList();
+      updateHistoryState();
     });
     alphaNav.appendChild(btn);
   });
@@ -163,6 +205,7 @@ function populateTermsList() {
           if (showFavoritesToggle && showFavoritesToggle.checked) {
             populateTermsList();
           }
+          updateHistoryState();
         });
         termHeader.appendChild(star);
         termDiv.appendChild(termHeader);
@@ -181,6 +224,7 @@ function populateTermsList() {
 }
 
 function displayDefinition(term) {
+  updateHistoryState();
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
   window.location.hash = encodeURIComponent(term.term);
@@ -190,15 +234,17 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  updateHistoryState();
 }
 
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  history.replaceState(history.state, "", window.location.pathname + window.location.search);
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
+  updateHistoryState();
 }
 
 function showRandomTerm() {
@@ -218,6 +264,7 @@ if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
     clearDefinition();
     populateTermsList();
+    updateHistoryState();
   });
 }
 
@@ -242,15 +289,45 @@ if (showFavoritesToggle) {
 searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
+  updateHistoryState();
 });
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
+let scrollTimeout;
 window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateHistoryState, 100);
 });
 scrollBtn.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+window.addEventListener("popstate", (event) => {
+  restoreState(event.state);
+  if (window.location.hash) {
+    const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+    const matchedTerm = termsData.terms.find(
+      (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+    );
+    if (matchedTerm) {
+      definitionContainer.style.display = "block";
+      definitionContainer.innerHTML = `<h3>${matchedTerm.term}</h3><p>${matchedTerm.definition}</p>`;
+      if (canonicalLink) {
+        canonicalLink.setAttribute(
+          "href",
+          `${siteUrl}#${encodeURIComponent(matchedTerm.term)}`
+        );
+      }
+    }
+  } else {
+    if (canonicalLink) {
+      canonicalLink.setAttribute("href", siteUrl);
+    }
+    definitionContainer.style.display = "none";
+    definitionContainer.innerHTML = "";
+  }
+});
 
