@@ -24,3 +24,30 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+      - name: Install Python dependencies
+        run: pip install textstat
+      - name: Readability
+        run: python scripts/readability.py > grade-report.txt
+      - name: Comment readability
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('grade-report.txt', 'utf8');
+            const match = report.match(/Average grade level: ([0-9.]+)/);
+            const avg = match ? match[1] : 'N/A';
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                '📘 **Readability Report**',
+                '',
+                `Average grade level: ${avg}`,
+                '',
+                '```',
+                report,
+                '```'
+              ].join('\n')
+            });
