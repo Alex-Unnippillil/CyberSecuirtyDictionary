@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+
+function run(cmd) {
+  return execSync(cmd, { encoding: 'utf8' }).trim();
+}
+
+function getTerms(ref) {
+  try {
+    const content = run(`git show ${ref}:terms.json`);
+    const json = JSON.parse(content);
+    return json.terms.map(t => t.term);
+  } catch (e) {
+    return [];
+  }
+}
+
+function slugify(term) {
+  return term
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+const date = run('git log -1 --date=short --pretty=%ad');
+const author = run('git log -1 --pretty=%an');
+const summary = run('git log -1 --pretty=%s');
+
+const headTerms = new Set(getTerms('HEAD'));
+const parentTerms = new Set(getTerms('HEAD^'));
+const newTerms = [...headTerms].filter(t => !parentTerms.has(t));
+
+const termLinks = newTerms.map(t => `[${t}](terms/${slugify(t)}.html)`).join(', ');
+const entry = `- ${date} | ${author} | ${summary}${termLinks ? ' | ' + termLinks : ''}\n`;
+
+const changelogPath = path.join(__dirname, '..', 'CHANGELOG.md');
+fs.appendFileSync(changelogPath, entry);
