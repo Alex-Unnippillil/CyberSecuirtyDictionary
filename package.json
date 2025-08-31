@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "rename-slugs": "node scripts/rename-slugs.js",
+    "serve-redirects": "node scripts/static-router.js"
   },
   "keywords": [],
   "author": "",
