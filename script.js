@@ -11,6 +11,7 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let localeMappings = { synonyms: {}, acronyms: {} };
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -24,8 +25,21 @@ if (darkModeToggle) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  loadLocaleMappings();
   loadTerms();
 });
+
+function loadLocaleMappings() {
+  const locale = (navigator.language || "en").toLowerCase().split("-")[0];
+  fetch(`locales/${locale}.json`)
+    .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
+    .then((data) => {
+      localeMappings = data;
+    })
+    .catch((err) => {
+      console.warn("Failed to load locale mappings", err);
+    });
+}
 
 function loadTerms() {
   fetch("terms.json")
@@ -129,7 +143,8 @@ function buildAlphaNav() {
 
 function populateTermsList() {
   termsList.innerHTML = "";
-  const searchValue = searchInput.value.trim().toLowerCase();
+  const rawSearch = searchInput.value.trim().toLowerCase();
+  const searchValue = applyMappings(rawSearch);
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
@@ -178,6 +193,16 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+}
+
+function applyMappings(q) {
+  if (localeMappings.acronyms && localeMappings.acronyms[q]) {
+    return localeMappings.acronyms[q];
+  }
+  if (localeMappings.synonyms && localeMappings.synonyms[q]) {
+    return localeMappings.synonyms[q];
+  }
+  return q;
 }
 
 function displayDefinition(term) {
