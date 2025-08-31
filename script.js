@@ -6,6 +6,10 @@ const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const analyticsModal = document.getElementById("analytics-modal");
+const acceptAnalyticsBtn = document.getElementById("analytics-accept");
+const declineAnalyticsBtn = document.getElementById("analytics-decline");
+const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // Replace with your GA4 Measurement ID
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -23,6 +27,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  initAnalytics();
 });
 
 function loadTerms() {
@@ -63,7 +68,45 @@ function loadTerms() {
           loadTerms();
         });
       }
-    });
+  });
+}
+
+function loadAnalytics() {
+  if (window.gaLoaded) return;
+  window.gaLoaded = true;
+  const gtagScript = document.createElement("script");
+  gtagScript.async = true;
+  gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(gtagScript);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
+  gtag("js", new Date());
+  gtag("config", GA_MEASUREMENT_ID);
+}
+
+function initAnalytics() {
+  const consent = localStorage.getItem("analyticsConsent");
+  if (consent === "true") {
+    loadAnalytics();
+  } else if (consent === null && analyticsModal) {
+    analyticsModal.style.display = "flex";
+  }
+}
+
+if (acceptAnalyticsBtn && declineAnalyticsBtn) {
+  acceptAnalyticsBtn.addEventListener("click", () => {
+    localStorage.setItem("analyticsConsent", "true");
+    analyticsModal.style.display = "none";
+    loadAnalytics();
+  });
+  declineAnalyticsBtn.addEventListener("click", () => {
+    localStorage.setItem("analyticsConsent", "false");
+    analyticsModal.style.display = "none";
+  });
 }
 
 function removeDuplicateTermsAndDefinitions() {
