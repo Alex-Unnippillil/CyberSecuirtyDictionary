@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Cryptography",
+  "html": "<div><strong>Cryptography:</strong> The practice of secure communication by converting plaintext into ciphertext and vice versa. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Cryptography\">Read more</a></div>"
+}

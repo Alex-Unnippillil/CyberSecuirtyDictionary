@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Phishing Email",
+  "html": "<div><strong>Phishing Email:</strong> An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Phishing%20Email\">Read more</a></div>"
+}

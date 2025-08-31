@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Cross-Site Request Forgery (CSRF)",
+  "html": "<div><strong>Cross-Site Request Forgery (CSRF):</strong> An attack that tricks a user into unknowingly submitting a malicious request on a trusted website. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Cross-Site%20Request%20Forgery%20(CSRF)\">Read more</a></div>"
+}

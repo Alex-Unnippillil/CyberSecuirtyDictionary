@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Secure Sockets Layer (SSL)",
+  "html": "<div><strong>Secure Sockets Layer (SSL):</strong> An older cryptographic protocol that provides secure communication over a computer network. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Secure%20Sockets%20Layer%20(SSL)\">Read more</a></div>"
+}

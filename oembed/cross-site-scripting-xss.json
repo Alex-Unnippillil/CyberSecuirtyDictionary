@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Cross-Site Scripting (XSS)",
+  "html": "<div><strong>Cross-Site Scripting (XSS):</strong> A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Cross-Site%20Scripting%20(XSS)\">Read more</a></div>"
+}

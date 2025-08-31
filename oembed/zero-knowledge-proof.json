@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Zero-Knowledge Proof",
+  "html": "<div><strong>Zero-Knowledge Proof:</strong> A cryptographic method that allows a party to prove knowledge of a secret without revealing the secret itself. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Zero-Knowledge%20Proof\">Read more</a></div>"
+}

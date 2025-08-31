@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Payload",
+  "html": "<div><strong>Payload:</strong> The part of a malware or exploit that performs malicious actions on a victim's system. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Payload\">Read more</a></div>"
+}

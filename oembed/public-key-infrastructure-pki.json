@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Public Key Infrastructure (PKI)",
+  "html": "<div><strong>Public Key Infrastructure (PKI):</strong> A system for managing digital certificates and public-private key pairs used in asymmetric encryption. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Public%20Key%20Infrastructure%20(PKI)\">Read more</a></div>"
+}
