@@ -1,0 +1,58 @@
+{
+  "months": [
+    {
+      "year": 2025,
+      "month": 9,
+      "milestone": "Finalize threat taxonomy and prepare initial content batches.",
+      "batches": [
+        {
+          "name": "Batch 1",
+          "terms": [
+            "Malvertising",
+            "Phishing",
+            "Zero-Day Vulnerability"
+          ]
+        },
+        {
+          "name": "Batch 2",
+          "terms": [
+            "Security Operations Center (SOC)",
+            "Incident Response",
+            "Threat Hunting"
+          ]
+        },
+        {
+          "name": "Batch 3",
+          "terms": [
+            "Data Loss Prevention (DLP)",
+            "Endpoint Security",
+            "Network Security"
+          ]
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "month": 10,
+      "milestone": "Expand cryptography coverage and introduce advanced concepts.",
+      "batches": [
+        {
+          "name": "Batch 1",
+          "terms": [
+            "Advanced Encryption Standard (AES)",
+            "Public Key Infrastructure (PKI)",
+            "Certificate Authority (CA)"
+          ]
+        },
+        {
+          "name": "Batch 2",
+          "terms": [
+            "Transport Layer Security (TLS)",
+            "Key Exchange",
+            "Zero-Knowledge Proof"
+          ]
+        }
+      ]
+    }
+  ]
+}
