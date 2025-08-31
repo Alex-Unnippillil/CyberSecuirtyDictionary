@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
-<head>
-  <meta charset="utf-8" />
-  <title>{{ title }}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:title" content="{{ og_title }}" />
-  <meta property="og:description" content="{{ og_description }}" />
-  <meta property="og:type" content="{{ og_type }}" />
-  <meta property="og:url" content="{{ canonical_url }}" />
-  <meta property="og:image" content="{{ og_image }}" />
+    <meta property="og:title" content="{{ og_title }}">
+    <meta property="og:description" content="{{ og_description }}">
+    <meta property="og:type" content="{{ og_type }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ og_image }}">
 
-  <meta name="twitter:card" content="{{ twitter_card }}" />
-  <meta name="twitter:site" content="{{ twitter_site }}" />
-  <meta name="twitter:title" content="{{ twitter_title }}" />
-  <meta name="twitter:description" content="{{ twitter_description }}" />
-  <meta name="twitter:image" content="{{ twitter_image }}" />
+    <meta name="twitter:card" content="{{ twitter_card }}">
+    <meta name="twitter:site" content="{{ twitter_site }}">
+    <meta name="twitter:title" content="{{ twitter_title }}">
+    <meta name="twitter:description" content="{{ twitter_description }}">
+    <meta name="twitter:image" content="{{ twitter_image }}">
 
-  <link rel="canonical" href="{{ canonical_url }}" />
-  <link rel="manifest" href="{{ manifest_url }}" />
-  <link rel="icon" href="{{ favicon_url }}" />
-  <link rel="stylesheet" href="{{ stylesheet_url }}" />
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="manifest" href="{{ manifest_url }}">
+    <link rel="icon" href="{{ favicon_url }}">
+    <link rel="stylesheet" href="{{ stylesheet_url }}">
 
   <script>
     const BASE_URL = "{{ base_url }}";
@@ -30,22 +30,42 @@
     {{ json_ld }}
   </script>
 </head>
-<body>
-  <a href="#main" class="skip-link">Skip to content</a>
-  <header role="banner">
-    <nav role="navigation" aria-label="Primary">
-      {{ navigation }}
-    </nav>
-  </header>
-  <main id="main" role="main">
-    {{ content }}
-  </main>
-  <footer role="contentinfo">
-    <ul>
-      <li><a href="{{ privacy_url }}">{{ privacy_label }}</a></li>
-      <li><a href="{{ contact_url }}">{{ contact_label }}</a></li>
-    </ul>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header>
+      <nav aria-label="Primary">
+        {{ navigation }}
+      </nav>
+    </header>
+    <main id="main">
+      {{ content }}
+    </main>
+    <footer>
+      <ul>
+        <li><a href="{{ privacy_url }}">{{ privacy_label }}</a></li>
+        <li><a href="{{ contact_url }}">{{ contact_label }}</a></li>
+      </ul>
+    <div class="version-selectors">
+      <label for="legal-version">Legal:</label>
+      <select id="legal-version">
+        <option value="{{ base_url }}/legal-v2.html">v2</option>
+        <option value="{{ base_url }}/docs/legal/legal-v1.html">v1</option>
+      </select>
+      <label for="disclaimer-version">Disclaimer:</label>
+      <select id="disclaimer-version">
+        <option value="{{ base_url }}/disclaimer-v2.html">v2</option>
+        <option value="{{ base_url }}/docs/legal/disclaimer-v1.html">v1</option>
+      </select>
+    </div>
   </footer>
   <script src="{{ base_url }}/assets/js/app.js"></script>
+  <script>
+    document.getElementById('legal-version').addEventListener('change', function() {
+      window.location.href = this.value;
+    });
+    document.getElementById('disclaimer-version').addEventListener('change', function() {
+      window.location.href = this.value;
+    });
+  </script>
 </body>
 </html>
