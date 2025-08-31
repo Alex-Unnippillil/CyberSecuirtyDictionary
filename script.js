@@ -4,20 +4,36 @@ const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
+const darkModeIcon = document.getElementById("dark-mode-icon");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
-if (localStorage.getItem("darkMode") === "true") {
+function updateDarkModeControl(isDark) {
+  if (darkModeIcon) {
+    darkModeIcon.textContent = isDark ? "☀️" : "🌙";
+  }
+  if (darkModeToggle) {
+    darkModeToggle.setAttribute(
+      "aria-label",
+      isDark ? "Switch to light mode" : "Switch to dark mode"
+    );
+  }
+}
+
+const savedDarkMode = localStorage.getItem("darkMode") === "true";
+if (savedDarkMode) {
   document.body.classList.add("dark-mode");
 }
+updateDarkModeControl(savedDarkMode);
 
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    const isDark = document.body.classList.toggle("dark-mode");
+    localStorage.setItem("darkMode", isDark);
+    updateDarkModeControl(isDark);
   });
 }
 
