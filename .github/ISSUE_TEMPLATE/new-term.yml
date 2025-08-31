@@ -1,7 +1,7 @@
 name: "New Term"
 description: Propose a new term for the dictionary
 title: "New term: <term>"
-labels: ["new term"]
+labels: ["new term", "content"]
 body:
   - type: input
     id: term

@@ -1,0 +1,20 @@
+content:
+  - 'terms.json'
+  - 'data/**'
+site:
+  - 'index.html'
+  - 'search.html'
+  - 'layout.html'
+  - 'templates/**'
+  - 'styles.css'
+  - 'script.js'
+  - 'build.js'
+  - 'build.sh'
+  - 'site.config.json'
+  - 'sw.js'
+i18n:
+  - 'i18n/**'
+a11y:
+  - 'templates/**'
+  - 'index.html'
+  - 'layout.html'

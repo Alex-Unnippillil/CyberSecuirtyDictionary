@@ -1,0 +1,16 @@
+labels:
+  - name: content
+    color: "bfdadc"
+    description: "Changes or additions to dictionary content"
+  - name: site
+    color: "1d76db"
+    description: "Website structure or build issues"
+  - name: i18n
+    color: "5319e7"
+    description: "Internationalization and localization"
+  - name: a11y
+    color: "a2eeef"
+    description: "Accessibility improvements"
+  - name: good first issue
+    color: "7057ff"
+    description: "Good for newcomers"
