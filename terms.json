@@ -2,11 +2,23 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "scenarios": [
+        {
+          "slug": "phishing-email-incident",
+          "title": "Phishing Email Incident"
+        }
+      ]
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "scenarios": [
+        {
+          "slug": "phishing-email-incident",
+          "title": "Phishing Email Incident"
+        }
+      ]
     },
     {
       "term": "Social Engineering Toolkit (SET)",
@@ -14,7 +26,13 @@
     },
     {
       "term": "Advanced Persistent Threat (APT)",
-      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network."
+      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network.",
+      "scenarios": [
+        {
+          "slug": "zero-day-exploit",
+          "title": "Zero-Day Exploit"
+        }
+      ]
     },
     {
       "term": "Cyber Espionage",
@@ -26,11 +44,23 @@
     },
     {
       "term": "Security Operations Center (SOC)",
-      "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time."
+      "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time.",
+      "scenarios": [
+        {
+          "slug": "soc-incident-response",
+          "title": "SOC Incident Response Drill"
+        }
+      ]
     },
     {
       "term": "Data Loss Prevention (DLP)",
-      "definition": "A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data."
+      "definition": "A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data.",
+      "scenarios": [
+        {
+          "slug": "malvertising-data-loss",
+          "title": "Malvertising Leads to Data Loss"
+        }
+      ]
     },
     {
       "term": "Endpoint Security",
@@ -46,7 +76,13 @@
     },
     {
       "term": "Payload",
-      "definition": "The part of a malware or exploit that performs malicious actions on a victim's system."
+      "definition": "The part of a malware or exploit that performs malicious actions on a victim's system.",
+      "scenarios": [
+        {
+          "slug": "xss-attack",
+          "title": "XSS Attack on Comment Form"
+        }
+      ]
     },
     {
       "term": "Cryptography",
@@ -54,15 +90,33 @@
     },
     {
       "term": "Social Engineering Attack Vectors",
-      "definition": "Different methods and techniques used in social engineering attacks to manipulate victims."
+      "definition": "Different methods and techniques used in social engineering attacks to manipulate victims.",
+      "scenarios": [
+        {
+          "slug": "phishing-email-incident",
+          "title": "Phishing Email Incident"
+        }
+      ]
     },
     {
       "term": "Threat Hunting",
-      "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures."
+      "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures.",
+      "scenarios": [
+        {
+          "slug": "soc-incident-response",
+          "title": "SOC Incident Response Drill"
+        }
+      ]
     },
     {
       "term": "Incident Response",
-      "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach."
+      "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach.",
+      "scenarios": [
+        {
+          "slug": "soc-incident-response",
+          "title": "SOC Incident Response Drill"
+        }
+      ]
     },
     {
       "term": "Privilege Escalation",
@@ -102,7 +156,13 @@
     },
     {
       "term": "Malvertising",
-      "definition": "Malicious online advertisements that deliver malware or lead to malicious websites."
+      "definition": "Malicious online advertisements that deliver malware or lead to malicious websites.",
+      "scenarios": [
+        {
+          "slug": "malvertising-data-loss",
+          "title": "Malvertising Leads to Data Loss"
+        }
+      ]
     },
     {
       "term": "Eavesdropping",
@@ -114,23 +174,37 @@
     },
     {
       "term": "Zero-Day Vulnerability",
-      "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers."
+      "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers.",
+      "scenarios": [
+        {
+          "slug": "zero-day-exploit",
+          "title": "Zero-Day Exploit"
+        }
+      ]
     },
     {
       "term": "Security Patch",
-      "definition": "An update released by software vendors to fix security vulnerabilities in their products."
+      "definition": "An update released by software vendors to fix security vulnerabilities in their products.",
+      "scenarios": [
+        {
+          "slug": "zero-day-exploit",
+          "title": "Zero-Day Exploit"
+        }
+      ]
     },
     {
       "term": "Cross-Site Scripting (XSS)",
-      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users."
+      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users.",
+      "scenarios": [
+        {
+          "slug": "xss-attack",
+          "title": "XSS Attack on Comment Form"
+        }
+      ]
     },
     {
       "term": "Cross-Site Request Forgery (CSRF)",
       "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
-    },
-    {
-      "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
     }
   ]
 }
