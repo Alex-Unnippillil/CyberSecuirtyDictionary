@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Calendar</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Content Calendar</h1>
+    <section id="upcoming"></section>
+    <section id="all-months"></section>
+  </main>
+  <script>
+  fetch('../calendar.json')
+    .then(resp => resp.json())
+    .then(data => {
+      const today = new Date();
+      const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+      const upcoming = data.months.find(m => m.year === nextMonth.getFullYear() && m.month === (nextMonth.getMonth() + 1));
+      const upcomingSection = document.getElementById('upcoming');
+      if (upcoming) {
+        const heading = document.createElement('h2');
+        heading.textContent = `Upcoming Month: ${new Date(upcoming.year, upcoming.month - 1).toLocaleString('default', { month: 'long', year: 'numeric' })}`;
+        upcomingSection.appendChild(heading);
+        const milestone = document.createElement('p');
+        milestone.textContent = upcoming.milestone;
+        upcomingSection.appendChild(milestone);
+        const list = document.createElement('ol');
+        upcoming.batches.forEach(batch => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${batch.name}</strong>: ${batch.terms.join(', ')}`;
+          list.appendChild(li);
+        });
+        upcomingSection.appendChild(list);
+      }
+      const allSection = document.getElementById('all-months');
+      data.months.forEach(m => {
+        const monthDiv = document.createElement('section');
+        const h3 = document.createElement('h3');
+        h3.textContent = new Date(m.year, m.month - 1).toLocaleString('default', { month: 'long', year: 'numeric' });
+        monthDiv.appendChild(h3);
+        const p = document.createElement('p');
+        p.textContent = m.milestone;
+        monthDiv.appendChild(p);
+        const ol = document.createElement('ol');
+        m.batches.forEach(batch => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${batch.name}</strong>: ${batch.terms.join(', ')}`;
+          ol.appendChild(li);
+        });
+        monthDiv.appendChild(ol);
+        allSection.appendChild(monthDiv);
+      });
+    });
+  </script>
+</body>
+</html>
