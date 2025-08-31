@@ -7,14 +7,15 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="container">
-    <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms..." />
-    <div id="results"></div>
-  </main>
+    <main class="container">
+      <h1>Search</h1>
+      <input id="search-box" type="text" placeholder="Search terms...">
+      <div id="results"></div>
+    </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
   </script>
-  <script src="assets/js/search.js"></script>
+  <script src="assets/js/search.js" defer></script>
+  <script src="assets/js/perf-monitor.js" defer></script>
 </body>
 </html>

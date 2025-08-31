@@ -254,3 +254,20 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+function loadDeferredScripts() {
+  const analytics = document.createElement("script");
+  analytics.src = "assets/js/analytics.js";
+  analytics.defer = true;
+  document.body.appendChild(analytics);
+
+  const quiz = document.createElement("script");
+  quiz.src = "assets/js/quiz.js";
+  quiz.defer = true;
+  document.body.appendChild(quiz);
+}
+
+if ("requestIdleCallback" in window) {
+  requestIdleCallback(loadDeferredScripts);
+} else {
+  window.addEventListener("load", loadDeferredScripts);
+}
