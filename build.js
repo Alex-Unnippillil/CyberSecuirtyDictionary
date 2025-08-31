@@ -1,16 +1,14 @@
 const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
+const Graph = require('graphology');
+const betweennessCentrality = require('graphology-metrics/centrality/betweenness');
 
-const dataPath = path.join(__dirname, 'data.json');
-const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+// Load terms from YAML
+const dataPath = path.join(__dirname, 'data', 'terms.yaml');
+const terms = yaml.load(fs.readFileSync(dataPath, 'utf8'));
 
-const termsDir = path.join(__dirname, 'terms');
-fs.mkdirSync(termsDir, { recursive: true });
-
-const baseUrl = 'https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms';
-
-const urls = [];
-
+// Helper to create URL friendly slugs
 function slugify(term) {
   return term
     .toLowerCase()
@@ -18,31 +16,101 @@ function slugify(term) {
     .replace(/^-+|-+$/g, '');
 }
 
-for (const term of data.terms) {
-  const slug = slugify(term.term);
-  const metaRobots = term.draft ? '<meta name="robots" content="noindex">' : '';
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>${term.term}</title>
-  ${metaRobots}
-</head>
-<body>
-  <h1>${term.term}</h1>
-  <p>${term.definition}</p>
-</body>
-</html>`;
-  fs.writeFileSync(path.join(termsDir, `${slug}.html`), html);
-  if (!term.draft) {
-    urls.push(`${baseUrl}/${slug}.html`);
+// Index terms by slug for quick lookup
+const termsMap = {};
+for (const term of terms) {
+  const slug = term.slug || slugify(term.name);
+  termsMap[slug] = term;
+}
+
+// Prepare graph and adjacency data structures
+const graph = new Graph({type: 'undirected'});
+const adjacency = {};
+Object.keys(termsMap).forEach(slug => {
+  graph.addNode(slug);
+  adjacency[slug] = {related: [], synonyms: [], prerequisites: []};
+});
+
+const edges = [];
+const edgeSet = new Set();
+
+function addEdge(source, target, type) {
+  const key = [source, target].sort().join('|');
+  if (edgeSet.has(key)) return;
+  edgeSet.add(key);
+  graph.addUndirectedEdge(source, target, {type});
+  edges.push({source, target, type});
+}
+
+// Build adjacency lists and graph edges
+for (const term of terms) {
+  const slug = term.slug || slugify(term.name);
+  const related = term.related || term.see_also || [];
+  const synonyms = term.synonyms || [];
+  const prerequisites = term.prerequisites || [];
+
+  for (const ref of related) {
+    const refSlug = slugify(ref);
+    if (!termsMap[refSlug]) {
+      console.warn(`Missing term referenced in related: ${ref}`);
+      continue;
+    }
+    adjacency[slug].related.push(refSlug);
+    addEdge(slug, refSlug, 'related');
+  }
+
+  for (const ref of synonyms) {
+    const refSlug = slugify(ref);
+    if (!termsMap[refSlug]) {
+      console.warn(`Missing term referenced in synonyms: ${ref}`);
+      continue;
+    }
+    adjacency[slug].synonyms.push(refSlug);
+    addEdge(slug, refSlug, 'synonym');
+  }
+
+  for (const ref of prerequisites) {
+    const refSlug = slugify(ref);
+    if (!termsMap[refSlug]) {
+      console.warn(`Missing term referenced in prerequisites: ${ref}`);
+      continue;
+    }
+    adjacency[slug].prerequisites.push(refSlug);
+    addEdge(slug, refSlug, 'prerequisite');
   }
 }
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
-</urlset>
-`;
+// Verify edges reference existing terms
+for (const {source, target} of edges) {
+  if (!termsMap[source] || !termsMap[target]) {
+    throw new Error(`Edge references missing term: ${source} - ${target}`);
+  }
+}
 
-fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
+// Compute centrality metrics
+const betweenness = betweennessCentrality(graph, {normalized: true});
+
+const nodeCount = graph.order;
+const graphData = {
+  nodes: Object.keys(adjacency).map(slug => {
+    const degree = graph.degree(slug);
+    const degreeCentrality = nodeCount > 1 ? degree / (nodeCount - 1) : 0;
+    return {
+      id: slug,
+      related: adjacency[slug].related,
+      synonyms: adjacency[slug].synonyms,
+      prerequisites: adjacency[slug].prerequisites,
+      degree: degreeCentrality,
+      betweenness: betweenness[slug] || 0
+    };
+  }),
+  edges
+};
+
+fs.writeFileSync(
+  path.join(__dirname, 'graph.json'),
+  JSON.stringify(graphData, null, 2)
+);
+
+console.log('graph.json generated with', graph.order, 'nodes and', graph.size, 'edges');
+
