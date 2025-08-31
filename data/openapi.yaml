@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Cyber Security Dictionary API
+  version: 1.0.0
+servers:
+  - url: https://alex-unnippillil.github.io/CyberSecuirtyDictionary
+paths:
+  /data/terms.json:
+    get:
+      summary: List all terms
+      responses:
+        "200":
+          description: All terms in the dictionary
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - terms
+                properties:
+                  terms:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Term"
+              examples:
+                sample:
+                  value:
+                    terms:
+                      - name: CVE
+                        slug: cve
+                        definition: >-
+                          A public catalog of cybersecurity vulnerabilities providing
+                          unique identifiers for known software flaws.
+                        category: Vulnerability Tracking
+                        synonyms:
+                          - CVE ID
+                          - Common Vulnerabilities and Exposures
+                        see_also:
+                          - CWE
+                          - NVD
+                        sources:
+                          - https://cve.mitre.org
+  /data/terms/{slug}.json:
+    get:
+      summary: Get a term by slug
+      parameters:
+        - in: path
+          name: slug
+          required: true
+          description: URL-friendly identifier of the term
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The requested term
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Term"
+              examples:
+                cve:
+                  value:
+                    name: CVE
+                    slug: cve
+                    definition: >-
+                      A public catalog of cybersecurity vulnerabilities providing
+                      unique identifiers for known software flaws.
+                    category: Vulnerability Tracking
+                    synonyms:
+                      - CVE ID
+                      - Common Vulnerabilities and Exposures
+                    see_also:
+                      - CWE
+                      - NVD
+                    sources:
+                      - https://cve.mitre.org
+        "404":
+          description: Term not found
+components:
+  schemas:
+    Term:
+      type: object
+      required:
+        - name
+        - slug
+        - definition
+      properties:
+        name:
+          type: string
+          description: Canonical name of the term
+        slug:
+          type: string
+          description: URL-friendly identifier for the term
+        definition:
+          type: string
+          description: Human-readable definition of the term
+        category:
+          type: string
+          description: Optional category for the term
+        synonyms:
+          type: array
+          description: Alternate names for the term
+          items:
+            type: string
+        see_also:
+          type: array
+          description: Related terms
+          items:
+            type: string
+        sources:
+          type: array
+          description: Sources for the definition
+          items:
+            type: string
