@@ -23,7 +23,8 @@ jobs:
           SITE_URL: ${{ vars.SITE_URL }}
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: dist
+          path: out
+          retention-days: 30
   deploy:
     needs: build
     runs-on: ubuntu-latest
