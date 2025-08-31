@@ -5,6 +5,7 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const dailyTermContainer = document.getElementById("daily-term");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -25,6 +26,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  loadDailyTerm();
 });
 
 function loadTerms() {
@@ -65,6 +67,24 @@ function loadTerms() {
           loadTerms();
         });
       }
+    });
+}
+
+function loadDailyTerm() {
+  fetch("daily-term.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (dailyTermContainer) {
+        dailyTermContainer.innerHTML = `<h2>Daily Term</h2><p><strong>${data.term}</strong>: ${data.definition}</p>`;
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching daily term:", error);
     });
 }
 
