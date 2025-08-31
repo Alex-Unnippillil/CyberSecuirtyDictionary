@@ -242,6 +242,12 @@ if (showFavoritesToggle) {
 searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
+  if (window.analytics) {
+    const query = searchInput.value.trim();
+    if (query) {
+      window.analytics.trackSearch(query);
+    }
+  }
 });
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
