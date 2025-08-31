@@ -10,6 +10,7 @@
       .then(data => {
         // terms.json may either be an array or object with terms property
         terms = Array.isArray(data) ? data : (data.terms || []);
+        applyDeprecatedSynonyms();
       })
       .catch(err => {
         console.error('Failed to load terms.json', err);
@@ -27,7 +28,11 @@
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
       .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
+      .sort((a,b) => {
+        if(a.term.deprecated && !b.term.deprecated) return 1;
+        if(!a.term.deprecated && b.term.deprecated) return -1;
+        return b.score - a.score;
+      });
 
     matches.forEach(({ term }) => {
       resultsContainer.appendChild(renderCard(term));
@@ -44,7 +49,22 @@
     if(def.includes(query)) s += 1;
     if(category.includes(query)) s += 1;
     if(syns.some(syn => syn.includes(query))) s += 2;
+    if(term.deprecated) s -= 2;
     return s;
+  }
+
+  function applyDeprecatedSynonyms(){
+    terms.forEach(t => {
+      if(t.deprecated && t.replacement){
+        const rep = terms.find(r => (r.name || r.term) === t.replacement);
+        if(rep){
+          rep.synonyms = rep.synonyms || [];
+          if(!rep.synonyms.includes(t.name || t.term)){
+            rep.synonyms.push(t.name || t.term);
+          }
+        }
+      }
+    });
   }
 
   function renderCard(term){
@@ -53,6 +73,12 @@
 
     const title = document.createElement('h3');
     title.textContent = term.name || term.term || '';
+    if(term.deprecated){
+      const badge = document.createElement('span');
+      badge.className = 'deprecated-badge';
+      badge.textContent = 'Deprecated';
+      title.appendChild(badge);
+    }
     card.appendChild(title);
 
     if(term.category){
@@ -71,6 +97,12 @@
       syn.className = 'synonyms';
       syn.textContent = `Synonyms: ${term.synonyms.join(', ')}`;
       card.appendChild(syn);
+    }
+    if(term.deprecated && term.replacement){
+      const note = document.createElement('p');
+      note.className = 'deprecated-note';
+      note.textContent = `Use ${term.replacement} instead.`;
+      card.appendChild(note);
     }
     return card;
   }

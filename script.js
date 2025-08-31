@@ -165,6 +165,12 @@ function populateTermsList() {
           }
         });
         termHeader.appendChild(star);
+        if (item.deprecated) {
+          const badge = document.createElement("span");
+          badge.classList.add("deprecated-badge");
+          badge.textContent = "Deprecated";
+          termHeader.appendChild(badge);
+        }
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
@@ -182,7 +188,36 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let title = term.term;
+  if (term.deprecated) {
+    title += ' <span class="deprecated-badge">Deprecated</span>';
+  }
+  let body = `<h3>${title}</h3><p>${term.definition}</p>`;
+  if (term.deprecated && term.replacement) {
+    const replacementTerm = termsData.terms.find(
+      (t) => t.term.toLowerCase() === term.replacement.toLowerCase()
+    );
+    if (replacementTerm) {
+      body += `<p class="deprecated-note">Use <a href="#" class="replacement-link">${replacementTerm.term}</a> instead.</p>`;
+    } else {
+      body += `<p class="deprecated-note">Use ${term.replacement} instead.</p>`;
+    }
+  }
+  definitionContainer.innerHTML = body;
+  if (term.deprecated && term.replacement) {
+    const link = definitionContainer.querySelector(".replacement-link");
+    if (link) {
+      link.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const replacementTerm = termsData.terms.find(
+          (t) => t.term.toLowerCase() === term.replacement.toLowerCase()
+        );
+        if (replacementTerm) {
+          displayDefinition(replacementTerm);
+        }
+      });
+    }
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
