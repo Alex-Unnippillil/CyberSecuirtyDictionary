@@ -2,15 +2,18 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "lastUpdated": "2025-08-30"
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "lastUpdated": "2025-05-01"
     },
     {
       "term": "Social Engineering Toolkit (SET)",
-      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness."
+      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness.",
+      "lastUpdated": "2024-01-01"
     },
     {
       "term": "Advanced Persistent Threat (APT)",
