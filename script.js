@@ -169,6 +169,17 @@ function populateTermsList() {
         definitionPara.textContent = item.definition;
         termDiv.appendChild(definitionPara);
 
+        if (item.source) {
+          const sourcePara = document.createElement("p");
+          const sourceLink = document.createElement("a");
+          sourceLink.href = item.source;
+          sourceLink.textContent = "Source";
+          sourceLink.target = "_blank";
+          sourceLink.rel = "noopener noreferrer";
+          sourcePara.appendChild(sourceLink);
+          termDiv.appendChild(sourcePara);
+        }
+
         termDiv.addEventListener("click", () => {
           displayDefinition(item);
         });
@@ -180,7 +191,11 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.source) {
+    html += `<p>Source: <a href="${term.source}" target="_blank" rel="noopener noreferrer">${term.source}</a></p>`;
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
 }
 

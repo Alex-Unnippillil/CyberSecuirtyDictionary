@@ -82,7 +82,8 @@
     },
     {
       "term": "Public Key Infrastructure (PKI)",
-      "definition": "A system for managing digital certificates and public-private key pairs used in asymmetric encryption."
+      "definition": "A system for managing digital certificates and public-private key pairs used in asymmetric encryption.",
+      "source": "https://csrc.nist.gov/glossary/term/public_key_infrastructure"
     },
     {
       "term": "Certificate Authority (CA)",
@@ -94,7 +95,8 @@
     },
     {
       "term": "Transport Layer Security (TLS)",
-      "definition": "A more secure successor to SSL, providing encryption and authentication for secure communication."
+      "definition": "A more secure successor to SSL, providing encryption and authentication for secure communication.",
+      "source": "https://csrc.nist.gov/glossary/term/transport_layer_security"
     },
     {
       "term": "Key Exchange",
@@ -131,6 +133,41 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Identity and Access Management (IAM)",
+      "definition": "A framework of policies, processes, and technologies that ensures the right individuals have appropriate access to resources.",
+      "source": "https://csrc.nist.gov/glossary/term/identity_and_access_management"
+    },
+    {
+      "term": "Multi-Factor Authentication (MFA)",
+      "definition": "An authentication method that requires two or more different factors to verify a user's identity.",
+      "source": "https://csrc.nist.gov/glossary/term/multifactor_authentication"
+    },
+    {
+      "term": "Zero Trust",
+      "definition": "A security model that assumes no implicit trust and continuously verifies users and devices before granting access.",
+      "source": "https://csrc.nist.gov/publications/detail/sp/800-207/final"
+    },
+    {
+      "term": "Cloud Security Posture Management (CSPM)",
+      "definition": "Tools and processes that continuously monitor and manage cloud configurations to reduce misconfigurations and security risks.",
+      "source": "https://cloudsecurityalliance.org/blog/2020/02/05/what-is-cloud-security-posture-management-cspm/"
+    },
+    {
+      "term": "Key Management System (KMS)",
+      "definition": "A system that generates, distributes, stores, rotates, and revokes cryptographic keys.",
+      "source": "https://csrc.nist.gov/glossary/term/key_management_service"
+    },
+    {
+      "term": "HTTP Strict Transport Security (HSTS)",
+      "definition": "A web security policy that forces browsers to use HTTPS and helps prevent protocol downgrade attacks.",
+      "source": "https://www.rfc-editor.org/rfc/rfc6797"
+    },
+    {
+      "term": "Content Security Policy (CSP)",
+      "definition": "A security standard that lets site owners control the sources of content the browser is allowed to load to mitigate injection attacks.",
+      "source": "https://www.w3.org/TR/CSP3/"
     }
   ]
 }
