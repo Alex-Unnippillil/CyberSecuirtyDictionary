@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadTerms() {
-  fetch("data.json")
+  fetch("terms.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -180,7 +180,17 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.references && term.references.length) {
+    const refs = term.references
+      .map(
+        (url) =>
+          `<li><a href="${url}" target="_blank" rel="noopener">${url}</a></li>`
+      )
+      .join("");
+    html += `<h4>References</h4><ul>${refs}</ul>`;
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
 }
 
