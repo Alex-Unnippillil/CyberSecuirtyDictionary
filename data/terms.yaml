@@ -1,75 +1,78 @@
-- name: CVE
-  slug: cve
-  definition: >-
-    A public catalog of cybersecurity vulnerabilities providing unique identifiers
-    for known software flaws.
-  category: Vulnerability Tracking
-  synonyms:
-    - CVE ID
-    - Common Vulnerabilities and Exposures
-  see_also:
-    - CWE
-    - NVD
-  sources:
-    - https://cve.mitre.org
-- name: CWE
-  slug: cwe
-  definition: >-
-    A community-developed list of common software and hardware weakness types.
-  category: Weakness Classification
-  synonyms:
-    - Common Weakness Enumeration
-  see_also:
-    - CVE
-    - OWASP Top 10
-  sources:
-    - https://cwe.mitre.org
-- name: CVSS
-  slug: cvss
-  definition: >-
-    A standardized scoring system for rating the severity of security vulnerabilities.
-  category: Scoring System
-  synonyms:
-    - Common Vulnerability Scoring System
-  see_also:
-    - CVE
-    - NVD
-  sources:
-    - https://www.first.org/cvss/
-- name: NVD
-  slug: nvd
-  definition: >-
-    A U.S. government repository of standards-based vulnerability management data.
-  category: Database
-  synonyms:
-    - National Vulnerability Database
-  see_also:
-    - CVE
-    - CVSS
-  sources:
-    - https://nvd.nist.gov/
-- name: MITRE ATT&CK
-  slug: mitre-attack
-  definition: >-
-    A globally accessible knowledge base of adversary tactics and techniques based
-    on real-world observations.
-  category: Framework
-  synonyms:
-    - ATT&CK
-  see_also:
-    - CVE
-    - CWE
-  sources:
-    - https://attack.mitre.org/
-- name: OWASP Top 10
-  slug: owasp-top-10
-  definition: >-
-    A regularly updated report outlining the ten most critical web application
-    security risks, published by the Open Web Application Security Project.
-  category: Awareness Document
-  synonyms:
-    - OWASP Top Ten
-  see_also:
-    - CWE
-  sources:
-    - https://owasp.org/www-project-top-ten/
+schemaVersion: 2
+terms:
+  - name: CVE
+    slug: cve
+    definition: >-
+      A public catalog of cybersecurity vulnerabilities providing unique
+      identifiers for known software flaws.
+    category: Vulnerability Tracking
+    synonyms:
+      - CVE ID
+      - Common Vulnerabilities and Exposures
+    see_also:
+      - CWE
+      - NVD
+    sources:
+      - https://cve.mitre.org
+  - name: CWE
+    slug: cwe
+    definition: A community-developed list of common software and hardware weakness types.
+    category: Weakness Classification
+    synonyms:
+      - Common Weakness Enumeration
+    see_also:
+      - CVE
+      - OWASP Top 10
+    sources:
+      - https://cwe.mitre.org
+  - name: CVSS
+    slug: cvss
+    definition: >-
+      A standardized scoring system for rating the severity of security
+      vulnerabilities.
+    category: Scoring System
+    synonyms:
+      - Common Vulnerability Scoring System
+    see_also:
+      - CVE
+      - NVD
+    sources:
+      - https://www.first.org/cvss/
+  - name: NVD
+    slug: nvd
+    definition: >-
+      A U.S. government repository of standards-based vulnerability management
+      data.
+    category: Database
+    synonyms:
+      - National Vulnerability Database
+    see_also:
+      - CVE
+      - CVSS
+    sources:
+      - https://nvd.nist.gov/
+  - name: MITRE ATT&CK
+    slug: mitre-attack
+    definition: >-
+      A globally accessible knowledge base of adversary tactics and techniques
+      based on real-world observations.
+    category: Framework
+    synonyms:
+      - ATT&CK
+    see_also:
+      - CVE
+      - CWE
+    sources:
+      - https://attack.mitre.org/
+  - name: OWASP Top 10
+    slug: owasp-top-10
+    definition: >-
+      A regularly updated report outlining the ten most critical web application
+      security risks, published by the Open Web Application Security Project.
+    category: Awareness Document
+    synonyms:
+      - OWASP Top Ten
+    see_also:
+      - CWE
+    sources:
+      - https://owasp.org/www-project-top-ten/
