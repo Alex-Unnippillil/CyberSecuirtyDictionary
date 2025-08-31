@@ -5,7 +5,8 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html",
+    "lint:terms": "node scripts/lint-terms.js",
+    "test": "npm run lint:terms && html-validate index.html",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
   "keywords": [],
