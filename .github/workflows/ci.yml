@@ -24,3 +24,5 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+      - name: Detect definition conflicts
+        run: node scripts/check-terms.js
