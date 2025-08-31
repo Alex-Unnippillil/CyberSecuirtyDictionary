@@ -62,7 +62,8 @@
     },
     {
       "term": "Incident Response",
-      "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach."
+      "definition": "A structured approach for handling and managing the aftermath of a security breach or cyberattack to reduce damage and recovery time.",
+      "reference": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r2.pdf"
     },
     {
       "term": "Privilege Escalation",
@@ -131,6 +132,31 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Malware",
+      "definition": "Malicious software designed to infiltrate, damage, or disrupt computer systems or data.",
+      "reference": "https://csrc.nist.gov/glossary/term/malware"
+    },
+    {
+      "term": "Ransomware",
+      "definition": "Malware that encrypts a victim's data and demands payment for the decryption key.",
+      "reference": "https://www.cisa.gov/stopransomware/ransomware-101"
+    },
+    {
+      "term": "Botnet",
+      "definition": "A network of compromised computers remotely controlled by an attacker for coordinated activities.",
+      "reference": "https://en.wikipedia.org/wiki/Botnet"
+    },
+    {
+      "term": "Sandbox",
+      "definition": "An isolated environment used to execute and analyze untrusted code without risking the host system.",
+      "reference": "https://en.wikipedia.org/wiki/Sandbox_(computer_security)"
+    },
+    {
+      "term": "Honeypot",
+      "definition": "A decoy system or resource intended to lure attackers and monitor their activities.",
+      "reference": "https://en.wikipedia.org/wiki/Honeypot_(computing)"
     }
   ]
 }

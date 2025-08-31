@@ -180,7 +180,11 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.reference) {
+    html += `<p class="reference">Source: <a href="${term.reference}" target="_blank" rel="noopener noreferrer">${term.reference}</a></p>`;
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
 }
 
