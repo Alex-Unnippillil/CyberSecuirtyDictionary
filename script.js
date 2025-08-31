@@ -39,16 +39,7 @@ function loadTerms() {
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
-
-      if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
-        const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
-        );
-        if (matchedTerm) {
-          displayDefinition(matchedTerm);
-        }
-      }
+      handleHashChange();
     })
     .catch((error) => {
       console.error("Detailed error fetching data:", error);
@@ -95,32 +86,84 @@ function toggleFavorite(term) {
 }
 
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => {
+      btn.classList.remove("active");
+      btn.removeAttribute("aria-current");
+    });
   button.classList.add("active");
+  button.setAttribute("aria-current", "true");
+}
+
+function setLetterFilter(letter) {
+  currentLetterFilter = letter;
+  const button = alphaNav.querySelector(`button[data-letter="${letter}"]`);
+  if (button) {
+    highlightActiveButton(button);
+  }
+  populateTermsList();
+}
+
+function handleHashChange() {
+  const hash = decodeURIComponent(window.location.hash.substring(1));
+
+  if (!hash || hash === "All") {
+    setLetterFilter("All");
+    clearDefinition();
+    return;
+  }
+
+  if (/^[A-Z]$/.test(hash)) {
+    setLetterFilter(hash);
+    clearDefinition();
+    return;
+  }
+
+  const matchedTerm = termsData.terms.find(
+    (t) => t.term.toLowerCase() === hash.toLowerCase()
+  );
+  if (matchedTerm) {
+    displayDefinition(matchedTerm);
+    setLetterFilter(matchedTerm.term.charAt(0).toUpperCase());
+  }
 }
 
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  alphaNav.innerHTML = "";
+  const lettersWithTerms = new Set(
+    termsData.terms.map((t) => t.term.charAt(0).toUpperCase())
+  );
 
   const allButton = document.createElement("button");
   allButton.textContent = "All";
+  allButton.setAttribute("data-letter", "All");
   allButton.addEventListener("click", () => {
-    currentLetterFilter = "All";
-    highlightActiveButton(allButton);
-    populateTermsList();
+    setLetterFilter("All");
+    window.location.hash = "All";
+    clearDefinition();
   });
   alphaNav.appendChild(allButton);
 
-  letters.forEach((letter) => {
+  for (let i = 65; i <= 90; i++) {
+    const letter = String.fromCharCode(i);
     const btn = document.createElement("button");
     btn.textContent = letter;
-    btn.addEventListener("click", () => {
-      currentLetterFilter = letter;
-      highlightActiveButton(btn);
-      populateTermsList();
-    });
+    btn.setAttribute("data-letter", letter);
+    btn.setAttribute("aria-label", `Filter terms starting with ${letter}`);
+
+    if (lettersWithTerms.has(letter)) {
+      btn.addEventListener("click", () => {
+        setLetterFilter(letter);
+        window.location.hash = letter;
+        clearDefinition();
+      });
+    } else {
+      btn.disabled = true;
+      btn.setAttribute("aria-disabled", "true");
+    }
     alphaNav.appendChild(btn);
-  });
+  }
 
   highlightActiveButton(allButton);
 }
@@ -181,13 +224,19 @@ function populateTermsList() {
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
-  window.location.hash = encodeURIComponent(term.term);
+  const encoded = encodeURIComponent(term.term);
+  if (window.location.hash.substring(1) !== encoded) {
+    window.location.hash = encoded;
+  }
 }
 
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  const hash = decodeURIComponent(window.location.hash.substring(1));
+  if (hash && !/^(All|[A-Z])$/.test(hash)) {
+    window.location.hash = currentLetterFilter === "All" ? "All" : currentLetterFilter;
+  }
 }
 
 function showRandomTerm() {
@@ -232,6 +281,8 @@ searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
 });
+
+window.addEventListener("hashchange", handleHashChange);
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
 window.addEventListener("scroll", () => {
