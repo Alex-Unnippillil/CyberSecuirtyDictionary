@@ -6,6 +6,45 @@ const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const recentList = document.getElementById("recent-list");
+const bookmarksList = document.getElementById("bookmarks-list");
+const clearRecentBtn = document.getElementById("clear-recent");
+const clearBookmarksBtn = document.getElementById("clear-bookmarks");
+
+let recentlyViewed = [];
+try {
+  recentlyViewed = JSON.parse(localStorage.getItem("recentlyViewed") || "[]");
+} catch (e) {
+  recentlyViewed = [];
+}
+
+if (clearRecentBtn) {
+  clearRecentBtn.addEventListener("click", () => {
+    recentlyViewed = [];
+    try {
+      localStorage.removeItem("recentlyViewed");
+    } catch (e) {
+      // Ignore storage errors
+    }
+    renderRecentlyViewed();
+  });
+}
+
+if (clearBookmarksBtn) {
+  clearBookmarksBtn.addEventListener("click", () => {
+    favorites.clear();
+    try {
+      localStorage.removeItem("favorites");
+    } catch (e) {
+      // Ignore storage errors
+    }
+    if (showFavoritesToggle) {
+      showFavoritesToggle.checked = false;
+    }
+    renderBookmarks();
+    populateTermsList();
+  });
+}
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -39,6 +78,8 @@ function loadTerms() {
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
+      renderBookmarks();
+      renderRecentlyViewed();
 
       if (window.location.hash) {
         const termFromHash = decodeURIComponent(window.location.hash.substring(1));
@@ -81,6 +122,66 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function addToRecentlyViewed(term) {
+  const slug = slugify(term.term);
+  const timestamp = Date.now();
+  recentlyViewed = recentlyViewed.filter((item) => item.slug !== slug);
+  recentlyViewed.push({ slug, term: term.term, timestamp });
+  recentlyViewed.sort((a, b) => b.timestamp - a.timestamp);
+  recentlyViewed = recentlyViewed.slice(0, 10);
+  try {
+    localStorage.setItem("recentlyViewed", JSON.stringify(recentlyViewed));
+  } catch (e) {
+    // Ignore storage errors
+  }
+  renderRecentlyViewed();
+}
+
+function renderRecentlyViewed() {
+  if (!recentList) return;
+  recentList.innerHTML = "";
+  recentlyViewed
+    .sort((a, b) => b.timestamp - a.timestamp)
+    .forEach((item) => {
+      const li = document.createElement("li");
+      li.textContent = item.term;
+      li.addEventListener("click", () => {
+        const termObj = termsData.terms.find(
+          (t) => slugify(t.term) === item.slug
+        );
+        if (termObj) {
+          displayDefinition(termObj);
+        }
+      });
+      recentList.appendChild(li);
+    });
+}
+
+function renderBookmarks() {
+  if (!bookmarksList) return;
+  bookmarksList.innerHTML = "";
+  Array.from(favorites)
+    .sort((a, b) => a.localeCompare(b))
+    .forEach((termName) => {
+      const li = document.createElement("li");
+      li.textContent = termName;
+      li.addEventListener("click", () => {
+        const termObj = termsData.terms.find((t) => t.term === termName);
+        if (termObj) {
+          displayDefinition(termObj);
+        }
+      });
+      bookmarksList.appendChild(li);
+    });
+}
+
 function toggleFavorite(term) {
   if (favorites.has(term)) {
     favorites.delete(term);
@@ -92,6 +193,7 @@ function toggleFavorite(term) {
   } catch (e) {
     // Ignore storage errors
   }
+  renderBookmarks();
 }
 
 function highlightActiveButton(button) {
@@ -182,6 +284,7 @@ function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
   window.location.hash = encodeURIComponent(term.term);
+  addToRecentlyViewed(term);
 }
 
 function clearDefinition() {
