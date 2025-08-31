@@ -9,6 +9,7 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let acronyms = {};
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -26,15 +27,19 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadTerms() {
-  fetch("data.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  Promise.all([fetch("data.json"), fetch("acronyms.json")])
+    .then(async ([termsRes, acrRes]) => {
+      if (!termsRes.ok || !acrRes.ok) {
+        throw new Error(
+          `HTTP error! status: ${termsRes.status}, ${acrRes.status}`
+        );
       }
-      return response.json();
-    })
-    .then((data) => {
+      const [data, acrData] = await Promise.all([
+        termsRes.json(),
+        acrRes.json(),
+      ]);
       termsData = data;
+      acronyms = acrData;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
@@ -79,6 +84,18 @@ function removeDuplicateTermsAndDefinitions() {
   });
 
   termsData.terms = uniqueTermsData;
+}
+
+function applyAcronyms(text) {
+  let result = text;
+  Object.keys(acronyms).forEach((abbr) => {
+    const regex = new RegExp(`\\b${abbr}\\b`, "g");
+    result = result.replace(
+      regex,
+      `<abbr title="${acronyms[abbr]}">${abbr}</abbr>`
+    );
+  });
+  return result;
 }
 
 function toggleFavorite(term) {
@@ -166,7 +183,7 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        definitionPara.innerHTML = applyAcronyms(item.definition);
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -180,7 +197,9 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${applyAcronyms(
+    term.definition
+  )}</p>`;
   window.location.hash = encodeURIComponent(term.term);
 }
 
