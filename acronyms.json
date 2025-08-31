@@ -1,0 +1,14 @@
+{
+  "APT": "Advanced Persistent Threat",
+  "AES": "Advanced Encryption Standard",
+  "CA": "Certificate Authority",
+  "CSRF": "Cross-Site Request Forgery",
+  "DLP": "Data Loss Prevention",
+  "DES": "Data Encryption Standard",
+  "PKI": "Public Key Infrastructure",
+  "SET": "Social Engineering Toolkit",
+  "SOC": "Security Operations Center",
+  "SSL": "Secure Sockets Layer",
+  "TLS": "Transport Layer Security",
+  "XSS": "Cross-Site Scripting"
+}

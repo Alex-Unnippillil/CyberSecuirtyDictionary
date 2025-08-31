@@ -271,3 +271,16 @@ body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
 }
+
+abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+abbr[title]:hover {
+  background-color: #ffffe0;
+}
+
+body.dark-mode abbr[title]:hover {
+  background-color: #333;
+}
