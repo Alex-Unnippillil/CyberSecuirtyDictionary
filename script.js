@@ -136,10 +136,10 @@ function populateTermsList() {
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
       if (matchesSearch && matchesFavorites && matchesLetter) {
-        const termDiv = document.createElement("div");
-        termDiv.classList.add("dictionary-item");
+        const termItem = document.createElement("li");
+        termItem.classList.add("dictionary-item");
 
-        const termHeader = document.createElement("h3");
+        const termHeader = document.createElement("h2");
         if (searchValue) {
           const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
           const regex = new RegExp(`(${escaped})`, "gi");
@@ -163,24 +163,24 @@ function populateTermsList() {
           }
         });
         termHeader.appendChild(star);
-        termDiv.appendChild(termHeader);
+        termItem.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
         definitionPara.textContent = item.definition;
-        termDiv.appendChild(definitionPara);
+        termItem.appendChild(definitionPara);
 
-        termDiv.addEventListener("click", () => {
+        termItem.addEventListener("click", () => {
           displayDefinition(item);
         });
 
-        termsList.appendChild(termDiv);
+        termsList.appendChild(termItem);
       }
     });
 }
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h2>${term.term}</h2><p>${term.definition}</p>`;
   window.location.hash = encodeURIComponent(term.term);
 }
 
