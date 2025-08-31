@@ -91,6 +91,12 @@ body.dark-mode mark {
   margin-bottom: 20px;
 }
 
+#daily-term {
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
 #search {
   width: 100%;
   padding: 10px;
@@ -201,6 +207,14 @@ body.dark-mode {
 
 body.dark-mode .container {
   background-color: #1e1e1e;
+}
+
+body.dark-mode #daily-term {
+  color: #fff;
+}
+
+body.dark-mode #daily-term a {
+  color: #66b2ff;
 }
 
 body.dark-mode #search {
