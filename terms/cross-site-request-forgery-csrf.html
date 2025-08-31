@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cross-Site Request Forgery (CSRF)</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div id="definition"></div>
+  <script id="term-data" type="application/json">{"term":"Cross-Site Request Forgery (CSRF)","definition":"An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."}</script>
+  <script>
+    const term = JSON.parse(document.getElementById("term-data").textContent);
+    document.getElementById("definition").innerHTML = "<h3>" + term.term + "</h3><p>" + term.definition + "</p>";
+  </script>
+</body>
+</html>
