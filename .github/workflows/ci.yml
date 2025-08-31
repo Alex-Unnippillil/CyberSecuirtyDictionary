@@ -12,8 +12,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install linters
-        run: npm install --no-save eslint@8 stylelint cspell
+      - name: Install tools
+        run: npm install --no-save eslint@8 stylelint cspell js-yaml
+      - name: Schema version check
+        run: npm run check:schema
       - name: ESLint
         run: npx eslint@8 --no-eslintrc --env browser --env es2021 script.js
       - name: stylelint
