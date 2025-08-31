@@ -1,0 +1,13 @@
+{
+  "name": "cyber-security-dictionary",
+  "version": "1.0.0",
+  "description": "Cyber Security Dictionary service worker tests",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "service-worker-mock": "^2.0.5"
+  }
+}
