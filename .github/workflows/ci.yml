@@ -18,8 +18,8 @@ jobs:
         run: npx eslint@8 --no-eslintrc --env browser --env es2021 script.js
       - name: stylelint
         run: npx stylelint styles.css
-      - name: cSpell
-        run: npx cspell README.md terms.json
+      - name: Spellcheck
+        run: npm run spellcheck
       - name: Link checker
         uses: lycheeverse/lychee-action@v2
         with:

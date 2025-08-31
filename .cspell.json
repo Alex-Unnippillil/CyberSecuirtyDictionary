@@ -1,10 +1,18 @@
 {
   "version": "0.2",
   "language": "en",
+  "ignorePaths": ["node_modules"],
+  "dictionaryDefinitions": [
+    { "name": "project-terms", "path": "./cspell-project-dictionary.txt" }
+  ],
+  "dictionaries": ["project-terms"],
   "words": [
     "Secuirty",
     "Malvertising",
-    "ciphertext"
-  ],
-  "ignorePaths": ["node_modules"]
+    "ciphertext",
+    "cybersecuirtydictionary",
+    "syns",
+    "favorited",
+    "NISTIR"
+  ]
 }

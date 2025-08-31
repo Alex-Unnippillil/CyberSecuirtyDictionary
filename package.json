@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html",
+    "spellcheck": "cspell \"**/*\"",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
   "keywords": [],
@@ -13,6 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
+    "cspell": "^9.2.1",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
