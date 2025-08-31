@@ -129,6 +129,22 @@
       "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
     },
     {
+      "term": "Common Vulnerability Scoring System (CVSS)",
+      "definition": "A standardized framework for rating the severity of software vulnerabilities. CVSS v4.0 is maintained by <a href=\"https://www.first.org/cvss/\">FIRST</a>."
+    },
+    {
+      "term": "Common Vulnerabilities and Exposures (CVE)",
+      "definition": "A list of publicly disclosed cybersecurity vulnerabilities and exposures. More information at <a href=\"https://www.cve.org/\">CVE.org</a>."
+    },
+    {
+      "term": "Common Weakness Enumeration (CWE)",
+      "definition": "A community-developed list of common software and hardware weakness types. See <a href=\"https://cwe.mitre.org/\">cwe.mitre.org</a> for details."
+    },
+    {
+      "term": "National Vulnerability Database (NVD)",
+      "definition": "A NIST-maintained repository of vulnerability management data. Visit <a href=\"https://nvd.nist.gov/\">nvd.nist.gov</a>."
+    },
+    {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
     }

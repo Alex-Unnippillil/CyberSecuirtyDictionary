@@ -166,7 +166,7 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        definitionPara.innerHTML = item.definition;
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
