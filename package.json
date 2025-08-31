@@ -5,8 +5,9 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "test": "npm run validate:terms && html-validate index.html",
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "validate:terms": "node scripts/validate-terms.js"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,8 @@
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "ajv": "^8.12.0",
+    "ajv-formats": "^2.1.1"
   }
 }
