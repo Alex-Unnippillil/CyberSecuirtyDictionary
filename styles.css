@@ -66,6 +66,15 @@ body.dark-mode mark {
   color: #000;
 }
 
+.diff-added {
+  background-color: #c8e6c9;
+}
+
+.diff-removed {
+  background-color: #ffcdd2;
+  text-decoration: line-through;
+}
+
 .dictionary-item {
   margin-bottom: 20px;
   padding: 12px;
