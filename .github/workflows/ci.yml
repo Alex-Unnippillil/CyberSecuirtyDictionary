@@ -13,13 +13,15 @@ jobs:
         with:
           node-version: 20
       - name: Install linters
-        run: npm install --no-save eslint@8 stylelint cspell
+        run: npm install --no-save eslint@8 stylelint cspell remark-cli remark-lint remark-lint-prohibited-strings remark-lint-write-good unist-util-visit mdast-util-to-string
       - name: ESLint
         run: npx eslint@8 --no-eslintrc --env browser --env es2021 script.js
       - name: stylelint
         run: npx stylelint styles.css
       - name: cSpell
         run: npx cspell README.md terms.json
+      - name: remark-lint
+        run: npx remark .
       - name: Link checker
         uses: lycheeverse/lychee-action@v2
         with:

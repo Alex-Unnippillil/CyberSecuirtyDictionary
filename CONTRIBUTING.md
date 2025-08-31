@@ -10,7 +10,7 @@ Thank you for taking the time to contribute to the Cyber Security Dictionary!
 2. **Submit a pull request**
    - Fork the repository and update `data.json` with your term.
    - Reference the issue in your pull request.
-   - Ensure any related documentation is updated.
+   - Update any related documentation.
 
 ## Pull request checklist
 

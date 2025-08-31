@@ -1,8 +1,8 @@
-# Security Policy
+# Security policy
 
-We take the security of this project seriously.
+We value this project's security.
 
-## Reporting a Vulnerability
+## Reporting a vulnerability
 
 If you believe you've found a security vulnerability in this project, please email us at [security@example.com](mailto:security@example.com) with details.
 
