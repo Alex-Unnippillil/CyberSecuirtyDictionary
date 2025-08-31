@@ -1,13 +1,21 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   background-color: #f8f8f8;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .container {
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
@@ -32,11 +40,12 @@ ul {
 }
 
 li {
-  padding: 10px 20px;
+  padding: 12px 20px;
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
   transition: background-color 0.2s;
+  min-height: 44px;
 }
 
 li:last-child {
@@ -59,11 +68,12 @@ body.dark-mode mark {
 
 .dictionary-item {
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.2s;
+  min-height: 44px;
 }
 
 .dictionary-item h3 {
@@ -98,10 +108,27 @@ body.dark-mode mark {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  min-height: 44px;
 }
 
 
 /* Controls styling */
+#random-term {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#random-term:hover {
+  background-color: #0056b3;
+}
+
 #dark-mode-toggle {
   margin-top: 10px;
   padding: 10px;
@@ -110,6 +137,8 @@ body.dark-mode mark {
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 #dark-mode-toggle:hover {
@@ -120,9 +149,12 @@ label {
   margin-left: 10px;
   margin-top: 10px;
   display: inline-block;
+  line-height: 44px;
 }
 
 #show-favorites {
+  width: 44px;
+  height: 44px;
   margin-right: 5px;
 }
 
@@ -133,6 +165,11 @@ label {
   cursor: pointer;
   margin-left: 5px;
   transition: color 0.2s;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .favorite-star:hover,
@@ -167,9 +204,11 @@ label {
   background-color: #eee;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 5px 8px;
+  padding: 10px;
   cursor: pointer;
   transition: background-color 0.2s, color 0.2s;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 #alpha-nav button:hover,
@@ -194,8 +233,8 @@ label {
   background-color: #007bff;
   color: #fff;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
 }
 
@@ -285,4 +324,26 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .dictionary-item h3 {
+    font-size: 20px;
+  }
+
+  .dictionary-item p {
+    font-size: 14px;
+  }
+
+  #alpha-nav button {
+    font-size: 14px;
+  }
 }
