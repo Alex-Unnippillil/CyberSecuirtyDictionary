@@ -13,6 +13,19 @@ body {
   overflow-x: hidden;
 }
 
+#experiment-banner {
+  padding: 10px;
+  text-align: center;
+  background-color: #ffeeba;
+  border-bottom: 1px solid #ccc;
+}
+
+body.dark-mode #experiment-banner {
+  background-color: #333;
+  border-bottom-color: #555;
+  color: #fff;
+}
+
 .container {
   max-width: 800px;
   width: 100%;

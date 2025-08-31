@@ -8,6 +8,70 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const experimentBanner = document.getElementById("experiment-banner");
+
+const experimentConfig = {
+  variants: {
+    A: 1,
+    B: 1,
+  },
+};
+
+function getOrCreateUserId() {
+  let id = localStorage.getItem("userId");
+  if (!id) {
+    id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    try {
+      localStorage.setItem("userId", id);
+    } catch (e) {
+      // Ignore storage errors
+    }
+  }
+  return id;
+}
+
+function simpleHash(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return hash >>> 0;
+}
+
+function assignVariant(userId, config) {
+  const totalWeight = Object.values(config.variants).reduce(
+    (sum, weight) => sum + weight,
+    0
+  );
+  const hashValue = simpleHash(userId) % totalWeight;
+  let cumulative = 0;
+  for (const [variant, weight] of Object.entries(config.variants)) {
+    cumulative += weight;
+    if (hashValue < cumulative) {
+      return variant;
+    }
+  }
+  return Object.keys(config.variants)[0];
+}
+
+function displayExperimentBanner(variant) {
+  if (experimentBanner) {
+    experimentBanner.textContent = `Experiment Variant: ${variant}`;
+  }
+}
+
+let assignedVariant = localStorage.getItem("experimentVariant");
+if (!assignedVariant) {
+  const userId = getOrCreateUserId();
+  assignedVariant = assignVariant(userId, experimentConfig);
+  try {
+    localStorage.setItem("experimentVariant", assignedVariant);
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+displayExperimentBanner(assignedVariant);
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
