@@ -73,3 +73,10 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+- name: Web Application Firewall
+  slug: web-application-firewall
+  definition: >-
+    A security system that monitors, filters, and blocks HTTP traffic to and from a web application to protect against attacks.
+  category: Network Security
+  synonyms:
+    - WAF
