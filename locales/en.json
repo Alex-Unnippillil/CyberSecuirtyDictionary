@@ -1,0 +1,18 @@
+{
+  "title": "Cyber Security Dictionary",
+  "definition_guidelines": "Definition Guidelines",
+  "search_placeholder": "Search...",
+  "random_term": "Random Term",
+  "toggle_dark_mode": "Toggle Dark Mode",
+  "show_favorites": "Show Favorites",
+  "contribute": "Contribute",
+  "contribute_project": "Contribute to this project",
+  "scroll_to_top": "Scroll to top",
+  "all": "All",
+  "error_loading": "Unable to load dictionary data. Please check your connection and try again.",
+  "retry": "Retry",
+  "site_navigation": "Site navigation",
+  "alphabet_navigation": "Alphabet navigation",
+  "main_footer": "Main footer",
+  "repo_footer": "Repository footer"
+}
