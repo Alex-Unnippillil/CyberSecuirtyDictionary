@@ -6,6 +6,9 @@ const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const dailyTermContainer = document.getElementById("daily-term");
+
+let dailyTerm = null;
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -39,6 +42,7 @@ function loadTerms() {
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
+      displayDailyTerm();
 
       if (window.location.hash) {
         const termFromHash = decodeURIComponent(window.location.hash.substring(1));
@@ -190,16 +194,30 @@ function clearDefinition() {
   history.replaceState(null, "", window.location.pathname + window.location.search);
 }
 
-function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
-  displayDefinition(randomTerm);
-
-  const today = new Date().toDateString();
-  try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
-  } catch (e) {
-    // Ignore storage errors
+function displayDailyTerm() {
+  if (!dailyTermContainer || termsData.terms.length === 0) return;
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  dailyTerm = termsData.terms[seed % termsData.terms.length];
+  dailyTermContainer.innerHTML = `<strong>Term of the Day:</strong> <a href="#${encodeURIComponent(
+    dailyTerm.term
+  )}">${dailyTerm.term}</a>`;
+  const link = dailyTermContainer.querySelector("a");
+  if (link) {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      displayDefinition(dailyTerm);
+    });
   }
+}
+
+function showRandomTerm() {
+  if (termsData.terms.length === 0) return;
+  let randomTerm;
+  do {
+    randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  } while (dailyTerm && randomTerm.term === dailyTerm.term && termsData.terms.length > 1);
+  displayDefinition(randomTerm);
 }
 
 randomButton.addEventListener("click", showRandomTerm);
@@ -209,24 +227,6 @@ if (showFavoritesToggle) {
     populateTermsList();
   });
 }
-
-(function initializeDailyTerm() {
-  const today = new Date().toDateString();
-  try {
-    const stored = localStorage.getItem("lastRandomTerm");
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      if (parsed.date === today && parsed.term) {
-        displayDefinition(parsed.term);
-        return;
-      }
-    }
-  } catch (e) {
-    // Ignore parse errors and fall back to showing a random term
-  }
-
-  showRandomTerm();
-})();
 
 searchInput.addEventListener("input", () => {
   clearDefinition();
