@@ -14,7 +14,8 @@ Thank you for taking the time to contribute to the Cyber Security Dictionary!
 
 ## Pull request checklist
 
-- Make sure your changes pass tests (`npm test` if available).
+- Make sure your changes pass tests (`pnpm test`).
+- Run `pnpm run help` to see available development scripts.
 - Follow the [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
 - Keep descriptions concise and clear.
 
