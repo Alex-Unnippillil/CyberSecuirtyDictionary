@@ -1,0 +1,15 @@
+- name: Alpha
+  slug: alpha
+  definition: A common security term.
+  synonyms:
+    - Start
+- name: Beta
+  slug: beta
+  definition: A common security term.
+  synonyms:
+    - Alpha
+- name: Alpha
+  slug: alpha-duplicate
+  definition: Different meaning.
+  synonyms:
+    - Begin

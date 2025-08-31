@@ -24,3 +24,52 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+  collisions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install pyyaml scikit-learn
+      - name: Run collision check
+        run: python tools/check_collisions.py --data data/terms.yaml --output collisions.json
+      - name: Comment on collisions
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('collisions.json')) {
+              return;
+            }
+            const report = JSON.parse(fs.readFileSync('collisions.json', 'utf8'));
+            if (report.total === 0) {
+              return;
+            }
+            const base = `https://${context.repo.owner}.github.io/${context.repo.repo}/`;
+            let body = '### Collision Report\n';
+            if (report.title_collisions.length) {
+              body += '\n**Title Collisions**\n';
+              for (const c of report.title_collisions) {
+                body += `- ${c.title}: ${c.slugs.map(s => '['+s+']('+base+s+')').join(', ')}\n`;
+              }
+            }
+            if (report.synonym_collisions.length) {
+              body += '\n**Synonym Collisions**\n';
+              for (const c of report.synonym_collisions) {
+                body += `- ${c.synonym}: ${c.slugs.map(s => '['+s+']('+base+s+')').join(', ')}\n`;
+              }
+            }
+            if (report.definition_collisions.length) {
+              body += '\n**Definition Similarities**\n';
+              for (const c of report.definition_collisions) {
+                body += `- ${c.slugs.map(s => '['+s+']('+base+s+')').join(' and ')} (score ${c.similarity.toFixed(2)})\n`;
+              }
+            }
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body
+            });
