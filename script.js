@@ -5,7 +5,9 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const tagFilter = document.getElementById("tag-filter");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const selectedTags = new Set(JSON.parse(localStorage.getItem("selectedTags") || "[]"));
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -26,7 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadTerms() {
-  fetch("data.json")
+  fetch("terms.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -38,6 +40,7 @@ function loadTerms() {
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
+      buildTagFilterOptions();
       populateTermsList();
 
       if (window.location.hash) {
@@ -125,6 +128,21 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
+function buildTagFilterOptions() {
+  if (!tagFilter) return;
+  const uniqueTags = Array.from(new Set(termsData.terms.flatMap((t) => t.tags || []))).sort();
+  tagFilter.innerHTML = "";
+  uniqueTags.forEach((tag) => {
+    const option = document.createElement("option");
+    option.value = tag;
+    option.textContent = tag;
+    if (selectedTags.has(tag)) {
+      option.selected = true;
+    }
+    tagFilter.appendChild(option);
+  });
+}
+
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
@@ -135,7 +153,9 @@ function populateTermsList() {
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      const matchesTags =
+        selectedTags.size === 0 || (item.tags && item.tags.some((tag) => selectedTags.has(tag)));
+      if (matchesSearch && matchesFavorites && matchesLetter && matchesTags) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -205,6 +225,20 @@ function showRandomTerm() {
 randomButton.addEventListener("click", showRandomTerm);
 if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
+    clearDefinition();
+    populateTermsList();
+  });
+}
+
+if (tagFilter) {
+  tagFilter.addEventListener("change", () => {
+    selectedTags.clear();
+    Array.from(tagFilter.selectedOptions).forEach((opt) => selectedTags.add(opt.value));
+    try {
+      localStorage.setItem("selectedTags", JSON.stringify(Array.from(selectedTags)));
+    } catch (e) {
+      // Ignore storage errors
+    }
     clearDefinition();
     populateTermsList();
   });
