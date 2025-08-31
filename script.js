@@ -9,6 +9,7 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let fuse;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -26,7 +27,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadTerms() {
-  fetch("data.json")
+  fetch("terms.json")
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -37,6 +38,7 @@ function loadTerms() {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      fuse = new Fuse(termsData.terms, { keys: ["term", "definition"], threshold: 0.3 });
       buildAlphaNav();
       populateTermsList();
 
@@ -128,14 +130,17 @@ function buildAlphaNav() {
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
-  termsData.terms
+  let results = termsData.terms;
+  if (searchValue && fuse) {
+    results = fuse.search(searchValue).map((r) => r.item);
+  }
+  results
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
-      const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      if (matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
