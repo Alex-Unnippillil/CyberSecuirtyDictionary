@@ -10,8 +10,9 @@
 <body>
   <main class="container">
     <h1>Cyber Security Dictionary</h1>
-    <div id="definition-container" style="display: none;"></div>
+    <div id="definition-container" style="display: none;" tabindex="0" aria-live="polite"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
+    <label for="search" class="visually-hidden">Search terms</label>
     <input type="text" id="search" placeholder="Search...">
 
     <button id="random-term" aria-label="Show random term">Random Term</button>
@@ -20,7 +21,7 @@
     <input type="checkbox" id="show-favorites" aria-label="Show favorites">
     <label for="show-favorites">Show Favorites</label>
 
-    <ul id="terms-list"></ul>
+    <ul id="terms-list" tabindex="0"></ul>
   </main>
   <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
 
