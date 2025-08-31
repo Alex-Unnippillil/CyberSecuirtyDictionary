@@ -8,6 +8,8 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const shareCta = document.getElementById("share-cta");
+const shareCtaClose = document.getElementById("share-cta-close");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -25,6 +27,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  maybeShowShareCTA();
 });
 
 function loadTerms() {
@@ -253,4 +256,32 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function maybeShowShareCTA() {
+  if (!shareCta) return;
+  try {
+    const lastShown = parseInt(localStorage.getItem("shareCtaLastShown"), 10);
+    const week = 7 * 24 * 60 * 60 * 1000;
+    if (!lastShown || Date.now() - lastShown > week) {
+      setTimeout(() => {
+        shareCta.style.display = "block";
+        requestAnimationFrame(() => shareCta.classList.add("visible"));
+        try {
+          localStorage.setItem("shareCtaLastShown", Date.now().toString());
+        } catch (e) {
+          // Ignore storage errors
+        }
+      }, 3000);
+    }
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+if (shareCtaClose) {
+  shareCtaClose.addEventListener("click", () => {
+    shareCta.classList.remove("visible");
+    setTimeout(() => (shareCta.style.display = "none"), 300);
+  });
+}
 
