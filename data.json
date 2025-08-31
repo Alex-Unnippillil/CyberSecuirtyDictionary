@@ -122,15 +122,37 @@
     },
     {
       "term": "Cross-Site Scripting (XSS)",
-      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users."
+      "definition": "A web vulnerability that lets attackers inject malicious scripts into trusted websites.",
+      "source": "https://owasp.org/www-community/attacks/xss/"
     },
     {
       "term": "Cross-Site Request Forgery (CSRF)",
-      "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
+      "definition": "An attack that tricks an authenticated user into unknowingly submitting a request.",
+      "source": "https://owasp.org/www-community/attacks/csrf"
     },
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Remote Code Execution (RCE)",
+      "definition": "A vulnerability allowing attackers to run arbitrary code on a target system.",
+      "source": "https://owasp.org/Top10/A03_2021-Injection/"
+    },
+    {
+      "term": "SQL Injection",
+      "definition": "A code injection technique that manipulates database queries via unsanitized input.",
+      "source": "https://owasp.org/www-community/attacks/SQL_Injection"
+    },
+    {
+      "term": "Server-Side Request Forgery (SSRF)",
+      "definition": "An attack that forces a server to make unauthorized requests to internal or external resources.",
+      "source": "https://owasp.org/www-community/attacks/Server_Side_Request_Forgery"
+    },
+    {
+      "term": "Buffer Overflow",
+      "definition": "A vulnerability caused by writing more data to a buffer than it can hold, leading to crashes or code execution.",
+      "source": "https://owasp.org/www-community/vulnerabilities/Buffer_Overflow"
     }
   ]
 }
