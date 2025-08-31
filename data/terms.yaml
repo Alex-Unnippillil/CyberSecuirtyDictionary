@@ -3,6 +3,7 @@
   definition: >-
     A public catalog of cybersecurity vulnerabilities providing unique identifiers
     for known software flaws.
+  stage: draft
   category: Vulnerability Tracking
   synonyms:
     - CVE ID
@@ -16,6 +17,7 @@
   slug: cwe
   definition: >-
     A community-developed list of common software and hardware weakness types.
+  stage: draft
   category: Weakness Classification
   synonyms:
     - Common Weakness Enumeration
@@ -28,6 +30,7 @@
   slug: cvss
   definition: >-
     A standardized scoring system for rating the severity of security vulnerabilities.
+  stage: draft
   category: Scoring System
   synonyms:
     - Common Vulnerability Scoring System
@@ -40,6 +43,7 @@
   slug: nvd
   definition: >-
     A U.S. government repository of standards-based vulnerability management data.
+  stage: draft
   category: Database
   synonyms:
     - National Vulnerability Database
@@ -53,6 +57,7 @@
   definition: >-
     A globally accessible knowledge base of adversary tactics and techniques based
     on real-world observations.
+  stage: draft
   category: Framework
   synonyms:
     - ATT&CK
@@ -66,6 +71,7 @@
   definition: >-
     A regularly updated report outlining the ten most critical web application
     security risks, published by the Open Web Application Security Project.
+  stage: draft
   category: Awareness Document
   synonyms:
     - OWASP Top Ten
