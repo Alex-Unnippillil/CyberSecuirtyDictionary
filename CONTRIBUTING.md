@@ -8,7 +8,8 @@ Thank you for taking the time to contribute to the Cyber Security Dictionary!
    - Use the ["New term" issue template](.github/ISSUE_TEMPLATE/new-term.yml).
    - Include the term, a clear definition, and optional sources.
 2. **Submit a pull request**
-   - Fork the repository and update `data.json` with your term.
+   - Fork the repository and update `data/terms.yaml` with your term.
+   - Include at least one `sources` entry and an `access_date` (`YYYY-MM-DD`) for the term.
    - Reference the issue in your pull request.
    - Ensure any related documentation is updated.
 
