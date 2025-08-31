@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alex-unnippillil.github.io/CyberSecuirtyDictionary/sitemap.xml
+
