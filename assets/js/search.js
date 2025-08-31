@@ -2,6 +2,7 @@
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
   let terms = [];
+  let abbreviations = {};
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
@@ -15,14 +16,31 @@
         console.error('Failed to load terms.json', err);
       });
 
+    fetch(`${baseUrl}/abbreviations.json`)
+      .then(r => (r.ok ? r.json() : Promise.reject(r.statusText)))
+      .then(data => {
+        abbreviations = data;
+      })
+      .catch(err => {
+        console.error('Failed to load abbreviations.json', err);
+      });
+
     searchInput.addEventListener('input', handleSearch);
   });
 
   function handleSearch(){
-    const query = searchInput.value.trim().toLowerCase();
+    const raw = searchInput.value.trim();
     resultsContainer.innerHTML = '';
-    if(!query){
+    if(!raw){
       return;
+    }
+    const expanded = abbreviations[raw.toUpperCase()];
+    const query = (expanded || raw).toLowerCase();
+    if(expanded){
+      const hint = document.createElement('div');
+      hint.className = 'search-hint';
+      hint.textContent = `Showing results for "${expanded}" (expanded from "${raw}")`;
+      resultsContainer.appendChild(hint);
     }
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
