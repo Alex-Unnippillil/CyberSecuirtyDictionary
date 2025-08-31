@@ -146,7 +146,7 @@ body.dark-mode mark {
 }
 
 label {
-  margin-left: 10px;
+  margin-inline-start: 10px;
   margin-top: 10px;
   display: inline-block;
   line-height: 44px;
@@ -155,7 +155,7 @@ label {
 #show-favorites {
   width: 44px;
   height: 44px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 /* Favorite star styles */
@@ -163,7 +163,7 @@ label {
   font-size: 20px;
   color: #ccc;
   cursor: pointer;
-  margin-left: 5px;
+  margin-inline-start: 5px;
   transition: color 0.2s;
   width: 44px;
   height: 44px;
@@ -240,6 +240,11 @@ label {
 
 #scrollToTopBtn:hover {
   background-color: #0056b3;
+}
+
+html[dir="rtl"] #scrollToTopBtn {
+  left: 20px;
+  right: auto;
 }
 
 /* Dark Mode styles */
