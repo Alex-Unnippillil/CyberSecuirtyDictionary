@@ -20,6 +20,7 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    processMermaid(definitionContainer);
   });
 }
 
@@ -168,7 +169,10 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        const cleanDefinition = item.definition
+          .replace(/```mermaid[\s\S]*?```/g, "")
+          .trim();
+        definitionPara.textContent = cleanDefinition;
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -182,7 +186,9 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  const definitionHTML = marked.parse(term.definition);
+  definitionContainer.innerHTML = `<h3>${term.term}</h3>${definitionHTML}`;
+  processMermaid(definitionContainer);
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -199,6 +205,47 @@ function clearDefinition() {
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
+}
+
+function getMermaidConfig() {
+  if (document.body.classList.contains("dark-mode")) {
+    return {
+      startOnLoad: false,
+      theme: "base",
+      themeVariables: {
+        primaryColor: "#1e1e1e",
+        primaryTextColor: "#ffffff",
+        lineColor: "#ffffff",
+        background: "#1e1e1e",
+      },
+    };
+  }
+  return {
+    startOnLoad: false,
+    theme: "base",
+    themeVariables: {
+      primaryColor: "#ffffff",
+      primaryTextColor: "#000000",
+      lineColor: "#000000",
+      background: "#ffffff",
+    },
+  };
+}
+
+function processMermaid(container) {
+  if (typeof mermaid === "undefined") {
+    return;
+  }
+  const codeBlocks = container.querySelectorAll("code.language-mermaid");
+  codeBlocks.forEach((block) => {
+    const pre = block.parentElement;
+    const mermaidDiv = document.createElement("div");
+    mermaidDiv.className = "mermaid";
+    mermaidDiv.textContent = block.textContent;
+    pre.replaceWith(mermaidDiv);
+  });
+  mermaid.initialize(getMermaidConfig());
+  mermaid.run({ nodes: container.querySelectorAll(".mermaid") });
 }
 
 function showRandomTerm() {
