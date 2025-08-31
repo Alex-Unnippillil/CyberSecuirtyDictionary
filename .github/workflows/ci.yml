@@ -21,6 +21,4 @@ jobs:
       - name: cSpell
         run: npx cspell README.md terms.json
       - name: Link checker
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: --no-cache terms.json
+        run: npm run linkcheck
