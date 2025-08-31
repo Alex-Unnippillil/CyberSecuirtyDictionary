@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Markdown Editor (Dev)</title>
+  <style>
+    body { display: flex; gap: 1rem; margin: 0; }
+    textarea { width: 50%; height: 100vh; box-sizing: border-box; }
+    #preview { width: 50%; padding: 1rem; overflow: auto; border-left: 1px solid #ccc; }
+    #validation { color: red; white-space: pre-wrap; font-family: monospace; }
+  </style>
+  <script>
+    const allowedHosts = ['localhost', '127.0.0.1'];
+    if (!allowedHosts.includes(location.hostname)) {
+      document.body.innerHTML = '';
+      document.write('Not available in production');
+      throw new Error('Dev only');
+    }
+  </script>
+</head>
+<body>
+  <textarea id="yamlInput" placeholder="Edit term YAML here..."></textarea>
+  <div style="flex:1; display:flex; flex-direction:column;">
+    <pre id="validation"></pre>
+    <div id="preview"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ajv@8/dist/ajv.min.js"></script>
+  <script>
+    const schema = {
+      type: 'object',
+      required: ['name', 'slug', 'definition', 'category'],
+      properties: {
+        name: { type: 'string' },
+        slug: { type: 'string' },
+        definition: { type: 'string' },
+        category: { type: 'string' },
+        synonyms: { type: 'array', items: { type: 'string' } },
+        see_also: { type: 'array', items: { type: 'string' } },
+        sources: { type: 'array', items: { type: 'string' } }
+      },
+      additionalProperties: false
+    };
+
+    const ajv = new Ajv({ allErrors: true });
+    const validate = ajv.compile(schema);
+    const input = document.getElementById('yamlInput');
+    const preview = document.getElementById('preview');
+    const validation = document.getElementById('validation');
+
+    function render() {
+      try {
+        const data = jsyaml.load(input.value) || {};
+        const valid = validate(data);
+        validation.textContent = valid ? 'schema valid' : JSON.stringify(validate.errors, null, 2);
+        preview.innerHTML = marked.parse(data.definition || '');
+      } catch (err) {
+        validation.textContent = err.message;
+        preview.innerHTML = '';
+      }
+    }
+
+    input.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>
