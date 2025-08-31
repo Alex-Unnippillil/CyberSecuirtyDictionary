@@ -182,7 +182,17 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.scenarios && term.scenarios.length) {
+    html += '<h4>Scenarios</h4><ul>';
+    term.scenarios.forEach((s) => {
+      const slug = s.slug || s;
+      const title = s.title || slug.replace(/-/g, ' ');
+      html += `<li><a href="scenarios/${slug}.mdx">${title}</a></li>`;
+    });
+    html += '</ul>';
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(

@@ -1,0 +1,34 @@
+import { useState } from 'react';
+
+/**
+ * ScenarioSteps component displays scenario steps one at a time.
+ * After all steps are revealed, reflection prompts are shown.
+ *
+ * @param {{steps: string[], reflections?: string[]}} props
+ */
+export default function ScenarioSteps({ steps = [], reflections = [] }) {
+  const [index, setIndex] = useState(0);
+  const revealNext = () => setIndex((i) => Math.min(i + 1, steps.length));
+
+  return (
+    <div className="scenario-steps">
+      {steps.slice(0, index).map((step, i) => (
+        <p key={i}>{step}</p>
+      ))}
+      {index < steps.length ? (
+        <button onClick={revealNext}>Reveal Step {index + 1}</button>
+      ) : (
+        reflections.length > 0 && (
+          <div className="reflection">
+            <h4>Reflection</h4>
+            <ul>
+              {reflections.map((q, i) => (
+                <li key={i}>{q}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      )}
+    </div>
+  );
+}

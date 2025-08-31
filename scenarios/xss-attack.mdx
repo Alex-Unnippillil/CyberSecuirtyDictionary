@@ -1,0 +1,20 @@
+---
+title: XSS Attack on Comment Form
+terms:
+  - Cross-Site Scripting (XSS)
+  - Payload
+---
+
+import ScenarioSteps from '../components/ScenarioSteps.mdx';
+
+<ScenarioSteps
+  steps={[
+    "A user submits a comment containing a malicious script payload.",
+    "The website fails to sanitize input and stores the script.",
+    "Other visitors load the page and the script executes in their browsers."
+  ]}
+  reflections={[
+    "What secure coding practices can prevent XSS?",
+    "How does a payload differ from other parts of malware?"
+  ]}
+/>
