@@ -1,0 +1,5 @@
+[
+  {"query": "phishing", "relevant": ["Phishing", "Phishing Email"]},
+  {"query": "data", "relevant": ["Data Encryption Standard (DES)"]},
+  {"query": "cross-site", "relevant": ["Cross-Site Scripting (XSS)", "Cross-Site Request Forgery (CSRF)"]}
+]

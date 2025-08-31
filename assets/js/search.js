@@ -1,37 +1,68 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const TOP_K = 10;
   let terms = [];
+  let stats = null;
+  let pagefind = null;
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
     const baseUrl = window.__BASE_URL__ || '';
-    fetch(`${baseUrl}/terms.json`)
-      .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
-      .then(data => {
-        // terms.json may either be an array or object with terms property
-        terms = Array.isArray(data) ? data : (data.terms || []);
-      })
-      .catch(err => {
-        console.error('Failed to load terms.json', err);
-      });
+    try {
+      const data = await fetch(`${baseUrl}/terms.json`).then(r => r.ok ? r.json() : Promise.reject(r.statusText));
+      terms = Array.isArray(data) ? data : (data.terms || []);
+      const built = BM25.buildIndex(terms);
+      stats = { docFreq: built.docFreq, avgDocLen: built.avgDocLen, N: terms.length };
+    } catch(err) {
+      console.error('Failed to load terms.json', err);
+    }
+
+    try {
+      pagefind = await import(`${baseUrl}/pagefind/pagefind.js`);
+      if (pagefind && pagefind.init) {
+        await pagefind.init();
+      }
+    } catch(err) {
+      console.warn('Pagefind not available, falling back to local search', err);
+      pagefind = null;
+    }
 
     searchInput.addEventListener('input', handleSearch);
   });
 
-  function handleSearch(){
+  async function handleSearch(){
     const query = searchInput.value.trim().toLowerCase();
     resultsContainer.innerHTML = '';
     if(!query){
       return;
     }
-    const matches = terms
-      .map(term => ({ term, score: score(term, query) }))
-      .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
 
-    matches.forEach(({ term }) => {
-      resultsContainer.appendChild(renderCard(term));
-    });
+    if(pagefind){
+      const res = await pagefind.search(query);
+      const hits = await Promise.all(res.results.slice(0, TOP_K).map(r => r.data()));
+      const queryTokens = BM25.tokenize(query);
+      const ranked = hits.map(h => {
+        const title = h.meta && h.meta.title ? h.meta.title : '';
+        const termData = terms.find(t => (t.term || '').toLowerCase() === title.toLowerCase());
+        const definition = termData ? termData.definition : '';
+        const tokens = BM25.tokenize(`${title} ${definition}`);
+        const score = stats ? BM25.scoreDocument(tokens, queryTokens, stats) : 0;
+        return { term: termData || { term: title, definition }, score };
+      }).sort((a,b) => b.score - a.score);
+
+      ranked.forEach(({term}) => {
+        resultsContainer.appendChild(renderCard(term));
+      });
+    } else {
+      const matches = terms
+        .map(term => ({ term, score: score(term, query) }))
+        .filter(item => item.score > 0)
+        .sort((a,b) => b.score - a.score);
+
+      matches.forEach(({ term }) => {
+        resultsContainer.appendChild(renderCard(term));
+      });
+    }
   }
 
   function score(term, query){
