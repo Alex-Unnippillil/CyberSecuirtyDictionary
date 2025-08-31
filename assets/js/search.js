@@ -1,21 +1,33 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const MAX_BUNDLE_SIZE = window.__MAX_BUNDLE_SIZE__ || 500000; // bytes
   let terms = [];
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
-    fetch(`${baseUrl}/terms.json`)
+    const termsUrl = `${baseUrl}/terms.json`;
+
+    fetch(termsUrl, { method: 'HEAD' })
+      .then(r => {
+        const size = parseInt(r.headers.get('content-length') || '0', 10);
+        if (size > MAX_BUNDLE_SIZE) {
+          console.warn('Search disabled: bundle too large', size);
+          searchInput.disabled = true;
+          searchInput.placeholder = 'Search disabled';
+          return Promise.reject('bundle too large');
+        }
+        return fetch(termsUrl);
+      })
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
         // terms.json may either be an array or object with terms property
         terms = Array.isArray(data) ? data : (data.terms || []);
+        searchInput.addEventListener('input', handleSearch);
       })
       .catch(err => {
         console.error('Failed to load terms.json', err);
       });
-
-    searchInput.addEventListener('input', handleSearch);
   });
 
   function handleSearch(){
