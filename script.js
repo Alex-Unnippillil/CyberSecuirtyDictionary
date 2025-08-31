@@ -5,6 +5,7 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const simplifiedToggle = document.getElementById("simplified-toggle");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -20,6 +21,20 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+if (localStorage.getItem("simplified") === "true") {
+  if (simplifiedToggle) {
+    simplifiedToggle.checked = true;
+  }
+}
+
+if (simplifiedToggle) {
+  simplifiedToggle.addEventListener("change", () => {
+    localStorage.setItem("simplified", simplifiedToggle.checked);
+    clearDefinition();
+    populateTermsList();
   });
 }
 
@@ -81,6 +96,15 @@ function removeDuplicateTermsAndDefinitions() {
   });
 
   termsData.terms = uniqueTermsData;
+}
+
+function getSimplifiedDefinition(text) {
+  const match = text.match(/[^.!?]+[.!?]/);
+  if (match) {
+    return match[0].trim();
+  }
+  const words = text.split(/\s+/);
+  return words.slice(0, 10).join(" ") + (words.length > 10 ? "..." : "");
 }
 
 function toggleFavorite(term) {
@@ -168,7 +192,11 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        const definitionText =
+          simplifiedToggle && simplifiedToggle.checked
+            ? getSimplifiedDefinition(item.definition)
+            : item.definition;
+        definitionPara.textContent = definitionText;
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -182,7 +210,11 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  const definitionText =
+    simplifiedToggle && simplifiedToggle.checked
+      ? getSimplifiedDefinition(term.definition)
+      : term.definition;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${definitionText}</p>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
