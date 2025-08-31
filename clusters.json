@@ -1,0 +1,54 @@
+{
+  "clusters": [
+    {
+      "title": "Attack Techniques",
+      "summary": "Common methods used by adversaries to compromise systems and data.",
+      "terms": [
+        "Phishing",
+        "Phishing Email",
+        "Social Engineering Toolkit (SET)",
+        "Social Engineering Attack Vectors",
+        "Advanced Persistent Threat (APT)",
+        "Cyber Espionage",
+        "Malvertising",
+        "Cross-Site Scripting (XSS)",
+        "Cross-Site Request Forgery (CSRF)",
+        "Privilege Escalation",
+        "Zero-Day Vulnerability"
+      ]
+    },
+    {
+      "title": "Cryptography & Encryption",
+      "summary": "Techniques and standards for protecting information through encoding and key management.",
+      "terms": [
+        "Cryptography",
+        "Zero-Knowledge Proof",
+        "Data Encryption Standard (DES)",
+        "Advanced Encryption Standard (AES)",
+        "Public Key Infrastructure (PKI)",
+        "Certificate Authority (CA)",
+        "Secure Sockets Layer (SSL)",
+        "Transport Layer Security (TLS)",
+        "Key Exchange",
+        "Security Token"
+      ]
+    },
+    {
+      "title": "Defense & Operations",
+      "summary": "Practices and tools used to monitor, protect, and respond to security threats.",
+      "terms": [
+        "Security Operations Center (SOC)",
+        "Data Loss Prevention (DLP)",
+        "Endpoint Security",
+        "Threat Hunting",
+        "Incident Response",
+        "Security Assessment",
+        "Network Security",
+        "Security Patch",
+        "Identity Theft",
+        "Eavesdropping",
+        "Payload"
+      ]
+    }
+  ]
+}
