@@ -2,15 +2,36 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "techniques": [
+        {
+          "id": "T1566",
+          "name": "Phishing",
+          "tactic": "Initial Access"
+        }
+      ]
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "techniques": [
+        {
+          "id": "T1566",
+          "name": "Phishing",
+          "tactic": "Initial Access"
+        }
+      ]
     },
     {
       "term": "Social Engineering Toolkit (SET)",
-      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness."
+      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness.",
+      "techniques": [
+        {
+          "id": "T1204",
+          "name": "User Execution",
+          "tactic": "Execution"
+        }
+      ]
     },
     {
       "term": "Advanced Persistent Threat (APT)",

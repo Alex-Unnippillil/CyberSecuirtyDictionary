@@ -5,11 +5,13 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const techniqueFilters = document.getElementById("technique-filters");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
+let currentTechniqueFilter = "All";
 let termsData = { terms: [] };
 
 if (localStorage.getItem("darkMode") === "true") {
@@ -40,6 +42,7 @@ function loadTerms() {
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
+      buildTechniqueFilters();
       populateTermsList();
 
       if (window.location.hash) {
@@ -127,6 +130,50 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
+function buildTechniqueFilters() {
+  if (!techniqueFilters) return;
+  techniqueFilters.innerHTML = "";
+
+  const techniquesMap = new Map();
+  termsData.terms.forEach((item) => {
+    (item.techniques || []).forEach((tech) => {
+      techniquesMap.set(tech.id, tech);
+    });
+  });
+
+  const allButton = document.createElement("button");
+  allButton.textContent = "All";
+  allButton.classList.add("technique-filter-chip");
+  allButton.addEventListener("click", () => {
+    currentTechniqueFilter = "All";
+    highlightActiveTechnique(allButton);
+    clearDefinition();
+    populateTermsList();
+  });
+  techniqueFilters.appendChild(allButton);
+
+  techniquesMap.forEach((tech) => {
+    const btn = document.createElement("button");
+    btn.textContent = tech.name;
+    btn.title = tech.tactic;
+    btn.classList.add("technique-filter-chip");
+    btn.addEventListener("click", () => {
+      currentTechniqueFilter = tech.id;
+      highlightActiveTechnique(btn);
+      clearDefinition();
+      populateTermsList();
+    });
+    techniqueFilters.appendChild(btn);
+  });
+
+  highlightActiveTechnique(allButton);
+}
+
+function highlightActiveTechnique(button) {
+  techniqueFilters.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  button.classList.add("active");
+}
+
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
@@ -137,7 +184,10 @@ function populateTermsList() {
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      const matchesTechnique =
+        currentTechniqueFilter === "All" ||
+        (item.techniques && item.techniques.some((t) => t.id === currentTechniqueFilter));
+      if (matchesSearch && matchesFavorites && matchesLetter && matchesTechnique) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -170,6 +220,20 @@ function populateTermsList() {
         const definitionPara = document.createElement("p");
         definitionPara.textContent = item.definition;
         termDiv.appendChild(definitionPara);
+
+        if (item.techniques && item.techniques.length) {
+          const techContainer = document.createElement("div");
+          item.techniques.forEach((tech) => {
+            const link = document.createElement("a");
+            link.classList.add("technique-chip");
+            link.href = `https://attack.mitre.org/techniques/${tech.id}/`;
+            link.target = "_blank";
+            link.rel = "noopener";
+            link.textContent = `${tech.tactic}: ${tech.name}`;
+            techContainer.appendChild(link);
+          });
+          termDiv.appendChild(techContainer);
+        }
 
         termDiv.addEventListener("click", () => {
           displayDefinition(item);
