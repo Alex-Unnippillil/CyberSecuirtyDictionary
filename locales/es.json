@@ -1,0 +1,9 @@
+{
+  "synonyms": {
+    "firewall de aplicaciones web": "web application firewall",
+    "cortafuegos de aplicaciones web": "web application firewall"
+  },
+  "acronyms": {
+    "waf": "web application firewall"
+  }
+}
