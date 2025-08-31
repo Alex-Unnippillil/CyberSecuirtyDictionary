@@ -1,3 +1,19 @@
+// Global error handler that logs sanitized error details while allowing
+// default browser logging so developers can see errors in dev tools.
+window.onerror = function (message, source, lineno, colno, error) {
+  const errorDetails = {
+    message: String(message),
+    source,
+    lineno,
+    colno,
+    stack: error && error.stack ? error.stack : undefined,
+  };
+  // Log using the console to avoid capturing PII in external systems.
+  console.error("Unhandled error:", errorDetails);
+  // Return false to ensure the error still surfaces in developer tools.
+  return false;
+};
+
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
@@ -253,4 +269,6 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+//# sourceMappingURL=script.js.map
 
