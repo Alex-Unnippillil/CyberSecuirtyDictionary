@@ -8,6 +8,8 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const locale = typeof resolveLocale === "function" ? resolveLocale(window.location.pathname) : "en";
+document.documentElement.lang = locale;
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -27,14 +29,18 @@ window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
 });
 
+function fetchTerms(loc) {
+  return fetch(`content/${loc}/terms/terms.json`).then((response) => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  });
+}
+
 function loadTerms() {
-  fetch("terms.json")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
+  fetchTerms(locale)
+    .catch(() => fetchTerms("en"))
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();

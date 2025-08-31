@@ -5,14 +5,16 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
-    fetch(`${baseUrl}/terms.json`)
+    const locale = typeof resolveLocale === 'function' ? resolveLocale(window.location.pathname) : 'en';
+    fetch(`${baseUrl}/content/${locale}/terms/terms.json`)
+      .catch(() => fetch(`${baseUrl}/content/en/terms/terms.json`))
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
         // terms.json may either be an array or object with terms property
         terms = Array.isArray(data) ? data : (data.terms || []);
       })
       .catch(err => {
-        console.error('Failed to load terms.json', err);
+        console.error('Failed to load terms for locale', err);
       });
 
     searchInput.addEventListener('input', handleSearch);
