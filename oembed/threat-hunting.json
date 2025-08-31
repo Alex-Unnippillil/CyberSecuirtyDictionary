@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Threat Hunting",
+  "html": "<div><strong>Threat Hunting:</strong> Proactively searching for and identifying cyber threats that have evaded traditional security measures. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Threat%20Hunting\">Read more</a></div>"
+}

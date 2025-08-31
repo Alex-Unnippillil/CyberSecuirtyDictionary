@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Security Operations Center (SOC)",
+  "html": "<div><strong>Security Operations Center (SOC):</strong> A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Security%20Operations%20Center%20(SOC)\">Read more</a></div>"
+}

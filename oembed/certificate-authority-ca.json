@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Certificate Authority (CA)",
+  "html": "<div><strong>Certificate Authority (CA):</strong> An entity responsible for issuing and managing digital certificates used in PKI. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Certificate%20Authority%20(CA)\">Read more</a></div>"
+}

@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Key Exchange",
+  "html": "<div><strong>Key Exchange:</strong> The process of securely sharing encryption keys between parties to establish a secure communication channel. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Key%20Exchange\">Read more</a></div>"
+}

@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Privilege Escalation",
+  "html": "<div><strong>Privilege Escalation:</strong> The act of gaining higher levels of access or permissions in a system or network than originally granted. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Privilege%20Escalation\">Read more</a></div>"
+}

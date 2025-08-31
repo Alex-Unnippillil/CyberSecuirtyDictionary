@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Incident Response",
+  "html": "<div><strong>Incident Response:</strong> The process of managing and mitigating the impact of a cybersecurity incident or breach. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Incident%20Response\">Read more</a></div>"
+}

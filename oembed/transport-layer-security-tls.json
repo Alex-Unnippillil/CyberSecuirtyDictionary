@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "type": "rich",
+  "provider_name": "Cyber Security Dictionary",
+  "provider_url": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary",
+  "title": "Transport Layer Security (TLS)",
+  "html": "<div><strong>Transport Layer Security (TLS):</strong> A more secure successor to SSL, providing encryption and authentication for secure communication. <a href=\"https://alex-unnippillil.github.io/CyberSecuirtyDictionary#Transport%20Layer%20Security%20(TLS)\">Read more</a></div>"
+}
