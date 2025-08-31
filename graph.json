@@ -1,0 +1,11 @@
+{
+  "nodes": [
+    {"id": "phishing", "label": "Phishing"},
+    {"id": "malware", "label": "Malware"},
+    {"id": "ransomware", "label": "Ransomware"}
+  ],
+  "edges": [
+    {"source": "phishing", "target": "malware"},
+    {"source": "malware", "target": "ransomware"}
+  ]
+}
