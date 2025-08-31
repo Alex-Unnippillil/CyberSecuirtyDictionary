@@ -20,6 +20,8 @@ jobs:
         run: npx stylelint styles.css
       - name: cSpell
         run: npx cspell README.md terms.json
+      - name: Domain allowlist
+        run: node check-allowed-domains.js
       - name: Link checker
         uses: lycheeverse/lychee-action@v2
         with:
