@@ -131,6 +131,14 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Sample Flow Diagram",
+      "definition": "```mermaid\nflowchart TD\nA[Start] --> B{Is it?}\nB -->|Yes| C[OK]\nB -->|No| D[Not OK]\n```"
+    },
+    {
+      "term": "Sample Sequence Diagram",
+      "definition": "```mermaid\nsequenceDiagram\nparticipant Alice\nparticipant Bob\nAlice->>Bob: Hello Bob, how are you?\nBob-->>Alice: I am good thanks!\n```"
     }
   ]
 }
