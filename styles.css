@@ -287,6 +287,27 @@ body.dark-mode .dictionary-item p {
   color: #ccc;
 }
 
+/* Quiz heatmap styles */
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.heatmap-cell {
+  padding: 20px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: var(--heat-color, #eee);
+  color: #fff;
+}
+
+#reset-progress {
+  margin-top: 20px;
+  padding: 10px;
+}
+
 body.dark-mode #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
