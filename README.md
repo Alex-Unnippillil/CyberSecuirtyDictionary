@@ -4,3 +4,10 @@ https://alex-unnippillil.github.io/CyberSecuirtyDictionary/
 
 ## Security
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
+
+## Importing terms
+
+Sample adapters for converting CSV, YAML, or JSON data into the internal term
+format are available under [`tools/importers`](tools/importers/). The internal
+format expects each term to provide a `term`, `definition`, and a list of
+`tags`. See the importer README for usage examples and sample source files.

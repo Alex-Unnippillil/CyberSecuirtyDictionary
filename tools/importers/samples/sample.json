@@ -1,0 +1,12 @@
+[
+  {
+    "term": "Phishing",
+    "definition": "An attempt to trick users into revealing information",
+    "tags": ["attack", "social"]
+  },
+  {
+    "term": "Firewall",
+    "definition": "A device that monitors and filters network traffic",
+    "tags": ["defense", "network"]
+  }
+]
