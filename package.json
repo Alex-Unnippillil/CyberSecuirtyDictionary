@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "lint:marks": "node scripts/lint-marks.js",
+    "lint:marks:fix": "node scripts/lint-marks.js --fix"
   },
   "keywords": [],
   "author": "",
