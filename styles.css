@@ -102,7 +102,7 @@ body.dark-mode mark {
 
 
 /* Controls styling */
-#dark-mode-toggle {
+#theme-toggle {
   margin-top: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -112,7 +112,7 @@ body.dark-mode mark {
   cursor: pointer;
 }
 
-#dark-mode-toggle:hover {
+#theme-toggle:hover {
   background-color: #0056b3;
 }
 
@@ -209,7 +209,7 @@ body.dark-mode #search {
   border-color: #333;
 }
 
-body.dark-mode #dark-mode-toggle {
+body.dark-mode #theme-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
