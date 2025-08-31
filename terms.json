@@ -122,15 +122,317 @@
     },
     {
       "term": "Cross-Site Scripting (XSS)",
-      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users."
+      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users.",
+      "appsec": true,
+      "see_also": [
+        "Input Validation",
+        "Web Application Firewall (WAF)"
+      ]
     },
     {
       "term": "Cross-Site Request Forgery (CSRF)",
-      "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
+      "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website.",
+      "appsec": true,
+      "see_also": [
+        "Authentication",
+        "Session Management"
+      ]
     },
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Broken Access Control",
+      "definition": "Failure to enforce restrictions on authenticated users, allowing unauthorized access to resources.",
+      "appsec": true,
+      "see_also": [
+        "Least Privilege",
+        "Authorization"
+      ]
+    },
+    {
+      "term": "Cryptographic Failures",
+      "definition": "Weak or missing cryptographic protections leading to exposure of sensitive data.",
+      "appsec": true,
+      "see_also": [
+        "Security Requirements",
+        "Secure Coding"
+      ]
+    },
+    {
+      "term": "Injection",
+      "definition": "When untrusted data is interpreted as commands or queries, leading to unintended execution.",
+      "appsec": true,
+      "see_also": [
+        "SQL Injection",
+        "Input Validation"
+      ]
+    },
+    {
+      "term": "Insecure Design",
+      "definition": "Security weaknesses caused by insufficient design or planning.",
+      "appsec": true,
+      "see_also": [
+        "Threat Modeling",
+        "Secure Software Development Lifecycle (Secure SDLC)"
+      ]
+    },
+    {
+      "term": "Security Misconfiguration",
+      "definition": "Incorrectly configured security controls that expose systems to attack.",
+      "appsec": true,
+      "see_also": [
+        "Web Application Firewall (WAF)",
+        "Secure Software Development Lifecycle (Secure SDLC)"
+      ]
+    },
+    {
+      "term": "Vulnerable and Outdated Components",
+      "definition": "Use of components with known vulnerabilities or lacking updates.",
+      "appsec": true,
+      "see_also": [
+        "Security Patch",
+        "Software and Data Integrity Failures"
+      ]
+    },
+    {
+      "term": "Identification and Authentication Failures",
+      "definition": "Weak authentication mechanisms leading to compromised identities.",
+      "appsec": true,
+      "see_also": [
+        "Authentication",
+        "Multi-factor Authentication (MFA)"
+      ]
+    },
+    {
+      "term": "Software and Data Integrity Failures",
+      "definition": "Lack of integrity checks allowing tampering with software or data.",
+      "appsec": true,
+      "see_also": [
+        "Secure Software Development Lifecycle (Secure SDLC)",
+        "Code Review"
+      ]
+    },
+    {
+      "term": "Security Logging and Monitoring Failures",
+      "definition": "Insufficient logging and monitoring that delay detection of breaches.",
+      "appsec": true,
+      "see_also": [
+        "Penetration Testing",
+        "Security Requirements"
+      ]
+    },
+    {
+      "term": "Server-Side Request Forgery (SSRF)",
+      "definition": "Attack forcing a server to make unauthorized requests.",
+      "appsec": true,
+      "see_also": [
+        "Input Validation",
+        "Web Application Firewall (WAF)"
+      ]
+    },
+    {
+      "term": "Static Application Security Testing (SAST)",
+      "definition": "Analyzing source code to find vulnerabilities without executing the application.",
+      "appsec": true,
+      "see_also": [
+        "Dynamic Application Security Testing (DAST)",
+        "Interactive Application Security Testing (IAST)",
+        "Runtime Application Self-Protection (RASP)"
+      ]
+    },
+    {
+      "term": "Dynamic Application Security Testing (DAST)",
+      "definition": "Testing a running application to identify security vulnerabilities.",
+      "appsec": true,
+      "see_also": [
+        "Static Application Security Testing (SAST)",
+        "Interactive Application Security Testing (IAST)",
+        "Runtime Application Self-Protection (RASP)"
+      ]
+    },
+    {
+      "term": "Interactive Application Security Testing (IAST)",
+      "definition": "Combines static and dynamic analysis by monitoring applications in real time.",
+      "appsec": true,
+      "see_also": [
+        "Static Application Security Testing (SAST)",
+        "Dynamic Application Security Testing (DAST)",
+        "Runtime Application Self-Protection (RASP)"
+      ]
+    },
+    {
+      "term": "Runtime Application Self-Protection (RASP)",
+      "definition": "Security technology that detects and blocks attacks in real time within the application.",
+      "appsec": true,
+      "see_also": [
+        "Static Application Security Testing (SAST)",
+        "Dynamic Application Security Testing (DAST)",
+        "Interactive Application Security Testing (IAST)"
+      ]
+    },
+    {
+      "term": "Threat Modeling",
+      "definition": "Process of identifying and evaluating potential threats and mitigations.",
+      "appsec": true,
+      "see_also": [
+        "Secure Software Development Lifecycle (Secure SDLC)",
+        "Security Requirements"
+      ]
+    },
+    {
+      "term": "Secure Coding",
+      "definition": "Developing software using practices that reduce vulnerabilities.",
+      "appsec": true,
+      "see_also": [
+        "Code Review",
+        "Static Application Security Testing (SAST)"
+      ]
+    },
+    {
+      "term": "Input Validation",
+      "definition": "Ensuring user-supplied data is safe before processing.",
+      "appsec": true,
+      "see_also": [
+        "Injection",
+        "Cross-Site Scripting (XSS)"
+      ]
+    },
+    {
+      "term": "Web Application Firewall (WAF)",
+      "definition": "A security device or service that filters malicious web traffic.",
+      "appsec": true,
+      "see_also": [
+        "Cross-Site Scripting (XSS)",
+        "SQL Injection"
+      ]
+    },
+    {
+      "term": "SQL Injection",
+      "definition": "Injection attack targeting SQL queries to manipulate databases.",
+      "appsec": true,
+      "see_also": [
+        "Input Validation",
+        "Parameterized Queries"
+      ]
+    },
+    {
+      "term": "Authentication",
+      "definition": "Verifying the identity of a user or system.",
+      "appsec": true,
+      "see_also": [
+        "Authorization",
+        "Multi-factor Authentication (MFA)"
+      ]
+    },
+    {
+      "term": "Authorization",
+      "definition": "Ensuring authenticated users have permission to perform actions.",
+      "appsec": true,
+      "see_also": [
+        "Authentication",
+        "Least Privilege"
+      ]
+    },
+    {
+      "term": "Session Management",
+      "definition": "Handling user sessions securely to prevent hijacking.",
+      "appsec": true,
+      "see_also": [
+        "Authentication",
+        "Cross-Site Request Forgery (CSRF)"
+      ]
+    },
+    {
+      "term": "Least Privilege",
+      "definition": "Granting users only the permissions necessary to perform their tasks.",
+      "appsec": true,
+      "see_also": [
+        "Authorization",
+        "Broken Access Control"
+      ]
+    },
+    {
+      "term": "Penetration Testing",
+      "definition": "Simulated attack to identify vulnerabilities in systems.",
+      "appsec": true,
+      "see_also": [
+        "Dynamic Application Security Testing (DAST)",
+        "Threat Modeling"
+      ]
+    },
+    {
+      "term": "Security Requirements",
+      "definition": "Documented security needs that guide development and testing.",
+      "appsec": true,
+      "see_also": [
+        "Threat Modeling",
+        "Secure Software Development Lifecycle (Secure SDLC)"
+      ]
+    },
+    {
+      "term": "Code Review",
+      "definition": "Manual or automated examination of source code to find issues.",
+      "appsec": true,
+      "see_also": [
+        "Secure Coding",
+        "Static Application Security Testing (SAST)"
+      ]
+    },
+    {
+      "term": "Secure Software Development Lifecycle (Secure SDLC)",
+      "definition": "Integrating security practices into each phase of software development.",
+      "appsec": true,
+      "see_also": [
+        "Threat Modeling",
+        "Code Review"
+      ]
+    },
+    {
+      "term": "Parameterized Queries",
+      "definition": "Database queries that separate code from data to prevent injection.",
+      "appsec": true,
+      "see_also": [
+        "SQL Injection",
+        "Input Validation"
+      ]
+    },
+    {
+      "term": "Multi-factor Authentication (MFA)",
+      "definition": "Authentication requiring more than one method of verification.",
+      "appsec": true,
+      "see_also": [
+        "Authentication",
+        "Brute Force Attack"
+      ]
+    },
+    {
+      "term": "Brute Force Attack",
+      "definition": "Attempting many passwords or keys until the correct one is found.",
+      "appsec": true,
+      "see_also": [
+        "Authentication",
+        "Multi-factor Authentication (MFA)"
+      ]
+    },
+    {
+      "term": "Clickjacking",
+      "definition": "Tricking users into clicking hidden or disguised UI elements.",
+      "appsec": true,
+      "see_also": [
+        "Security Headers",
+        "Cross-Site Scripting (XSS)"
+      ]
+    },
+    {
+      "term": "Security Headers",
+      "definition": "HTTP headers that configure browser security features.",
+      "appsec": true,
+      "see_also": [
+        "Clickjacking",
+        "Cross-Site Scripting (XSS)"
+      ]
     }
   ]
 }
