@@ -1,0 +1,19 @@
+{
+  "name": "cybersecuirtydictionary",
+  "version": "1.0.0",
+  "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"No tests specified\"",
+    "build": "tailwindcss -i ./src/styles.css -o ./styles.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.4"
+  }
+}
