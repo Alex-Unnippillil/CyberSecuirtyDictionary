@@ -144,6 +144,16 @@ label {
   color: #ffd700;
 }
 
+/* Category badge styles */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.75em;
+  border-radius: 12px;
+  background-color: #0056b3;
+  color: #fff;
+}
+
 /* Alphabet navigation styles */
 #alpha-nav {
   display: flex;
@@ -254,6 +264,11 @@ body.dark-mode .favorite-star:focus {
 
 body.dark-mode .favorited {
   color: #ffd700;
+}
+
+body.dark-mode .badge {
+  background-color: #1e90ff;
+  color: #000;
 }
 
 body.dark-mode #alpha-nav button {
