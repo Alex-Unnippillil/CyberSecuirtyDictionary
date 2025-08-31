@@ -95,6 +95,20 @@ function toggleFavorite(term) {
     // Ignore storage errors
   }
 }
+function addToRecentlyViewed(term) {
+  let recent = [];
+  try {
+    recent = JSON.parse(localStorage.getItem("recentlyViewed")) || [];
+  } catch (e) {}
+  recent = recent.filter((t) => t !== term);
+  recent.unshift(term);
+  if (recent.length > 5) {
+    recent = recent.slice(0, 5);
+  }
+  try {
+    localStorage.setItem("recentlyViewed", JSON.stringify(recent));
+  } catch (e) {}
+}
 
 function highlightActiveButton(button) {
   alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
@@ -190,6 +204,8 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  addToRecentlyViewed(term.term);
+
 }
 
 function clearDefinition() {
