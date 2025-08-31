@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html",
+    "test": "html-validate index.html && node --test collections.test.js",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
   "keywords": [],
