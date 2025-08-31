@@ -4,9 +4,10 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "sh build.sh && node scripts/size-check.js",
     "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "size": "node scripts/size-check.js"
   },
   "keywords": [],
   "author": "",
