@@ -3,36 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cyber Security Dictionary</title>
+  <title data-i18n="title">Cyber Security Dictionary</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <link rel="canonical" id="canonical-link" href="https://alex-unnippillil.github.io/CyberSecuirtyDictionary/">
 </head>
 <body>
   <main class="container">
-    <h1>Cyber Security Dictionary</h1>
-    <nav class="site-nav"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
+    <h1 data-i18n="title">Cyber Security Dictionary</h1>
+    <nav class="site-nav" aria-label="Site navigation" data-i18n-aria-label="site_navigation"><a data-i18n="definition_guidelines" href="templates/guidelines.html">Definition Guidelines</a></nav>
     <div id="definition-container" style="display: none;"></div>
-    <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
-    <input type="text" id="search" placeholder="Search...">
+    <nav id="alpha-nav" aria-label="Alphabet navigation" data-i18n-aria-label="alphabet_navigation"></nav>
+    <input type="text" id="search" placeholder="Search..." data-i18n-placeholder="search_placeholder">
 
-    <button id="random-term" aria-label="Show random term">Random Term</button>
+    <button id="random-term" aria-label="Show random term" data-i18n="random_term" data-i18n-aria-label="random_term" type="button">Random Term</button>
 
-    <button id="dark-mode-toggle" aria-label="Toggle dark mode">Toggle Dark Mode</button>
-    <input type="checkbox" id="show-favorites" aria-label="Show favorites">
-    <label for="show-favorites">Show Favorites</label>
+    <button id="dark-mode-toggle" aria-label="Toggle dark mode" data-i18n="toggle_dark_mode" data-i18n-aria-label="toggle_dark_mode" type="button">Toggle Dark Mode</button>
+    <input type="checkbox" id="show-favorites" aria-label="Show favorites" data-i18n-aria-label="show_favorites">
+    <label for="show-favorites" data-i18n="show_favorites">Show Favorites</label>
 
     <ul id="terms-list"></ul>
   </main>
-  <footer class="container">
-    <p><a href="templates/contribute.html">Contribute</a></p>
+  <footer class="container" aria-label="Main footer" data-i18n-aria-label="main_footer">
+    <p><a href="templates/contribute.html" data-i18n="contribute">Contribute</a></p>
   </footer>
-  <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
+  <button id="scrollToTopBtn" aria-label="Scroll to top" data-i18n-aria-label="scroll_to_top" type="button">↑</button>
 
-  <footer>
-    <p><a href="CONTRIBUTING.md">Contribute to this project</a></p>
+  <footer aria-label="Repository footer" data-i18n-aria-label="repo_footer">
+    <p><a href="CONTRIBUTING.md" data-i18n="contribute_project">Contribute to this project</a></p>
   </footer>
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>

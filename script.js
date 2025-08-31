@@ -1,3 +1,7 @@
+// @ts-check
+
+import { loadLocale, t } from "./locales/i18n.js";
+
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
@@ -12,6 +16,28 @@ const canonicalLink = document.getElementById("canonical-link");
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
+function applyTranslations() {
+  document.title = t("title");
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.getAttribute("data-i18n");
+    if (key) {
+      el.textContent = t(key);
+    }
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (key) {
+      el.setAttribute("placeholder", t(key));
+    }
+  });
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (key) {
+      el.setAttribute("aria-label", t(key));
+    }
+  });
+}
+
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
@@ -23,7 +49,9 @@ if (darkModeToggle) {
   });
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadLocale("en", { strict: true });
+  applyTranslations();
   loadTerms();
 });
 
@@ -56,8 +84,8 @@ function loadTerms() {
       console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
       definitionContainer.innerHTML =
-        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
-        '<button id="retry-fetch">Retry</button>';
+        `<p>${t("error_loading")}</p>` +
+        `<button id="retry-fetch">${t("retry")}</button>`;
       const retryBtn = document.getElementById("retry-fetch");
       if (retryBtn) {
         retryBtn.addEventListener("click", (e) => {
@@ -105,7 +133,7 @@ function buildAlphaNav() {
   const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
 
   const allButton = document.createElement("button");
-  allButton.textContent = "All";
+  allButton.textContent = t("all");
   allButton.addEventListener("click", () => {
     currentLetterFilter = "All";
     highlightActiveButton(allButton);
