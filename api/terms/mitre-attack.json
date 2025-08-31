@@ -1,0 +1,16 @@
+{
+  "name": "MITRE ATT&CK",
+  "slug": "mitre-attack",
+  "definition": "A globally accessible knowledge base of adversary tactics and techniques based on real-world observations.",
+  "category": "Framework",
+  "synonyms": [
+    "ATT&CK"
+  ],
+  "see_also": [
+    "CVE",
+    "CWE"
+  ],
+  "sources": [
+    "https://attack.mitre.org/"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "CVE",
+  "slug": "cve",
+  "definition": "A public catalog of cybersecurity vulnerabilities providing unique identifiers for known software flaws.",
+  "category": "Vulnerability Tracking",
+  "synonyms": [
+    "CVE ID",
+    "Common Vulnerabilities and Exposures"
+  ],
+  "see_also": [
+    "CWE",
+    "NVD"
+  ],
+  "sources": [
+    "https://cve.mitre.org"
+  ]
+}

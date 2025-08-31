@@ -1,0 +1,16 @@
+{
+  "name": "CVSS",
+  "slug": "cvss",
+  "definition": "A standardized scoring system for rating the severity of security vulnerabilities.",
+  "category": "Scoring System",
+  "synonyms": [
+    "Common Vulnerability Scoring System"
+  ],
+  "see_also": [
+    "CVE",
+    "NVD"
+  ],
+  "sources": [
+    "https://www.first.org/cvss/"
+  ]
+}
