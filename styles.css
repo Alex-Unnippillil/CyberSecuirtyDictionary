@@ -242,6 +242,40 @@ label {
   background-color: #0056b3;
 }
 
+/* Timeline styles */
+.timeline {
+  list-style: none;
+  padding-left: 20px;
+  border-left: 3px solid #333;
+}
+.timeline li {
+  position: relative;
+  margin: 20px 0;
+  padding-left: 20px;
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  background-color: #007bff;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+.timeline time {
+  font-weight: bold;
+  color: #333;
+}
+.timeline h3 {
+  margin: 0;
+  color: #333;
+}
+.timeline p {
+  margin: 0;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
@@ -324,6 +358,20 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode .timeline {
+  border-left-color: #fff;
+}
+body.dark-mode .timeline li::before {
+  background-color: #1e90ff;
+  border-color: #1e1e1e;
+}
+body.dark-mode .timeline time {
+  color: #fff;
+}
+body.dark-mode .timeline h3 {
+  color: #fff;
 }
 
 @media (max-width: 480px) {
