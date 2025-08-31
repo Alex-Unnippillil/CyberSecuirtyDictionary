@@ -131,6 +131,22 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Indicator of Compromise (IOC)",
+      "definition": "Artifacts such as file hashes, IP addresses, or domains that signal potential intrusion. ATT&CK Matrix Reference: used across techniques for detecting adversary activity."
+    },
+    {
+      "term": "Tactics, Techniques, and Procedures (TTPs)",
+      "definition": "Patterns of adversary behavior. ATT&CK Matrix Reference: each TTP maps to tactics and techniques in the MITRE ATT&CK framework."
+    },
+    {
+      "term": "Cyber Kill Chain",
+      "definition": "A model describing stages of a cyber attack from reconnaissance to actions on objectives. ATT&CK Matrix Reference: stages align with ATT&CK tactics like Initial Access (TA0001) and Execution (TA0002)."
+    },
+    {
+      "term": "MITRE ATT&CK",
+      "definition": "A globally accessible knowledge base of adversary tactics and techniques organized into the ATT&CK Matrix."
     }
   ]
 }
