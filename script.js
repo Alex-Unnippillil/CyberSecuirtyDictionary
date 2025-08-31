@@ -243,3 +243,18 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+// Global keyboard shortcuts
+window.addEventListener("keydown", (e) => {
+  if (e.key === "/" && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+
+  if (e.key === "Escape") {
+    searchInput.value = "";
+    clearDefinition();
+    populateTermsList();
+    searchInput.blur();
+  }
+});
+
