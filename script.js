@@ -5,6 +5,7 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const saveSessionButton = document.getElementById("save-session");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -39,8 +40,19 @@ function loadTerms() {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      const params = new URLSearchParams(window.location.search);
+      if (params.has("q")) {
+        searchInput.value = params.get("q");
+      }
+      if (params.get("favorites") === "1" && showFavoritesToggle) {
+        showFavoritesToggle.checked = true;
+      }
+      if (params.has("letter")) {
+        currentLetterFilter = params.get("letter");
+      }
       buildAlphaNav();
       populateTermsList();
+      updateUrlParams();
 
       if (window.location.hash) {
         const termFromHash = decodeURIComponent(window.location.hash.substring(1));
@@ -110,6 +122,7 @@ function buildAlphaNav() {
     currentLetterFilter = "All";
     highlightActiveButton(allButton);
     populateTermsList();
+    updateUrlParams();
   });
   alphaNav.appendChild(allButton);
 
@@ -120,11 +133,15 @@ function buildAlphaNav() {
       currentLetterFilter = letter;
       highlightActiveButton(btn);
       populateTermsList();
+      updateUrlParams();
     });
     alphaNav.appendChild(btn);
   });
-
-  highlightActiveButton(allButton);
+  const initialButton =
+    Array.from(alphaNav.querySelectorAll("button")).find(
+      (b) => b.textContent === currentLetterFilter
+    ) || allButton;
+  highlightActiveButton(initialButton);
 }
 
 function populateTermsList() {
@@ -201,6 +218,25 @@ function clearDefinition() {
   }
 }
 
+function updateUrlParams() {
+  const params = new URLSearchParams();
+  const searchValue = searchInput.value.trim();
+  if (searchValue) {
+    params.set("q", searchValue);
+  }
+  if (showFavoritesToggle && showFavoritesToggle.checked) {
+    params.set("favorites", "1");
+  }
+  if (currentLetterFilter !== "All") {
+    params.set("letter", currentLetterFilter);
+  }
+  const newUrl =
+    window.location.pathname +
+    (params.toString() ? `?${params.toString()}` : "") +
+    window.location.hash;
+  history.replaceState(null, "", newUrl);
+}
+
 function showRandomTerm() {
   const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
@@ -214,10 +250,22 @@ function showRandomTerm() {
 }
 
 randomButton.addEventListener("click", showRandomTerm);
+if (saveSessionButton) {
+  saveSessionButton.addEventListener("click", () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const originalText = saveSessionButton.textContent;
+      saveSessionButton.textContent = "Link Copied!";
+      setTimeout(() => {
+        saveSessionButton.textContent = originalText;
+      }, 2000);
+    });
+  });
+}
 if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
     clearDefinition();
     populateTermsList();
+    updateUrlParams();
   });
 }
 
@@ -242,6 +290,7 @@ if (showFavoritesToggle) {
 searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
+  updateUrlParams();
 });
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
