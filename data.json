@@ -131,6 +131,426 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Asymmetric Encryption",
+      "definition": "Encryption that uses a paired public and private key so that data encrypted with one can only be decrypted with the other.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/glossary/term/asymmetric_cryptography",
+      "related": ["Public Key Infrastructure (PKI)", "Digital Signature"]
+    },
+    {
+      "term": "Symmetric Encryption",
+      "definition": "A cryptographic approach where the same secret key encrypts and decrypts information.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/glossary/term/symmetric_cryptography",
+      "related": ["Advanced Encryption Standard (AES)", "Key Derivation Function (KDF)"]
+    },
+    {
+      "term": "Elliptic Curve Cryptography (ECC)",
+      "definition": "A public-key technique leveraging the mathematics of elliptic curves to provide strong security with smaller keys.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/projects/public-key-cryptography/elliptic-curve",
+      "related": ["Asymmetric Encryption", "Digital Signature"]
+    },
+    {
+      "term": "Digital Signature",
+      "definition": "A cryptographic checksum created with a private key to prove the authenticity and integrity of a message.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/glossary/term/digital_signature",
+      "related": ["Hash Function", "Certificate Authority (CA)"]
+    },
+    {
+      "term": "Hash Function",
+      "definition": "Algorithm that deterministically maps data to a fixed-length digest that is infeasible to reverse.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/glossary/term/hash_function",
+      "related": ["Hash-based Message Authentication Code (HMAC)", "Digital Signature"]
+    },
+    {
+      "term": "Key Derivation Function (KDF)",
+      "definition": "A process that derives one or more secret keys from a password or master key using a cryptographic hash.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/glossary/term/key_derivation_function",
+      "related": ["Hash Function", "Symmetric Encryption"]
+    },
+    {
+      "term": "Quantum-Resistant Cryptography",
+      "definition": "Algorithms designed to withstand attacks from quantum computers that could break traditional cryptography.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+      "related": ["Asymmetric Encryption", "Symmetric Encryption"]
+    },
+    {
+      "term": "Hash-based Message Authentication Code (HMAC)",
+      "definition": "A construction that combines a cryptographic hash and a secret key to verify data integrity.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/glossary/term/hash_based_message_authentication_code",
+      "related": ["Hash Function", "Key Derivation Function (KDF)"]
+    },
+    {
+      "term": "Certificate Pinning",
+      "definition": "A defense that associates a host with expected certificates to block unauthorized or fraudulent certificates.",
+      "category": "cryptography",
+      "source": "https://owasp.org/www-community/controls/Certificate_and_Public_Key_Pinning",
+      "related": ["Secure Sockets Layer (SSL)", "Certificate Authority (CA)"]
+    },
+    {
+      "term": "Perfect Forward Secrecy",
+      "definition": "Property of key exchange protocols where compromise of long-term keys does not reveal past session keys.",
+      "category": "cryptography",
+      "source": "https://csrc.nist.gov/glossary/term/perfect_forward_secrecy",
+      "related": ["Key Exchange", "Transport Layer Security (TLS)"]
+    },
+    {
+      "term": "Multi-Factor Authentication (MFA)",
+      "definition": "An authentication method requiring two or more independent credentials, such as a password and a hardware token.",
+      "category": "identity",
+      "source": "https://csrc.nist.gov/glossary/term/multi_factor_authentication",
+      "related": ["Identity Provider (IdP)", "Least Privilege"]
+    },
+    {
+      "term": "Single Sign-On (SSO)",
+      "definition": "Mechanism allowing users to authenticate once and gain access to multiple systems without re-entering credentials.",
+      "category": "identity",
+      "source": "https://csrc.nist.gov/glossary/term/single_sign_on",
+      "related": ["Identity Provider (IdP)", "Federated Identity"]
+    },
+    {
+      "term": "Identity Provider (IdP)",
+      "definition": "Service that creates, manages, and authenticates digital identities for users or systems.",
+      "category": "identity",
+      "source": "https://csrc.nist.gov/glossary/term/identity_provider",
+      "related": ["Single Sign-On (SSO)", "OpenID Connect"]
+    },
+    {
+      "term": "Federated Identity",
+      "definition": "Technique that links a user's identity across multiple security domains with trust relationships.",
+      "category": "identity",
+      "source": "https://csrc.nist.gov/glossary/term/federated_identity",
+      "related": ["Single Sign-On (SSO)", "OAuth"]
+    },
+    {
+      "term": "OAuth",
+      "definition": "An open protocol that authorizes applications to act on a user's behalf without exposing their password.",
+      "category": "identity",
+      "source": "https://oauth.net/2/",
+      "related": ["OpenID Connect", "Identity Provider (IdP)"]
+    },
+    {
+      "term": "OpenID Connect",
+      "definition": "An identity layer on top of OAuth that adds user authentication and standardized identity data.",
+      "category": "identity",
+      "source": "https://openid.net/connect/",
+      "related": ["OAuth", "Single Sign-On (SSO)"]
+    },
+    {
+      "term": "Access Control List (ACL)",
+      "definition": "Table that grants or denies permissions for subjects attempting to access a resource.",
+      "category": "identity",
+      "source": "https://csrc.nist.gov/glossary/term/access_control_list",
+      "related": ["Role-Based Access Control (RBAC)", "Least Privilege"]
+    },
+    {
+      "term": "Role-Based Access Control (RBAC)",
+      "definition": "Authorization model where permissions are assigned to roles rather than individual users.",
+      "category": "identity",
+      "source": "https://csrc.nist.gov/glossary/term/role_based_access_control",
+      "related": ["Access Control List (ACL)", "Least Privilege"]
+    },
+    {
+      "term": "Least Privilege",
+      "definition": "Security principle granting users only the access necessary to perform their duties.",
+      "category": "identity",
+      "source": "https://csrc.nist.gov/glossary/term/least_privilege",
+      "related": ["Role-Based Access Control (RBAC)", "Access Control List (ACL)"]
+    },
+    {
+      "term": "Passwordless Authentication",
+      "definition": "Login approach that verifies users without traditional passwords, often relying on biometrics or device possession.",
+      "category": "identity",
+      "source": "https://fidoalliance.org/fido2/",
+      "related": ["Multi-Factor Authentication (MFA)", "Identity Provider (IdP)"]
+    },
+    {
+      "term": "Virtual Private Network (VPN)",
+      "definition": "Encrypted tunnel that extends a private network across a public network to secure communications.",
+      "category": "network",
+      "source": "https://csrc.nist.gov/glossary/term/virtual_private_network",
+      "related": ["Network Segmentation", "Zero Trust Network Access (ZTNA)"]
+    },
+    {
+      "term": "Intrusion Detection System (IDS)",
+      "definition": "Monitoring tool that inspects network or host traffic for suspicious activity and policy violations.",
+      "category": "network",
+      "source": "https://csrc.nist.gov/glossary/term/intrusion_detection_system",
+      "related": ["Intrusion Prevention System (IPS)", "Threat Hunting"]
+    },
+    {
+      "term": "Intrusion Prevention System (IPS)",
+      "definition": "Security control that actively blocks detected threats in addition to monitoring them.",
+      "category": "network",
+      "source": "https://csrc.nist.gov/glossary/term/intrusion_prevention_system",
+      "related": ["Intrusion Detection System (IDS)", "Network Access Control (NAC)"]
+    },
+    {
+      "term": "Network Segmentation",
+      "definition": "Practice of dividing a network into zones to limit the spread of threats and control access.",
+      "category": "network",
+      "source": "https://csrc.nist.gov/glossary/term/network_segmentation",
+      "related": ["Virtual Private Network (VPN)", "Zero Trust Network Access (ZTNA)"]
+    },
+    {
+      "term": "Denial-of-Service (DoS) Attack",
+      "definition": "Disruption technique that floods a service with traffic or requests to render it unavailable.",
+      "category": "network",
+      "source": "https://www.cisa.gov/resources-tools/resources/understanding-denial-service-attacks",
+      "related": ["Network Security", "Intrusion Detection System (IDS)"]
+    },
+    {
+      "term": "Man-in-the-Middle (MitM) Attack",
+      "definition": "Attack where an adversary intercepts and possibly alters communications between parties.",
+      "category": "network",
+      "source": "https://www.cisa.gov/news-events/news/understanding-man-middle-attacks",
+      "related": ["Transport Layer Security (TLS)", "Virtual Private Network (VPN)"]
+    },
+    {
+      "term": "Border Gateway Protocol (BGP) Hijacking",
+      "definition": "Malicious rerouting of internet traffic by announcing false BGP routes.",
+      "category": "network",
+      "source": "https://www.ncsc.gov.uk/collection/route-hijacking",
+      "related": ["Network Security", "Denial-of-Service (DoS) Attack"]
+    },
+    {
+      "term": "Domain Name System Security Extensions (DNSSEC)",
+      "definition": "Set of DNS additions that use digital signatures to verify DNS data integrity.",
+      "category": "network",
+      "source": "https://www.icann.org/resources/pages/dnssec-what-is-it-why-important-2019-03-05-en",
+      "related": ["Man-in-the-Middle (MitM) Attack", "Border Gateway Protocol (BGP) Hijacking"]
+    },
+    {
+      "term": "Network Access Control (NAC)",
+      "definition": "Policy enforcement system that authenticates and authorizes devices before they join a network.",
+      "category": "network",
+      "source": "https://csrc.nist.gov/glossary/term/network_access_control",
+      "related": ["Zero Trust Network Access (ZTNA)", "Intrusion Prevention System (IPS)"]
+    },
+    {
+      "term": "Zero Trust Network Access (ZTNA)",
+      "definition": "Access model that continuously verifies every connection as untrusted, regardless of network location.",
+      "category": "network",
+      "source": "https://csrc.nist.gov/projects/zero-trust-architecture",
+      "related": ["Network Segmentation", "Network Access Control (NAC)"]
+    },
+    {
+      "term": "Infrastructure as a Service (IaaS)",
+      "definition": "Cloud model delivering virtualized computing resources like servers and storage over the internet.",
+      "category": "cloud",
+      "source": "https://csrc.nist.gov/glossary/term/infrastructure_as_a_service",
+      "related": ["Platform as a Service (PaaS)", "Shared Responsibility Model"]
+    },
+    {
+      "term": "Platform as a Service (PaaS)",
+      "definition": "Cloud service providing a managed platform for developing and deploying applications.",
+      "category": "cloud",
+      "source": "https://csrc.nist.gov/glossary/term/platform_as_a_service",
+      "related": ["Software as a Service (SaaS)", "Infrastructure as a Service (IaaS)"]
+    },
+    {
+      "term": "Software as a Service (SaaS)",
+      "definition": "Software delivery model where applications are hosted by a provider and accessed through the web.",
+      "category": "cloud",
+      "source": "https://csrc.nist.gov/glossary/term/software_as_a_service",
+      "related": ["Platform as a Service (PaaS)", "Cloud Access Security Broker (CASB)"]
+    },
+    {
+      "term": "Cloud Access Security Broker (CASB)",
+      "definition": "Security layer that sits between cloud consumers and providers to enforce policies.",
+      "category": "cloud",
+      "source": "https://csrc.nist.gov/glossary/term/cloud_access_security_broker",
+      "related": ["Cloud Security Posture Management (CSPM)", "Cloud Encryption Gateway"]
+    },
+    {
+      "term": "Shared Responsibility Model",
+      "definition": "Cloud security concept outlining that providers secure the infrastructure while customers secure their data and configurations.",
+      "category": "cloud",
+      "source": "https://aws.amazon.com/compliance/shared-responsibility-model/",
+      "related": ["Cloud Security Posture Management (CSPM)", "Infrastructure as a Service (IaaS)"]
+    },
+    {
+      "term": "Cloud Encryption Gateway",
+      "definition": "Service that encrypts data before it goes to the cloud, keeping encryption keys under customer control.",
+      "category": "cloud",
+      "source": "https://cloudsecurityalliance.org/blog/2015/02/18/what-is-a-cloud-encryption-gateway/",
+      "related": ["Cloud Access Security Broker (CASB)", "Cloud Workload Protection Platform (CWPP)"]
+    },
+    {
+      "term": "Cloud Workload Protection Platform (CWPP)",
+      "definition": "Toolset that protects applications running in cloud environments across servers, containers, or VMs.",
+      "category": "cloud",
+      "source": "https://www.paloaltonetworks.com/cyberpedia/what-is-a-cloud-workload-protection-platform-cwpp",
+      "related": ["Cloud Security Posture Management (CSPM)", "Cloud Encryption Gateway"]
+    },
+    {
+      "term": "Cloud Identity and Access Management (Cloud IAM)",
+      "definition": "Centralized control of user identities and permissions across cloud resources.",
+      "category": "cloud",
+      "source": "https://cloud.google.com/iam/docs/overview",
+      "related": ["Multi-Factor Authentication (MFA)", "Cloud Access Security Broker (CASB)"]
+    },
+    {
+      "term": "Serverless Security",
+      "definition": "Practices and controls that protect functions and event-driven services in serverless architectures.",
+      "category": "cloud",
+      "source": "https://owasp.org/www-project-serverless-top-10/",
+      "related": ["Cloud Workload Protection Platform (CWPP)", "Platform as a Service (PaaS)"]
+    },
+    {
+      "term": "Cloud Security Posture Management (CSPM)",
+      "definition": "Automation that monitors and corrects cloud configuration risks.",
+      "category": "cloud",
+      "source": "https://www.paloaltonetworks.com/cyberpedia/what-is-cloud-security-posture-management-cspm",
+      "related": ["Cloud Access Security Broker (CASB)", "Shared Responsibility Model"]
+    },
+    {
+      "term": "Secure Coding",
+      "definition": "Development practice that embeds security considerations into source code from the outset.",
+      "category": "application",
+      "source": "https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/",
+      "related": ["Code Review", "Input Validation"]
+    },
+    {
+      "term": "Static Application Security Testing (SAST)",
+      "definition": "Analysis of source code or binaries to find vulnerabilities without executing the program.",
+      "category": "application",
+      "source": "https://owasp.org/www-community/Source_Code_Analysis_Tools",
+      "related": ["Dynamic Application Security Testing (DAST)", "Secure Coding"]
+    },
+    {
+      "term": "Dynamic Application Security Testing (DAST)",
+      "definition": "Testing technique that evaluates running applications for vulnerabilities through simulated attacks.",
+      "category": "application",
+      "source": "https://owasp.org/www-community/Active_Scanning",
+      "related": ["Static Application Security Testing (SAST)", "Runtime Application Self-Protection (RASP)"]
+    },
+    {
+      "term": "Software Bill of Materials (SBOM)",
+      "definition": "Formal record of components and dependencies contained in a software product.",
+      "category": "application",
+      "source": "https://www.ntia.gov/page/software-bill-materials",
+      "related": ["Dependency Confusion Attack", "Vulnerability Disclosure Program"]
+    },
+    {
+      "term": "Dependency Confusion Attack",
+      "definition": "Supply-chain exploit where attackers publish packages with trusted names to be pulled into builds.",
+      "category": "application",
+      "source": "https://snyk.io/blog/understanding-dependency-confusion-attacks/",
+      "related": ["Software Bill of Materials (SBOM)", "Secure Coding"]
+    },
+    {
+      "term": "Input Validation",
+      "definition": "Process of ensuring that data entered into an application is safe and conforms to expected formats.",
+      "category": "application",
+      "source": "https://owasp.org/www-community/Input_Validation",
+      "related": ["Cross-Site Scripting (XSS)", "Secure Coding"]
+    },
+    {
+      "term": "Code Review",
+      "definition": "Peer examination of source code to spot defects and improve quality.",
+      "category": "application",
+      "source": "https://owasp.org/www-project-code-review-guide/",
+      "related": ["Secure Coding", "Static Application Security Testing (SAST)"]
+    },
+    {
+      "term": "Application Sandbox",
+      "definition": "Restricted execution environment that isolates applications to limit their access and impact.",
+      "category": "application",
+      "source": "https://csrc.nist.gov/glossary/term/sandbox",
+      "related": ["Runtime Application Self-Protection (RASP)", "Secure Coding"]
+    },
+    {
+      "term": "Runtime Application Self-Protection (RASP)",
+      "definition": "Security technology that embeds protection into a running application to detect and block attacks in real time.",
+      "category": "application",
+      "source": "https://owasp.org/www-project-runtime-application-self-protection/",
+      "related": ["Dynamic Application Security Testing (DAST)", "Application Sandbox"]
+    },
+    {
+      "term": "Vulnerability Disclosure Program",
+      "definition": "Structured process that invites external parties to report security weaknesses responsibly.",
+      "category": "application",
+      "source": "https://www.cisa.gov/topics/cybersecurity-best-practices/online-safety-nets/vulnerability-disclosure-policy",
+      "related": ["Security Patch", "Software Bill of Materials (SBOM)"]
+    },
+    {
+      "term": "Information Security Policy",
+      "definition": "Formal set of rules that outlines how an organization protects its information assets.",
+      "category": "governance",
+      "source": "https://csrc.nist.gov/glossary/term/information_security_policy",
+      "related": ["Security Awareness Training", "Incident Response Plan"]
+    },
+    {
+      "term": "Risk Assessment",
+      "definition": "Systematic evaluation of threats, vulnerabilities, and impacts to prioritize mitigation efforts.",
+      "category": "governance",
+      "source": "https://csrc.nist.gov/glossary/term/risk_assessment",
+      "related": ["Security Metrics", "Third-Party Risk Management"]
+    },
+    {
+      "term": "Compliance Audit",
+      "definition": "Independent review ensuring that security controls meet regulatory and internal requirements.",
+      "category": "governance",
+      "source": "https://www.isaca.org/resources/glossary",
+      "related": ["Cybersecurity Framework", "Risk Assessment"]
+    },
+    {
+      "term": "Security Awareness Training",
+      "definition": "Educational efforts that teach users to recognize and respond to cyber threats.",
+      "category": "governance",
+      "source": "https://www.cisa.gov/resources-tools/services/cybersecurity-awareness-training",
+      "related": ["Information Security Policy", "Incident Response Plan"]
+    },
+    {
+      "term": "Data Retention Policy",
+      "definition": "Guidelines specifying how long data is kept and when it should be discarded.",
+      "category": "governance",
+      "source": "https://gdpr.eu/data-retention/",
+      "related": ["Compliance Audit", "Risk Assessment"]
+    },
+    {
+      "term": "Incident Response Plan",
+      "definition": "Documented procedures for detecting, responding to, and recovering from cybersecurity events.",
+      "category": "governance",
+      "source": "https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final",
+      "related": ["Business Continuity Plan", "Security Awareness Training"]
+    },
+    {
+      "term": "Business Continuity Plan",
+      "definition": "Strategy that defines how operations continue during and after a major disruption.",
+      "category": "governance",
+      "source": "https://www.ready.gov/business-continuity-plan",
+      "related": ["Incident Response Plan", "Third-Party Risk Management"]
+    },
+    {
+      "term": "Third-Party Risk Management",
+      "definition": "Oversight of security risks introduced by vendors and partners.",
+      "category": "governance",
+      "source": "https://www.cisco.com/c/en/us/products/security/what-is-third-party-risk-management.html",
+      "related": ["Risk Assessment", "Compliance Audit"]
+    },
+    {
+      "term": "Security Metrics",
+      "definition": "Quantifiable measures that track the effectiveness of security controls and processes.",
+      "category": "governance",
+      "source": "https://csrc.nist.gov/publications/detail/sp/800-55/rev-1/final",
+      "related": ["Risk Assessment", "Cybersecurity Framework"]
+    },
+    {
+      "term": "Cybersecurity Framework",
+      "definition": "Structured set of standards and best practices for managing cybersecurity risk.",
+      "category": "governance",
+      "source": "https://www.nist.gov/cyberframework",
+      "related": ["Information Security Policy", "Security Metrics"]
     }
   ]
 }
