@@ -347,3 +347,54 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Share CTA styles */
+#share-cta {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px 40px 15px 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+#share-cta.visible {
+  opacity: 1;
+}
+
+#share-cta-close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#share-cta .share-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#share-cta .share-buttons img {
+  width: 24px;
+  height: 24px;
+}
+
+body.dark-mode #share-cta {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode #share-cta-close {
+  color: #fff;
+}
