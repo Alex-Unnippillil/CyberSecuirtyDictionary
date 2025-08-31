@@ -131,6 +131,46 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Vulnerability Management",
+      "definition": "The ongoing process of identifying, evaluating, prioritizing, and mitigating security weaknesses in systems and applications."
+    },
+    {
+      "term": "Patch Management",
+      "definition": "The process of acquiring, testing, and installing software updates to fix security vulnerabilities or bugs."
+    },
+    {
+      "term": "Penetration Testing",
+      "definition": "A controlled simulation of an attack used to assess the security of systems, networks, or applications."
+    },
+    {
+      "term": "Red Team",
+      "definition": "A group that emulates adversary tactics to test and improve an organization's defenses."
+    },
+    {
+      "term": "Blue Team",
+      "definition": "A group responsible for defending an organization by monitoring, detecting, and responding to security threats."
+    },
+    {
+      "term": "Purple Team",
+      "definition": "A collaborative approach where red and blue teams work together to share insights and strengthen defenses."
+    },
+    {
+      "term": "Security Information and Event Management (SIEM)",
+      "definition": "A platform that collects and analyzes log data to detect and respond to security events."
+    },
+    {
+      "term": "Endpoint Detection and Response (EDR)",
+      "definition": "Tools that monitor and respond to suspicious activity on endpoints like computers and servers."
+    },
+    {
+      "term": "Software Bill of Materials (SBOM)",
+      "definition": "A detailed inventory of components in a software package used to enhance security and compliance."
+    },
+    {
+      "term": "Supply Chain Attack",
+      "definition": "An attack that targets vulnerabilities in an organization's suppliers or partners to compromise the end product."
     }
   ]
 }
