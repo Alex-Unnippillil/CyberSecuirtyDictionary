@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "cve",
+      "related": [
+        "cwe",
+        "nvd"
+      ],
+      "synonyms": [],
+      "prerequisites": [],
+      "degree": 0.8,
+      "betweenness": 0.6000000000000001
+    },
+    {
+      "id": "cwe",
+      "related": [
+        "cve",
+        "owasp-top-10"
+      ],
+      "synonyms": [],
+      "prerequisites": [],
+      "degree": 0.6,
+      "betweenness": 0.4
+    },
+    {
+      "id": "cvss",
+      "related": [
+        "cve",
+        "nvd"
+      ],
+      "synonyms": [],
+      "prerequisites": [],
+      "degree": 0.4,
+      "betweenness": 0
+    },
+    {
+      "id": "nvd",
+      "related": [
+        "cve",
+        "cvss"
+      ],
+      "synonyms": [],
+      "prerequisites": [],
+      "degree": 0.4,
+      "betweenness": 0
+    },
+    {
+      "id": "mitre-attack",
+      "related": [
+        "cve",
+        "cwe"
+      ],
+      "synonyms": [],
+      "prerequisites": [],
+      "degree": 0.4,
+      "betweenness": 0
+    },
+    {
+      "id": "owasp-top-10",
+      "related": [
+        "cwe"
+      ],
+      "synonyms": [],
+      "prerequisites": [],
+      "degree": 0.2,
+      "betweenness": 0
+    }
+  ],
+  "edges": [
+    {
+      "source": "cve",
+      "target": "cwe",
+      "type": "related"
+    },
+    {
+      "source": "cve",
+      "target": "nvd",
+      "type": "related"
+    },
+    {
+      "source": "cwe",
+      "target": "owasp-top-10",
+      "type": "related"
+    },
+    {
+      "source": "cvss",
+      "target": "cve",
+      "type": "related"
+    },
+    {
+      "source": "cvss",
+      "target": "nvd",
+      "type": "related"
+    },
+    {
+      "source": "mitre-attack",
+      "target": "cve",
+      "type": "related"
+    },
+    {
+      "source": "mitre-attack",
+      "target": "cwe",
+      "type": "related"
+    }
+  ]
+}
