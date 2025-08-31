@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Incident Response Pack</title>
+    <link rel="stylesheet" href="../styles.css" >
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <main id="main" class="container">
+      <h1>Incident Response Pack</h1>
+      <button
+        type="button"
+        id="print-pack"
+        onclick="window.print()"
+        aria-label="Print this pack"
+      >
+        Print Pack
+      </button>
+
+      <section aria-labelledby="glossary-heading">
+        <h2 id="glossary-heading">Mini Glossary</h2>
+        <dl>
+          <dt>Incident Response</dt>
+          <dd>
+            Coordinated steps for addressing and managing the aftermath of a
+            security breach or attack.
+          </dd>
+          <dt>Containment</dt>
+          <dd>
+            Actions taken to limit the scope and impact of a security incident.
+          </dd>
+          <dt>Eradication</dt>
+          <dd>
+            Steps to remove the cause of the incident and ensure it does not
+            recur.
+          </dd>
+          <dt>Recovery</dt>
+          <dd>
+            Process of restoring systems to normal operation and verifying they
+            are functioning correctly.
+          </dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="runbooks-heading">
+        <h2 id="runbooks-heading">Runbooks</h2>
+
+        <article aria-labelledby="phishing-heading">
+          <h3 id="phishing-heading">Phishing Email Response</h3>
+          <ol>
+            <li>Report suspicious email to security team.</li>
+            <li>Isolate affected user account and device.</li>
+            <li>Analyze email headers and payload.</li>
+            <li>Remove malicious content and reset credentials.</li>
+            <li>Inform users and update phishing filters.</li>
+          </ol>
+        </article>
+
+        <article aria-labelledby="ransomware-heading">
+          <h3 id="ransomware-heading">Ransomware Outbreak</h3>
+          <ol>
+            <li>Disconnect infected systems from the network.</li>
+            <li>Notify incident response team and relevant stakeholders.</li>
+            <li>Identify strain and determine scope of encryption.</li>
+            <li>Restore systems from clean backups.</li>
+            <li>Conduct lessons learned and strengthen defenses.</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+    <script src="../assets/js/app.js"></script>
+  </body>
+</html>
