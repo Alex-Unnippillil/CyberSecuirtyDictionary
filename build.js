@@ -10,6 +10,7 @@ fs.mkdirSync(termsDir, { recursive: true });
 const baseUrl = 'https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms';
 
 const urls = [];
+const publicTerms = [];
 
 function slugify(term) {
   return term
@@ -36,6 +37,8 @@ for (const term of data.terms) {
   fs.writeFileSync(path.join(termsDir, `${slug}.html`), html);
   if (!term.draft) {
     urls.push(`${baseUrl}/${slug}.html`);
+    const { draft, ...publicTerm } = term;
+    publicTerms.push(publicTerm);
   }
 }
 
@@ -46,3 +49,4 @@ ${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
 `;
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
+fs.writeFileSync(path.join(__dirname, 'terms.json'), JSON.stringify({ terms: publicTerms }, null, 2));
