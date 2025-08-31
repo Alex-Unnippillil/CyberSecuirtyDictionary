@@ -5,6 +5,7 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const appSecToggle = document.getElementById("show-appsec");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -135,9 +136,11 @@ function populateTermsList() {
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+
+      const matchesAppSec = !appSecToggle || !appSecToggle.checked || item.appsec;
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      if (matchesSearch && matchesFavorites && matchesLetter && matchesAppSec) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -216,6 +219,13 @@ function showRandomTerm() {
 randomButton.addEventListener("click", showRandomTerm);
 if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
+    clearDefinition();
+    populateTermsList();
+  });
+}
+
+if (appSecToggle) {
+  appSecToggle.addEventListener("change", () => {
     clearDefinition();
     populateTermsList();
   });
