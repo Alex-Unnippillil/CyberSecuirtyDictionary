@@ -131,6 +131,21 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Amazon GuardDuty",
+      "definition": "An AWS service that provides threat detection and continuous security monitoring for malicious or unauthorized activity.",
+      "tags": ["AWS"]
+    },
+    {
+      "term": "Azure Security Center",
+      "definition": "An Azure service offering unified security management and advanced threat protection across hybrid cloud workloads.",
+      "tags": ["Azure"]
+    },
+    {
+      "term": "Google Cloud Armor",
+      "definition": "A GCP service that provides DDoS protection and a web application firewall to help defend applications from attacks.",
+      "tags": ["GCP"]
     }
   ]
 }
