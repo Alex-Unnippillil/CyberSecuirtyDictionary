@@ -242,6 +242,37 @@ label {
   background-color: #0056b3;
 }
 
+/* Side search panel */
+#selection-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  max-width: 90%;
+  height: 100%;
+  background-color: #fff;
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none;
+}
+
+#selection-panel h4 {
+  margin-top: 0;
+}
+
+#close-selection-panel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
@@ -324,6 +355,12 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode #selection-panel {
+  background-color: #1e1e1e;
+  border-color: #333;
+  color: #fff;
 }
 
 @media (max-width: 480px) {

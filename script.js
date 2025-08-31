@@ -8,6 +8,9 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const selectionPanel = document.getElementById("selection-panel");
+const selectionResults = document.getElementById("selection-results");
+const closeSelectionPanelBtn = document.getElementById("close-selection-panel");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -253,4 +256,48 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function openSelectionPanel(query) {
+  if (!selectionPanel || !selectionResults) {
+    return;
+  }
+  const lower = query.toLowerCase();
+  selectionResults.innerHTML = "";
+  const matches = termsData.terms.filter(
+    (t) =>
+      t.term.toLowerCase().includes(lower) ||
+      (t.definition && t.definition.toLowerCase().includes(lower))
+  );
+  if (matches.length) {
+    matches.forEach((t) => {
+      const item = document.createElement("div");
+      const title = document.createElement("h4");
+      title.textContent = t.term;
+      const def = document.createElement("p");
+      def.textContent = t.definition;
+      item.appendChild(title);
+      item.appendChild(def);
+      selectionResults.appendChild(item);
+    });
+  } else {
+    selectionResults.innerHTML = `<p>No results for "${query}"</p>`;
+  }
+  selectionPanel.style.display = "block";
+}
+
+if (closeSelectionPanelBtn) {
+  closeSelectionPanelBtn.addEventListener("click", () => {
+    selectionPanel.style.display = "none";
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === "f") {
+    const selectedText = window.getSelection().toString().trim();
+    if (selectedText) {
+      e.preventDefault();
+      openSelectionPanel(selectedText);
+    }
+  }
+});
 
