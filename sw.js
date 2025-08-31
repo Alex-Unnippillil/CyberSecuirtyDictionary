@@ -2,8 +2,8 @@ const CACHE_NAME = 'csd-cache-v1';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
-  '/styles.css',
-  '/script.js',
+  '/styles.7fa2bea0.css',
+  '/script.c167e777.js',
   '/data.json'
 ];
 
