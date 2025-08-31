@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <main class="container">
-    <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms..." />
-    <div id="results"></div>
-  </main>
-  <script>
-    window.__BASE_URL__ = window.__BASE_URL__ || '';
-  </script>
-  <script src="assets/js/search.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <h1>Search</h1>
+        <input id="search-box" type="text" placeholder="Search terms...">
+      <div id="results"></div>
+    </main>
+    <footer class="container" aria-label="Site footer">
+        <p>
+          <a href="LICENSE"
+            ><img
+              src="https://img.shields.io/badge/Code%20License-MIT-blue.svg"
+              alt="Code License: MIT"
+          ></a>
+          <a href="https://creativecommons.org/licenses/by/4.0/"
+            ><img
+              src="https://img.shields.io/badge/Content%20License-CC%20BY%204.0-lightgrey.svg"
+              alt="Content License: CC BY 4.0"
+          ></a>
+        </p>
+      <p>
+        Hero image by
+        <a href="https://pixabay.com/users/geralt-9301/">Gerd Altmann</a> from
+        <a href="https://pixabay.com/">Pixabay</a>.
+      </p>
+    </footer>
+    <script>
+      window.__BASE_URL__ = window.__BASE_URL__ || "";
+    </script>
+    <script src="assets/js/search.js"></script>
+  </body>
 </html>
