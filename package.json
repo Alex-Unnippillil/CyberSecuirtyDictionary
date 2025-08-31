@@ -6,16 +6,31 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "prepare": "husky install",
+    "typecheck": "tsc --noEmit",
+    "lint": "prettier --check",
+    "lint:content": "cspell --no-summary"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "chokidar-cli": "^3.0.0",
+    "cspell": "^9.2.1",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
+    "husky": "^9.1.7",
     "js-yaml": "^4.1.0",
-    "prettier": "^3.6.2"
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2",
+    "stylelint": "^16.23.1",
+    "typescript": "^5.9.2"
+  },
+  "lint-staged": {
+    "*.{js,css,html,json,md}": "prettier --check",
+    "*.css": "stylelint",
+    "*.md": "cspell --no-summary"
   }
 }
