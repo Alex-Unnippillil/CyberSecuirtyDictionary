@@ -4,3 +4,7 @@ https://alex-unnippillil.github.io/CyberSecuirtyDictionary/
 
 ## Security
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
+
+## RSS Feeds
+- [Latest terms](https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms.xml)
+- [Changelog](https://alex-unnippillil.github.io/CyberSecuirtyDictionary/changelog.xml)
