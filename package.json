@@ -4,7 +4,8 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "node build.js && npm run generate-sw",
+    "generate-sw": "node generate-sw.js",
     "test": "html-validate index.html",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
@@ -16,6 +17,7 @@
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "workbox-build": "^6.5.4"
   }
 }
