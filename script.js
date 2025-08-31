@@ -180,17 +180,24 @@ function populateTermsList() {
     });
 }
 
-function displayDefinition(term) {
-  definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
-  window.location.hash = encodeURIComponent(term.term);
-  if (canonicalLink) {
-    canonicalLink.setAttribute(
-      "href",
-      `${siteUrl}#${encodeURIComponent(term.term)}`
-    );
+  function displayDefinition(term) {
+    definitionContainer.style.display = "block";
+    let definitionHTML = `<p>${term.definition}</p>`;
+    if (term.previousDefinition) {
+      definitionHTML = `<p class="definition-diff">${generateDiff(
+        term.previousDefinition,
+        term.definition
+      )}</p>`;
+    }
+    definitionContainer.innerHTML = `<h3>${term.term}</h3>${definitionHTML}`;
+    window.location.hash = encodeURIComponent(term.term);
+    if (canonicalLink) {
+      canonicalLink.setAttribute(
+        "href",
+        `${siteUrl}#${encodeURIComponent(term.term)}`
+      );
+    }
   }
-}
 
 function clearDefinition() {
   definitionContainer.style.display = "none";
