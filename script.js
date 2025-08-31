@@ -6,6 +6,7 @@ const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const basePath = window.location.pathname.split("/term/")[0].replace(/\/$/, "");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -25,6 +26,8 @@ window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
 });
 
+window.addEventListener("popstate", handleRouting);
+
 function loadTerms() {
   fetch("data.json")
     .then((response) => {
@@ -39,16 +42,7 @@ function loadTerms() {
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
-
-      if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
-        const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
-        );
-        if (matchedTerm) {
-          displayDefinition(matchedTerm);
-        }
-      }
+      handleRouting();
     })
     .catch((error) => {
       console.error("Detailed error fetching data:", error);
@@ -178,19 +172,43 @@ function populateTermsList() {
     });
 }
 
-function displayDefinition(term) {
+function displayDefinition(term, push = true) {
+  if (!term) return;
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
-  window.location.hash = encodeURIComponent(term.term);
+  if (push) {
+    const slug = encodeURIComponent(term.term);
+    history.pushState({ term: slug }, "", `${basePath}/term/${slug}`);
+  }
 }
 
-function clearDefinition() {
+function clearDefinition(push = true) {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  if (push) {
+    history.pushState({}, "", `${basePath}/`);
+  }
+}
+
+function handleRouting() {
+  const path = decodeURIComponent(window.location.pathname);
+  const relative = path.startsWith(basePath) ? path.slice(basePath.length) : path;
+  const match = relative.match(/^\/term\/(.+)$/);
+  if (match) {
+    const slug = match[1];
+    const term = termsData.terms.find(
+      (t) => t.term.toLowerCase() === slug.toLowerCase()
+    );
+    if (term) {
+      displayDefinition(term, false);
+      return;
+    }
+  }
+  clearDefinition(false);
 }
 
 function showRandomTerm() {
+  if (!termsData.terms.length) return;
   const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
@@ -241,5 +259,5 @@ scrollBtn.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
 
-definitionContainer.addEventListener("click", clearDefinition);
+definitionContainer.addEventListener("click", () => clearDefinition());
 
