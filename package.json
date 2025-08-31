@@ -5,7 +5,8 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html",
+    "test": "html-validate index.html && npm run test:a11y",
+    "test:a11y": "node tests/a11y.js",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
   "keywords": [],
@@ -16,6 +17,9 @@
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "@axe-core/puppeteer": "^4.10.2",
+    "pa11y": "^9.0.0",
+    "puppeteer": "^24.17.1"
   }
 }
