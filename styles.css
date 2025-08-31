@@ -347,3 +347,28 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+#feedback-widget {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#feedback-widget form {
+  margin-top: 5px;
+  background: #f8f8f8;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#feedback-widget textarea {
+  width: 200px;
+  display: block;
+}
+
+body.dark-mode #feedback-widget form {
+  background-color: #1e1e1e;
+  border-color: #333;
+  color: #fff;
+}
