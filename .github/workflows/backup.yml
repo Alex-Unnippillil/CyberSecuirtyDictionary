@@ -1,0 +1,33 @@
+name: Content Backup
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create archive
+        run: |
+          ZIP_FILE="content-$(date +%Y-%m-%d).zip"
+          zip -r "$ZIP_FILE" content
+          echo "ZIP_FILE=$ZIP_FILE" >> $GITHUB_ENV
+
+      - name: Commit to backup branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin backup || true
+          git checkout backup || git checkout --orphan backup
+          mv "$ZIP_FILE" .
+          ls -1tr *.zip 2>/dev/null | head -n -7 | xargs -r rm --
+          git add *.zip
+          git add -u
+          git commit -m "Backup for $(date +%Y-%m-%d)"
+          git push origin backup
