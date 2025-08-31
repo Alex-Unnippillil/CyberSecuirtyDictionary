@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -111,7 +111,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -123,6 +122,15 @@ body.dark-mode mark {
   cursor: pointer;
   min-width: 44px;
   min-height: 44px;
+}
+
+#streak-reminder {
+  display: none;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #e0f7fa;
+  color: #00796b;
 }
 
 #random-term:hover {
@@ -206,7 +214,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -324,6 +334,11 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode #streak-reminder {
+  background-color: #333;
+  color: #fff;
 }
 
 @media (max-width: 480px) {
