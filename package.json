@@ -5,8 +5,9 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "test": "npm run sri && html-validate index.html templates/contribute.html",
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "sri": "node scripts/sri.js"
   },
   "keywords": [],
   "author": "",
