@@ -1,10 +1,11 @@
-const CACHE_NAME = 'csd-cache-v1';
+const CACHE_NAME = 'csd-cache-v2';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js',
-  '/data.json'
+  '/data.json',
+  '/offline.html'
 ];
 
 self.addEventListener('install', event => {
@@ -25,12 +26,21 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response =>
-      response || fetch(event.request).catch(() => {
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
+    caches.match(event.request).then(cached => {
+      if (cached) {
+        return cached;
+      }
+      return fetch(event.request).then(response => {
+        if (!response.ok && event.request.mode === 'navigate') {
+          return caches.match('/offline.html');
         }
-      })
-    )
+        return response;
+      }).catch(() => {
+        if (event.request.mode === 'navigate') {
+          return caches.match('/offline.html');
+        }
+      });
+    })
   );
 });
+

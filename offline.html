@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Cyber Security Dictionary</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>You are offline</h1>
+  <p>It looks like you're offline. Try these tips:</p>
+  <ul>
+    <li>Check your internet connection.</li>
+    <li>Verify the address is correct.</li>
+    <li>Search again when you're back online.</li>
+  </ul>
+  <h2>Recently viewed terms</h2>
+  <ul id="recently-viewed"></ul>
+  <script>
+    (function () {
+      const list = document.getElementById('recently-viewed');
+      let recent = [];
+      try {
+        recent = JSON.parse(localStorage.getItem('recentlyViewed')) || [];
+      } catch (e) {
+        /* ignore */
+      }
+      if (recent.length) {
+        recent.forEach((term) => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '/index.html#' + encodeURIComponent(term);
+          a.textContent = term;
+          li.appendChild(a);
+          list.appendChild(li);
+        });
+      } else {
+        list.innerHTML = '<li>No recently viewed terms.</li>';
+      }
+    })();
+  </script>
+</body>
+</html>
