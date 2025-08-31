@@ -5,6 +5,8 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
+    "fix": "node scripts/fix.js && prettier -w data/terms.yaml terms.json scripts/fix.js",
+    "lint": "prettier -c data/terms.yaml terms.json scripts/fix.js package.json .pre-commit-config.yaml",
     "test": "html-validate index.html",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },

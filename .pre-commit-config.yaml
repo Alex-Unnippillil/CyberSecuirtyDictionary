@@ -1,0 +1,13 @@
+repos:
+  - repo: local
+    hooks:
+      - id: fix-terms
+        name: Run codemod fixer
+        entry: npm run fix
+        language: system
+        pass_filenames: false
+      - id: prettier-check
+        name: Prettier check
+        entry: npm run lint
+        language: system
+        pass_filenames: false
