@@ -41,15 +41,16 @@ function loadTerms() {
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
-
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+        const rawHash = window.location.hash.substring(1);
+        const termFromHash = decodeURIComponent(rawHash);
         const matchedTerm = termsData.terms.find(
           (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
         );
         if (matchedTerm) {
           displayDefinition(matchedTerm);
         }
+        scrollToHashAndHighlight(rawHash);
       }
     })
     .catch((error) => {
@@ -140,6 +141,7 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        termDiv.id = encodeURIComponent(item.term);
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -178,6 +180,28 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+}
+
+function scrollToHashAndHighlight(id) {
+  const targetEl = document.getElementById(id);
+  if (!targetEl) return;
+  targetEl.scrollIntoView({ behavior: "smooth", block: "center" });
+  targetEl.classList.add("pulse-highlight");
+  const params = new URLSearchParams(window.location.search);
+  const sel = params.get("sel");
+  if (sel) {
+    highlightText(targetEl, decodeURIComponent(sel));
+  }
+}
+
+function highlightText(element, text) {
+  if (!text) return;
+  const escaped = text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(escaped, "i");
+  element.innerHTML = element.innerHTML.replace(
+    regex,
+    (match) => `<mark class="pulse-highlight">${match}</mark>`
+  );
 }
 
 function displayDefinition(term) {
