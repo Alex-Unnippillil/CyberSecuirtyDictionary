@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Playground</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Hashing & Salting Playground</h1>
+    <label for="text-input">Text to hash</label>
+    <textarea id="text-input" rows="4" placeholder="Enter text..."></textarea>
+
+    <div class="slider-group">
+      <label for="salt-size">Salt Size: <span id="salt-size-val">16</span> bytes</label>
+      <input type="range" id="salt-size" min="8" max="64" step="1" value="16">
+    </div>
+
+    <div class="slider-group">
+      <label for="key-length">Key Length: <span id="key-length-val">256</span> bits</label>
+      <input type="range" id="key-length" min="128" max="512" step="32" value="256">
+    </div>
+
+    <div class="buttons">
+      <button id="hash-btn" type="button">Hash</button>
+      <button id="reset-btn" type="button">Reset</button>
+    </div>
+
+    <section id="results" hidden>
+      <p>Salt: <code id="salt-output"></code> <button id="copy-salt" type="button">Copy</button></p>
+      <p>Hash: <code id="hash-output"></code> <button id="copy-hash" type="button">Copy</button></p>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
