@@ -5,12 +5,31 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const editShortcutsBtn = document.getElementById("edit-shortcuts");
+const shortcutSettings = document.getElementById("shortcut-settings");
+const shortcutList = document.getElementById("shortcut-list");
+const resetShortcutsBtn = document.getElementById("reset-shortcuts");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+
+const defaultShortcuts = {
+  search: "/",
+  random: "r",
+  dark: "d",
+  favorites: "f",
+};
+
+let shortcuts;
+try {
+  shortcuts = JSON.parse(localStorage.getItem("shortcuts")) || {};
+} catch {
+  shortcuts = {};
+}
+shortcuts = { ...defaultShortcuts, ...shortcuts };
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -253,4 +272,90 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function buildShortcutsUI() {
+  if (!shortcutList) return;
+  shortcutList.innerHTML = "";
+  const actions = [
+    { key: "search", label: "Focus Search" },
+    { key: "random", label: "Random Term" },
+    { key: "dark", label: "Toggle Dark Mode" },
+    { key: "favorites", label: "Toggle Favorites" },
+  ];
+  actions.forEach(({ key: actionKey, label }) => {
+    const row = document.createElement("div");
+    const lab = document.createElement("label");
+    lab.textContent = label;
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.value = shortcuts[actionKey];
+    inp.readOnly = true;
+    inp.addEventListener("keydown", (e) => {
+      e.preventDefault();
+      const newKey = e.key.toLowerCase();
+      if (
+        Object.entries(shortcuts).some(
+          ([act, val]) => act !== actionKey && val === newKey
+        )
+      ) {
+        alert("Shortcut already in use");
+        return;
+      }
+      shortcuts[actionKey] = newKey;
+      inp.value = newKey;
+      try {
+        localStorage.setItem("shortcuts", JSON.stringify(shortcuts));
+      } catch (err) {
+        // Ignore storage errors
+      }
+    });
+    row.appendChild(lab);
+    row.appendChild(inp);
+    shortcutList.appendChild(row);
+  });
+}
+
+if (editShortcutsBtn) {
+  editShortcutsBtn.addEventListener("click", () => {
+    if (!shortcutSettings) return;
+    if (shortcutSettings.style.display === "block") {
+      shortcutSettings.style.display = "none";
+    } else {
+      buildShortcutsUI();
+      shortcutSettings.style.display = "block";
+    }
+  });
+}
+
+if (resetShortcutsBtn) {
+  resetShortcutsBtn.addEventListener("click", () => {
+    shortcuts = { ...defaultShortcuts };
+    try {
+      localStorage.removeItem("shortcuts");
+    } catch (err) {
+      // Ignore storage errors
+    }
+    buildShortcutsUI();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+    return;
+  }
+  const key = e.key.toLowerCase();
+  if (key === shortcuts.search) {
+    searchInput.focus();
+    e.preventDefault();
+  } else if (key === shortcuts.random) {
+    showRandomTerm();
+    e.preventDefault();
+  } else if (key === shortcuts.dark) {
+    if (darkModeToggle) darkModeToggle.click();
+    e.preventDefault();
+  } else if (key === shortcuts.favorites) {
+    if (showFavoritesToggle) showFavoritesToggle.click();
+    e.preventDefault();
+  }
+});
 

@@ -113,7 +113,10 @@ body.dark-mode mark {
 
 
 /* Controls styling */
-#random-term {
+#random-term,
+#dark-mode-toggle,
+#edit-shortcuts,
+#reset-shortcuts {
   margin-top: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -125,23 +128,10 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-#random-term:hover {
-  background-color: #0056b3;
-}
-
-#dark-mode-toggle {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-}
-
-#dark-mode-toggle:hover {
+#random-term:hover,
+#dark-mode-toggle:hover,
+#edit-shortcuts:hover,
+#reset-shortcuts:hover {
   background-color: #0056b3;
 }
 
@@ -156,6 +146,22 @@ label {
   width: 44px;
   height: 44px;
   margin-right: 5px;
+}
+
+#shortcut-settings {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#shortcut-settings div {
+  margin-bottom: 10px;
+}
+
+#shortcut-settings input {
+  padding: 5px;
+  width: 80px;
 }
 
 /* Favorite star styles */
@@ -258,7 +264,9 @@ body.dark-mode #search {
   border-color: #333;
 }
 
-body.dark-mode #dark-mode-toggle {
+body.dark-mode #dark-mode-toggle,
+body.dark-mode #edit-shortcuts,
+body.dark-mode #reset-shortcuts {
   background-color: #333;
   color: #fff;
   border-color: #555;
@@ -290,6 +298,17 @@ body.dark-mode .dictionary-item p {
 body.dark-mode #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode #shortcut-settings {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode #shortcut-settings input {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #333;
 }
 
 body.dark-mode .favorite-star {
