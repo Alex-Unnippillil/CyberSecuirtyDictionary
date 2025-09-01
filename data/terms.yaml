@@ -12,6 +12,7 @@
     - NVD
   sources:
     - https://cve.mitre.org
+  last_reviewed: 2024-01-15
 - name: CWE
   slug: cwe
   definition: >-
@@ -24,6 +25,7 @@
     - OWASP Top 10
   sources:
     - https://cwe.mitre.org
+  last_reviewed: 2024-01-15
 - name: CVSS
   slug: cvss
   definition: >-
@@ -36,6 +38,7 @@
     - NVD
   sources:
     - https://www.first.org/cvss/
+  last_reviewed: 2024-01-15
 - name: NVD
   slug: nvd
   definition: >-
@@ -48,6 +51,7 @@
     - CVSS
   sources:
     - https://nvd.nist.gov/
+  last_reviewed: 2024-01-15
 - name: MITRE ATT&CK
   slug: mitre-attack
   definition: >-
@@ -61,6 +65,7 @@
     - CWE
   sources:
     - https://attack.mitre.org/
+  last_reviewed: 2024-01-15
 - name: OWASP Top 10
   slug: owasp-top-10
   definition: >-
@@ -73,3 +78,4 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+  last_reviewed: 2024-01-15
