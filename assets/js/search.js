@@ -5,14 +5,14 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
-    fetch(`${baseUrl}/terms.json`)
+    fetch(`${baseUrl}/search-index.json`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
-        // terms.json may either be an array or object with terms property
+        // search-index.json may either be an array or object with terms property
         terms = Array.isArray(data) ? data : (data.terms || []);
       })
       .catch(err => {
-        console.error('Failed to load terms.json', err);
+        console.error('Failed to load search-index.json', err);
       });
 
     searchInput.addEventListener('input', handleSearch);
