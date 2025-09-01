@@ -327,6 +327,35 @@ label {
   background-color: #0056b3;
 }
 
+.search-input-wrapper {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.search-input-wrapper input {
+  flex: 1;
+}
+
+.search-input-wrapper button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.keyboard button {
+  padding: 5px;
+  font-size: 16px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
 /* Skeleton styles */
 .skeleton {
   position: relative;

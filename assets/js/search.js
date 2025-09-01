@@ -23,6 +23,10 @@
     aliases = JSON.parse(localStorage.getItem('aliases') || '{}');
     renderAliasList();
 
+    if (window.initOnScreenKeyboard) {
+      window.initOnScreenKeyboard(searchInput);
+    }
+
     searchInput.addEventListener('input', handleSearch);
     aliasForm.addEventListener('submit', saveAlias);
   });
