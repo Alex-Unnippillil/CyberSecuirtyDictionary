@@ -4,9 +4,10 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "build": "node scripts/build.js",
-    "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "build": "node build.js && node precompress.js",
+    "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js && node compression.test.js",
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "serve": "node server.js"
   },
   "keywords": [],
   "author": "",
