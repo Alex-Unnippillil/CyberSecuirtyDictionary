@@ -6,6 +6,7 @@
   --color-card-bg: #ffffff;
   --color-badge-bg: #e9ecef;
   --color-badge-text: #212529;
+  --color-skip-link-text: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -16,6 +17,7 @@
   --color-card-bg: #1e1e1e;
   --color-badge-bg: #343a40;
   --color-badge-text: #f8f9fa;
+  --color-skip-link-text: #121212;
 }
 
 body {
@@ -73,7 +75,7 @@ a:focus {
   left: 0;
   padding: 0.5rem 1rem;
   background: var(--color-link);
-  color: #fff;
+  color: var(--color-skip-link-text);
   transform: translateY(-100%);
   transition: transform 0.2s;
 }
