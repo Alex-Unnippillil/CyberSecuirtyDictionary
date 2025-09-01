@@ -8,9 +8,12 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const reviewQueue = document.getElementById("review-queue");
+const reviewList = document.getElementById("review-list");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let db;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -25,6 +28,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  initDB().then(loadCards);
 });
 
 function loadTerms() {
@@ -253,4 +257,60 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function initDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("srs", 1);
+    request.onupgradeneeded = (e) => {
+      db = e.target.result;
+      if (!db.objectStoreNames.contains("cards")) {
+        db.createObjectStore("cards", { keyPath: "id", autoIncrement: true });
+      }
+    };
+    request.onsuccess = (e) => {
+      db = e.target.result;
+      resolve();
+    };
+    request.onerror = (e) => reject(e);
+  });
+}
+
+function saveCard(card) {
+  const tx = db.transaction("cards", "readwrite");
+  tx.objectStore("cards").add(card);
+  tx.oncomplete = loadCards;
+}
+
+function loadCards() {
+  if (!db) return;
+  const tx = db.transaction("cards", "readonly");
+  const req = tx.objectStore("cards").getAll();
+  req.onsuccess = () => {
+    const cards = req.result || [];
+    reviewList.innerHTML = "";
+    cards.forEach((card) => {
+      const li = document.createElement("li");
+      li.textContent = card.cloze;
+      reviewList.appendChild(li);
+    });
+    reviewQueue.style.display = cards.length ? "block" : "none";
+  };
+}
+
+document.addEventListener("mouseup", () => {
+  const selection = window.getSelection();
+  const selectedText = selection ? selection.toString().trim() : "";
+  if (selectedText) {
+    const range = selection.getRangeAt(0);
+    const container = range.startContainer.parentElement;
+    if (!container.closest("#terms-list, #definition-container")) return;
+    const fullText = container.textContent;
+    if (!fullText.includes(selectedText)) return;
+    const cloze = fullText.replace(selectedText, `{{c1::${selectedText}}}`);
+    if (confirm(`Create cloze card?\n${cloze}`)) {
+      saveCard({ cloze, created: Date.now() });
+    }
+    selection.removeAllRanges();
+  }
+});
 
