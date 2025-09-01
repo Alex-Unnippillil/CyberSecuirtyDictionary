@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -345,5 +346,62 @@ body.dark-mode #alpha-nav button.active {
 
   #alpha-nav button {
     font-size: 14px;
+  }
+}
+
+.see-also {
+  margin-top: 10px;
+}
+
+.see-also-chip {
+  display: inline-block;
+  margin: 4px 4px 0 0;
+  padding: 4px 8px;
+  background-color: #e0e0e0;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.see-also-chip:focus {
+  outline: 2px solid #007bff;
+}
+
+.see-also-chip.motion-in {
+  animation: chip-in 0.3s forwards;
+}
+
+@keyframes chip-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.see-also-path-line {
+  stroke: #007bff;
+  stroke-width: 2;
+  fill: none;
+  animation: draw-path 0.5s forwards;
+}
+
+@keyframes draw-path {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .see-also-chip {
+    transition: none;
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .see-also-path-line {
+    animation: none;
   }
 }
