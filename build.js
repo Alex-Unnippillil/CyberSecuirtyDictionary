@@ -27,6 +27,7 @@ for (const term of data.terms) {
   <meta charset="UTF-8">
   <title>${term.term}</title>
   ${metaRobots}
+  <link rel="canonical" href="${baseUrl}/${slug}.html">
 </head>
 <body>
   <h1>${term.term}</h1>
