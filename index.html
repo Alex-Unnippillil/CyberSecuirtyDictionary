@@ -12,7 +12,7 @@
 <body>
   <main class="container">
     <h1>Cyber Security Dictionary</h1>
-    <nav class="site-nav" aria-label="Site links"><a href="templates/guidelines.html">Definition Guidelines</a> | <a href="categories.html">Category Map</a></nav>
+    <nav class="site-nav" aria-label="Site links"><a href="templates/guidelines.html">Definition Guidelines</a> | <a href="categories.html">Category Map</a> | <a href="settings.html">Settings</a></nav>
     <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
     <input type="text" id="search" placeholder="Search...">
@@ -22,13 +22,13 @@
     <button id="dark-mode-toggle" type="button" aria-label="Toggle dark mode">Toggle Dark Mode</button>
     <input type="checkbox" id="show-favorites" aria-label="Show favorites">
     <label for="show-favorites">Show Favorites</label>
-    <button id="export-terms" type="button" aria-label="Export terms">Export Terms</button>
-    <div id="export-status" class="export-status" hidden>
+    <button id="export-terms" type="button" aria-label="Export terms" data-pro-only>Export Terms</button>
+    <div id="export-status" class="export-status" hidden data-pro-only>
       <progress id="export-progress" class="progress-ring" aria-label="Exporting"></progress>
       <button id="cancel-export" type="button" aria-label="Cancel export">Cancel</button>
     </div>
 
-    <button id="reset-order" type="button" aria-label="Reset term order">Reset Order</button>
+    <button id="reset-order" type="button" aria-label="Reset term order" data-pro-only>Reset Order</button>
 
     <ul id="terms-list"></ul>
   </main>
@@ -41,6 +41,7 @@
     <p><a href="CONTRIBUTING.md">Contribute to this project</a></p>
   </footer>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="assets/js/pro.js"></script>
   <script src="script.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
