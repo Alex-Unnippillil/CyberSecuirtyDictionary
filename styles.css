@@ -326,6 +326,58 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+/* Diagnostics history folding */
+.hidden-history {
+  display: none;
+}
+
+.hidden-history.revealed {
+  display: table-row;
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.history-fold {
+  position: relative;
+}
+
+.history-fold::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: linear-gradient(45deg, #eee 50%, transparent 50%);
+  animation: fold-pulse 3s ease-in-out infinite;
+}
+
+@keyframes fold-pulse {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+}
+
+.history-fold button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;
