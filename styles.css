@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -324,6 +325,26 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+.abbr-toggle {
+  cursor: pointer;
+  border-bottom: 1px dotted;
+}
+
+.abbr-toggle:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.abbr-toggle .caret {
+  font-size: 0.7em;
+  margin-left: 2px;
+}
+
+.abbr-expansion {
+  margin-left: 4px;
+  font-style: italic;
 }
 
 @media (max-width: 480px) {
