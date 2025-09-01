@@ -347,3 +347,23 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+@keyframes flip-card {
+  from {
+    transform: rotateY(-180deg);
+  }
+  to {
+    transform: rotateY(0);
+  }
+}
+
+.flip-animation {
+  animation: flip-card 0.6s ease both;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flip-animation {
+    animation: none;
+  }
+}
