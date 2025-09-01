@@ -5,12 +5,14 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const resetOrderBtn = document.getElementById("reset-order");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let draggedTerm = null;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -20,6 +22,14 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+if (resetOrderBtn) {
+  resetOrderBtn.addEventListener("click", () => {
+    localStorage.removeItem("termOrder");
+    termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+    populateTermsList();
   });
 }
 
@@ -39,6 +49,19 @@ function loadTerms() {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      const storedOrder = JSON.parse(localStorage.getItem("termOrder") || "[]");
+      if (storedOrder.length) {
+        termsData.terms.sort((a, b) => {
+          const idxA = storedOrder.indexOf(a.term);
+          const idxB = storedOrder.indexOf(b.term);
+          if (idxA === -1 && idxB === -1) {
+            return a.term.localeCompare(b.term);
+          }
+          if (idxA === -1) return 1;
+          if (idxB === -1) return -1;
+          return idxA - idxB;
+        });
+      }
       buildAlphaNav();
       populateTermsList();
 
@@ -130,9 +153,7 @@ function buildAlphaNav() {
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
-  termsData.terms
-    .sort((a, b) => a.term.localeCompare(b.term))
-    .forEach((item) => {
+  termsData.terms.forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
@@ -140,6 +161,13 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        termDiv.dataset.term = item.term;
+        termDiv.draggable = true;
+        termDiv.tabIndex = 0;
+        termDiv.addEventListener("dragstart", handleDragStart);
+        termDiv.addEventListener("dragover", handleDragOver);
+        termDiv.addEventListener("drop", handleDrop);
+        termDiv.addEventListener("keydown", handleKeyDown);
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -178,6 +206,61 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+}
+
+function saveOrder() {
+  try {
+    localStorage.setItem("termOrder", JSON.stringify(termsData.terms.map((t) => t.term)));
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+function moveTerm(fromIndex, toIndex, term) {
+  if (fromIndex === toIndex) return;
+  const [moved] = termsData.terms.splice(fromIndex, 1);
+  termsData.terms.splice(toIndex, 0, moved);
+  saveOrder();
+  populateTermsList();
+  const focusEl = termsList.querySelector(`[data-term="${term}"]`);
+  if (focusEl) {
+    focusEl.focus();
+  }
+}
+
+function handleDragStart(e) {
+  draggedTerm = e.currentTarget.dataset.term;
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  const targetTerm = e.currentTarget.dataset.term;
+  const from = termsData.terms.findIndex((t) => t.term === draggedTerm);
+  const to = termsData.terms.findIndex((t) => t.term === targetTerm);
+  if (from !== -1 && to !== -1) {
+    moveTerm(from, to, draggedTerm);
+  }
+  draggedTerm = null;
+}
+
+function handleKeyDown(e) {
+  const term = e.currentTarget.dataset.term;
+  const index = termsData.terms.findIndex((t) => t.term === term);
+  if (e.key === "ArrowUp" && e.ctrlKey) {
+    if (index > 0) {
+      moveTerm(index, index - 1, term);
+    }
+    e.preventDefault();
+  } else if (e.key === "ArrowDown" && e.ctrlKey) {
+    if (index < termsData.terms.length - 1) {
+      moveTerm(index, index + 1, term);
+    }
+    e.preventDefault();
+  }
 }
 
 function displayDefinition(term) {
