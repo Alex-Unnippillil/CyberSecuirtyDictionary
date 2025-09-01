@@ -4,3 +4,12 @@ https://alex-unnippillil.github.io/CyberSecuirtyDictionary/
 
 ## Security
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
+
+## Metrics
+<!-- METRICS-START -->
+| Metric | Value | Budget |
+| --- | --- | --- |
+| Bundle size | 16.84 KB | 500.00 KB |
+| Build time | 0.00 min | 5.00 min |
+| Storage | 130.72 KB | 50.00 MB |
+<!-- METRICS-END -->
