@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="container">
+  <main class="container relative">
     <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
-    <div id="results"></div>
+    <input id="search-box" type="text" placeholder="Search terms..." class="transition-transform motion-reduce:transition-none origin-left">
+    <div id="results" class="absolute left-0 right-0 bg-white shadow-md mt-1 opacity-0 pointer-events-none motion-reduce:transition-none"></div>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.min.js"></script>
   <script src="assets/js/search.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>

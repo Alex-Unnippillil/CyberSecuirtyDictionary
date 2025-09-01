@@ -2,6 +2,7 @@
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
   let terms = [];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
@@ -16,12 +17,24 @@
       });
 
     searchInput.addEventListener('input', handleSearch);
+    searchInput.addEventListener('focus', () => {
+      if (!prefersReducedMotion && window.motion) {
+        window.motion.animate(searchInput, { scale: 1.05 }, { duration: 0.2, easing: 'ease-in-out' });
+      }
+    });
+    searchInput.addEventListener('blur', () => {
+      if (!prefersReducedMotion && window.motion) {
+        window.motion.animate(searchInput, { scale: 1 }, { duration: 0.2, easing: 'ease-in-out' });
+      }
+      hideResults();
+    });
   });
 
   function handleSearch(){
     const query = searchInput.value.trim().toLowerCase();
     resultsContainer.innerHTML = '';
     if(!query){
+      hideResults();
       return;
     }
     const matches = terms
@@ -32,6 +45,12 @@
     matches.forEach(({ term }) => {
       resultsContainer.appendChild(renderCard(term));
     });
+
+    if (matches.length) {
+      showResults();
+    } else {
+      hideResults();
+    }
   }
 
   function score(term, query){
@@ -73,5 +92,27 @@
       card.appendChild(syn);
     }
     return card;
+  }
+
+  function showResults(){
+    resultsContainer.classList.remove('pointer-events-none');
+    if (prefersReducedMotion || !window.motion) {
+      resultsContainer.style.opacity = '1';
+      return;
+    }
+    window.motion.animate(resultsContainer, { opacity: 1 }, { duration: 0.2, easing: 'ease-in-out' });
+  }
+
+  function hideResults(){
+    if (prefersReducedMotion || !window.motion) {
+      resultsContainer.style.opacity = '0';
+      resultsContainer.classList.add('pointer-events-none');
+      return;
+    }
+    window.motion
+      .animate(resultsContainer, { opacity: 0 }, { duration: 0.2, easing: 'ease-in-out' })
+      .finished.then(() => {
+        resultsContainer.classList.add('pointer-events-none');
+      });
   }
 })();

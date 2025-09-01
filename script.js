@@ -9,6 +9,18 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (searchInput && window.motion && !prefersReducedMotion) {
+  const { animate } = window.motion;
+  searchInput.addEventListener("focus", () => {
+    animate(searchInput, { scale: 1.05 }, { duration: 0.2, easing: "ease-in-out" });
+  });
+  searchInput.addEventListener("blur", () => {
+    animate(searchInput, { scale: 1 }, { duration: 0.2, easing: "ease-in-out" });
+  });
+}
+
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
