@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encoding Tools</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <h1>Encoding Tools</h1>
+      <div class="tab-container">
+        <div class="tab-buttons" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-tab="base64"
+          >
+            Base64
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-tab="url">
+            URL
+          </button>
+          <button type="button" role="tab" aria-selected="false" data-tab="hex">
+            Hex
+          </button>
+        </div>
+        <div id="base64" class="tab-content" role="tabpanel">
+          <textarea
+            id="base64-input"
+            placeholder="Enter text or Base64"
+          ></textarea>
+          <div class="controls">
+            <button id="base64-encode" type="button">Encode</button>
+            <button id="base64-decode" type="button">Decode</button>
+            <button id="base64-clear" type="button">Clear</button>
+          </div>
+          <pre id="base64-output" aria-live="polite"></pre>
+          <button id="base64-copy" type="button" class="copy-btn">Copy</button>
+          <p id="base64-error" class="error" aria-live="assertive"></p>
+        </div>
+        <div id="url" class="tab-content" role="tabpanel" hidden>
+          <textarea id="url-input" placeholder="Enter text or URL"></textarea>
+          <div class="controls">
+            <button id="url-encode" type="button">Encode</button>
+            <button id="url-decode" type="button">Decode</button>
+            <button id="url-clear" type="button">Clear</button>
+          </div>
+          <pre id="url-output" aria-live="polite"></pre>
+          <button id="url-copy" type="button" class="copy-btn">Copy</button>
+          <p id="url-error" class="error" aria-live="assertive"></p>
+        </div>
+        <div id="hex" class="tab-content" role="tabpanel" hidden>
+          <textarea id="hex-input" placeholder="Enter text or hex"></textarea>
+          <div class="controls">
+            <button id="hex-encode" type="button">Encode</button>
+            <button id="hex-decode" type="button">Decode</button>
+            <button id="hex-clear" type="button">Clear</button>
+          </div>
+          <pre id="hex-output" aria-live="polite"></pre>
+          <button id="hex-copy" type="button" class="copy-btn">Copy</button>
+          <p id="hex-error" class="error" aria-live="assertive"></p>
+        </div>
+      </div>
+    </main>
+    <script src="assets/js/tools.js"></script>
+  </body>
+</html>
