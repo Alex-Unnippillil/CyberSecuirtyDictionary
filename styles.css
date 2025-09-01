@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -324,6 +325,80 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+/* Study history styles */
+#study-section {
+  margin-top: 20px;
+}
+
+#study-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  max-width: 210px;
+}
+
+#study-calendar .day {
+  width: 28px;
+  height: 28px;
+  background-color: #ebedf0;
+  cursor: pointer;
+}
+
+#study-calendar .level-1 {
+  background-color: #c6e48b;
+}
+#study-calendar .level-2 {
+  background-color: #7bc96f;
+}
+#study-calendar .level-3 {
+  background-color: #239a3b;
+}
+#study-calendar .level-4 {
+  background-color: #196127;
+}
+
+#reset-study-data {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#reset-study-data:hover {
+  background-color: #0056b3;
+}
+
+body.dark-mode #study-calendar .day {
+  background-color: #333;
+}
+
+body.dark-mode #study-calendar .level-1 {
+  background-color: #0e4429;
+}
+body.dark-mode #study-calendar .level-2 {
+  background-color: #006d32;
+}
+body.dark-mode #study-calendar .level-3 {
+  background-color: #26a641;
+}
+body.dark-mode #study-calendar .level-4 {
+  background-color: #39d353;
+}
+
+body.dark-mode #reset-study-data {
+  background-color: #333;
+  border-color: #555;
+}
+
+body.dark-mode #reset-study-data:hover {
+  background-color: #555;
 }
 
 @media (max-width: 480px) {
