@@ -1,5 +1,9 @@
+// Utilities for encoding/decoding text when working with the Web Crypto API.
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
+
+// PBKDF2 work factor. Extracted for readability and easier future tuning.
+const PBKDF2_ITERATIONS = 250_000;
 
 interface EncryptedPayload {
   cipherText: string;
@@ -39,7 +43,7 @@ async function deriveKey(
     {
       name: "PBKDF2",
       salt,
-      iterations: 250000,
+      iterations: PBKDF2_ITERATIONS,
       hash: "SHA-256",
     },
     keyMaterial,
