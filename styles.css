@@ -93,6 +93,32 @@ body.dark-mode mark {
   transform: scale(1.02);
 }
 
+.dictionary-item.placeholder {
+  background-color: #e0e0e0;
+  border-color: #e0e0e0;
+  pointer-events: none;
+  position: relative;
+  overflow: hidden;
+  height: 60px;
+}
+
+.dictionary-item.placeholder::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 #definition-container {
   padding: 20px;
   background-color: #f2f2f2;
@@ -276,6 +302,15 @@ body.dark-mode li:hover {
 body.dark-mode .dictionary-item {
   background-color: #1e1e1e;
   border-color: #333;
+}
+
+body.dark-mode .dictionary-item.placeholder {
+  background-color: #333;
+  border-color: #333;
+}
+
+body.dark-mode .dictionary-item.placeholder::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 }
 
 body.dark-mode .dictionary-item h3 {
