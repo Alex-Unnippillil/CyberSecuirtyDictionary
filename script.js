@@ -767,3 +767,16 @@ function buildPrintToc() {
 
 window.addEventListener("beforeprint", buildPrintToc);
 
+
+const params = new URLSearchParams(window.location.search);
+if (params.get("motionDebug") === "1") {
+  const debugScript = document.createElement("script");
+  debugScript.src = "assets/js/motion-debug.js";
+  debugScript.onload = () => {
+    if (window.initMotionDebug) {
+      window.initMotionDebug();
+    }
+  };
+  document.head.appendChild(debugScript);
+}
+
