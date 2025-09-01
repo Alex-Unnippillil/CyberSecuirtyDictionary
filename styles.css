@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -101,6 +101,73 @@ body.dark-mode mark {
   margin-bottom: 20px;
 }
 
+.definition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copy-btn {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.copy-btn.copied {
+  animation: pulse 0.5s ease;
+}
+
+.definition-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.definition-text::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: rgba(255, 255, 0, 0.5);
+  pointer-events: none;
+}
+
+.definition-text.copied::after {
+  width: 100%;
+  transition: width 0.4s ease;
+}
+
+.definition-text.copied-reduced {
+  background: rgba(255, 255, 0, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .copy-btn.copied {
+    animation: none;
+  }
+  .definition-text.copied::after {
+    transition: none;
+  }
+}
+
 #search {
   width: 100%;
   padding: 10px;
@@ -110,7 +177,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +272,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -290,6 +358,21 @@ body.dark-mode .dictionary-item p {
 body.dark-mode #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .copy-btn {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode .copy-btn:hover {
+  background-color: #555;
+}
+
+body.dark-mode .definition-text::after,
+body.dark-mode .definition-text.copied-reduced {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 body.dark-mode .favorite-star {
