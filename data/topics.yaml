@@ -1,0 +1,13 @@
+- slug: vulnerability-tracking
+  name: Vulnerability Tracking
+  description: Resources and identifiers for tracking vulnerabilities.
+  words:
+    - cve
+    - cvss
+    - nvd
+- slug: security-frameworks
+  name: Security Frameworks
+  description: Frameworks and standards for security operations.
+  words:
+    - mitre-attack
+    - owasp-top-10
