@@ -20,6 +20,10 @@ jobs:
         run: npx stylelint styles.css
       - name: cSpell
         run: npx cspell README.md terms.json
+      - name: Generate sitemap
+        run: node build.js
+      - name: Validate sitemap URLs
+        run: node check-sitemap.js
       - name: Link checker
         uses: lycheeverse/lychee-action@v2
         with:

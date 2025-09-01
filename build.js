@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const dataPath = path.join(__dirname, 'data.json');
-const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+const termsPath = path.join(__dirname, 'terms.json');
+const data = JSON.parse(fs.readFileSync(termsPath, 'utf8'));
 
 const termsDir = path.join(__dirname, 'terms');
 fs.mkdirSync(termsDir, { recursive: true });
