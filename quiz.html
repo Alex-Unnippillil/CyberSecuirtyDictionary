@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Quiz</h1>
+    <div id="score-container">
+      <p>Score: <span id="score">0/0</span></p>
+      <button id="reset-score" type="button">Reset Score</button>
+    </div>
+    <div id="question-container">
+      <p id="question"></p>
+      <div id="options" class="quiz-options"></div>
+      <p id="feedback" aria-live="polite"></p>
+      <button id="next-question" type="button" style="display: none;">Next Question</button>
+    </div>
+  </main>
+  <script src="quiz.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+  <script src="assets/js/metrics.js"></script>
+</body>
+</html>
