@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --surface-bg: rgba(255, 255, 255, 0.8);
+  --surface-solid: #fff;
+  --definition-bg: rgba(242, 242, 242, 0.8);
+  --definition-solid: #f2f2f2;
+  --surface-blur: blur(8px);
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -18,7 +26,8 @@ body {
   width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: var(--surface-bg);
+  backdrop-filter: var(--surface-blur);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -41,7 +50,8 @@ ul {
 
 li {
   padding: 12px 20px;
-  background-color: #fff;
+  background-color: var(--surface-bg);
+  backdrop-filter: var(--surface-blur);
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -71,6 +81,8 @@ body.dark-mode mark {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: var(--surface-bg);
+  backdrop-filter: var(--surface-blur);
   cursor: pointer;
   transition: transform 0.2s;
   min-height: 44px;
@@ -95,7 +107,8 @@ body.dark-mode mark {
 
 #definition-container {
   padding: 20px;
-  background-color: #f2f2f2;
+  background-color: var(--definition-bg);
+  backdrop-filter: var(--surface-blur);
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -107,6 +120,8 @@ body.dark-mode mark {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: var(--surface-bg);
+  backdrop-filter: var(--surface-blur);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
@@ -246,14 +261,13 @@ label {
 body.dark-mode {
   background-color: #121212;
   color: #fff;
-}
-
-body.dark-mode .container {
-  background-color: #1e1e1e;
+  --surface-bg: rgba(30, 30, 30, 0.8);
+  --surface-solid: #1e1e1e;
+  --definition-bg: rgba(30, 30, 30, 0.8);
+  --definition-solid: #1e1e1e;
 }
 
 body.dark-mode #search {
-  background-color: #1e1e1e;
   color: #fff;
   border-color: #333;
 }
@@ -265,7 +279,6 @@ body.dark-mode #dark-mode-toggle {
 }
 
 body.dark-mode li {
-  background-color: #1e1e1e;
   border-bottom: 1px solid #333;
 }
 
@@ -274,7 +287,6 @@ body.dark-mode li:hover {
 }
 
 body.dark-mode .dictionary-item {
-  background-color: #1e1e1e;
   border-color: #333;
 }
 
@@ -288,7 +300,6 @@ body.dark-mode .dictionary-item p {
 }
 
 body.dark-mode #definition-container {
-  background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
@@ -324,6 +335,20 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.reduced-transparency {
+  --surface-bg: var(--surface-solid);
+  --definition-bg: var(--definition-solid);
+  --surface-blur: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --surface-bg: var(--surface-solid);
+    --definition-bg: var(--definition-solid);
+    --surface-blur: none;
+  }
 }
 
 @media (max-width: 480px) {
