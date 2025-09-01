@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trending Terms</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Trending Terms</h1>
+    <section aria-label="Weekly trending terms">
+      <h2>Weekly</h2>
+      <canvas id="weeklyChart"></canvas>
+    </section>
+    <section aria-label="Monthly trending terms">
+      <h2>Monthly</h2>
+      <canvas id="monthlyChart"></canvas>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="assets/js/trending.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+  <script src="assets/js/metrics.js"></script>
+</body>
+</html>
