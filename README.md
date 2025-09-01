@@ -4,3 +4,6 @@ https://alex-unnippillil.github.io/CyberSecuirtyDictionary/
 
 ## Security
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
+
+## Validating term front matter
+Run `npm run lint` to verify that all term markdown files include the required front matter fields (`slug`, `title`, `shortDef`, and `sources`).
