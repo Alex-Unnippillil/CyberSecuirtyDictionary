@@ -110,6 +110,42 @@ function updateTokens() {
   searchInput.classList.toggle("input-error", hasError);
 }
 
+function toggleAbbreviation(e) {
+  const abbr = e.currentTarget;
+  const expanded = abbr.getAttribute("aria-expanded") === "true";
+  abbr.setAttribute("aria-expanded", String(!expanded));
+  const descId = abbr.getAttribute("aria-describedby");
+  if (descId) {
+    const tooltip = document.getElementById(descId);
+    if (tooltip) {
+      if (expanded) {
+        tooltip.setAttribute("hidden", "");
+      } else {
+        tooltip.removeAttribute("hidden");
+      }
+    }
+  }
+}
+
+function wrapAbbreviations(container) {
+  const abbrRegex = /\b([A-Za-z][A-Za-z\s-]+?)\s*\(([A-Z0-9]{2,})\)/g;
+  container.innerHTML = container.innerHTML.replace(
+    abbrRegex,
+    (_, full, abbr) => {
+      const id = `abbr-${abbr}-${Math.random().toString(36).slice(2,8)}`;
+      return `${full} (<abbr class="abbr-toggle" role="button" tabindex="0" aria-expanded="false" aria-describedby="${id}">${abbr}<span class="caret" aria-hidden="true">▾</span></abbr><span id="${id}" class="abbr-expansion" role="tooltip" hidden>${full}</span>)`;
+    }
+  );
+  container.querySelectorAll("abbr.abbr-toggle").forEach((el) => {
+    el.addEventListener("click", toggleAbbreviation);
+    el.addEventListener("keydown", (evt) => {
+      if (evt.key === "Enter") {
+        toggleAbbreviation.call(el, evt);
+      }
+    });
+  });
+}
+
 function getCaretCoordinates(input) {
   const style = window.getComputedStyle(input);
   const div = document.createElement("div");
@@ -351,6 +387,7 @@ function populateTermsList() {
         } else {
           termHeader.textContent = item.term;
         }
+        wrapAbbreviations(termHeader);
 
         const star = document.createElement("span");
         star.classList.add("favorite-star");
@@ -371,6 +408,7 @@ function populateTermsList() {
 
         const definitionPara = document.createElement("p");
         definitionPara.textContent = item.definition;
+        wrapAbbreviations(definitionPara);
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -446,6 +484,7 @@ function displayDefinition(term) {
     return `<span class="rating-star ${rated}" data-value="${value}" role="radio" aria-label="${value} out of 5">★</span>`;
   }).join("");
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><div class="rating-widget" role="radiogroup" aria-label="Rate difficulty">${stars}</div>`;
+  wrapAbbreviations(definitionContainer);
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(

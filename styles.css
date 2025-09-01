@@ -571,3 +571,23 @@ body.dark-mode #alpha-nav button.active {
 .toast.show {
   opacity: 1;
 }
+
+/* Abbreviation tooltip styles */
+abbr.abbr-toggle {
+  cursor: pointer;
+  border-bottom: 1px dotted currentColor;
+}
+
+abbr.abbr-toggle .caret {
+  font-size: 0.8em;
+  margin-left: 0.2em;
+  transition: transform 0.2s;
+}
+
+abbr.abbr-toggle[aria-expanded="true"] .caret {
+  transform: rotate(180deg);
+}
+
+.abbr-expansion[hidden] {
+  display: none;
+}
