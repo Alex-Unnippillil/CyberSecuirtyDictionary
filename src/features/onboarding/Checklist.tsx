@@ -1,18 +1,29 @@
 import React, { useEffect, useState } from 'react';
 
-// Define the structure of a task
+/** Structure of a checklist task. If `event` is provided the checklist
+ * will listen for that custom event on the window object and
+ * automatically mark the task as complete when the event fires.
+ */
 export interface ChecklistTask {
+  /** Unique identifier for the task */
   id: string;
+  /** Human friendly label to display */
   label: string;
+  /** Optional custom event dispatched on window when task is done */
+  event?: string;
 }
 
-// Default tasks for onboarding
+/** LocalStorage key used for persisting completion state */
+const STORAGE_KEY = 'onboarding-checklist';
+
+/** Default tasks for onboarding */
 const DEFAULT_TASKS: ChecklistTask[] = [
-  { id: 'first-search', label: 'Search for a term' },
-  { id: 'first-highlight', label: 'Highlight some text' },
+  { id: 'first-search', label: 'Search for a term', event: 'user-search' },
+  { id: 'first-highlight', label: 'Highlight some text', event: 'user-highlight' },
 ];
 
 interface Props {
+  /** Tasks to render. Defaults to {@link DEFAULT_TASKS}. */
   tasks?: ChecklistTask[];
 }
 
@@ -25,12 +36,12 @@ const Checklist: React.FC<Props> = ({ tasks = DEFAULT_TASKS }) => {
   // Load completion information from localStorage on first render
   const [completed, setCompleted] = useState<Record<string, boolean>>(() => {
     try {
-      const raw = localStorage.getItem('onboarding-checklist');
+      const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         return JSON.parse(raw);
       }
     } catch {
-      // ignore
+      // ignore parsing/storage issues
     }
     return {};
   });
@@ -38,7 +49,7 @@ const Checklist: React.FC<Props> = ({ tasks = DEFAULT_TASKS }) => {
   // Persist completion state whenever it changes
   useEffect(() => {
     try {
-      localStorage.setItem('onboarding-checklist', JSON.stringify(completed));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
     } catch {
       // ignore storage errors
     }
@@ -51,20 +62,20 @@ const Checklist: React.FC<Props> = ({ tasks = DEFAULT_TASKS }) => {
 
   // Observe user events to automatically complete tasks
   useEffect(() => {
-    const handleSearch = () => check('first-search');
-    const handleHighlight = () => check('first-highlight');
-
-    // Custom events are used so that the application can dispatch
-    // `window.dispatchEvent(new Event('user-search'))` once a search is made
-    // and `window.dispatchEvent(new Event('user-highlight'))` when text is highlighted.
-    window.addEventListener('user-search', handleSearch);
-    window.addEventListener('user-highlight', handleHighlight);
+    const listeners: Array<[string, EventListener]> = [];
+    tasks.forEach((task) => {
+      if (!task.event) return;
+      const handler = () => check(task.id);
+      window.addEventListener(task.event, handler);
+      listeners.push([task.event, handler]);
+    });
 
     return () => {
-      window.removeEventListener('user-search', handleSearch);
-      window.removeEventListener('user-highlight', handleHighlight);
+      listeners.forEach(([evt, handler]) => {
+        window.removeEventListener(evt, handler);
+      });
     };
-  }, []);
+  }, [tasks]);
 
   return (
     <ul>
