@@ -347,3 +347,9 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Text-to-Speech current sentence highlight */
+.tts-current-sentence {
+  background-color: #ffff99;
+}
+
