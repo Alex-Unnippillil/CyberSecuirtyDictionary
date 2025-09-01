@@ -1,6 +1,7 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const difficultySelect = document.getElementById('difficulty-filter');
   let terms = [];
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -16,10 +17,14 @@
       });
 
     searchInput.addEventListener('input', handleSearch);
+    if(difficultySelect){
+      difficultySelect.addEventListener('change', handleSearch);
+    }
   });
 
   function handleSearch(){
     const query = searchInput.value.trim().toLowerCase();
+    const maxDifficulty = difficultySelect ? difficultySelect.value : 'all';
     resultsContainer.innerHTML = '';
     if(!query){
       return;
@@ -27,6 +32,12 @@
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
       .filter(item => item.score > 0)
+      .filter(item => {
+        if(maxDifficulty === 'all') return true;
+        const slug = getSlug(item.term);
+        const rating = localStorage.getItem(`rating-${slug}`);
+        return rating && parseInt(rating, 10) <= parseInt(maxDifficulty, 10);
+      })
       .sort((a,b) => b.score - a.score);
 
     matches.forEach(({ term }) => {
@@ -45,6 +56,17 @@
     if(category.includes(query)) s += 1;
     if(syns.some(syn => syn.includes(query))) s += 2;
     return s;
+  }
+
+  function slugify(str){
+    return str
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function getSlug(term){
+    return term.slug || slugify(term.name || term.term || '');
   }
 
   function renderCard(term){
