@@ -343,7 +343,31 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 
-  #alpha-nav button {
+#alpha-nav button {
     font-size: 14px;
   }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 90%;
+}
+
+body.dark-mode .modal-content {
+  background: #333;
+  color: #fff;
 }
