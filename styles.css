@@ -571,3 +571,13 @@ body.dark-mode #alpha-nav button.active {
 .toast.show {
   opacity: 1;
 }
+
+#selection-link-btn {
+  z-index: 1000;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.selection-highlight {
+  background-color: yellow;
+}

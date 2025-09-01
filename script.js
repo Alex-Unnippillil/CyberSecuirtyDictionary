@@ -152,6 +152,7 @@ searchInput.addEventListener("blur", () => {
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 let draggedTerm = null;
+let currentTerm = null;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -215,9 +216,19 @@ function loadTerms() {
       }
       buildAlphaNav();
       populateTermsList();
-
-      if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+      const params = new URLSearchParams(window.location.search);
+      const termParam = params.get("term");
+      if (termParam) {
+        const matchedTerm = termsData.terms.find(
+          (t) => t.term.toLowerCase() === termParam.toLowerCase()
+        );
+        if (matchedTerm) {
+          displayDefinition(matchedTerm);
+        }
+      } else if (window.location.hash) {
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1)
+        );
         const matchedTerm = termsData.terms.find(
           (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
         );
@@ -439,6 +450,7 @@ function handleKeyDown(e) {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
+  currentTerm = term;
   const currentRating = getRating(term.term);
   const stars = Array.from({ length: 5 }, (_, i) => {
     const value = i + 1;
@@ -465,6 +477,7 @@ function displayDefinition(term) {
       });
     });
   });
+  applyHighlightFromParams();
 }
 
 function clearDefinition() {
@@ -533,7 +546,119 @@ scrollBtn.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
 
-definitionContainer.addEventListener("click", clearDefinition);
+const selectionLinkBtn = document.createElement("button");
+selectionLinkBtn.id = "selection-link-btn";
+selectionLinkBtn.type = "button";
+selectionLinkBtn.textContent = "Link to this selection";
+selectionLinkBtn.style.position = "absolute";
+selectionLinkBtn.style.display = "none";
+document.body.appendChild(selectionLinkBtn);
+
+let currentSelectionRange = null;
+
+definitionContainer.addEventListener("mouseup", () => {
+  const sel = window.getSelection();
+  if (
+    sel &&
+    !sel.isCollapsed &&
+    definitionContainer.contains(sel.anchorNode) &&
+    definitionContainer.contains(sel.focusNode)
+  ) {
+    currentSelectionRange = sel.getRangeAt(0);
+    const rect = currentSelectionRange.getBoundingClientRect();
+    selectionLinkBtn.style.top = `${rect.bottom + window.scrollY}px`;
+    selectionLinkBtn.style.left = `${rect.left + window.scrollX}px`;
+    selectionLinkBtn.style.display = "block";
+  } else {
+    selectionLinkBtn.style.display = "none";
+  }
+});
+
+selectionLinkBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  if (!currentSelectionRange || !currentTerm) return;
+  const { start, end } = getOffsets(currentSelectionRange, definitionContainer);
+  const url = new URL(window.location.href);
+  url.searchParams.set("term", currentTerm.term);
+  url.searchParams.set("start", start);
+  url.searchParams.set("end", end);
+  navigator.clipboard
+    .writeText(url.toString())
+    .then(() => showToast("Link copied!"))
+    .catch(() => {});
+  selectionLinkBtn.style.display = "none";
+});
+
+document.addEventListener("click", (e) => {
+  if (
+    definitionContainer.style.display === "block" &&
+    !definitionContainer.contains(e.target) &&
+    e.target !== selectionLinkBtn
+  ) {
+    clearDefinition();
+  }
+  if (e.target !== selectionLinkBtn) {
+    selectionLinkBtn.style.display = "none";
+  }
+});
+
+function getOffsets(range, container) {
+  const pre = range.cloneRange();
+  pre.selectNodeContents(container);
+  pre.setEnd(range.startContainer, range.startOffset);
+  const start = pre.toString().length;
+  const end = start + range.toString().length;
+  return { start, end };
+}
+
+function highlightRange(start, end) {
+  const walker = document.createTreeWalker(
+    definitionContainer,
+    NodeFilter.SHOW_TEXT,
+    null
+  );
+  let node;
+  let count = 0;
+  let range = document.createRange();
+  let startNode, startOffset, endNode, endOffset;
+  while ((node = walker.nextNode())) {
+    const len = node.textContent.length;
+    if (!startNode && count + len >= start) {
+      startNode = node;
+      startOffset = start - count;
+    }
+    if (count + len >= end) {
+      endNode = node;
+      endOffset = end - count;
+      break;
+    }
+    count += len;
+  }
+  if (startNode && endNode) {
+    range.setStart(startNode, startOffset);
+    range.setEnd(endNode, endOffset);
+    const span = document.createElement("span");
+    span.className = "selection-highlight";
+    range.surroundContents(span);
+    span.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+function applyHighlightFromParams() {
+  const params = new URLSearchParams(window.location.search);
+  const termParam = params.get("term");
+  const start = parseInt(params.get("start"), 10);
+  const end = parseInt(params.get("end"), 10);
+  if (
+    currentTerm &&
+    termParam &&
+    termParam.toLowerCase() === currentTerm.term.toLowerCase() &&
+    !isNaN(start) &&
+    !isNaN(end)
+  ) {
+    highlightRange(start, end);
+  }
+}
 
 // Export logic with progress indicator and cancellation
 const exportBtn = document.getElementById("export-terms");
