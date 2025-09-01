@@ -140,6 +140,8 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        termDiv.setAttribute("role", "button");
+        termDiv.setAttribute("tabindex", "0");
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -174,6 +176,12 @@ function populateTermsList() {
         termDiv.addEventListener("click", () => {
           displayDefinition(item);
         });
+        termDiv.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            displayDefinition(item);
+          }
+        });
 
         termsList.appendChild(termDiv);
       }
@@ -190,6 +198,21 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    name: term.term,
+    description: term.definition,
+    url: `${siteUrl}#${encodeURIComponent(term.term)}`,
+  };
+  let ldScript = document.getElementById("ld-defined-term");
+  if (ldScript) ldScript.remove();
+  ldScript = document.createElement("script");
+  ldScript.type = "application/ld+json";
+  ldScript.id = "ld-defined-term";
+  ldScript.textContent = JSON.stringify(ld);
+  document.head.appendChild(ldScript);
+  definitionContainer.focus();
 }
 
 function clearDefinition() {
@@ -198,6 +221,10 @@ function clearDefinition() {
   history.replaceState(null, "", window.location.pathname + window.location.search);
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
+  }
+  const ldScript = document.getElementById("ld-defined-term");
+  if (ldScript) {
+    ldScript.remove();
   }
 }
 
