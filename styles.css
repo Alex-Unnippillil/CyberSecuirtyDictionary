@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -111,7 +111,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -129,7 +128,8 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
-#dark-mode-toggle {
+#dark-mode-toggle,
+#reduce-motion-toggle {
   margin-top: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -141,7 +141,8 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-#dark-mode-toggle:hover {
+#dark-mode-toggle:hover,
+#reduce-motion-toggle:hover {
   background-color: #0056b3;
 }
 
@@ -206,7 +207,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -258,7 +261,8 @@ body.dark-mode #search {
   border-color: #333;
 }
 
-body.dark-mode #dark-mode-toggle {
+body.dark-mode #dark-mode-toggle,
+body.dark-mode #reduce-motion-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
@@ -346,4 +350,35 @@ body.dark-mode #alpha-nav button.active {
   #alpha-nav button {
     font-size: 14px;
   }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .dictionary-item:hover {
+    transform: none;
+  }
+}
+
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+body.reduce-motion .dictionary-item:hover {
+  transform: none;
+}
+
+body.reduce-motion {
+  scroll-behavior: auto;
 }
