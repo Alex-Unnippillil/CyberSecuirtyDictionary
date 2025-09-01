@@ -8,6 +8,8 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const isRTL = document.documentElement.getAttribute("dir") === "rtl";
+document.documentElement.style.setProperty("--dir-multiplier", isRTL ? -1 : 1);
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -190,11 +192,25 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  requestAnimationFrame(() => {
+    definitionContainer.classList.add("visible");
+  });
 }
 
 function clearDefinition() {
-  definitionContainer.style.display = "none";
-  definitionContainer.innerHTML = "";
+  if (definitionContainer.style.display !== "none") {
+    definitionContainer.classList.remove("visible");
+    definitionContainer.addEventListener(
+      "transitionend",
+      () => {
+        definitionContainer.style.display = "none";
+        definitionContainer.innerHTML = "";
+      },
+      { once: true }
+    );
+  } else {
+    definitionContainer.innerHTML = "";
+  }
   history.replaceState(null, "", window.location.pathname + window.location.search);
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
