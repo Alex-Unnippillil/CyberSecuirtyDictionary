@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Outdated Terms Dashboard</title>
+</head>
+<body>
+  <h1>Outdated Terms</h1>
+  <label for="domain-filter">Filter by domain:</label>
+  <select id="domain-filter">
+    <option value="all">All</option>
+    <option value="Framework">Framework</option><option value="Scoring System">Scoring System</option><option value="Weakness Classification">Weakness Classification</option>
+  </select>
+  <ul id="terms">
+    <li data-domain="Weakness Classification"><a href="https://github.com/Alex-Unnippillil/CyberSecuirtyDictionary/edit/main/data/terms.yaml#L16">CWE</a> - Weakness Classification (last reviewed Mon May 15 2023 00:00:00 GMT+0000 (Coordinated Universal Time))</li>
+    <li data-domain="Scoring System"><a href="https://github.com/Alex-Unnippillil/CyberSecuirtyDictionary/edit/main/data/terms.yaml#L29">CVSS</a> - Scoring System (last reviewed Sat Jan 20 2024 00:00:00 GMT+0000 (Coordinated Universal Time))</li>
+    <li data-domain="Framework"><a href="https://github.com/Alex-Unnippillil/CyberSecuirtyDictionary/edit/main/data/terms.yaml#L55">MITRE ATT&CK</a> - Framework (last reviewed Tue Aug 01 2023 00:00:00 GMT+0000 (Coordinated Universal Time))</li>
+  </ul>
+  <script>
+    const filter = document.getElementById('domain-filter');
+    filter.addEventListener('change', () => {
+      const domain = filter.value;
+      document.querySelectorAll('#terms li').forEach(li => {
+        li.style.display = domain === 'all' || li.dataset.domain === domain ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
