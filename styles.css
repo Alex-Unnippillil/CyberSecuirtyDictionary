@@ -13,6 +13,16 @@ body {
   overflow-x: hidden;
 }
 
+body.monospace-mode {
+  font-family: "Courier New", Courier, monospace;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+
+body.monospace-mode .container {
+  max-width: 60ch;
+}
+
 .container {
   max-width: 800px;
   width: 100%;
@@ -145,6 +155,22 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
+#monospace-toggle {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#monospace-toggle:hover {
+  background-color: #0056b3;
+}
+
 label {
   margin-left: 10px;
   margin-top: 10px;
@@ -259,6 +285,12 @@ body.dark-mode #search {
 }
 
 body.dark-mode #dark-mode-toggle {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #monospace-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
