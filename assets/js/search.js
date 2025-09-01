@@ -1,7 +1,12 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const aliasForm = document.getElementById('alias-form');
+  const aliasInput = document.getElementById('alias-name');
+  const aliasTargetInput = document.getElementById('alias-target');
+  const aliasList = document.getElementById('alias-list');
   let terms = [];
+  let aliases = {};
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
@@ -15,7 +20,11 @@
         console.error('Failed to load terms.json', err);
       });
 
+    aliases = JSON.parse(localStorage.getItem('aliases') || '{}');
+    renderAliasList();
+
     searchInput.addEventListener('input', handleSearch);
+    aliasForm.addEventListener('submit', saveAlias);
   });
 
   function handleSearch(){
@@ -26,12 +35,36 @@
     }
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
-      .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
+      .filter(item => item.score > 0);
 
-    matches.forEach(({ term }) => {
-      resultsContainer.appendChild(renderCard(term));
+    const aliasMatches = Object.entries(aliases)
+      .filter(([a]) => a.toLowerCase().includes(query))
+      .map(([a,t]) => {
+        const term = terms.find(tt => (tt.name || tt.term || '').toLowerCase() === t.toLowerCase());
+        return term ? { term, score: 4, alias: a } : null;
+      })
+      .filter(Boolean);
+
+    const resultMap = new Map();
+    matches.forEach(({term, score}) => {
+      resultMap.set(term.name || term.term || '', {term, score});
     });
+    aliasMatches.forEach(({term, score, alias}) => {
+      const key = term.name || term.term || '';
+      const existing = resultMap.get(key);
+      if(existing){
+        existing.score = Math.max(existing.score, score);
+        existing.alias = alias;
+      } else {
+        resultMap.set(key, {term, score, alias});
+      }
+    });
+
+    Array.from(resultMap.values())
+      .sort((a,b) => b.score - a.score)
+      .forEach(({term, alias}) => {
+        resultsContainer.appendChild(renderCard(term, alias));
+      });
   }
 
   function score(term, query){
@@ -47,7 +80,7 @@
     return s;
   }
 
-  function renderCard(term){
+  function renderCard(term, matchedAlias){
     const card = document.createElement('div');
     card.className = 'result-card';
 
@@ -72,6 +105,59 @@
       syn.textContent = `Synonyms: ${term.synonyms.join(', ')}`;
       card.appendChild(syn);
     }
+
+    if(matchedAlias){
+      const note = document.createElement('p');
+      note.className = 'alias-note';
+      note.textContent = 'Matched by alias';
+      card.appendChild(note);
+    }
     return card;
+  }
+
+  function saveAlias(e){
+    e.preventDefault();
+    const alias = aliasInput.value.trim();
+    const target = aliasTargetInput.value.trim();
+    if(!alias || !target) return;
+    aliases[alias] = target;
+    try{
+      localStorage.setItem('aliases', JSON.stringify(aliases));
+    }catch(err){
+      console.error('Failed to save aliases', err);
+    }
+    aliasInput.value = '';
+    aliasTargetInput.value = '';
+    renderAliasList();
+  }
+
+  function renderAliasList(){
+    if(!aliasList) return;
+    aliasList.innerHTML = '';
+    Object.entries(aliases).forEach(([alias, term]) => {
+      const li = document.createElement('li');
+      li.textContent = `${alias} → ${term}`;
+      const edit = document.createElement('button');
+      edit.textContent = 'Edit';
+      edit.addEventListener('click', () => {
+        aliasInput.value = alias;
+        aliasTargetInput.value = term;
+      });
+      const del = document.createElement('button');
+      del.textContent = 'Delete';
+      del.addEventListener('click', () => {
+        delete aliases[alias];
+        try{
+          localStorage.setItem('aliases', JSON.stringify(aliases));
+        }catch(err){
+          console.error('Failed to save aliases', err);
+        }
+        renderAliasList();
+        handleSearch();
+      });
+      li.appendChild(edit);
+      li.appendChild(del);
+      aliasList.appendChild(li);
+    });
   }
 })();
