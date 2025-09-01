@@ -242,6 +242,22 @@ label {
   background-color: #0056b3;
 }
 
+.shortcut-hint {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+body.dark-mode .shortcut-hint {
+  background-color: #eee;
+  color: #000;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;

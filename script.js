@@ -254,3 +254,46 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+const shortcutButtons = document.querySelectorAll("button[data-shortcut]");
+let hintsVisible = false;
+
+function showShortcutHints() {
+  if (hintsVisible) return;
+  hintsVisible = true;
+  shortcutButtons.forEach((btn) => {
+    const hint = document.createElement("span");
+    hint.className = "shortcut-hint";
+    hint.textContent = btn.dataset.shortcut;
+    const rect = btn.getBoundingClientRect();
+    hint.style.top = `${rect.top + window.scrollY - 10}px`;
+    hint.style.left = `${rect.left + window.scrollX + rect.width - 10}px`;
+    document.body.appendChild(hint);
+    btn._hintEl = hint;
+  });
+}
+
+function hideShortcutHints() {
+  if (!hintsVisible) return;
+  hintsVisible = false;
+  shortcutButtons.forEach((btn) => {
+    if (btn._hintEl) {
+      btn._hintEl.remove();
+      delete btn._hintEl;
+    }
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Alt" && !e.repeat) {
+    showShortcutHints();
+  }
+});
+
+document.addEventListener("keyup", (e) => {
+  if (e.key === "Alt") {
+    hideShortcutHints();
+  }
+});
+
+document.addEventListener("click", hideShortcutHints);
+
