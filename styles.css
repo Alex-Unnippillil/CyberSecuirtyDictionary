@@ -7,6 +7,7 @@
 :root {
   --skeleton-bg: #e5e7eb;
   --skeleton-fg: #6b7280;
+  --motion-scale: 1;
 }
 
 body.dark-mode {
@@ -35,7 +36,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -169,7 +170,6 @@ body.dark-mode #search-help {
   border-color: #555;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -291,7 +291,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -341,8 +343,13 @@ label {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background-image: linear-gradient(90deg, transparent, var(--skeleton-fg), transparent);
-  animation: skeleton-shimmer 1.5s infinite;
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--skeleton-fg),
+    transparent
+  );
+  animation: skeleton-shimmer calc(var(--motion-scale) * 1.5s) infinite;
 }
 
 @keyframes skeleton-shimmer {
@@ -455,7 +462,7 @@ body.dark-mode #alpha-nav button.active {
 
 .hidden-history.revealed {
   display: table-row;
-  animation: fade-in 0.3s ease;
+  animation: fade-in calc(var(--motion-scale) * 0.3s) ease;
 }
 
 @keyframes fade-in {
@@ -472,14 +479,14 @@ body.dark-mode #alpha-nav button.active {
 }
 
 .history-fold::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
   width: 12px;
   height: 12px;
   background: linear-gradient(45deg, #eee 50%, transparent 50%);
-  animation: fold-pulse 3s ease-in-out infinite;
+  animation: fold-pulse calc(var(--motion-scale) * 3s) ease-in-out infinite;
 }
 
 @keyframes fold-pulse {
@@ -536,7 +543,7 @@ body.dark-mode #alpha-nav button.active {
   border: 4px solid #ccc;
   border-top-color: #007bff;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin calc(var(--motion-scale) * 1s) linear infinite;
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
