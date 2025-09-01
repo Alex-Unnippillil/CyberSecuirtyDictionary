@@ -4,6 +4,10 @@
     A public catalog of cybersecurity vulnerabilities providing unique identifiers
     for known software flaws.
   category: Vulnerability Tracking
+  domain: Vulnerability Management
+  difficulty: Intermediate
+  frameworks:
+    - NIST
   synonyms:
     - CVE ID
     - Common Vulnerabilities and Exposures
@@ -17,6 +21,10 @@
   definition: >-
     A community-developed list of common software and hardware weakness types.
   category: Weakness Classification
+  domain: Software Weaknesses
+  difficulty: Beginner
+  frameworks:
+    - OWASP
   synonyms:
     - Common Weakness Enumeration
   see_also:
@@ -29,6 +37,10 @@
   definition: >-
     A standardized scoring system for rating the severity of security vulnerabilities.
   category: Scoring System
+  domain: Scoring
+  difficulty: Advanced
+  frameworks:
+    - FIRST
   synonyms:
     - Common Vulnerability Scoring System
   see_also:
@@ -41,6 +53,10 @@
   definition: >-
     A U.S. government repository of standards-based vulnerability management data.
   category: Database
+  domain: Vulnerability Management
+  difficulty: Intermediate
+  frameworks:
+    - NIST
   synonyms:
     - National Vulnerability Database
   see_also:
@@ -54,6 +70,10 @@
     A globally accessible knowledge base of adversary tactics and techniques based
     on real-world observations.
   category: Framework
+  domain: Threat Intelligence
+  difficulty: Advanced
+  frameworks:
+    - MITRE
   synonyms:
     - ATT&CK
   see_also:
@@ -67,6 +87,10 @@
     A regularly updated report outlining the ten most critical web application
     security risks, published by the Open Web Application Security Project.
   category: Awareness Document
+  domain: Application Security
+  difficulty: Beginner
+  frameworks:
+    - OWASP
   synonyms:
     - OWASP Top Ten
   see_also:
