@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cyber Security Dictionary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <link rel="canonical" id="canonical-link" href="https://alex-unnippillil.github.io/CyberSecuirtyDictionary/">
@@ -14,7 +15,7 @@
     <nav class="site-nav" aria-label="Site links"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
     <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
-    <input type="text" id="search" placeholder="Search...">
+    <input type="text" id="search" placeholder="Search..." class="transition-transform motion-reduce:transition-none origin-left">
 
     <button id="random-term" type="button" aria-label="Show random term">Random Term</button>
 
@@ -32,6 +33,7 @@
   <footer aria-label="Project contribution">
     <p><a href="CONTRIBUTING.md">Contribute to this project</a></p>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.min.js"></script>
   <script src="script.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>

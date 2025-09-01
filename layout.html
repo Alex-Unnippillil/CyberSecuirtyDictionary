@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cyber Security Dictionary</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="styles.css">
   <meta property="og:title" content="Cyber Security Dictionary">
   <meta property="og:description" content="An interactive dictionary for cyber security terms.">
@@ -21,7 +22,7 @@
     <h1>Cyber Security Dictionary</h1>
     <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
-    <input type="text" id="search" placeholder="Search...">
+    <input type="text" id="search" placeholder="Search..." class="transition-transform motion-reduce:transition-none origin-left">
 
     <button id="random-term" aria-label="Show random term">Random Term</button>
 
@@ -33,6 +34,7 @@
   </main>
   <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
 
+  <script src="https://cdn.jsdelivr.net/npm/motion@latest/dist/motion.min.js"></script>
   <script src="script.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
