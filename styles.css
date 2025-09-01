@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -37,6 +37,39 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.breadcrumb {
+  margin-bottom: 1rem;
+}
+
+.breadcrumb ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.breadcrumb li + li::before {
+  content: ">";
+  padding: 0 0.5rem;
+}
+
+.breadcrumb li {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: default;
+  min-height: 0;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 12px;
+  min-height: 44px;
 }
 
 li {
@@ -110,7 +143,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +238,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
