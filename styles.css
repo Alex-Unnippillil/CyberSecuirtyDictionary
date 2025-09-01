@@ -242,6 +242,21 @@ label {
   background-color: #0056b3;
 }
 
+/* Compare page */
+#compare-container {
+  display: flex;
+  gap: 20px;
+}
+
+.compare-column {
+  flex: 1;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
@@ -324,6 +339,11 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode .compare-column {
+  background-color: #1e1e1e;
+  border-color: #333;
 }
 
 @media (max-width: 480px) {
