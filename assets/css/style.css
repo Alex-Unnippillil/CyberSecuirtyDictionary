@@ -91,3 +91,9 @@ p {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
+}

@@ -347,3 +347,25 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  li {
+    transition: none;
+  }
+
+  .dictionary-item {
+    transition: none;
+  }
+
+  .dictionary-item:hover {
+    transform: none;
+  }
+
+  .favorite-star {
+    transition: none;
+  }
+
+  #alpha-nav button {
+    transition: none;
+  }
+}
