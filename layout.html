@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cyber Security Dictionary</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.css">
   <meta property="og:title" content="Cyber Security Dictionary">
   <meta property="og:description" content="An interactive dictionary for cyber security terms.">
   <meta property="og:type" content="website">
@@ -17,21 +18,22 @@
   <meta name="twitter:image" content="https://github.com/Alex-Unnippillil/CyberSecuirtyDictionary/assets/24538548/c5a54c56-babb-485d-b01c-4fdfb186325b">
 </head>
 <body>
-  <main class="container">
-    <h1>Cyber Security Dictionary</h1>
-    <div id="definition-container" style="display: none;"></div>
-    <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
-    <input type="text" id="search" placeholder="Search...">
+    <main class="container">
+      <h1>Cyber Security Dictionary</h1>
+      <div id="definition-container" style="display: none;"></div>
+      <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
+      <input type="text" id="search" placeholder="Search...">
 
-    <button id="random-term" aria-label="Show random term">Random Term</button>
+      <button id="random-term" aria-label="Show random term">Random Term</button>
 
-    <button id="dark-mode-toggle" aria-label="Toggle dark mode">Toggle Dark Mode</button>
-    <input type="checkbox" id="show-favorites" aria-label="Show favorites">
-    <label for="show-favorites">Show Favorites</label>
+      <button id="dark-mode-toggle" aria-label="Toggle dark mode">Toggle Dark Mode</button>
+      <button id="dyslexic-font-toggle" aria-label="Toggle dyslexia-friendly font">Toggle Dyslexic Font</button>
+      <input type="checkbox" id="show-favorites" aria-label="Show favorites">
+      <label for="show-favorites">Show Favorites</label>
 
-    <ul id="terms-list"></ul>
-  </main>
-  <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
+      <ul id="terms-list"></ul>
+    </main>
+    <button id="scrollToTopBtn" aria-label="Scroll to top">↑</button>
 
   <script src="script.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
