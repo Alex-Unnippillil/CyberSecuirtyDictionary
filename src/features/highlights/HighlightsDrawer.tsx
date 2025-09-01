@@ -19,18 +19,22 @@ export interface HighlightsDrawerProps {
  * Drawer showing all highlights with the ability to filter by colour.
  * Selecting an item scrolls the related entry into the centre of the viewport.
  */
-export const HighlightsDrawer: React.FC<HighlightsDrawerProps> = ({ highlights }) => {
-  // Currently selected colour to filter on. `null` represents no filtering.
+export const HighlightsDrawer: React.FC<HighlightsDrawerProps> = ({
+  highlights,
+}) => {
+  // Currently selected color to filter on. `null` represents no filtering.
   const [filter, setFilter] = useState<string | null>(null);
 
-  // Unique set of colours represented in the highlight collection
-  const colours = useMemo(
+  // Unique set of colors represented in the highlight collection
+  const colors = useMemo(
     () => Array.from(new Set(highlights.map((h) => h.color))),
-    [highlights]
+    [highlights],
   );
 
-  // Apply colour filter
-  const filtered = filter ? highlights.filter((h) => h.color === filter) : highlights;
+  // Apply color filter
+  const filtered = filter
+    ? highlights.filter((h) => h.color === filter)
+    : highlights;
 
   // Scroll to the element tied to the highlight and centre it in the viewport
   const handleSelect = (highlight: Highlight): void => {
@@ -44,16 +48,18 @@ export const HighlightsDrawer: React.FC<HighlightsDrawerProps> = ({ highlights }
         <button
           className={filter === null ? 'active' : ''}
           onClick={() => setFilter(null)}
+          aria-label="Show all highlights"
         >
           All
         </button>
-        {colours.map((colour) => (
+        {colors.map((color) => (
           <button
-            key={colour}
-            className={filter === colour ? 'active' : ''}
-            style={{ backgroundColor: colour }}
-            onClick={() => setFilter(colour)}
-            aria-label={`Filter ${colour} highlights`}
+            key={color}
+            className={filter === color ? 'active' : ''}
+            style={{ backgroundColor: color }}
+            onClick={() => setFilter(color)}
+            aria-label={`Filter ${color} highlights`}
+            aria-pressed={filter === color}
           />
         ))}
       </div>
@@ -64,6 +70,7 @@ export const HighlightsDrawer: React.FC<HighlightsDrawerProps> = ({ highlights }
               className="highlights-drawer__item"
               style={{ borderLeft: `4px solid ${h.color}` }}
               onClick={() => handleSelect(h)}
+              aria-label={`Jump to ${h.label}`}
             >
               {h.label}
             </button>
