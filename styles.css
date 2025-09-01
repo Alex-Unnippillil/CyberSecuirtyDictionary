@@ -201,14 +201,22 @@ label {
 }
 
 #alpha-nav button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background-color: #eee;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s,
+    transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 44px;
   min-height: 44px;
+}
+
+#alpha-nav button:active {
+  transform: scale(0.98);
 }
 
 #alpha-nav button:hover,
