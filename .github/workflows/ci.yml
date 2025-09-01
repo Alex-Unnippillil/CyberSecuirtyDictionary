@@ -11,15 +11,17 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Install linters
-        run: npm install --no-save eslint@8 stylelint cspell
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
       - name: ESLint
         run: npx eslint@8 --no-eslintrc --env browser --env es2021 script.js
       - name: stylelint
         run: npx stylelint styles.css
       - name: cSpell
         run: npx cspell README.md terms.json
+      - name: Validate content schema
+        run: npm run validate:schema
       - name: Link checker
         uses: lycheeverse/lychee-action@v2
         with:
