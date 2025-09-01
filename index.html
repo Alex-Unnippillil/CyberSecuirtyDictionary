@@ -22,6 +22,12 @@
     <input type="checkbox" id="show-favorites" aria-label="Show favorites">
     <label for="show-favorites">Show Favorites</label>
 
+    <div id="highlight-legend" class="highlight-legend"></div>
+    <aside id="highlights-panel" class="highlights-panel">
+      <h2>Highlights</h2>
+      <ul id="highlights-list"></ul>
+    </aside>
+
     <ul id="terms-list"></ul>
   </main>
   <footer class="container" aria-label="Contribute">
@@ -33,6 +39,7 @@
     <p><a href="CONTRIBUTING.md">Contribute to this project</a></p>
   </footer>
   <script src="script.js"></script>
+  <script type="module" src="src/features/highlights/highlightManager.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
