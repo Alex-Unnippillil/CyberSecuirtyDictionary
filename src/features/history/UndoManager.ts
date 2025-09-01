@@ -14,15 +14,22 @@ export class UndoManager<T = State> {
 
   constructor(apply: ApplyFn<T>) {
     this.apply = apply;
-    this.handleKeyDown = (e: KeyboardEvent) => {
-      const isUndo =
-        (e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === "z";
-      if (isUndo) {
-        e.preventDefault();
-        this.undo();
-      }
-    };
+    this.handleKeyDown = this.onKeyDown.bind(this);
     document.addEventListener("keydown", this.handleKeyDown);
+  }
+
+  private clone(state: T): T {
+    return typeof structuredClone === "function"
+      ? structuredClone(state)
+      : JSON.parse(JSON.stringify(state));
+  }
+
+  private onKeyDown(e: KeyboardEvent) {
+    const isUndo =
+      (e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === "z";
+    if (!isUndo) return;
+    e.preventDefault();
+    this.undo();
   }
 
   /**
@@ -36,12 +43,8 @@ export class UndoManager<T = State> {
         this.order.splice(index, 1);
       }
     }
-    // Use structuredClone if available to decouple from future mutations.
-    const clonedState =
-      typeof structuredClone === "function"
-        ? structuredClone(state)
-        : JSON.parse(JSON.stringify(state));
-    this.states.set(id, clonedState);
+    // Decouple from future mutations.
+    this.states.set(id, this.clone(state));
     this.order.push(id);
   }
 
@@ -63,11 +66,7 @@ export class UndoManager<T = State> {
     const prev = this.states.get(targetId);
     if (prev === undefined) return;
 
-    const clonedState =
-      typeof structuredClone === "function"
-        ? structuredClone(prev)
-        : JSON.parse(JSON.stringify(prev));
-    this.apply(targetId, clonedState);
+    this.apply(targetId, this.clone(prev));
     this.states.delete(targetId);
   }
 
