@@ -8,9 +8,14 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const nextMatchBtn = document.getElementById("next-match");
+const prevMatchBtn = document.getElementById("prev-match");
+const markerContainer = document.getElementById("match-markers");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let currentMatches = [];
+let currentMatchIndex = -1;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -129,11 +134,21 @@ function buildAlphaNav() {
 
 function populateTermsList() {
   termsList.innerHTML = "";
+  currentMatches = [];
+  currentMatchIndex = -1;
+  if (markerContainer) markerContainer.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
+  let regex;
+  if (searchValue) {
+    const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    regex = new RegExp(`(${escaped})`, "gi");
+  }
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
-      const matchesSearch = item.term.toLowerCase().includes(searchValue);
+      const matchesSearch =
+        item.term.toLowerCase().includes(searchValue) ||
+        item.definition.toLowerCase().includes(searchValue);
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
@@ -143,9 +158,7 @@ function populateTermsList() {
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
-          const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-          const regex = new RegExp(`(${escaped})`, "gi");
-          termHeader.innerHTML = item.term.replace(regex, "<mark>$1</mark>");
+          termHeader.innerHTML = item.term.replace(regex, '<mark class="highlight">$1</mark>');
         } else {
           termHeader.textContent = item.term;
         }
@@ -168,7 +181,11 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        if (searchValue) {
+          definitionPara.innerHTML = item.definition.replace(regex, '<mark class="highlight">$1</mark>');
+        } else {
+          definitionPara.textContent = item.definition;
+        }
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -176,8 +193,12 @@ function populateTermsList() {
         });
 
         termsList.appendChild(termDiv);
+        if (searchValue) {
+          currentMatches.push(termDiv);
+        }
       }
     });
+  updateMarkers();
 }
 
 function displayDefinition(term) {
@@ -243,6 +264,34 @@ searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
 });
+
+function navigateMatches(direction) {
+  if (!currentMatches.length) return;
+  currentMatchIndex = (currentMatchIndex + direction + currentMatches.length) % currentMatches.length;
+  currentMatches.forEach((el) => el.classList.remove("current-match"));
+  const target = currentMatches[currentMatchIndex];
+  target.classList.add("current-match");
+  target.scrollIntoView({ behavior: "smooth", block: "center" });
+  updateMarkers();
+}
+
+function updateMarkers() {
+  if (!markerContainer) return;
+  markerContainer.innerHTML = "";
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  currentMatches.forEach((el, idx) => {
+    const marker = document.createElement("div");
+    marker.className = "scroll-marker" + (idx === currentMatchIndex ? " active" : "");
+    const top = ((el.getBoundingClientRect().top + window.scrollY) / docHeight) * 100;
+    marker.style.top = `${top}%`;
+    markerContainer.appendChild(marker);
+  });
+}
+
+if (nextMatchBtn && prevMatchBtn) {
+  nextMatchBtn.addEventListener("click", () => navigateMatches(1));
+  prevMatchBtn.addEventListener("click", () => navigateMatches(-1));
+}
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
 window.addEventListener("scroll", () => {
