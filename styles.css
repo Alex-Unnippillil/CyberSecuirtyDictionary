@@ -111,6 +111,54 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
+#search.input-error {
+  border-color: red;
+}
+
+#search-wrapper {
+  position: relative;
+}
+
+#search-token-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.token-operator {
+  color: #007bff;
+}
+
+.token-term {
+  color: #333;
+}
+
+.token-error {
+  color: red;
+  text-decoration: underline wavy red;
+}
+
+#search-help {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px 8px;
+  font-size: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+body.dark-mode #search-help {
+  background: #333;
+  color: #fff;
+  border-color: #555;
+}
+
 
 /* Controls styling */
 #random-term {
