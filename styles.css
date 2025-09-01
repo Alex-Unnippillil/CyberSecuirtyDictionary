@@ -191,6 +191,21 @@ label {
   color: #fff;
 }
 
+.read-time-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.75em;
+  border-radius: 12px;
+  background-color: #eee;
+  color: #333;
+  margin-left: 8px;
+}
+
+body.dark-mode .read-time-badge {
+  background-color: #333;
+  color: #eee;
+}
+
 /* Alphabet navigation styles */
 #alpha-nav {
   display: flex;
