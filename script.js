@@ -9,6 +9,145 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
+// --- Search token overlay and help popover setup ---
+const searchWrapper = document.createElement("div");
+searchWrapper.id = "search-wrapper";
+searchWrapper.style.position = "relative";
+searchInput.parentNode.insertBefore(searchWrapper, searchInput);
+searchWrapper.appendChild(searchInput);
+
+const tokenOverlay = document.createElement("div");
+tokenOverlay.id = "search-token-overlay";
+tokenOverlay.style.pointerEvents = "none";
+tokenOverlay.style.position = "absolute";
+tokenOverlay.style.top = "0";
+tokenOverlay.style.left = "0";
+tokenOverlay.style.whiteSpace = "pre";
+tokenOverlay.style.overflow = "hidden";
+tokenOverlay.style.zIndex = "1";
+searchWrapper.appendChild(tokenOverlay);
+
+// copy font and padding to overlay so text lines up
+const inputStyle = window.getComputedStyle(searchInput);
+["font", "padding", "border", "boxSizing", "lineHeight", "height"].forEach((prop) => {
+  tokenOverlay.style[prop] = inputStyle[prop];
+});
+searchInput.style.background = "transparent";
+searchInput.style.color = "transparent";
+searchInput.style.caretColor = inputStyle.color;
+searchInput.style.position = "relative";
+searchInput.style.zIndex = "2";
+
+const helpPopover = document.createElement("div");
+helpPopover.id = "search-help";
+helpPopover.textContent = "Example: phishing AND malware";
+helpPopover.style.display = "none";
+document.body.appendChild(helpPopover);
+
+function escapeHtml(str) {
+  return str.replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[c]);
+}
+
+function tokenize(value) {
+  const regex = /(AND|OR|NOT)|\(|\)|[^\s()]+|\s+/gi;
+  const tokens = [];
+  let match;
+  while ((match = regex.exec(value)) !== null) {
+    const val = match[0];
+    if (/^\s+$/.test(val)) {
+      tokens.push({ type: "space", value: val });
+    } else if (/^(AND|OR|NOT)$/i.test(val) || val === "(" || val === ")") {
+      tokens.push({ type: "operator", value: val });
+    } else if (/^[\w-]+$/.test(val)) {
+      tokens.push({ type: "term", value: val });
+    } else {
+      tokens.push({ type: "error", value: val, error: true });
+    }
+  }
+
+  // simple error detection: operator at start/end or two operators in a row
+  let lastType = null;
+  tokens.forEach((t, idx) => {
+    if (t.type === "space") return;
+    if (t.type === "operator" && (lastType === null || lastType === "operator")) {
+      t.error = true;
+    }
+    if (idx === tokens.length - 1 && t.type === "operator") {
+      t.error = true;
+    }
+    lastType = t.type;
+  });
+
+  return tokens;
+}
+
+function renderTokens(tokens) {
+  return tokens
+    .map((t) => {
+      if (t.type === "space") {
+        return t.value;
+      }
+      const classes = ["token"];
+      if (t.type === "operator") classes.push("token-operator");
+      if (t.type === "term") classes.push("token-term");
+      if (t.error) classes.push("token-error");
+      return `<span class="${classes.join(" ")}">${escapeHtml(t.value)}</span>`;
+    })
+    .join("");
+}
+
+function updateTokens() {
+  const tokens = tokenize(searchInput.value);
+  tokenOverlay.innerHTML = renderTokens(tokens);
+  const hasError = tokens.some((t) => t.error);
+  searchInput.classList.toggle("input-error", hasError);
+}
+
+function getCaretCoordinates(input) {
+  const style = window.getComputedStyle(input);
+  const div = document.createElement("div");
+  div.style.position = "absolute";
+  div.style.visibility = "hidden";
+  div.style.whiteSpace = "pre";
+  div.style.font = style.font;
+  div.style.padding = style.padding;
+  div.textContent = input.value.substring(0, input.selectionStart);
+  document.body.appendChild(div);
+  const x = div.offsetWidth;
+  document.body.removeChild(div);
+  const rect = input.getBoundingClientRect();
+  return { x: rect.left + x - input.scrollLeft + window.scrollX, y: rect.top + rect.height + window.scrollY };
+}
+
+function positionHelp() {
+  const coords = getCaretCoordinates(searchInput);
+  helpPopover.style.left = `${coords.x}px`;
+  helpPopover.style.top = `${coords.y}px`;
+}
+
+searchInput.addEventListener("focus", () => {
+  helpPopover.style.display = "block";
+  positionHelp();
+  updateTokens();
+});
+
+["keyup", "click", "input"].forEach((evt) =>
+  searchInput.addEventListener(evt, () => {
+    positionHelp();
+    updateTokens();
+  })
+);
+
+searchInput.addEventListener("blur", () => {
+  helpPopover.style.display = "none";
+});
+
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
