@@ -11,6 +11,7 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let tfidfData = null;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -65,6 +66,22 @@ function loadTerms() {
           loadTerms();
         });
       }
+    });
+}
+
+function loadTfidf() {
+  if (tfidfData) {
+    return Promise.resolve(tfidfData);
+  }
+  return fetch("tfidf.json")
+    .then((response) => (response.ok ? response.json() : Promise.reject(response.statusText)))
+    .then((data) => {
+      tfidfData = data;
+      return tfidfData;
+    })
+    .catch((err) => {
+      console.error("Failed to load tfidf.json", err);
+      return null;
     });
 }
 
@@ -182,7 +199,7 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><div id="similar-terms"></div>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -190,6 +207,58 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+
+  loadTfidf().then((data) => {
+    if (!data || !data.vectors[term.term]) {
+      return;
+    }
+    const currentVector = data.vectors[term.term];
+    const currentNorm = data.norms[term.term] || 1;
+    const scores = Object.keys(data.vectors)
+      .filter((t) => t !== term.term)
+      .map((t) => {
+        const vec = data.vectors[t];
+        let dot = 0;
+        for (const w in currentVector) {
+          if (vec[w]) {
+            dot += currentVector[w] * vec[w];
+          }
+        }
+        const sim = dot / (currentNorm * data.norms[t]);
+        return { term: t, sim };
+      })
+      .sort((a, b) => b.sim - a.sim)
+      .slice(0, 5);
+    const container = document.getElementById("similar-terms");
+    if (scores.length) {
+      const list = document.createElement("ul");
+      scores.forEach(({ term: t }) => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        const chips = explainSimilarity(term.term, t, data);
+        if (chips.length) {
+          const chipWrap = document.createElement("div");
+          chips.forEach((word) => {
+            const chip = document.createElement("span");
+            chip.classList.add("similarity-chip");
+            chip.textContent = word;
+            chipWrap.appendChild(chip);
+          });
+          li.appendChild(chipWrap);
+        }
+        li.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const matched = termsData.terms.find((tt) => tt.term === t);
+          if (matched) {
+            displayDefinition(matched);
+          }
+        });
+        list.appendChild(li);
+      });
+      container.innerHTML = "<h4>Related Terms</h4>";
+      container.appendChild(list);
+    }
+  });
 }
 
 function clearDefinition() {
@@ -199,6 +268,12 @@ function clearDefinition() {
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
+}
+
+function explainSimilarity(a, b, data) {
+  const aWords = data.keywords[a] || [];
+  const bWords = data.keywords[b] || [];
+  return aWords.filter((w) => bWords.includes(w));
 }
 
 function showRandomTerm() {
