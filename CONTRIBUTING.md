@@ -17,5 +17,8 @@ Thank you for taking the time to contribute to the Cyber Security Dictionary!
 - Make sure your changes pass tests (`npm test` if available).
 - Follow the [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
 - Keep descriptions concise and clear.
+- Run `npm run pii` to ensure no PII field names are introduced. The CI pipeline
+  fails if potential PII terms are detected and stores the scan report as an
+  artifact.
 
 If you have questions, feel free to open an issue.
