@@ -8,6 +8,9 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const scrollTrack = document.getElementById("scrollbar-track");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let tickObserver;
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -130,6 +133,7 @@ function buildAlphaNav() {
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
+  let prevLetter = "";
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
@@ -140,6 +144,12 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+
+        const firstLetter = item.term.charAt(0).toUpperCase();
+        if (firstLetter !== prevLetter) {
+          termDiv.dataset.section = firstLetter;
+          prevLetter = firstLetter;
+        }
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -178,6 +188,7 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+  initScrollTicks();
 }
 
 function displayDefinition(term) {
@@ -238,6 +249,47 @@ if (showFavoritesToggle) {
 
   showRandomTerm();
 })();
+
+function initScrollTicks() {
+  if (!scrollTrack) return;
+  scrollTrack.innerHTML = "";
+  if (tickObserver) tickObserver.disconnect();
+
+  const sections = document.querySelectorAll("#terms-list [data-section]");
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const tickMap = new Map();
+
+  sections.forEach((section) => {
+    const tick = document.createElement("div");
+    tick.className = "scroll-tick";
+    const top = docHeight > 0 ? (section.offsetTop / docHeight) * 100 : 0;
+    tick.style.top = `${top}%`;
+    scrollTrack.appendChild(tick);
+
+    if (reducedMotion) {
+      tick.classList.add("visible");
+    } else {
+      tickMap.set(section, tick);
+    }
+  });
+
+  if (!reducedMotion) {
+    tickObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const tick = tickMap.get(entry.target);
+            if (tick) tick.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    sections.forEach((section) => tickObserver.observe(section));
+  }
+}
+
+window.addEventListener("resize", initScrollTicks);
 
 searchInput.addEventListener("input", () => {
   clearDefinition();
