@@ -4,6 +4,7 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
+    "lint": "npx --yes eslint@8 --no-eslintrc --env browser --env es2021 --max-warnings=0 script.js && npx --yes stylelint styles.css --max-warnings=0 && npx --yes cspell README.md terms.json",
     "build": "node scripts/build.js",
     "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
