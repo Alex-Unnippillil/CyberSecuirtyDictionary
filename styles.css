@@ -4,6 +4,20 @@
   box-sizing: border-box;
 }
 
+:root {
+  --space-xs: 5px;
+  --space-sm: 10px;
+  --space-md: 12px;
+  --space-lg: 20px;
+}
+
+body[data-density="compact"] {
+  --space-xs: 3px;
+  --space-sm: 6px;
+  --space-md: 8px;
+  --space-lg: 16px;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -17,7 +31,7 @@ body {
   max-width: 800px;
   width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: var(--space-lg);
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -25,10 +39,10 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-lg);
   color: #333;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
@@ -40,7 +54,7 @@ ul {
 }
 
 li {
-  padding: 12px 20px;
+  padding: var(--space-md) var(--space-lg);
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
@@ -67,8 +81,8 @@ body.dark-mode mark {
 }
 
 .dictionary-item {
-  margin-bottom: 20px;
-  padding: 12px;
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
@@ -79,7 +93,7 @@ body.dark-mode mark {
 .dictionary-item h3 {
   font-size: 24px;
   margin: 0;
-  padding-bottom: 10px;
+  padding-bottom: var(--space-sm);
   border-bottom: 1px solid #ccc;
   color: #333;
 }
@@ -94,16 +108,16 @@ body.dark-mode mark {
 }
 
 #definition-container {
-  padding: 20px;
+  padding: var(--space-lg);
   background-color: #f2f2f2;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: var(--space-lg);
 }
 
 #search {
   width: 100%;
-  padding: 10px;
+  padding: var(--space-sm);
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -111,11 +125,12 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
-#random-term {
-  margin-top: 10px;
-  padding: 10px;
+#random-term,
+#dark-mode-toggle,
+#density-toggle {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm);
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #007bff;
@@ -125,29 +140,15 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-#random-term:hover {
-  background-color: #0056b3;
-}
-
-#dark-mode-toggle {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-}
-
-#dark-mode-toggle:hover {
+#random-term:hover,
+#dark-mode-toggle:hover,
+#density-toggle:hover {
   background-color: #0056b3;
 }
 
 label {
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-left: var(--space-sm);
+  margin-top: var(--space-sm);
   display: inline-block;
   line-height: 44px;
 }
@@ -155,7 +156,7 @@ label {
 #show-favorites {
   width: 44px;
   height: 44px;
-  margin-right: 5px;
+  margin-right: var(--space-xs);
 }
 
 /* Favorite star styles */
@@ -163,7 +164,7 @@ label {
   font-size: 20px;
   color: #ccc;
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: var(--space-xs);
   transition: color 0.2s;
   width: 44px;
   height: 44px;
@@ -195,18 +196,20 @@ label {
 #alpha-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: var(--space-xs);
   justify-content: center;
-  margin-bottom: 15px;
+  margin-bottom: var(--space-lg);
 }
 
 #alpha-nav button {
   background-color: #eee;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 10px;
+  padding: var(--space-sm);
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -226,8 +229,8 @@ label {
 #scrollToTopBtn {
   display: none;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
   font-size: 20px;
   border: none;
   background-color: #007bff;
@@ -258,7 +261,8 @@ body.dark-mode #search {
   border-color: #333;
 }
 
-body.dark-mode #dark-mode-toggle {
+body.dark-mode #dark-mode-toggle,
+body.dark-mode #density-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
@@ -332,7 +336,7 @@ body.dark-mode #alpha-nav button.active {
   }
 
   .container {
-    padding: 10px;
+    padding: var(--space-sm);
   }
 
   .dictionary-item h3 {
