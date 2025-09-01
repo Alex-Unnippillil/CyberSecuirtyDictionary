@@ -347,3 +347,50 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Quote carousel styles */
+#quote-carousel {
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+#quote-track {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.quote-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+}
+
+.quote-slide blockquote {
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+.quote-author {
+  font-weight: bold;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#prev-quote {
+  left: 10px;
+}
+
+#next-quote {
+  right: 10px;
+}
