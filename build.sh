@@ -12,3 +12,6 @@ Contact: mailto:security@example.com
 TXT
 
 echo "Generated .well-known/security.txt"
+
+# Update HTML files to use report-only CSP if requested
+node scripts/enable-csp-report-only.js
