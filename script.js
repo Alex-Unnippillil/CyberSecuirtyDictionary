@@ -27,7 +27,17 @@ window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
 });
 
+function showPlaceholders(count = 5) {
+  termsList.innerHTML = "";
+  for (let i = 0; i < count; i++) {
+    const ph = document.createElement("div");
+    ph.classList.add("dictionary-item", "placeholder");
+    termsList.appendChild(ph);
+  }
+}
+
 function loadTerms() {
+  showPlaceholders();
   fetch("terms.json")
     .then((response) => {
       if (!response.ok) {
@@ -65,6 +75,7 @@ function loadTerms() {
           loadTerms();
         });
       }
+      termsList.innerHTML = "";
     });
 }
 
