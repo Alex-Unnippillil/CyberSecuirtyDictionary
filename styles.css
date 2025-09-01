@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -240,6 +241,62 @@ label {
 
 #scrollToTopBtn:hover {
   background-color: #0056b3;
+}
+
+/* On-screen keyboard styles */
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#search-box {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  min-height: 44px;
+}
+
+#toggle-keyboard {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#toggle-keyboard:hover,
+#toggle-keyboard:focus {
+  background-color: #0056b3;
+}
+
+.on-screen-keyboard {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 5px;
+}
+
+.on-screen-keyboard button {
+  padding: 10px;
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.on-screen-keyboard button:hover,
+.on-screen-keyboard button:focus {
+  background-color: #ddd;
 }
 
 /* Dark Mode styles */
@@ -324,6 +381,27 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode #toggle-keyboard {
+  background-color: #333;
+  border-color: #555;
+}
+
+body.dark-mode #toggle-keyboard:hover,
+body.dark-mode #toggle-keyboard:focus {
+  background-color: #555;
+}
+
+body.dark-mode .on-screen-keyboard button {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .on-screen-keyboard button:hover,
+body.dark-mode .on-screen-keyboard button:focus {
+  background-color: #555;
 }
 
 @media (max-width: 480px) {

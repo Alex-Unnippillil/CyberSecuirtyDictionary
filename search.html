@@ -9,7 +9,11 @@
 <body>
   <main class="container">
     <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
+    <div class="search-container">
+      <input id="search-box" type="text" placeholder="Search terms...">
+      <button id="toggle-keyboard" type="button" aria-label="Toggle special characters keyboard" aria-controls="special-keyboard" aria-expanded="false">⌨️</button>
+    </div>
+    <div id="special-keyboard" class="on-screen-keyboard" role="group" aria-label="Special characters" hidden></div>
     <div id="results"></div>
   </main>
   <script>
@@ -20,3 +24,4 @@
   <script src="assets/js/metrics.js"></script>
 </body>
 </html>
+
