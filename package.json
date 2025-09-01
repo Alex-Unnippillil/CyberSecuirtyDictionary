@@ -4,6 +4,7 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
+    "prebuild": "ts-node --transpile-only --compiler-options '{\"module\":\"commonjs\"}' scripts/build-search-index.ts",
     "build": "node scripts/build.js",
     "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
@@ -17,6 +18,9 @@
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
     "prettier": "^3.6.2",
-    "jsdom": "^26.1.0"
+    "jsdom": "^26.1.0",
+    "gray-matter": "^4.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }
