@@ -145,6 +145,10 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
+#results {
+  margin-top: 20px;
+}
+
 label {
   margin-left: 10px;
   margin-top: 10px;
