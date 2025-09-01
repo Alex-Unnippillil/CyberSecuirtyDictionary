@@ -347,3 +347,19 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+@keyframes pulse-highlight {
+  0% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: yellow;
+  }
+}
+
+.pulse-highlight {
+  animation: pulse-highlight 2s ease-in-out 2;
+}
