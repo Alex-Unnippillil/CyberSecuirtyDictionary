@@ -11,6 +11,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-virtuoso": "^4.14.0",
+    "framer-motion": "^12.23.12"
+  },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",

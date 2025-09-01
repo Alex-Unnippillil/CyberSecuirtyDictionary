@@ -1,4 +1,9 @@
-const termsList = document.getElementById("terms-list");
+import React from "https://esm.sh/react@18";
+import { createRoot } from "https://esm.sh/react-dom@18/client";
+import { Virtuoso } from "https://esm.sh/react-virtuoso@4.14.0";
+import { motion, AnimatePresence } from "https://esm.sh/framer-motion@12.23.12";
+
+const termsRoot = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
@@ -11,6 +16,7 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let reactRoot;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -127,57 +133,69 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
+function highlightTerm(term, searchValue) {
+  if (!searchValue) return term;
+  const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const regex = new RegExp(`(${escaped})`, "gi");
+  return term.replace(regex, "<mark>$1</mark>");
+}
+
+function TermsVirtuoso({ terms, searchValue }) {
+  return (
+    React.createElement(AnimatePresence, { mode: "sync" },
+      React.createElement(Virtuoso, {
+        useWindowScroll: true,
+        data: terms,
+        itemContent: (index, item) => (
+          React.createElement(motion.div, {
+            layout: true,
+            initial: { opacity: 0, y: 10 },
+            animate: { opacity: 1, y: 0 },
+            exit: { opacity: 0, y: -10 },
+            transition: { duration: 0.2 },
+            className: "dictionary-item",
+            onClick: () => displayDefinition(item)
+          },
+            React.createElement("h3", null,
+              React.createElement("span", {
+                dangerouslySetInnerHTML: { __html: highlightTerm(item.term, searchValue) }
+              }),
+              React.createElement("span", {
+                className: `favorite-star ${favorites.has(item.term) ? "favorited" : ""}`,
+                onClick: (e) => {
+                  e.stopPropagation();
+                  toggleFavorite(item.term);
+                  if (showFavoritesToggle && showFavoritesToggle.checked) {
+                    populateTermsList();
+                  }
+                }
+              }, "★")
+            ),
+            React.createElement("p", null, item.definition)
+          )
+        )
+      })
+    )
+  );
+}
+
 function populateTermsList() {
-  termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
-  termsData.terms
+  const filtered = termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
-    .forEach((item) => {
+    .filter((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const matchesFavorites =
+        !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
-        const termDiv = document.createElement("div");
-        termDiv.classList.add("dictionary-item");
-
-        const termHeader = document.createElement("h3");
-        if (searchValue) {
-          const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-          const regex = new RegExp(`(${escaped})`, "gi");
-          termHeader.innerHTML = item.term.replace(regex, "<mark>$1</mark>");
-        } else {
-          termHeader.textContent = item.term;
-        }
-
-        const star = document.createElement("span");
-        star.classList.add("favorite-star");
-        star.textContent = "★";
-        if (favorites.has(item.term)) {
-          star.classList.add("favorited");
-        }
-        star.addEventListener("click", (e) => {
-          e.stopPropagation();
-          toggleFavorite(item.term);
-          star.classList.toggle("favorited");
-          if (showFavoritesToggle && showFavoritesToggle.checked) {
-            populateTermsList();
-          }
-        });
-        termHeader.appendChild(star);
-        termDiv.appendChild(termHeader);
-
-        const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
-        termDiv.appendChild(definitionPara);
-
-        termDiv.addEventListener("click", () => {
-          displayDefinition(item);
-        });
-
-        termsList.appendChild(termDiv);
-      }
+      return matchesSearch && matchesFavorites && matchesLetter;
     });
+
+  if (!reactRoot) {
+    reactRoot = createRoot(termsRoot);
+  }
+  reactRoot.render(React.createElement(TermsVirtuoso, { terms: filtered, searchValue }));
 }
 
 function displayDefinition(term) {
