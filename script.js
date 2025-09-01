@@ -83,6 +83,13 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function toggleFavorite(term) {
   if (favorites.has(term)) {
     favorites.delete(term);
@@ -181,8 +188,29 @@ function populateTermsList() {
 }
 
 function displayDefinition(term) {
+  const slug = slugify(term.term);
+  const ratingKey = `rating-${slug}`;
+  const storedRating = localStorage.getItem(ratingKey) || "3";
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `
+    <h3>${term.term}</h3>
+    <p>${term.definition}</p>
+    <label for="rating-slider">Rate difficulty:</label>
+    <input type="range" id="rating-slider" min="1" max="5" value="${storedRating}">
+    <span id="rating-value">${storedRating}</span>
+  `;
+  const slider = document.getElementById("rating-slider");
+  const valueDisplay = document.getElementById("rating-value");
+  slider.addEventListener("click", (e) => e.stopPropagation());
+  slider.addEventListener("input", (e) => {
+    e.stopPropagation();
+    valueDisplay.textContent = slider.value;
+    try {
+      localStorage.setItem(ratingKey, slider.value);
+    } catch (err) {
+      // Ignore storage errors
+    }
+  });
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(

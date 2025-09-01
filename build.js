@@ -31,6 +31,23 @@ for (const term of data.terms) {
 <body>
   <h1>${term.term}</h1>
   <p>${term.definition}</p>
+  <label for="rating">Rate difficulty:</label>
+  <input type="range" id="rating" min="1" max="5">
+  <span id="rating-value"></span>
+  <script>
+    (function(){
+      const key = 'rating-${slug}';
+      const slider = document.getElementById('rating');
+      const value = document.getElementById('rating-value');
+      const stored = localStorage.getItem(key) || '3';
+      slider.value = stored;
+      value.textContent = stored;
+      slider.addEventListener('input', () => {
+        value.textContent = slider.value;
+        try { localStorage.setItem(key, slider.value); } catch(e){}
+      });
+    })();
+  </script>
 </body>
 </html>`;
   fs.writeFileSync(path.join(termsDir, `${slug}.html`), html);
