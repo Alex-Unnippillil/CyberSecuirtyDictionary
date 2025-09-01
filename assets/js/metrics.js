@@ -1,42 +1,28 @@
-(function () {
-  const KEY = 'web-vitals';
+import { onCLS, onLCP, onINP } from 'web-vitals/attribution';
 
-  function storeSample(sample) {
-    try {
-      const samples = JSON.parse(localStorage.getItem(KEY) || '[]');
-      samples.push(sample);
-      while (samples.length > 20) samples.shift();
-      localStorage.setItem(KEY, JSON.stringify(samples));
-    } catch (e) {
-      // ignore storage errors
-    }
-  }
+const ANALYTICS_ENDPOINT = '/analytics';
 
-  function init() {
-    if (!window.webVitals) return;
-    const sample = { timestamp: Date.now(), lcp: 0, cls: 0, tbt: 0 };
+function sendToAnalytics(metric) {
+  const body = JSON.stringify({
+    name: metric.name,
+    id: metric.id,
+    delta: metric.delta,
+    attribution: metric.attribution,
+  });
 
-    webVitals.onLCP(({ value }) => {
-      sample.lcp = value;
-    });
-
-    webVitals.onCLS(({ value }) => {
-      sample.cls = value;
-    });
-
-    window.addEventListener('load', () => {
-      const tasks = performance.getEntriesByType('longtask');
-      sample.tbt = tasks.reduce(
-        (sum, task) => sum + Math.max(0, task.duration - 50),
-        0
-      );
-      setTimeout(() => storeSample(sample), 0);
-    });
-  }
-
-  if (document.readyState === 'complete') {
-    init();
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(ANALYTICS_ENDPOINT, body);
   } else {
-    window.addEventListener('DOMContentLoaded', init);
+    fetch(ANALYTICS_ENDPOINT, {
+      body,
+      method: 'POST',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json' },
+    }).catch(() => {});
   }
-})();
+}
+
+onCLS(sendToAnalytics, { reportAllChanges: true });
+onLCP(sendToAnalytics, { reportAllChanges: true });
+onINP(sendToAnalytics, { reportAllChanges: true });
+
