@@ -8,6 +8,8 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const suggestionsPanel = document.getElementById("suggestions-panel");
+let currentSuggestionTerm = null;
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -140,6 +142,7 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        termDiv.dataset.term = item.term;
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -178,6 +181,7 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+  handleSuggestionScroll();
 }
 
 function displayDefinition(term) {
@@ -247,10 +251,53 @@ searchInput.addEventListener("input", () => {
 const scrollBtn = document.getElementById("scrollToTopBtn");
 window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
+  handleSuggestionScroll();
 });
 scrollBtn.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function updateSuggestions(term) {
+  if (!suggestionsPanel) return;
+  fetch(`/api/related?embedding=${encodeURIComponent(term)}`)
+    .then((res) => res.json())
+    .then((data) => {
+      suggestionsPanel.innerHTML = "<h4>Related Terms</h4>";
+      const list = document.createElement("ul");
+      data.forEach((item) => {
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        if (typeof item === "string") {
+          link.textContent = item;
+          link.href = `#${encodeURIComponent(item)}`;
+        } else {
+          link.textContent = item.term || item.url;
+          link.href = item.url || `#${encodeURIComponent(item.term || "")}`;
+        }
+        li.appendChild(link);
+        list.appendChild(li);
+      });
+      suggestionsPanel.appendChild(list);
+    })
+    .catch(() => {
+      suggestionsPanel.innerHTML = "";
+    });
+}
+
+function handleSuggestionScroll() {
+  const items = document.querySelectorAll(".dictionary-item");
+  for (const item of items) {
+    const rect = item.getBoundingClientRect();
+    if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+      const term = item.dataset.term;
+      if (term && term !== currentSuggestionTerm) {
+        currentSuggestionTerm = term;
+        updateSuggestions(term);
+      }
+      break;
+    }
+  }
+}
 
