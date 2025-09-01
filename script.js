@@ -16,6 +16,23 @@ if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
 
+const reducedTransparencyQuery = window.matchMedia(
+  "(prefers-reduced-transparency: reduce)"
+);
+if (
+  localStorage.getItem("reduceTransparency") === "true" ||
+  reducedTransparencyQuery.matches
+) {
+  document.body.classList.add("reduced-transparency");
+}
+reducedTransparencyQuery.addEventListener("change", (e) => {
+  if (e.matches || localStorage.getItem("reduceTransparency") === "true") {
+    document.body.classList.add("reduced-transparency");
+  } else {
+    document.body.classList.remove("reduced-transparency");
+  }
+});
+
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
