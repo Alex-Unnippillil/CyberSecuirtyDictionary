@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+:root {
+  --motion-full: 0.2s;
+  --motion-reduced: 0.05s;
+  --motion-none: 0s;
+  --motion-duration: var(--motion-full);
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -25,7 +32,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -44,7 +51,7 @@ li {
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--motion-duration);
   min-height: 44px;
 }
 
@@ -72,7 +79,7 @@ body.dark-mode mark {
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform var(--motion-duration);
   min-height: 44px;
 }
 
@@ -110,7 +117,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -164,12 +170,60 @@ label {
   color: #ccc;
   cursor: pointer;
   margin-left: 5px;
-  transition: color 0.2s;
+  transition: color var(--motion-duration);
   width: 44px;
   height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Settings panel */
+#settings-panel {
+  margin-top: 20px;
+}
+
+#settings-panel fieldset {
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+#settings-panel label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+.motion-sample {
+  width: 20px;
+  height: 20px;
+  background-color: #007bff;
+  border-radius: 3px;
+  animation: sampleMove var(--sample-duration) ease-in-out infinite alternate;
+}
+
+.sample-full {
+  --sample-duration: var(--motion-full);
+}
+
+.sample-reduced {
+  --sample-duration: var(--motion-reduced);
+}
+
+.sample-none {
+  --sample-duration: var(--motion-none);
+}
+
+@keyframes sampleMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(10px);
+  }
 }
 
 .favorite-star:hover,
@@ -206,7 +260,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color var(--motion-duration),
+    color var(--motion-duration);
   min-width: 44px;
   min-height: 44px;
 }
