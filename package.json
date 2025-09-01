@@ -11,6 +11,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "pdfkit": "^0.13.0"
+  },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",
