@@ -5,11 +5,14 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const registerFilter = document.getElementById("register-filter");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
+let currentRegisterFilter = "all";
+let currentTermDisplayed = null;
 let termsData = { terms: [] };
 
 if (localStorage.getItem("darkMode") === "true") {
@@ -83,6 +86,14 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function getSenses(term) {
+  if (Array.isArray(term.senses)) {
+    return term.senses;
+  }
+  const register = term.register || "general";
+  return [{ definition: term.definition, register }];
+}
+
 function toggleFavorite(term) {
   if (favorites.has(term)) {
     favorites.delete(term);
@@ -135,9 +146,13 @@ function populateTermsList() {
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const senses = getSenses(item);
+      const matchesRegister =
+        currentRegisterFilter === "all" ||
+        senses.some((s) => (s.register || "general") === currentRegisterFilter);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      if (matchesSearch && matchesFavorites && matchesLetter && matchesRegister) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -168,7 +183,13 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        const senseForDisplay =
+          senses.find(
+            (s) =>
+              currentRegisterFilter === "all" ||
+              (s.register || "general") === currentRegisterFilter
+          ) || senses[0];
+        definitionPara.textContent = senseForDisplay.definition;
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -181,8 +202,15 @@ function populateTermsList() {
 }
 
 function displayDefinition(term) {
+  currentTermDisplayed = term;
+  const senses = getSenses(term).filter(
+    (s) =>
+      currentRegisterFilter === "all" ||
+      (s.register || "general") === currentRegisterFilter
+  );
+  const sensesHtml = senses.map((s) => `<p>${s.definition}</p>`).join("");
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3>${sensesHtml}`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -199,10 +227,19 @@ function clearDefinition() {
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
+  currentTermDisplayed = null;
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const filtered = termsData.terms.filter((item) => {
+    const senses = getSenses(item);
+    return (
+      currentRegisterFilter === "all" ||
+      senses.some((s) => (s.register || "general") === currentRegisterFilter)
+    );
+  });
+  const pool = filtered.length ? filtered : termsData.terms;
+  const randomTerm = pool[Math.floor(Math.random() * pool.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
@@ -218,6 +255,15 @@ if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
     clearDefinition();
     populateTermsList();
+  });
+}
+if (registerFilter) {
+  registerFilter.addEventListener("change", () => {
+    currentRegisterFilter = registerFilter.value;
+    populateTermsList();
+    if (currentTermDisplayed) {
+      displayDefinition(currentTermDisplayed);
+    }
   });
 }
 
