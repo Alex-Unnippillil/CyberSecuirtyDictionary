@@ -2,6 +2,7 @@ const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
+const randomEntryButton = document.getElementById("random-entry");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
@@ -183,6 +184,9 @@ function populateTermsList() {
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.classList.remove("animate");
+  void definitionContainer.offsetWidth;
+  definitionContainer.classList.add("animate");
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -214,6 +218,27 @@ function showRandomTerm() {
 }
 
 randomButton.addEventListener("click", showRandomTerm);
+
+function fetchRandomEntry() {
+  fetch("terms.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const randomTerm = data.terms[Math.floor(Math.random() * data.terms.length)];
+      displayDefinition(randomTerm);
+    })
+    .catch((error) => {
+      console.error("Error fetching random entry:", error);
+    });
+}
+
+if (randomEntryButton) {
+  randomEntryButton.addEventListener("click", fetchRandomEntry);
+}
 if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
     clearDefinition();
