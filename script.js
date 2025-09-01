@@ -5,9 +5,17 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
-const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]"),
+);
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const highlightsToggle = document.getElementById("highlights-toggle");
+const highlightsDrawer = document.getElementById("highlights-drawer");
+const highlightsList = document.getElementById("highlights-list");
+const highlights = new Map(
+  JSON.parse(localStorage.getItem("highlights") || "[]"),
+);
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -19,7 +27,16 @@ if (localStorage.getItem("darkMode") === "true") {
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode"),
+    );
+  });
+}
+
+if (highlightsToggle && highlightsDrawer) {
+  highlightsToggle.addEventListener("click", () => {
+    highlightsDrawer.classList.toggle("open");
   });
 }
 
@@ -43,9 +60,11 @@ function loadTerms() {
       populateTermsList();
 
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1),
+        );
         const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase(),
         );
         if (matchedTerm) {
           displayDefinition(matchedTerm);
@@ -56,7 +75,7 @@ function loadTerms() {
       console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
       definitionContainer.innerHTML =
-        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
+        "<p>Unable to load dictionary data. Please check your connection and try again.</p>" +
         '<button id="retry-fetch">Retry</button>';
       const retryBtn = document.getElementById("retry-fetch");
       if (retryBtn) {
@@ -96,13 +115,75 @@ function toggleFavorite(term) {
   }
 }
 
+function addDoubleTapListener(element, callback) {
+  let lastTap = 0;
+  element.addEventListener("touchend", (e) => {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    if (tapLength > 0 && tapLength < 300) {
+      e.preventDefault();
+      callback(e);
+    }
+    lastTap = currentTime;
+  });
+  element.addEventListener("dblclick", callback);
+}
+
+function attachHighlightHandlers(paragraph, term, text) {
+  addDoubleTapListener(paragraph, () => toggleHighlight(term, text));
+}
+
+function toggleHighlight(term, text) {
+  if (highlights.has(term)) {
+    highlights.delete(term);
+  } else {
+    highlights.set(term, text);
+  }
+  try {
+    localStorage.setItem(
+      "highlights",
+      JSON.stringify(Array.from(highlights.entries())),
+    );
+  } catch (e) {
+    // Ignore storage errors
+  }
+  applyHighlightToTerm(term);
+  updateHighlightsDrawer();
+}
+
+function applyHighlightToTerm(term) {
+  const escaped = CSS && CSS.escape ? CSS.escape(term) : term;
+  document.querySelectorAll(`p[data-term="${escaped}"]`).forEach((p) => {
+    p.classList.toggle("highlight", highlights.has(term));
+  });
+}
+
+function updateHighlightsDrawer() {
+  if (!highlightsList) return;
+  highlightsList.innerHTML = "";
+  highlights.forEach((text, term) => {
+    const li = document.createElement("li");
+    li.textContent = `${term}: ${text}`;
+    highlightsList.appendChild(li);
+  });
+}
+
+function applyStoredHighlights() {
+  highlights.forEach((_, term) => applyHighlightToTerm(term));
+  updateHighlightsDrawer();
+}
+
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase())),
+  ).sort();
 
   const allButton = document.createElement("button");
   allButton.textContent = "All";
@@ -134,9 +215,13 @@ function populateTermsList() {
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const matchesFavorites =
+        !showFavoritesToggle ||
+        !showFavoritesToggle.checked ||
+        favorites.has(item.term);
       const matchesLetter =
-        currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
@@ -169,6 +254,8 @@ function populateTermsList() {
 
         const definitionPara = document.createElement("p");
         definitionPara.textContent = item.definition;
+        definitionPara.dataset.term = item.term;
+        attachHighlightHandlers(definitionPara, item.term, item.definition);
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -178,16 +265,20 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+  applyStoredHighlights();
 }
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p data-term="${term.term}">${term.definition}</p>`;
+  const definitionPara = definitionContainer.querySelector("p");
+  attachHighlightHandlers(definitionPara, term.term, term.definition);
+  applyHighlightToTerm(term.term);
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
-      `${siteUrl}#${encodeURIComponent(term.term)}`
+      `${siteUrl}#${encodeURIComponent(term.term)}`,
     );
   }
 }
@@ -195,19 +286,27 @@ function displayDefinition(term) {
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search,
+  );
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm }),
+    );
   } catch (e) {
     // Ignore storage errors
   }
@@ -249,8 +348,7 @@ window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
 scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  window.scrollTo({ top: 0, behavior: "smooth" }),
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
-

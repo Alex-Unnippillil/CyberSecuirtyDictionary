@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -64,6 +64,68 @@ mark {
 body.dark-mode mark {
   background-color: #ffeb3b;
   color: #000;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
+body.dark-mode .highlight {
+  background-color: #ffeb3b;
+  color: #000;
+}
+
+#highlights-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #f2f2f2;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+#highlights-drawer.open {
+  transform: translateX(0);
+}
+
+#highlights-drawer h2 {
+  margin: 0;
+  padding: 10px;
+}
+
+#highlights-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 10px 10px;
+}
+
+#highlights-toggle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+body.dark-mode #highlights-drawer {
+  background-color: #1e1e1e;
+  box-shadow: -2px 0 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode #highlights-toggle {
+  background-color: #333;
+  color: #fff;
 }
 
 .dictionary-item {
@@ -110,7 +172,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +267,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
