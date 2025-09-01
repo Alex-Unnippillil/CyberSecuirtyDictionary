@@ -182,7 +182,27 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+
+  const pronunciationHTML = term.pronunciation
+    ? `<div class="pronunciation" style="animation-delay: 0.15s">${term.pronunciation}</div>`
+    : "";
+
+  const badgesHTML = Array.isArray(term.badges)
+    ? `<div class="badges">${term.badges
+        .map(
+          (b, i) =>
+            `<span class="badge" style="animation-delay: ${0.3 + i * 0.15}s">${b}</span>`
+        )
+        .join("")}</div>`
+    : "";
+
+  definitionContainer.innerHTML = `
+    <h1 class="term-title">${term.term}</h1>
+    ${pronunciationHTML}
+    ${badgesHTML}
+    <p>${term.definition}</p>
+  `;
+
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(

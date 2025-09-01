@@ -347,3 +347,37 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Term reveal animation */
+.term-title,
+.pronunciation,
+.badges .badge {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: term-fade-slide 0.3s forwards;
+}
+
+.pronunciation {
+  animation-delay: 0.15s;
+}
+
+.badges .badge {
+  animation-delay: 0.3s;
+}
+
+@keyframes term-fade-slide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-title,
+  .pronunciation,
+  .badges .badge {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
