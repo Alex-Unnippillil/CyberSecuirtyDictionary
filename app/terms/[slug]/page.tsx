@@ -1,4 +1,5 @@
 import React from "react";
+import Script from "next/script";
 import terms from "../../../terms.json";
 import { FAQBlock } from "../../components/FAQBlock";
 
@@ -36,10 +37,9 @@ export default function TermPage({ params }: { params: { slug: string } }) {
       <h1>{term.term}</h1>
       <p>{term.definition}</p>
       <FAQBlock items={faqItems} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(termJsonLd) }}
-      />
+      <Script id="term-jsonld" type="application/ld+json">
+        {JSON.stringify(termJsonLd)}
+      </Script>
     </main>
   );
 }
