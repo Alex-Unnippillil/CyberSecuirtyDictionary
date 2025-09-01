@@ -5,11 +5,15 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
-const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const difficultyFilter = document.getElementById("difficulty-filter");
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]"),
+);
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
+let currentDifficultyFilter = "";
 let termsData = { terms: [] };
 
 if (localStorage.getItem("darkMode") === "true") {
@@ -19,7 +23,10 @@ if (localStorage.getItem("darkMode") === "true") {
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode"),
+    );
   });
 }
 
@@ -43,9 +50,11 @@ function loadTerms() {
       populateTermsList();
 
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1),
+        );
         const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase(),
         );
         if (matchedTerm) {
           displayDefinition(matchedTerm);
@@ -56,7 +65,7 @@ function loadTerms() {
       console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
       definitionContainer.innerHTML =
-        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
+        "<p>Unable to load dictionary data. Please check your connection and try again.</p>" +
         '<button id="retry-fetch">Retry</button>';
       const retryBtn = document.getElementById("retry-fetch");
       if (retryBtn) {
@@ -97,12 +106,16 @@ function toggleFavorite(term) {
 }
 
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase())),
+  ).sort();
 
   const allButton = document.createElement("button");
   allButton.textContent = "All";
@@ -134,10 +147,21 @@ function populateTermsList() {
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const matchesFavorites =
+        !showFavoritesToggle ||
+        !showFavoritesToggle.checked ||
+        favorites.has(item.term);
       const matchesLetter =
-        currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
+      const matchesDifficulty =
+        !currentDifficultyFilter || item.difficulty === currentDifficultyFilter;
+      if (
+        matchesSearch &&
+        matchesFavorites &&
+        matchesLetter &&
+        matchesDifficulty
+      ) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -182,32 +206,94 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><p><strong>Difficulty:</strong> ${term.difficulty}</p>`;
+  if (term.prerequisites && term.prerequisites.length > 0) {
+    const prereqSection = document.createElement("div");
+    const heading = document.createElement("h4");
+    heading.textContent = "Prerequisites";
+    prereqSection.appendChild(heading);
+    const list = document.createElement("ul");
+    term.prerequisites.forEach((id) => {
+      const prereqTerm = termsData.terms.find((t) => t.id === id);
+      if (!prereqTerm) return;
+      const chains = getPrerequisiteChains(prereqTerm);
+      chains.forEach((chain) => {
+        const li = document.createElement("li");
+        chain.forEach((t, i) => {
+          li.appendChild(createTermLink(t));
+          if (i < chain.length - 1) {
+            li.appendChild(document.createTextNode(" \u2192 "));
+          }
+        });
+        list.appendChild(li);
+      });
+    });
+    prereqSection.appendChild(list);
+    definitionContainer.appendChild(prereqSection);
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
-      `${siteUrl}#${encodeURIComponent(term.term)}`
+      `${siteUrl}#${encodeURIComponent(term.term)}`,
     );
   }
+}
+
+function createTermLink(term) {
+  const a = document.createElement("a");
+  a.href = `#${encodeURIComponent(term.term)}`;
+  a.textContent = term.term;
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+    displayDefinition(term);
+  });
+  return a;
+}
+
+function getPrerequisiteChains(term, visited = new Set()) {
+  if (!term || visited.has(term.id)) return [];
+  if (!term.prerequisites || term.prerequisites.length === 0) {
+    return [[term]];
+  }
+  visited.add(term.id);
+  const chains = [];
+  term.prerequisites.forEach((id) => {
+    const prereq = termsData.terms.find((t) => t.id === id);
+    const subChains = getPrerequisiteChains(prereq, new Set(visited));
+    if (subChains.length === 0) {
+      chains.push([term]);
+    } else {
+      subChains.forEach((c) => chains.push([...c, term]));
+    }
+  });
+  return chains;
 }
 
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search,
+  );
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm }),
+    );
   } catch (e) {
     // Ignore storage errors
   }
@@ -216,6 +302,14 @@ function showRandomTerm() {
 randomButton.addEventListener("click", showRandomTerm);
 if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
+    clearDefinition();
+    populateTermsList();
+  });
+}
+
+if (difficultyFilter) {
+  difficultyFilter.addEventListener("change", () => {
+    currentDifficultyFilter = difficultyFilter.value;
     clearDefinition();
     populateTermsList();
   });
@@ -249,8 +343,7 @@ window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
 scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  window.scrollTo({ top: 0, behavior: "smooth" }),
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
-

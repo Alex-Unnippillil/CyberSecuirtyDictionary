@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search</title>
+    <title>Search</title>
   <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <main class="container">
-    <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
-    <div id="results"></div>
-  </main>
-  <script>
-    window.__BASE_URL__ = window.__BASE_URL__ || '';
-  </script>
-  <script src="assets/js/search.js"></script>
-  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
-  <script src="assets/js/metrics.js"></script>
-</body>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Search</h1>
+        <input id="search-box" type="text" placeholder="Search terms...">
+      <label for="difficulty-filter">Difficulty</label>
+      <select id="difficulty-filter">
+        <option value="">All difficulties</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+      </select>
+      <div id="results"></div>
+    </main>
+    <script>
+      window.__BASE_URL__ = window.__BASE_URL__ || "";
+    </script>
+    <script src="assets/js/search.js"></script>
+    <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+    <script src="assets/js/metrics.js"></script>
+  </body>
 </html>

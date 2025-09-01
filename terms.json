@@ -1,134 +1,233 @@
 {
   "terms": [
     {
+      "id": 1,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Phishing",
       "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
     },
     {
+      "id": 2,
+      "difficulty": "beginner",
+      "prerequisites": [1],
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
     },
     {
+      "id": 3,
+      "difficulty": "intermediate",
+      "prerequisites": [1],
       "term": "Social Engineering Toolkit (SET)",
       "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness."
     },
     {
+      "id": 4,
+      "difficulty": "advanced",
+      "prerequisites": [5],
       "term": "Advanced Persistent Threat (APT)",
       "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network."
     },
     {
+      "id": 5,
+      "difficulty": "intermediate",
+      "prerequisites": [1],
       "term": "Cyber Espionage",
       "definition": "The use of cyber techniques to steal sensitive information from governments, organizations, or individuals."
     },
     {
+      "id": 6,
+      "difficulty": "advanced",
+      "prerequisites": [],
       "term": "Zero-Knowledge Proof",
       "definition": "A cryptographic method that allows a party to prove knowledge of a secret without revealing the secret itself."
     },
     {
+      "id": 7,
+      "difficulty": "intermediate",
+      "prerequisites": [],
       "term": "Security Operations Center (SOC)",
       "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time."
     },
     {
+      "id": 8,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Data Loss Prevention (DLP)",
       "definition": "A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data."
     },
     {
+      "id": 9,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Endpoint Security",
       "definition": "The protection of devices like laptops, desktops, and smartphones from various security threats."
     },
     {
+      "id": 10,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Security Token",
       "definition": "A physical or digital device used to authenticate users or provide one-time passwords for secure access."
     },
     {
+      "id": 11,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Network Security",
       "definition": "The protection of network infrastructure and data from unauthorized access or attacks."
     },
     {
+      "id": 12,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Payload",
       "definition": "The part of a malware or exploit that performs malicious actions on a victim's system."
     },
     {
+      "id": 13,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Cryptography",
       "definition": "The practice of secure communication by converting plaintext into ciphertext and vice versa."
     },
     {
+      "id": 14,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Social Engineering Attack Vectors",
       "definition": "Different methods and techniques used in social engineering attacks to manipulate victims."
     },
     {
+      "id": 15,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Threat Hunting",
       "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures."
     },
     {
+      "id": 16,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Incident Response",
       "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach."
     },
     {
+      "id": 17,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Privilege Escalation",
       "definition": "The act of gaining higher levels of access or permissions in a system or network than originally granted."
     },
     {
+      "id": 18,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Security Assessment",
       "definition": "A systematic evaluation of an organization's security measures to identify vulnerabilities and weaknesses."
     },
     {
+      "id": 19,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Data Encryption Standard (DES)",
       "definition": "An early symmetric key encryption algorithm used to secure electronic data."
     },
     {
+      "id": 20,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Advanced Encryption Standard (AES)",
       "definition": "A widely used symmetric key encryption algorithm known for its security and efficiency."
     },
     {
+      "id": 21,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Public Key Infrastructure (PKI)",
       "definition": "A system for managing digital certificates and public-private key pairs used in asymmetric encryption."
     },
     {
+      "id": 22,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Certificate Authority (CA)",
       "definition": "An entity responsible for issuing and managing digital certificates used in PKI."
     },
     {
+      "id": 23,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Secure Sockets Layer (SSL)",
       "definition": "An older cryptographic protocol that provides secure communication over a computer network."
     },
     {
+      "id": 24,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Transport Layer Security (TLS)",
       "definition": "A more secure successor to SSL, providing encryption and authentication for secure communication."
     },
     {
+      "id": 25,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Key Exchange",
       "definition": "The process of securely sharing encryption keys between parties to establish a secure communication channel."
     },
     {
+      "id": 26,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Malvertising",
       "definition": "Malicious online advertisements that deliver malware or lead to malicious websites."
     },
     {
+      "id": 27,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Eavesdropping",
       "definition": "Unauthorized interception and monitoring of private communications, often done surreptitiously."
     },
     {
+      "id": 28,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Identity Theft",
       "definition": "The fraudulent acquisition and use of an individual's personal information to impersonate them for malicious purposes."
     },
     {
+      "id": 29,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Zero-Day Vulnerability",
       "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers."
     },
     {
+      "id": 30,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Security Patch",
       "definition": "An update released by software vendors to fix security vulnerabilities in their products."
     },
     {
+      "id": 31,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Cross-Site Scripting (XSS)",
       "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users."
     },
     {
+      "id": 32,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Cross-Site Request Forgery (CSRF)",
       "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
     },
     {
+      "id": 33,
+      "difficulty": "beginner",
+      "prerequisites": [],
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
     }
