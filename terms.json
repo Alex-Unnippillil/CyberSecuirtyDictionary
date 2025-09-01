@@ -42,7 +42,18 @@
     },
     {
       "term": "Network Security",
-      "definition": "The protection of network infrastructure and data from unauthorized access or attacks."
+      "definition": "The protection of network infrastructure and data from unauthorized access or attacks.",
+      "partOfSpeech": "noun"
+    },
+    {
+      "term": "Exploit",
+      "definition": "A piece of code or technique that takes advantage of a vulnerability.",
+      "partOfSpeech": "noun"
+    },
+    {
+      "term": "Exploit",
+      "definition": "To take advantage of a vulnerability.",
+      "partOfSpeech": "verb"
     },
     {
       "term": "Payload",
