@@ -6,6 +6,7 @@
   --color-card-bg: #ffffff;
   --color-badge-bg: #e9ecef;
   --color-badge-text: #212529;
+  --focus-ring: #0d6efd;
 }
 
 [data-theme="dark"] {
@@ -16,13 +17,21 @@
   --color-card-bg: #1e1e1e;
   --color-badge-bg: #343a40;
   --color-badge-text: #f8f9fa;
+  --focus-ring: #79b8ff;
 }
 
 body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
   line-height: 1.6;
 }
 
@@ -38,9 +47,37 @@ a {
 }
 
 a:hover,
-a:focus {
+a:focus-visible {
   color: var(--color-link-hover);
   text-decoration: underline;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color 0.2s ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline-color: var(--focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    transition: none;
+  }
 }
 
 /* Grid and cards */
@@ -53,7 +90,7 @@ a:focus {
 .card {
   background: var(--color-card-bg);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem;
 }
 
@@ -83,7 +120,12 @@ a:focus {
 }
 
 /* Typography */
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.25;
 }
 
