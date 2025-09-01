@@ -191,6 +191,22 @@ label {
   color: #fff;
 }
 
+.badge-nist {
+  background-color: #4caf50;
+}
+
+.badge-owasp {
+  background-color: #f57c00;
+}
+
+.badge-vendor {
+  background-color: #673ab7;
+}
+
+.badge-internal {
+  background-color: #607d8b;
+}
+
 /* Alphabet navigation styles */
 #alpha-nav {
   display: flex;
@@ -308,6 +324,29 @@ body.dark-mode .favorited {
 body.dark-mode .badge {
   background-color: #1e90ff;
   color: #000;
+}
+
+body.dark-mode .badge-nist,
+body.dark-mode .badge-owasp,
+body.dark-mode .badge-vendor,
+body.dark-mode .badge-internal {
+  color: #fff;
+}
+
+body.dark-mode .badge-nist {
+  background-color: #4caf50;
+}
+
+body.dark-mode .badge-owasp {
+  background-color: #f57c00;
+}
+
+body.dark-mode .badge-vendor {
+  background-color: #673ab7;
+}
+
+body.dark-mode .badge-internal {
+  background-color: #607d8b;
 }
 
 body.dark-mode #alpha-nav button {

@@ -2,19 +2,47 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "sources": [
+        {
+          "type": "NIST",
+          "name": "NIST SP 800-53",
+          "date": "2021-09-23"
+        }
+      ]
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "sources": [
+        {
+          "type": "OWASP",
+          "name": "OWASP Top 10 (2021)",
+          "date": "2021-12-01"
+        }
+      ]
     },
     {
       "term": "Social Engineering Toolkit (SET)",
-      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness."
+      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness.",
+      "sources": [
+        {
+          "type": "Vendor",
+          "name": "TrustedSec Documentation",
+          "date": "2023-02-10"
+        }
+      ]
     },
     {
       "term": "Advanced Persistent Threat (APT)",
-      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network."
+      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network.",
+      "sources": [
+        {
+          "type": "Internal",
+          "name": "Internal Security Memo",
+          "date": "2024-01-05"
+        }
+      ]
     },
     {
       "term": "Cyber Espionage",

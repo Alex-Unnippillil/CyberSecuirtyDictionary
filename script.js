@@ -101,6 +101,22 @@ function highlightActiveButton(button) {
   button.classList.add("active");
 }
 
+function createBadges(sources) {
+  const fragment = document.createDocumentFragment();
+  sources.forEach((src) => {
+    if (!src.type) return;
+    const badge = document.createElement("span");
+    badge.classList.add("badge", `badge-${src.type.toLowerCase()}`);
+    badge.textContent = src.type;
+    const details = [];
+    if (src.name) details.push(src.name);
+    if (src.date) details.push(src.date);
+    badge.title = details.join(" | ");
+    fragment.appendChild(badge);
+  });
+  return fragment;
+}
+
 function buildAlphaNav() {
   const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
 
@@ -141,14 +157,17 @@ function populateTermsList() {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
-        const termHeader = document.createElement("h3");
-        if (searchValue) {
-          const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-          const regex = new RegExp(`(${escaped})`, "gi");
-          termHeader.innerHTML = item.term.replace(regex, "<mark>$1</mark>");
-        } else {
-          termHeader.textContent = item.term;
-        }
+          const termHeader = document.createElement("h3");
+          if (searchValue) {
+            const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const regex = new RegExp(`(${escaped})`, "gi");
+            termHeader.innerHTML = item.term.replace(regex, "<mark>$1</mark>");
+          } else {
+            termHeader.textContent = item.term;
+          }
+          if (item.sources) {
+            termHeader.appendChild(createBadges(item.sources));
+          }
 
         const star = document.createElement("span");
         star.classList.add("favorite-star");
@@ -164,8 +183,8 @@ function populateTermsList() {
             populateTermsList();
           }
         });
-        termHeader.appendChild(star);
-        termDiv.appendChild(termHeader);
+          termHeader.appendChild(star);
+          termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
         definitionPara.textContent = item.definition;
@@ -182,7 +201,16 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = "";
+  const termHeader = document.createElement("h3");
+  termHeader.textContent = term.term;
+  if (term.sources) {
+    termHeader.appendChild(createBadges(term.sources));
+  }
+  definitionContainer.appendChild(termHeader);
+  const definitionPara = document.createElement("p");
+  definitionPara.textContent = term.definition;
+  definitionContainer.appendChild(definitionPara);
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
