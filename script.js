@@ -5,12 +5,16 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const presetSelect = document.getElementById("preset-select");
+const savePresetBtn = document.getElementById("save-preset");
+const deletePresetBtn = document.getElementById("delete-preset");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let presets = {};
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -20,6 +24,26 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+loadPresets();
+
+if (savePresetBtn) {
+  savePresetBtn.addEventListener("click", savePreset);
+}
+if (deletePresetBtn) {
+  deletePresetBtn.addEventListener("click", deletePreset);
+}
+if (presetSelect) {
+  presetSelect.addEventListener("change", () => {
+    const name = presetSelect.value;
+    if (!name) return;
+    const config = presets[name];
+    if (config) {
+      applyConfig(config);
+      window.location.hash = `preset=${encodePreset(config)}`;
+    }
   });
 }
 
@@ -43,12 +67,16 @@ function loadTerms() {
       populateTermsList();
 
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
-        const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
-        );
-        if (matchedTerm) {
-          displayDefinition(matchedTerm);
+        if (window.location.hash.startsWith("#preset=")) {
+          applyPresetFromHash(window.location.hash.substring(8));
+        } else {
+          const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+          const matchedTerm = termsData.terms.find(
+            (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+          );
+          if (matchedTerm) {
+            displayDefinition(matchedTerm);
+          }
         }
       }
     })
@@ -66,6 +94,94 @@ function loadTerms() {
         });
       }
     });
+}
+
+function loadPresets() {
+  try {
+    presets = JSON.parse(localStorage.getItem("presets")) || {};
+  } catch (e) {
+    presets = {};
+  }
+  updatePresetSelect();
+}
+
+function updatePresetSelect() {
+  if (!presetSelect) return;
+  presetSelect.innerHTML = '<option value="">Select preset</option>';
+  Object.keys(presets).forEach((name) => {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    presetSelect.appendChild(option);
+  });
+}
+
+function getCurrentConfig() {
+  return {
+    search: searchInput.value.trim(),
+    showFavorites: showFavoritesToggle ? showFavoritesToggle.checked : false,
+    letter: currentLetterFilter,
+  };
+}
+
+function encodePreset(config) {
+  return encodeURIComponent(btoa(JSON.stringify(config)));
+}
+
+function applyPresetFromHash(hash) {
+  try {
+    const config = JSON.parse(atob(decodeURIComponent(hash)));
+    applyConfig(config);
+  } catch (e) {
+    console.error("Invalid preset hash", e);
+  }
+}
+
+function applyConfig(config) {
+  if (typeof config.search === "string") {
+    searchInput.value = config.search;
+  }
+  if (showFavoritesToggle) {
+    showFavoritesToggle.checked = !!config.showFavorites;
+  }
+  currentLetterFilter = config.letter || "All";
+  const btn = Array.from(alphaNav.querySelectorAll("button")).find(
+    (b) => b.textContent === currentLetterFilter
+  );
+  if (btn) {
+    highlightActiveButton(btn);
+  }
+  clearDefinition();
+  populateTermsList();
+}
+
+function savePreset() {
+  const name = prompt("Preset name?");
+  if (!name) return;
+  presets[name] = getCurrentConfig();
+  try {
+    localStorage.setItem("presets", JSON.stringify(presets));
+  } catch (e) {
+    // ignore storage errors
+  }
+  updatePresetSelect();
+  presetSelect.value = name;
+  window.location.hash = `preset=${encodePreset(presets[name])}`;
+}
+
+function deletePreset() {
+  const name = presetSelect.value;
+  if (!name) return;
+  delete presets[name];
+  try {
+    localStorage.setItem("presets", JSON.stringify(presets));
+  } catch (e) {
+    // ignore storage errors
+  }
+  updatePresetSelect();
+  window.location.hash = "";
+  clearDefinition();
+  populateTermsList();
 }
 
 function removeDuplicateTermsAndDefinitions() {
