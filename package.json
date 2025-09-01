@@ -6,17 +6,22 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "build-search-index": "ts-node scripts/build-search-index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
+    "jsdom": "^26.1.0",
+    "minisearch": "^7.1.2",
     "prettier": "^3.6.2",
-    "jsdom": "^26.1.0"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   }
 }
