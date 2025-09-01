@@ -145,6 +145,22 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
+#open-mapping {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#open-mapping:hover {
+  background-color: #0056b3;
+}
+
 label {
   margin-left: 10px;
   margin-top: 10px;
@@ -264,6 +280,16 @@ body.dark-mode #dark-mode-toggle {
   border-color: #555;
 }
 
+body.dark-mode #open-mapping {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #open-mapping:hover {
+  background-color: #555;
+}
+
 body.dark-mode li {
   background-color: #1e1e1e;
   border-bottom: 1px solid #333;
@@ -324,6 +350,68 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+.mapping-panel {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.mapping-panel.open {
+  right: 0;
+}
+
+.mapping-panel button {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.mapping-panel button:hover {
+  background-color: #0056b3;
+}
+
+.tactic-link {
+  display: block;
+  padding: 8px 0;
+  color: #007bff;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.tactic-link:hover,
+.tactic-link:focus {
+  transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mapping-panel,
+  .tactic-link {
+    transition: none;
+  }
+}
+
+body.dark-mode .mapping-panel {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .tactic-link {
+  color: #1e90ff;
 }
 
 @media (max-width: 480px) {

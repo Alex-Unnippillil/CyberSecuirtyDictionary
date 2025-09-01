@@ -5,12 +5,21 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const openMappingBtn = document.getElementById("open-mapping");
+const mappingPanel = document.getElementById("mapping-panel");
+const closeMappingBtn = document.getElementById("close-mapping");
+const tacticList = document.getElementById("tactic-list");
+const clearTacticBtn = document.getElementById("clear-tactic-filter");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let mappingData = {};
+let currentTacticFilter = null;
+let lastFocusedElement = null;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -25,6 +34,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  loadMapping();
 });
 
 function loadTerms() {
@@ -66,6 +76,47 @@ function loadTerms() {
         });
       }
     });
+}
+
+function loadMapping() {
+  fetch("mapping.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      mappingData = data;
+      buildTacticLinks();
+    })
+    .catch((error) => {
+      console.error("Error fetching mapping data:", error);
+    });
+}
+
+function buildTacticLinks() {
+  if (!tacticList) return;
+  tacticList.innerHTML = "";
+  Object.keys(mappingData).forEach((tactic) => {
+    const li = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "#";
+    link.textContent = tactic;
+    link.className = "tactic-link";
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      currentTacticFilter = tactic;
+      if (openMappingBtn) {
+        openMappingBtn.textContent = `Tactics: ${tactic}`;
+      }
+      clearDefinition();
+      populateTermsList();
+      closeMappingPanel();
+    });
+    li.appendChild(link);
+    tacticList.appendChild(li);
+  });
 }
 
 function removeDuplicateTermsAndDefinitions() {
@@ -137,7 +188,10 @@ function populateTermsList() {
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      const matchesTactic =
+        !currentTacticFilter ||
+        (mappingData[currentTacticFilter] || []).includes(item.term);
+      if (matchesSearch && matchesFavorites && matchesLetter && matchesTactic) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -253,4 +307,60 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function openMappingPanel() {
+  if (!mappingPanel) return;
+  lastFocusedElement = document.activeElement;
+  mappingPanel.hidden = false;
+  requestAnimationFrame(() => mappingPanel.classList.add("open"));
+  if (openMappingBtn) {
+    openMappingBtn.setAttribute("aria-expanded", "true");
+  }
+  if (closeMappingBtn) {
+    closeMappingBtn.focus();
+  }
+}
+
+function closeMappingPanel() {
+  if (!mappingPanel) return;
+  mappingPanel.classList.remove("open");
+  if (openMappingBtn) {
+    openMappingBtn.setAttribute("aria-expanded", "false");
+  }
+  const hide = () => {
+    mappingPanel.hidden = true;
+  };
+  if (prefersReducedMotion) {
+    hide();
+  } else {
+    mappingPanel.addEventListener("transitionend", hide, { once: true });
+  }
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
+}
+
+if (openMappingBtn) {
+  openMappingBtn.addEventListener("click", openMappingPanel);
+}
+if (closeMappingBtn) {
+  closeMappingBtn.addEventListener("click", closeMappingPanel);
+}
+if (clearTacticBtn) {
+  clearTacticBtn.addEventListener("click", () => {
+    currentTacticFilter = null;
+    if (openMappingBtn) {
+      openMappingBtn.textContent = "Tactics";
+    }
+    clearDefinition();
+    populateTermsList();
+    closeMappingPanel();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && mappingPanel && !mappingPanel.hidden) {
+    closeMappingPanel();
+  }
+});
 
