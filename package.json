@@ -11,6 +11,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "zod": "^3.25.6"
+  },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",
