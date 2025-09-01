@@ -158,6 +158,54 @@ label {
   margin-right: 5px;
 }
 
+/* Saved searches */
+#search-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#save-search {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#save-search:hover {
+  background-color: #0056b3;
+}
+
+#saved-searches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.saved-search-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background-color: #e0e0e0;
+  border-radius: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.saved-search-chip .star {
+  margin-left: 6px;
+  color: #bbb;
+}
+
+.saved-search-chip .star.starred {
+  color: gold;
+}
+
 /* Favorite star styles */
 .favorite-star {
   font-size: 20px;
