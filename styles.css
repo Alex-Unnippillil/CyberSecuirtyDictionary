@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -89,7 +89,7 @@ body.dark-mode mark {
   color: #666;
 }
 
-.dictionary-item:hover {
+.dictionary-item.hovered {
   transform: scale(1.02);
 }
 
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -172,7 +171,7 @@ label {
   justify-content: center;
 }
 
-.favorite-star:hover,
+.favorite-star.hovered,
 .favorite-star:focus {
   color: #999;
 }
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -296,7 +297,7 @@ body.dark-mode .favorite-star {
   color: #888;
 }
 
-body.dark-mode .favorite-star:hover,
+body.dark-mode .favorite-star.hovered,
 body.dark-mode .favorite-star:focus {
   color: #bbb;
 }
