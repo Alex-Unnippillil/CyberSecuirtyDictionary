@@ -9,6 +9,13 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
+const selectionLinkBtn = document.createElement("button");
+selectionLinkBtn.id = "selection-link-btn";
+selectionLinkBtn.type = "button";
+selectionLinkBtn.textContent = "Link to this selection";
+selectionLinkBtn.style.display = "none";
+document.body.appendChild(selectionLinkBtn);
+
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
@@ -172,6 +179,9 @@ function populateTermsList() {
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
+          if (window.getSelection().toString()) {
+            return;
+          }
           displayDefinition(item);
         });
 
@@ -183,13 +193,43 @@ function populateTermsList() {
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
-  window.location.hash = encodeURIComponent(term.term);
+  const url = new URL(window.location);
+  const rangeParam = url.searchParams.get("range");
+  url.hash = `#${encodeURIComponent(term.term)}`;
+  url.searchParams.delete("range");
+  window.history.replaceState(null, "", url);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  if (rangeParam) {
+    highlightFromRange(rangeParam);
+  }
+}
+
+function highlightFromRange(rangeParam) {
+  const [start, end] = (rangeParam || "").split("-").map(Number);
+  if (isNaN(start) || isNaN(end) || start >= end) {
+    return;
+  }
+  const para = definitionContainer.querySelector("p");
+  if (!para) {
+    return;
+  }
+  const text = para.textContent || "";
+  if (end > text.length) {
+    return;
+  }
+  const before = document.createTextNode(text.slice(0, start));
+  const highlighted = document.createElement("span");
+  highlighted.className = "selection-highlight";
+  highlighted.textContent = text.slice(start, end);
+  const after = document.createTextNode(text.slice(end));
+  para.innerHTML = "";
+  para.append(before, highlighted, after);
+  highlighted.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function clearDefinition() {
@@ -252,5 +292,63 @@ scrollBtn.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
 
-definitionContainer.addEventListener("click", clearDefinition);
+definitionContainer.addEventListener("click", () => {
+  if (window.getSelection().toString()) {
+    return;
+  }
+  clearDefinition();
+});
+
+definitionContainer.addEventListener("mouseup", () => {
+  const selection = window.getSelection();
+  if (!selection.rangeCount || !selection.toString()) {
+    selectionLinkBtn.style.display = "none";
+    return;
+  }
+  const range = selection.getRangeAt(0);
+  if (!definitionContainer.contains(range.commonAncestorContainer)) {
+    selectionLinkBtn.style.display = "none";
+    return;
+  }
+  const rect = range.getBoundingClientRect();
+  selectionLinkBtn.style.top = `${rect.bottom + window.scrollY}px`;
+  selectionLinkBtn.style.left = `${rect.left + window.scrollX}px`;
+  selectionLinkBtn.style.display = "block";
+});
+
+document.addEventListener("mousedown", (e) => {
+  if (!selectionLinkBtn.contains(e.target)) {
+    selectionLinkBtn.style.display = "none";
+  }
+});
+
+selectionLinkBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const selection = window.getSelection();
+  if (!selection.rangeCount) {
+    return;
+  }
+  const range = selection.getRangeAt(0);
+  let node = range.commonAncestorContainer;
+  if (node.nodeType !== Node.ELEMENT_NODE) {
+    node = node.parentElement;
+  }
+  while (node && node.nodeName !== "P") {
+    node = node.parentElement;
+  }
+  if (!node || !definitionContainer.contains(node)) {
+    selectionLinkBtn.style.display = "none";
+    return;
+  }
+  const preRange = range.cloneRange();
+  preRange.selectNodeContents(node);
+  preRange.setEnd(range.startContainer, range.startOffset);
+  const start = preRange.toString().length;
+  const end = start + range.toString().length;
+  const url = new URL(window.location.href);
+  url.searchParams.set("range", `${start}-${end}`);
+  navigator.clipboard.writeText(url.toString()).catch(() => {});
+  selectionLinkBtn.style.display = "none";
+});
 

@@ -242,6 +242,32 @@ label {
   background-color: #0056b3;
 }
 
+#selection-link-btn {
+  position: absolute;
+  z-index: 1000;
+  display: none;
+  padding: 5px 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#selection-link-btn:hover {
+  background-color: #0056b3;
+}
+
+.selection-highlight {
+  background-color: yellow;
+  color: inherit;
+}
+
+body.dark-mode .selection-highlight {
+  background-color: #ffeb3b;
+  color: #000;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
