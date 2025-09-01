@@ -8,6 +8,7 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const printTOC = document.getElementById("print-toc");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -41,6 +42,7 @@ function loadTerms() {
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
+      buildPrintTOC();
 
       if (window.location.hash) {
         const termFromHash = decodeURIComponent(window.location.hash.substring(1));
@@ -66,6 +68,24 @@ function loadTerms() {
         });
       }
     });
+}
+
+function buildPrintTOC() {
+  if (!printTOC) {
+    return;
+  }
+  const list = document.createElement("ul");
+  termsData.terms.forEach((item) => {
+    const anchorId = item.term.toLowerCase().replace(/\s+/g, "-");
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = `#${anchorId}`;
+    a.textContent = item.term;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+  printTOC.innerHTML = "<h2>Table of Contents</h2>";
+  printTOC.appendChild(list);
 }
 
 function removeDuplicateTermsAndDefinitions() {
@@ -139,6 +159,8 @@ function populateTermsList() {
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
+        const anchorId = item.term.toLowerCase().replace(/\s+/g, "-");
+        termDiv.id = anchorId;
         termDiv.classList.add("dictionary-item");
 
         const termHeader = document.createElement("h3");

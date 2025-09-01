@@ -1,0 +1,50 @@
+@media print {
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  /* Hide interactive elements in print */
+  #alpha-nav,
+  #search,
+  #random-term,
+  #dark-mode-toggle,
+  #show-favorites,
+  label[for="show-favorites"],
+  #scrollToTopBtn {
+    display: none !important;
+  }
+
+  /* Table of contents appears only in print */
+  #print-toc {
+    display: block;
+    margin-bottom: 2rem;
+  }
+  #print-toc ul {
+    list-style: none;
+    padding: 0;
+    columns: 2;
+  }
+
+  /* Prevent terms from breaking across pages */
+  .dictionary-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  @page {
+    margin: 20mm;
+  }
+
+  /* Footer source citation */
+  body::after {
+    content: "Source: Cyber Security Dictionary - https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10pt;
+  }
+}
