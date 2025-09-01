@@ -254,3 +254,82 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+// Chat UI and Learn Path feature
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-btn");
+const messagesContainer = document.getElementById("messages");
+const learnPathToggle = document.getElementById("learn-path-toggle");
+
+const learnPathSteps = [
+  "Understand basic cybersecurity concepts",
+  "Explore network security fundamentals",
+  "Dive into encryption and cryptography",
+  "Study application security and secure coding",
+  "Investigate incident response and forensics"
+];
+
+let learnPathProgress = parseInt(localStorage.getItem("learnPathProgress"), 10);
+if (isNaN(learnPathProgress)) {
+  learnPathProgress = 0;
+}
+
+function displayMessage(text, type) {
+  const div = document.createElement("div");
+  div.classList.add("message", type);
+  div.textContent = text;
+  if (messagesContainer) {
+    messagesContainer.appendChild(div);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+}
+
+function showCurrentStep() {
+  if (learnPathProgress < learnPathSteps.length) {
+    displayMessage(
+      `Step ${learnPathProgress + 1}: ${learnPathSteps[learnPathProgress]}`,
+      "system"
+    );
+  } else {
+    displayMessage("Learn path completed!", "system");
+    localStorage.removeItem("learnPathProgress");
+    if (learnPathToggle) {
+      learnPathToggle.checked = false;
+    }
+  }
+}
+
+if (learnPathToggle) {
+  learnPathToggle.addEventListener("change", () => {
+    if (learnPathToggle.checked) {
+      showCurrentStep();
+    }
+  });
+}
+
+if (sendBtn) {
+  sendBtn.addEventListener("click", () => {
+    const msg = chatInput.value.trim();
+    if (!msg) return;
+    displayMessage(msg, "user");
+    chatInput.value = "";
+
+    if (learnPathToggle && learnPathToggle.checked) {
+      learnPathProgress++;
+      localStorage.setItem("learnPathProgress", learnPathProgress);
+      showCurrentStep();
+    }
+  });
+}
+
+if (
+  learnPathToggle &&
+  learnPathProgress > 0 &&
+  learnPathProgress < learnPathSteps.length
+) {
+  learnPathToggle.checked = true;
+  displayMessage(
+    `Resuming step ${learnPathProgress + 1}: ${learnPathSteps[learnPathProgress]}`,
+    "system"
+  );
+}
+
