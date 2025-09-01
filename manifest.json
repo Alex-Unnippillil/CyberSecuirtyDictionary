@@ -1,0 +1,15 @@
+{
+  "name": "Cyber Security Dictionary",
+  "short_name": "SecDict",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "share_target": {
+    "action": "/index.html?share-target",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

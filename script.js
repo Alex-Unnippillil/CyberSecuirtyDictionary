@@ -5,6 +5,7 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const receiveButton = document.getElementById("receive-webrtc");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -25,6 +26,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  handleShareTarget();
 });
 
 function loadTerms() {
@@ -66,6 +68,17 @@ function loadTerms() {
         });
       }
     });
+}
+
+function handleShareTarget() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('share-target')) {
+    const title = params.get('title') || 'Shared Content';
+    const text = params.get('text') || '';
+    definitionContainer.style.display = 'block';
+    definitionContainer.innerHTML = `<h3>${title}</h3><p>${text}</p>`;
+    alert('Share received');
+  }
 }
 
 function removeDuplicateTermsAndDefinitions() {
@@ -182,7 +195,11 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><button id="share-term" type="button">Share</button>`;
+  const shareBtn = document.getElementById("share-term");
+  if (shareBtn) {
+    shareBtn.addEventListener("click", () => shareTerm(term));
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -198,6 +215,113 @@ function clearDefinition() {
   history.replaceState(null, "", window.location.pathname + window.location.search);
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
+  }
+}
+
+async function shareTerm(term) {
+  const shareData = {
+    title: term.term,
+    text: term.definition,
+    url: window.location.href,
+  };
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+      alert("Share successful");
+    } catch (err) {
+      alert("Share failed");
+    }
+  } else {
+    startWebRTCFallback(JSON.stringify(shareData));
+  }
+}
+
+function startWebRTCFallback(message) {
+  if (!window.RTCPeerConnection) {
+    alert("Web Share and WebRTC not supported");
+    return;
+  }
+  definitionContainer.innerHTML += `
+    <div id="webrtc-share">
+      <p>Copy this offer and send to receiver:</p>
+      <textarea id="webrtc-offer" readonly></textarea>
+      <p>Paste receiver answer:</p>
+      <textarea id="webrtc-answer"></textarea>
+      <button id="webrtc-connect" type="button">Connect</button>
+      <p id="webrtc-status"></p>
+    </div>`;
+  const pc = new RTCPeerConnection();
+  const channel = pc.createDataChannel("share");
+  channel.onopen = () => {
+    channel.send(message);
+    document.getElementById("webrtc-status").textContent = "Share sent via WebRTC";
+    alert("Share sent");
+  };
+  pc.onicecandidate = (e) => {
+    if (e.candidate) return;
+    const offerField = document.getElementById("webrtc-offer");
+    if (offerField) {
+      offerField.value = btoa(JSON.stringify(pc.localDescription));
+    }
+  };
+  pc.createOffer().then((offer) => pc.setLocalDescription(offer));
+  const connectBtn = document.getElementById("webrtc-connect");
+  if (connectBtn) {
+    connectBtn.addEventListener("click", async () => {
+      const ans = document.getElementById("webrtc-answer").value;
+      if (!ans) return;
+      try {
+        await pc.setRemoteDescription(new RTCSessionDescription(JSON.parse(atob(ans))));
+        document.getElementById("webrtc-status").textContent = "Awaiting connection...";
+      } catch (err) {
+        alert("Invalid answer");
+      }
+    });
+  }
+}
+
+function receiveWebRTC() {
+  if (!window.RTCPeerConnection) {
+    alert("WebRTC not supported");
+    return;
+  }
+  definitionContainer.style.display = "block";
+  definitionContainer.innerHTML = `
+    <h3>Receive Share</h3>
+    <p>Paste offer from sender:</p>
+    <textarea id="webrtc-offer-in"></textarea>
+    <button id="webrtc-create-answer" type="button">Create Answer</button>
+    <p>Send this answer back to sender:</p>
+    <textarea id="webrtc-answer-out" readonly></textarea>
+    <p id="webrtc-receive-status"></p>`;
+  const pc = new RTCPeerConnection();
+  pc.ondatachannel = (e) => {
+    const channel = e.channel;
+    channel.onmessage = (evt) => {
+      document.getElementById("webrtc-receive-status").textContent = `Received: ${evt.data}`;
+      alert("Share received");
+    };
+  };
+  pc.onicecandidate = (e) => {
+    if (e.candidate) return;
+    const out = document.getElementById("webrtc-answer-out");
+    if (out) {
+      out.value = btoa(JSON.stringify(pc.localDescription));
+    }
+  };
+  const createBtn = document.getElementById("webrtc-create-answer");
+  if (createBtn) {
+    createBtn.addEventListener("click", async () => {
+      const offer = document.getElementById("webrtc-offer-in").value;
+      if (!offer) return;
+      try {
+        await pc.setRemoteDescription(new RTCSessionDescription(JSON.parse(atob(offer))));
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+      } catch (err) {
+        alert("Invalid offer");
+      }
+    });
   }
 }
 
@@ -219,6 +343,9 @@ if (showFavoritesToggle) {
     clearDefinition();
     populateTermsList();
   });
+}
+if (receiveButton) {
+  receiveButton.addEventListener("click", receiveWebRTC);
 }
 
 (function initializeDailyTerm() {
@@ -252,5 +379,9 @@ scrollBtn.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
 
-definitionContainer.addEventListener("click", clearDefinition);
+definitionContainer.addEventListener("click", (e) => {
+  if (e.target === definitionContainer) {
+    clearDefinition();
+  }
+});
 
