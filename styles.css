@@ -76,6 +76,12 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
+/* Visible focus indicator for keyboard navigation */
+.dictionary-item:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
 .dictionary-item h3 {
   font-size: 24px;
   margin: 0;
@@ -123,6 +129,19 @@ body.dark-mode mark {
   cursor: pointer;
   min-width: 44px;
   min-height: 44px;
+}
+
+/* Generic focus styles */
+button:focus,
+input:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+body.dark-mode button:focus,
+body.dark-mode input:focus,
+body.dark-mode .dictionary-item:focus {
+  outline-color: #ffeb3b;
 }
 
 #random-term:hover {

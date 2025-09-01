@@ -3,6 +3,7 @@ const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
+const navToggle = document.getElementById("nav-toggle");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
@@ -20,6 +21,15 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+// Toggle alphabet navigation drawer
+if (navToggle) {
+  navToggle.addEventListener("click", () => {
+    const expanded = navToggle.getAttribute("aria-expanded") === "true";
+    navToggle.setAttribute("aria-expanded", String(!expanded));
+    alphaNav.hidden = expanded;
   });
 }
 
@@ -130,6 +140,7 @@ function buildAlphaNav() {
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
+  let itemsCount = 0;
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
@@ -140,6 +151,16 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        termDiv.setAttribute("tabindex", "0");
+        termDiv.setAttribute("role", "button");
+
+        // Allow keyboard interaction for dictionary entries
+        termDiv.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            displayDefinition(item);
+          }
+        });
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -176,13 +197,18 @@ function populateTermsList() {
         });
 
         termsList.appendChild(termDiv);
+        itemsCount++;
       }
     });
+  // Update combobox expanded state
+  searchInput.setAttribute("aria-expanded", itemsCount > 0 ? "true" : "false");
 }
 
 function displayDefinition(term) {
-  definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.hidden = false;
+  definitionContainer.innerHTML = `<h3 id="definition-title">${term.term}</h3><p>${term.definition}</p>`;
+  // Move focus into dialog for accessibility
+  definitionContainer.focus();
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -193,12 +219,13 @@ function displayDefinition(term) {
 }
 
 function clearDefinition() {
-  definitionContainer.style.display = "none";
+  definitionContainer.hidden = true;
   definitionContainer.innerHTML = "";
   history.replaceState(null, "", window.location.pathname + window.location.search);
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
+  searchInput.focus();
 }
 
 function showRandomTerm() {
@@ -253,4 +280,9 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+definitionContainer.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    clearDefinition();
+  }
+});
 
