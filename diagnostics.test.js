@@ -6,19 +6,33 @@ const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://example.c
 const script = fs.readFileSync('assets/js/diagnostics.js', 'utf8');
 dom.window.eval(script);
 
-dom.window.localStorage.setItem(
-  'web-vitals',
-  JSON.stringify([
-    { timestamp: 1, lcp: 1.1, cls: 0.1, tbt: 10 },
-    { timestamp: 2, lcp: 2.2, cls: 0.2, tbt: 20 }
-  ])
-);
+const maxVisible = dom.window.__MAX_HISTORY_VISIBLE__ || 10;
+const samples = [];
+for (let i = 0; i < maxVisible + 2; i++) {
+  samples.push({ timestamp: i, lcp: i, cls: 0.1, tbt: 10 });
+}
+dom.window.localStorage.setItem('web-vitals', JSON.stringify(samples));
 
 dom.window.renderDiagnostics();
 
-const rows = dom.window.document.querySelectorAll('#metrics-body tr');
-if (rows.length !== 2) {
-  console.error(`Expected 2 rows, got ${rows.length}`);
+const foldRow = dom.window.document.querySelector('.history-fold');
+if (!foldRow) {
+  console.error('Fold row not rendered');
   process.exit(1);
 }
+
+let hiddenRows = dom.window.document.querySelectorAll('.hidden-history');
+if (hiddenRows.length !== 2) {
+  console.error(`Expected 2 hidden rows, got ${hiddenRows.length}`);
+  process.exit(1);
+}
+
+foldRow.querySelector('button').click();
+
+hiddenRows = dom.window.document.querySelectorAll('.hidden-history.revealed');
+if (hiddenRows.length !== 2) {
+  console.error('Hidden rows not revealed on expand');
+  process.exit(1);
+}
+
 console.log('Diagnostics render test passed');
