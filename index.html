@@ -23,6 +23,16 @@
     <label for="show-favorites">Show Favorites</label>
 
     <ul id="terms-list"></ul>
+
+    <section id="notes">
+      <h2>Add a Note</h2>
+      <form id="note-form">
+        <label for="note-text">Note</label>
+        <textarea id="note-text" required></textarea>
+        <button id="submit-note" type="submit">Save Note</button>
+      </form>
+      <div id="sync-status" role="status" aria-live="polite"></div>
+    </section>
   </main>
   <footer class="container" aria-label="Contribute">
     <p><a href="templates/contribute.html">Contribute</a></p>
