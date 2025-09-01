@@ -5,11 +5,12 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
-const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]"),
+);
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
-let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
 if (localStorage.getItem("darkMode") === "true") {
@@ -19,7 +20,10 @@ if (localStorage.getItem("darkMode") === "true") {
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode"),
+    );
   });
 }
 
@@ -43,12 +47,19 @@ function loadTerms() {
       populateTermsList();
 
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
-        const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
-        );
-        if (matchedTerm) {
-          displayDefinition(matchedTerm);
+        const hash = decodeURIComponent(window.location.hash.substring(1));
+        if (hash.startsWith("letter-")) {
+          const target = document.getElementById(hash);
+          if (target) {
+            target.scrollIntoView();
+          }
+        } else {
+          const matchedTerm = termsData.terms.find(
+            (t) => t.term.toLowerCase() === hash.toLowerCase(),
+          );
+          if (matchedTerm) {
+            displayDefinition(matchedTerm);
+          }
         }
       }
     })
@@ -56,7 +67,7 @@ function loadTerms() {
       console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
       definitionContainer.innerHTML =
-        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
+        "<p>Unable to load dictionary data. Please check your connection and try again.</p>" +
         '<button id="retry-fetch">Retry</button>';
       const retryBtn = document.getElementById("retry-fetch");
       if (retryBtn) {
@@ -96,48 +107,59 @@ function toggleFavorite(term) {
   }
 }
 
-function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
-  button.classList.add("active");
-}
-
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase())),
+  ).sort();
 
-  const allButton = document.createElement("button");
-  allButton.textContent = "All";
-  allButton.addEventListener("click", () => {
-    currentLetterFilter = "All";
-    highlightActiveButton(allButton);
-    populateTermsList();
+  const allLink = document.createElement("a");
+  allLink.textContent = "All";
+  allLink.href = "#";
+  allLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.history.replaceState(null, "", window.location.pathname);
   });
-  alphaNav.appendChild(allButton);
+  alphaNav.appendChild(allLink);
 
   letters.forEach((letter) => {
-    const btn = document.createElement("button");
-    btn.textContent = letter;
-    btn.addEventListener("click", () => {
-      currentLetterFilter = letter;
-      highlightActiveButton(btn);
-      populateTermsList();
+    const link = document.createElement("a");
+    link.textContent = letter;
+    link.href = `#letter-${letter}`;
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.getElementById(`letter-${letter}`);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+        window.location.hash = `letter-${letter}`;
+      }
     });
-    alphaNav.appendChild(btn);
+    alphaNav.appendChild(link);
   });
-
-  highlightActiveButton(allButton);
 }
 
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
+  let currentLetter = "";
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
-      const matchesLetter =
-        currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
-      if (matchesSearch && matchesFavorites && matchesLetter) {
+      const matchesFavorites =
+        !showFavoritesToggle ||
+        !showFavoritesToggle.checked ||
+        favorites.has(item.term);
+      if (matchesSearch && matchesFavorites) {
+        const firstLetter = item.term.charAt(0).toUpperCase();
+        if (firstLetter !== currentLetter) {
+          currentLetter = firstLetter;
+          const heading = document.createElement("h2");
+          heading.id = `letter-${firstLetter}`;
+          heading.textContent = firstLetter;
+          termsList.appendChild(heading);
+        }
+
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
 
@@ -187,7 +209,7 @@ function displayDefinition(term) {
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
-      `${siteUrl}#${encodeURIComponent(term.term)}`
+      `${siteUrl}#${encodeURIComponent(term.term)}`,
     );
   }
 }
@@ -195,19 +217,27 @@ function displayDefinition(term) {
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search,
+  );
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm }),
+    );
   } catch (e) {
     // Ignore storage errors
   }
@@ -249,8 +279,7 @@ window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
 scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  window.scrollTo({ top: 0, behavior: "smooth" }),
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
-

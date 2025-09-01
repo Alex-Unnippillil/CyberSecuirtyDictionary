@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -93,6 +93,11 @@ body.dark-mode mark {
   transform: scale(1.02);
 }
 
+#terms-list h2 {
+  margin: 30px 0 10px;
+  scroll-margin-top: 80px;
+}
+
 #definition-container {
   padding: 20px;
   background-color: #f2f2f2;
@@ -110,7 +115,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -193,33 +197,36 @@ label {
 
 /* Alphabet navigation styles */
 #alpha-nav {
+  position: sticky;
+  top: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   justify-content: center;
   margin-bottom: 15px;
+  background-color: #fff;
+  padding: 10px 0;
+  z-index: 100;
 }
 
-#alpha-nav button {
+#alpha-nav a {
   background-color: #eee;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
+  text-decoration: none;
+  color: #333;
 }
 
-#alpha-nav button:hover,
-#alpha-nav button:focus {
+#alpha-nav a:hover,
+#alpha-nav a:focus {
   background-color: #ddd;
-}
-
-#alpha-nav button.active {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: #fff;
 }
 
 /* Scroll to Top button styles */
@@ -310,20 +317,19 @@ body.dark-mode .badge {
   color: #000;
 }
 
-body.dark-mode #alpha-nav button {
+body.dark-mode #alpha-nav {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode #alpha-nav a {
   background-color: #333;
   border-color: #555;
   color: #fff;
 }
 
-body.dark-mode #alpha-nav button:hover,
-body.dark-mode #alpha-nav button:focus {
+body.dark-mode #alpha-nav a:hover,
+body.dark-mode #alpha-nav a:focus {
   background-color: #555;
-}
-
-body.dark-mode #alpha-nav button.active {
-  background-color: #007bff;
-  border-color: #007bff;
 }
 
 @media (max-width: 480px) {
@@ -343,7 +349,7 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 
-  #alpha-nav button {
+  #alpha-nav a {
     font-size: 14px;
   }
 }
