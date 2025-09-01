@@ -2,11 +2,21 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "senses": [
+        {
+          "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+          "register": "general"
+        },
+        {
+          "definition": "A social engineering technique where attackers craft seemingly legitimate communications to steal credentials or financial data.",
+          "register": "technical"
+        }
+      ]
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "register": "technical"
     },
     {
       "term": "Social Engineering Toolkit (SET)",
