@@ -1,6 +1,8 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const pinBtn = document.getElementById('pin-query');
+  const shareBtn = document.getElementById('share-query');
   let terms = [];
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -15,8 +17,59 @@
         console.error('Failed to load terms.json', err);
       });
 
-    searchInput.addEventListener('input', handleSearch);
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if(q){
+      searchInput.value = q;
+      handleSearch();
+    }
+
+    if(pinBtn){
+      pinBtn.addEventListener('click', saveCurrentQuery);
+    }
+    if(shareBtn){
+      shareBtn.addEventListener('click', copyShareLink);
+    }
+
+    searchInput.addEventListener('input', () => {
+      handleSearch();
+      updateQueryParam();
+    });
   });
+
+  function updateQueryParam(){
+    const raw = searchInput.value.trim();
+    const params = new URLSearchParams(window.location.search);
+    if(raw){
+      params.set('q', raw);
+    } else {
+      params.delete('q');
+    }
+    const newRel = params.toString() ? `${window.location.pathname}?${params}` : window.location.pathname;
+    window.history.replaceState(null, '', newRel);
+  }
+
+  function saveCurrentQuery(){
+    const query = searchInput.value.trim();
+    if(!query) return;
+    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(query)}`;
+    fetch('/api/saved-searches', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, url })
+    }).catch(err => {
+      console.error('Failed to save search', err);
+    });
+  }
+
+  function copyShareLink(){
+    const query = searchInput.value.trim();
+    if(!query) return;
+    const url = `${window.location.origin}${window.location.pathname}?q=${encodeURIComponent(query)}`;
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(url).catch(() => {});
+    }
+  }
 
   function handleSearch(){
     const query = searchInput.value.trim().toLowerCase();
@@ -75,3 +128,4 @@
     return card;
   }
 })();
+

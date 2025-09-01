@@ -5,8 +5,9 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "test": "html-validate index.html search.html diagnostics.html profile.html && node diagnostics.test.js",
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,8 @@
     "js-yaml": "^4.1.0",
     "prettier": "^3.6.2",
     "jsdom": "^26.1.0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
   }
 }
