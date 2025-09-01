@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Study</h1>
+    <div id="card" class="study-card" aria-live="polite">
+      <h2 id="term">Loading...</h2>
+      <p id="definition" class="definition">Definition</p>
+    </div>
+    <div class="study-buttons">
+      <button id="again" type="button">Again</button>
+      <button id="hard" type="button">Hard</button>
+      <button id="good" type="button">Good</button>
+      <button id="easy" type="button">Easy</button>
+    </div>
+  </main>
+  <script>
+    window.__API_BASE__ = window.__API_BASE__ || '';
+  </script>
+  <script src="assets/js/study.js"></script>
+  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+  <script src="assets/js/metrics.js"></script>
+</body>
+</html>

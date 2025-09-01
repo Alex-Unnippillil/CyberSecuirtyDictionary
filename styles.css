@@ -347,3 +347,53 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+/* Study page styles */
+.study-card {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-height: 150px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.study-card .definition {
+  display: none;
+  margin-top: 10px;
+}
+
+.study-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.study-buttons button {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.study-buttons button:hover {
+  background-color: #0056b3;
+}
+
+body.dark-mode .study-card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode .study-buttons button {
+  background-color: #333;
+  border-color: #555;
+}
+
+body.dark-mode .study-buttons button:hover {
+  background-color: #555;
+}
