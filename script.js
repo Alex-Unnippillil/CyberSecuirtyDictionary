@@ -4,11 +4,15 @@ const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
+const columnToggle = document.getElementById("column-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const resetOrderBtn = document.getElementById("reset-order");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+
+definitionContainer.tabIndex = 0;
+let updateColumnIndicators = () => {};
 
 // --- Search token overlay and help popover setup ---
 const searchWrapper = document.createElement("div");
@@ -161,6 +165,70 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+if (columnToggle) {
+  let leftIndicator;
+  let rightIndicator;
+  const status = document.createElement("div");
+  status.id = "column-status";
+  status.className = "visually-hidden";
+  definitionContainer.insertAdjacentElement("afterend", status);
+
+  updateColumnIndicators = function () {
+    if (!definitionContainer.classList.contains("multi-column")) return;
+    const total = Math.ceil(
+      definitionContainer.scrollWidth / definitionContainer.clientWidth
+    );
+    const current =
+      Math.floor(definitionContainer.scrollLeft / definitionContainer.clientWidth) + 1;
+    status.textContent = `Column ${current} of ${total}`;
+    if (leftIndicator)
+      leftIndicator.style.display = current > 1 ? "block" : "none";
+    if (rightIndicator)
+      rightIndicator.style.display = current < total ? "block" : "none";
+  };
+
+  columnToggle.addEventListener("click", () => {
+    const enabled = definitionContainer.classList.toggle("multi-column");
+    columnToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
+    if (enabled) {
+      leftIndicator = document.createElement("div");
+      leftIndicator.className = "column-indicator left";
+      leftIndicator.textContent = "◀";
+      leftIndicator.setAttribute("aria-hidden", "true");
+      rightIndicator = document.createElement("div");
+      rightIndicator.className = "column-indicator right";
+      rightIndicator.textContent = "▶";
+      rightIndicator.setAttribute("aria-hidden", "true");
+      definitionContainer.appendChild(leftIndicator);
+      definitionContainer.appendChild(rightIndicator);
+      updateColumnIndicators();
+    } else {
+      if (leftIndicator) leftIndicator.remove();
+      if (rightIndicator) rightIndicator.remove();
+      status.textContent = "";
+    }
+  });
+
+  definitionContainer.addEventListener("scroll", updateColumnIndicators);
+  window.addEventListener("resize", updateColumnIndicators);
+  definitionContainer.addEventListener("keydown", (e) => {
+    if (!definitionContainer.classList.contains("multi-column")) return;
+    if (e.key === "ArrowRight") {
+      definitionContainer.scrollBy({
+        left: definitionContainer.clientWidth,
+        behavior: "smooth",
+      });
+      e.preventDefault();
+    } else if (e.key === "ArrowLeft") {
+      definitionContainer.scrollBy({
+        left: -definitionContainer.clientWidth,
+        behavior: "smooth",
+      });
+      e.preventDefault();
+    }
   });
 }
 
@@ -446,6 +514,8 @@ function displayDefinition(term) {
     return `<span class="rating-star ${rated}" data-value="${value}" role="radio" aria-label="${value} out of 5">★</span>`;
   }).join("");
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><div class="rating-widget" role="radiogroup" aria-label="Rate difficulty">${stars}</div>`;
+  definitionContainer.scrollLeft = 0;
+  updateColumnIndicators();
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
