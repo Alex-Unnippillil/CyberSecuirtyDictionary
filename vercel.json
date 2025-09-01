@@ -1,0 +1,12 @@
+{
+  "build": {
+    "env": {
+      "NODE_VERSION": "20"
+    }
+  },
+  "functions": {
+    "api/expand.ts": {
+      "runtime": "edge"
+    }
+  }
+}
