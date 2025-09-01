@@ -8,6 +8,19 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const regionSelect = document.getElementById("region-select");
+const validRegions = ["US", "UK", "AUS"];
+const urlParams = new URLSearchParams(window.location.search);
+let currentRegion = urlParams.get("region");
+if (!validRegions.includes(currentRegion)) {
+  currentRegion = "US";
+  urlParams.set("region", currentRegion);
+  history.replaceState(
+    null,
+    "",
+    `${window.location.pathname}?${urlParams.toString()}${window.location.hash}`
+  );
+}
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -24,6 +37,7 @@ if (darkModeToggle) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  setupRegionBadges();
   loadTerms();
 });
 
@@ -83,6 +97,51 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function getDisplayName(item) {
+  return (item.spellings && item.spellings[currentRegion]) || item.term;
+}
+
+function getExample(item) {
+  return item.examples && item.examples[currentRegion]
+    ? item.examples[currentRegion]
+    : null;
+}
+
+function setupRegionBadges() {
+  if (!regionSelect) return;
+  highlightRegionBadge();
+  regionSelect.querySelectorAll(".region-badge").forEach((badge) => {
+    badge.addEventListener("click", () => {
+      currentRegion = badge.dataset.region;
+      urlParams.set("region", currentRegion);
+      history.replaceState(
+        null,
+        "",
+        `${window.location.pathname}?${urlParams.toString()}${window.location.hash}`
+      );
+      highlightRegionBadge();
+      populateTermsList();
+      if (window.location.hash) {
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1)
+        );
+        const matchedTerm = termsData.terms.find(
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+        );
+        if (matchedTerm) {
+          displayDefinition(matchedTerm);
+        }
+      }
+    });
+  });
+}
+
+function highlightRegionBadge() {
+  regionSelect.querySelectorAll(".region-badge").forEach((badge) => {
+    badge.classList.toggle("active", badge.dataset.region === currentRegion);
+  });
+}
+
 function toggleFavorite(term) {
   if (favorites.has(term)) {
     favorites.delete(term);
@@ -133,7 +192,8 @@ function populateTermsList() {
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
-      const matchesSearch = item.term.toLowerCase().includes(searchValue);
+      const displayName = getDisplayName(item);
+      const matchesSearch = displayName.toLowerCase().includes(searchValue);
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
@@ -145,9 +205,9 @@ function populateTermsList() {
         if (searchValue) {
           const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
           const regex = new RegExp(`(${escaped})`, "gi");
-          termHeader.innerHTML = item.term.replace(regex, "<mark>$1</mark>");
+          termHeader.innerHTML = displayName.replace(regex, "<mark>$1</mark>");
         } else {
-          termHeader.textContent = item.term;
+          termHeader.textContent = displayName;
         }
 
         const star = document.createElement("span");
@@ -182,7 +242,10 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  const displayName = getDisplayName(term);
+  const example = getExample(term);
+  const exampleHTML = example ? `<p class="example">${example}</p>` : "";
+  definitionContainer.innerHTML = `<h3>${displayName}</h3><p>${term.definition}</p>${exampleHTML}`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(

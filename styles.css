@@ -111,6 +111,36 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
+#region-select {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.region-badge {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.region-badge.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+body.dark-mode .region-badge {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .region-badge.active {
+  background-color: #007bff;
+}
+
 
 /* Controls styling */
 #random-term {
