@@ -9,6 +9,14 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
+const siteName = (window.env && window.env.NEXT_PUBLIC_SITE_NAME) || "Cyber Security Dictionary";
+document.title = siteName;
+const headerEl = document.querySelector("h1");
+if (headerEl) {
+  headerEl.textContent = siteName;
+}
+const aiModels = (window.env && window.env.NEXT_PUBLIC_AI_MODELS) || "";
+
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
