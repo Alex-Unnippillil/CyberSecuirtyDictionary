@@ -149,6 +149,8 @@ function populateTermsList() {
         } else {
           termHeader.textContent = item.term;
         }
+        termHeader.setAttribute("tabindex", "0");
+        termHeader.setAttribute("data-hovercard", item.definition);
 
         const star = document.createElement("span");
         star.classList.add("favorite-star");
@@ -166,10 +168,6 @@ function populateTermsList() {
         });
         termHeader.appendChild(star);
         termDiv.appendChild(termHeader);
-
-        const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
-        termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
           displayDefinition(item);
