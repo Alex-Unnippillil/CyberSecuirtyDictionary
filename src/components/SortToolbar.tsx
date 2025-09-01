@@ -28,12 +28,23 @@ export const SortToolbar: React.FC<SortToolbarProps> = ({
 }) => {
   const storageKey = `sort-${sectionKey}`;
   const [sort, setSort] = useState<SortOption>(() => {
-    const stored = localStorage.getItem(storageKey) as SortOption | null;
-    return stored ?? "updated";
+    try {
+      const stored = window.localStorage.getItem(storageKey);
+      if (stored && OPTIONS.some((o) => o.value === stored)) {
+        return stored as SortOption;
+      }
+    } catch {
+      /* noop */
+    }
+    return "updated";
   });
 
   useEffect(() => {
-    localStorage.setItem(storageKey, sort);
+    try {
+      window.localStorage.setItem(storageKey, sort);
+    } catch {
+      /* noop */
+    }
     onSortChange?.(sort);
   }, [sort, storageKey, onSortChange]);
 
