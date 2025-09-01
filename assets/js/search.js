@@ -8,6 +8,9 @@
     fetch(`${baseUrl}/terms.json`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
+        if (typeof checkContentVersion === 'function') {
+          checkContentVersion(data);
+        }
         // terms.json may either be an array or object with terms property
         terms = Array.isArray(data) ? data : (data.terms || []);
       })
@@ -19,6 +22,9 @@
   });
 
   function handleSearch(){
+    if (typeof clearScrollPositions === 'function') {
+      clearScrollPositions();
+    }
     const query = searchInput.value.trim().toLowerCase();
     resultsContainer.innerHTML = '';
     if(!query){

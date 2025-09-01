@@ -36,6 +36,9 @@ function loadTerms() {
       return response.json();
     })
     .then((data) => {
+      if (typeof checkContentVersion === "function") {
+        checkContentVersion(data);
+      }
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
@@ -128,6 +131,9 @@ function buildAlphaNav() {
 }
 
 function populateTermsList() {
+  if (typeof clearScrollPositions === "function") {
+    clearScrollPositions();
+  }
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
   termsData.terms
