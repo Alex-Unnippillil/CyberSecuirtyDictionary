@@ -4,7 +4,9 @@ const URLS_TO_CACHE = [
   '/index.html',
   '/styles.css',
   '/script.js',
-  '/data.json'
+  '/data.json',
+  '/assets/js/terminal.js',
+  '/assets/terminal-content.txt'
 ];
 
 self.addEventListener('install', event => {

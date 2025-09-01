@@ -7,11 +7,20 @@
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <link rel="canonical" id="canonical-link" href="https://alex-unnippillil.github.io/CyberSecuirtyDictionary/">
+  <link rel="preload" href="assets/terminal-content.txt" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="assets/js/terminal.js" as="script">
 </head>
 <body>
   <main class="container">
     <h1>Cyber Security Dictionary</h1>
     <nav class="site-nav" aria-label="Site links"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
+    <section id="terminal" class="terminal" aria-label="Read only terminal">
+      <pre id="terminal-output" aria-live="polite"></pre>
+      <div class="terminal-controls">
+        <button id="terminal-copy" type="button" aria-label="Copy terminal output">Copy</button>
+        <button id="terminal-theme" type="button" aria-label="Toggle terminal theme">Toggle Theme</button>
+      </div>
+    </section>
     <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
     <input type="text" id="search" placeholder="Search...">
@@ -33,6 +42,7 @@
     <p><a href="CONTRIBUTING.md">Contribute to this project</a></p>
   </footer>
   <script src="script.js"></script>
+  <script src="assets/js/terminal.js" defer></script>
   <script src="assets/js/app.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
