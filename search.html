@@ -10,11 +10,13 @@
   <main class="container">
     <h1>Search</h1>
     <input id="search-box" type="text" placeholder="Search terms...">
+    <div id="chip-container" class="chip-container"></div>
     <div id="results"></div>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
   </script>
+  <script src="https://unpkg.com/minisearch@6.1.0/dist/umd/index.min.js"></script>
   <script src="assets/js/search.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
