@@ -12,6 +12,41 @@ const canonicalLink = document.getElementById("canonical-link");
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
+function getLocalDayString() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function flipDefinitionContainerOncePerDay() {
+  const today = getLocalDayString();
+  try {
+    const lastFlip = localStorage.getItem("lastFlipDate");
+    if (lastFlip === today) {
+      return;
+    }
+  } catch (e) {
+    // Ignore storage errors
+  }
+
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    definitionContainer.classList.add("flip-animation");
+    definitionContainer.addEventListener(
+      "animationend",
+      () => definitionContainer.classList.remove("flip-animation"),
+      { once: true }
+    );
+  }
+
+  try {
+    localStorage.setItem("lastFlipDate", today);
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
@@ -202,12 +237,17 @@ function clearDefinition() {
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
+  flipDefinitionContainerOncePerDay();
 
-  const today = new Date().toDateString();
+  const today = getLocalDayString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm })
+    );
   } catch (e) {
     // Ignore storage errors
   }
@@ -222,13 +262,14 @@ if (showFavoritesToggle) {
 }
 
 (function initializeDailyTerm() {
-  const today = new Date().toDateString();
+  const today = getLocalDayString();
   try {
     const stored = localStorage.getItem("lastRandomTerm");
     if (stored) {
       const parsed = JSON.parse(stored);
       if (parsed.date === today && parsed.term) {
         displayDefinition(parsed.term);
+        flipDefinitionContainerOncePerDay();
         return;
       }
     }
