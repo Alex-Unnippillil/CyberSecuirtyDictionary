@@ -10,6 +10,7 @@
       .then(data => {
         // terms.json may either be an array or object with terms property
         terms = Array.isArray(data) ? data : (data.terms || []);
+        terms = terms.filter(term => !term.draft);
       })
       .catch(err => {
         console.error('Failed to load terms.json', err);

@@ -131,6 +131,11 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Quantum Cryptography",
+      "definition": "The use of quantum mechanics to secure communication.",
+      "draft": true
     }
   ]
 }

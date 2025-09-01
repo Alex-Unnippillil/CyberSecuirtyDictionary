@@ -38,6 +38,7 @@ function loadTerms() {
     .then((data) => {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
+      termsData.terms = termsData.terms.filter((t) => !t.draft);
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
