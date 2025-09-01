@@ -1,0 +1,22 @@
+{
+  "pairs": [
+    {
+      "word1": "Phishing",
+      "ipa1": "/ˈfɪʃɪŋ/",
+      "word2": "Fission",
+      "ipa2": "/ˈfɪʃən/"
+    },
+    {
+      "word1": "Cyber",
+      "ipa1": "/ˈsaɪbər/",
+      "word2": "Cipher",
+      "ipa2": "/ˈsaɪfər/"
+    },
+    {
+      "word1": "Hacker",
+      "ipa1": "/ˈhækər/",
+      "word2": "Hiker",
+      "ipa2": "/ˈhaɪkər/"
+    }
+  ]
+}
