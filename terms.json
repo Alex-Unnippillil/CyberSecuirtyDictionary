@@ -6,7 +6,7 @@
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions. See <a href=\"#Phishing\" data-term=\"Phishing\">Phishing</a>."
     },
     {
       "term": "Social Engineering Toolkit (SET)",
