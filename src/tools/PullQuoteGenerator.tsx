@@ -3,7 +3,21 @@ import React, { useEffect, useRef, useState } from "react";
 // Simple canvas based pull quote generator. Allows a user to type a quote,
 // pick colors and font, and export the result as a PNG image using
 // `HTMLCanvasElement.toDataURL`.
-const fonts = ["serif", "sans-serif", "monospace", "cursive", "fantasy"];
+const baseFonts = ["serif", "sans-serif", "monospace", "cursive", "fantasy"];
+
+function getThemeColor(variable: string, fallback: string): string {
+  if (typeof window === "undefined") return fallback;
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(variable)
+    .trim();
+  return value || fallback;
+}
+
+function getInitialFont(): string {
+  if (typeof window === "undefined") return baseFonts[0];
+  const bodyFont = getComputedStyle(document.body).fontFamily;
+  return bodyFont.split(",")[0].replace(/['"]/g, "").trim() || baseFonts[0];
+}
 
 function wrapText(
   ctx: CanvasRenderingContext2D,
@@ -40,9 +54,18 @@ function wrapText(
 const PullQuoteGenerator: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [text, setText] = useState("Your pull quote here");
-  const [fgColor, setFgColor] = useState("#000000");
-  const [bgColor, setBgColor] = useState("#ffffff");
-  const [font, setFont] = useState(fonts[0]);
+  const [fgColor, setFgColor] = useState(() => getThemeColor("--color-text", "#000000"));
+  const [bgColor, setBgColor] = useState(() => getThemeColor("--color-bg", "#ffffff"));
+  const [font, setFont] = useState(() => getInitialFont());
+
+  const fontOptions = Array.from(new Set([font, ...baseFonts]));
+
+  useEffect(() => {
+    const sel = window.getSelection()?.toString().trim();
+    if (sel) {
+      setText(sel);
+    }
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -97,7 +120,7 @@ const PullQuoteGenerator: React.FC = () => {
         <label style={{ marginLeft: "1rem" }}>
           Font:
           <select value={font} onChange={(e) => setFont(e.target.value)}>
-            {fonts.map((f) => (
+            {fontOptions.map((f) => (
               <option key={f} value={f}>
                 {f}
               </option>
