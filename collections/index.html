@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1 id="collection-name"></h1>
+    <ul id="collection-items"></ul>
+  </main>
+  <script src="../src/features/collections/index.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const readonly = params.get('readonly') === '1';
+      let id = params.get('id');
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      if (!id && parts.length > 1) {
+        id = parts[parts.length - 1];
+      }
+      const collection = window.CollectionsFeature.getCollection(id);
+      const nameEl = document.getElementById('collection-name');
+      const itemsEl = document.getElementById('collection-items');
+      if (!collection) {
+        nameEl.textContent = 'Collection not found';
+        return;
+      }
+      nameEl.textContent = collection.name + (readonly ? ' (Read-only)' : '');
+      collection.items.forEach((item) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        itemsEl.appendChild(li);
+      });
+    })();
+  </script>
+</body>
+</html>
