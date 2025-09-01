@@ -25,6 +25,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  loadQuotes();
 });
 
 function loadTerms() {
@@ -253,4 +254,85 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function loadQuotes() {
+  fetch("/api/quotes")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((quotes) => {
+      if (Array.isArray(quotes)) {
+        initQuoteCarousel(quotes);
+      }
+    })
+    .catch((error) => console.error("Error fetching quotes:", error));
+}
+
+function initQuoteCarousel(quotes) {
+  const track = document.getElementById("quote-track");
+  const carousel = document.getElementById("quote-carousel");
+  const prevBtn = document.getElementById("prev-quote");
+  const nextBtn = document.getElementById("next-quote");
+  if (!track || !carousel || !prevBtn || !nextBtn) {
+    return;
+  }
+  quotes.forEach((q) => {
+    const slide = document.createElement("div");
+    slide.className = "quote-slide";
+    const block = document.createElement("blockquote");
+    block.textContent = q.text;
+    const author = document.createElement("p");
+    author.className = "quote-author";
+    author.textContent = `— ${q.author}`;
+    slide.appendChild(block);
+    slide.appendChild(author);
+    track.appendChild(slide);
+  });
+
+  let index = 0;
+
+  function update() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  function showPrev() {
+    index = (index - 1 + quotes.length) % quotes.length;
+    update();
+  }
+
+  function showNext() {
+    index = (index + 1) % quotes.length;
+    update();
+  }
+
+  prevBtn.addEventListener("click", showPrev);
+  nextBtn.addEventListener("click", showNext);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") {
+      showPrev();
+    } else if (e.key === "ArrowRight") {
+      showNext();
+    }
+  });
+
+  let startX = 0;
+  carousel.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener("touchend", (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (endX - startX > 50) {
+      showPrev();
+    } else if (startX - endX > 50) {
+      showNext();
+    }
+  });
+
+  update();
+}
 
