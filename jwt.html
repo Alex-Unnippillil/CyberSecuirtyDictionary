@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JWT Decoder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>JWT Decoder</h1>
+    <label for="token-input">Token</label>
+    <textarea id="token-input" rows="4" placeholder="Paste JWT here"></textarea>
+    <label for="key-input">Verification Key</label>
+    <textarea id="key-input" rows="4" placeholder="Paste public or secret key"></textarea>
+    <div id="error-message" class="error"></div>
+    <h2>Header</h2>
+    <pre id="header-output"></pre>
+    <h2>Payload</h2>
+    <pre id="payload-output"></pre>
+    <div id="verify-result"></div>
+  </main>
+  <script src="assets/js/jwt.js"></script>
+</body>
+</html>

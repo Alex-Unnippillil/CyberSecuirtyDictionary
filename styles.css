@@ -347,3 +347,5 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+.error { color: #c00; margin-top: 10px; }
