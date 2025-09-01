@@ -1,6 +1,7 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const saveBtn = document.getElementById('save-btn');
   let terms = [];
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -16,6 +17,16 @@
       });
 
     searchInput.addEventListener('input', handleSearch);
+    if (saveBtn) {
+      saveBtn.addEventListener('click', handleSave);
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (q) {
+      searchInput.value = q;
+      handleSearch();
+    }
   });
 
   function handleSearch(){
@@ -31,6 +42,19 @@
 
     matches.forEach(({ term }) => {
       resultsContainer.appendChild(renderCard(term));
+    });
+  }
+
+  function handleSave(){
+    const query = searchInput.value.trim();
+    if (!query) return;
+    const payload = { query, filters: {} };
+    fetch('/api/saved', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(err => {
+      console.error('Failed to save search', err);
     });
   }
 
