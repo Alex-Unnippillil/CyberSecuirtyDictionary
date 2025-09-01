@@ -5,11 +5,14 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const viewNav = document.getElementById("view-nav");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
+let currentView = "all";
 let termsData = { terms: [] };
 
 if (localStorage.getItem("darkMode") === "true") {
@@ -83,6 +86,26 @@ function removeDuplicateTermsAndDefinitions() {
   termsData.terms = uniqueTermsData;
 }
 
+function slugify(str){
+    return str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+function startTransition(callback){
+  if(!prefersReducedMotion.matches && document.startViewTransition){
+    document.startViewTransition(callback);
+  } else {
+    callback();
+  }
+}
+
+function applyView(){
+  const items = termsList.querySelectorAll(".dictionary-item");
+  items.forEach((item)=>{
+    const show = currentView === "all" || item.dataset.type === currentView;
+    item.style.display = show ? "" : "none";
+  });
+}
+
 function toggleFavorite(term) {
   if (favorites.has(term)) {
     favorites.delete(term);
@@ -140,6 +163,10 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+          const slug = slugify(item.term);
+          termDiv.style.viewTransitionName = slug;
+          const type = /standard|iso|nist|rfc|iec/i.test(item.term) ? "standard" : "domain";
+          termDiv.dataset.type = type;
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -178,6 +205,7 @@ function populateTermsList() {
         termsList.appendChild(termDiv);
       }
     });
+  applyView();
 }
 
 function displayDefinition(term) {
@@ -220,6 +248,19 @@ if (showFavoritesToggle) {
     populateTermsList();
   });
 }
+  if (viewNav) {
+    viewNav.addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON") {
+        const view = e.target.dataset.view;
+        if (view && view !== currentView) {
+          currentView = view;
+          viewNav.querySelectorAll("button").forEach(btn => btn.classList.toggle("active", btn.dataset.view === view));
+          startTransition(applyView);
+        }
+      }
+    });
+  }
+
 
 (function initializeDailyTerm() {
   const today = new Date().toDateString();

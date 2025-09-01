@@ -93,6 +93,13 @@ body.dark-mode mark {
   transform: scale(1.02);
 }
 
+#terms-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
 #definition-container {
   padding: 20px;
   background-color: #f2f2f2;
@@ -222,6 +229,35 @@ label {
   color: #fff;
 }
 
+#view-nav {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+#view-nav button {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#view-nav button:hover,
+#view-nav button:focus {
+  background-color: #ddd;
+}
+
+#view-nav button.active {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+}
+
 /* Scroll to Top button styles */
 #scrollToTopBtn {
   display: none;
@@ -322,6 +358,22 @@ body.dark-mode #alpha-nav button:focus {
 }
 
 body.dark-mode #alpha-nav button.active {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+body.dark-mode #view-nav button {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode #view-nav button:hover,
+body.dark-mode #view-nav button:focus {
+  background-color: #555;
+}
+
+body.dark-mode #view-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
 }
