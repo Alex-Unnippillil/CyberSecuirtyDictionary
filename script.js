@@ -5,12 +5,28 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
-const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]"),
+);
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+const abbreviationMap = {};
+let abbrIdCounter = 0;
+
+function buildAbbreviationMap() {
+  Object.keys(abbreviationMap).forEach((k) => delete abbreviationMap[k]);
+  termsData.terms.forEach((item) => {
+    const match = item.term.match(/^(.*)\(([^)]+)\)$/);
+    if (match) {
+      const full = match[1].trim();
+      const abbr = match[2].trim();
+      abbreviationMap[abbr] = full;
+    }
+  });
+}
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -19,7 +35,10 @@ if (localStorage.getItem("darkMode") === "true") {
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode"),
+    );
   });
 }
 
@@ -39,13 +58,16 @@ function loadTerms() {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      buildAbbreviationMap();
       buildAlphaNav();
       populateTermsList();
 
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1),
+        );
         const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase(),
         );
         if (matchedTerm) {
           displayDefinition(matchedTerm);
@@ -56,7 +78,7 @@ function loadTerms() {
       console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
       definitionContainer.innerHTML =
-        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
+        "<p>Unable to load dictionary data. Please check your connection and try again.</p>" +
         '<button id="retry-fetch">Retry</button>';
       const retryBtn = document.getElementById("retry-fetch");
       if (retryBtn) {
@@ -97,12 +119,16 @@ function toggleFavorite(term) {
 }
 
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase())),
+  ).sort();
 
   const allButton = document.createElement("button");
   allButton.textContent = "All";
@@ -127,6 +153,15 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
+function wrapAbbreviations(text) {
+  return text.replace(/\b([A-Z]{2,})\b/g, (match) => {
+    const full = abbreviationMap[match];
+    if (!full) return match;
+    const id = `abbr-${abbrIdCounter++}`;
+    return `<abbr class="abbr-toggle" tabindex="0" role="button" aria-label="${full}" aria-controls="${id}" aria-expanded="false">${match}<span class="caret" aria-hidden="true">▾</span></abbr><span id="${id}" class="abbr-expansion" hidden>${full}</span>`;
+  });
+}
+
 function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
@@ -134,9 +169,13 @@ function populateTermsList() {
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const matchesFavorites =
+        !showFavoritesToggle ||
+        !showFavoritesToggle.checked ||
+        favorites.has(item.term);
       const matchesLetter =
-        currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
@@ -145,9 +184,11 @@ function populateTermsList() {
         if (searchValue) {
           const escaped = searchValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
           const regex = new RegExp(`(${escaped})`, "gi");
-          termHeader.innerHTML = item.term.replace(regex, "<mark>$1</mark>");
+          termHeader.innerHTML = wrapAbbreviations(
+            item.term.replace(regex, "<mark>$1</mark>"),
+          );
         } else {
-          termHeader.textContent = item.term;
+          termHeader.innerHTML = wrapAbbreviations(item.term);
         }
 
         const star = document.createElement("span");
@@ -168,7 +209,7 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        definitionPara.innerHTML = wrapAbbreviations(item.definition);
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -182,12 +223,12 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${wrapAbbreviations(term.term)}</h3><p>${wrapAbbreviations(term.definition)}</p>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
-      `${siteUrl}#${encodeURIComponent(term.term)}`
+      `${siteUrl}#${encodeURIComponent(term.term)}`,
     );
   }
 }
@@ -195,19 +236,27 @@ function displayDefinition(term) {
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search,
+  );
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm }),
+    );
   } catch (e) {
     // Ignore storage errors
   }
@@ -244,13 +293,40 @@ searchInput.addEventListener("input", () => {
   populateTermsList();
 });
 
+function toggleAbbr(abbr) {
+  const expanded = abbr.getAttribute("aria-expanded") === "true";
+  abbr.setAttribute("aria-expanded", !expanded);
+  const tooltip = document.getElementById(abbr.getAttribute("aria-controls"));
+  if (tooltip) {
+    tooltip.hidden = expanded;
+  }
+}
+
+document.addEventListener("click", (e) => {
+  const abbr = e.target.closest(".abbr-toggle");
+  if (abbr) {
+    e.stopPropagation();
+    toggleAbbr(abbr);
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const abbr = e.target.closest(".abbr-toggle");
+    if (abbr) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleAbbr(abbr);
+    }
+  }
+});
+
 const scrollBtn = document.getElementById("scrollToTopBtn");
 window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
 scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  window.scrollTo({ top: 0, behavior: "smooth" }),
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
-
