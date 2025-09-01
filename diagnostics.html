@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnostics</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <main class="container">
-    <h1>Performance Diagnostics</h1>
-    <table>
-      <thead>
-        <tr><th>Timestamp</th><th>LCP</th><th>CLS</th><th>TBT</th></tr>
-      </thead>
-      <tbody id="metrics-body"></tbody>
-    </table>
-  </main>
-  <script src="assets/js/diagnostics.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Diagnostics</title>
+    <link rel="stylesheet" href="styles.css" >
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none';"
+    >
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" >
+  </head>
+  <body>
+    <main class="container">
+      <h1>Performance Diagnostics</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>LCP</th>
+            <th>CLS</th>
+            <th>TBT</th>
+          </tr>
+        </thead>
+        <tbody id="metrics-body"></tbody>
+      </table>
+    </main>
+    <script src="assets/js/diagnostics.js"></script>
+  </body>
 </html>
