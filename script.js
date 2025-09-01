@@ -254,3 +254,15 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+function trackPageview() {
+  if (window.va) {
+    window.va("pageview", {
+      path: window.location.pathname + window.location.hash,
+    });
+  }
+}
+window.addEventListener("hashchange", trackPageview);
+if (window.location.hash) {
+  trackPageview();
+}
+
