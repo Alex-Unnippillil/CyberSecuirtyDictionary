@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="assets/js/settings.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Settings</h1>
+      <input
+        id="settings-search"
+        type="search"
+        placeholder="Search settings..."
+      />
+      <ul id="settings-search-results"></ul>
+      <div id="settings-root">
+        <details>
+          <summary>Appearance</summary>
+          <div
+            id="dark-mode-setting"
+            class="setting-item"
+            data-setting
+            data-keywords="theme,night,light"
+          >
+            <label for="dark-mode-toggle">Dark Mode</label>
+            <input type="checkbox" id="dark-mode-toggle" />
+          </div>
+        </details>
+        <details>
+          <summary>Favorites</summary>
+          <div
+            id="show-favorites-setting"
+            class="setting-item"
+            data-setting
+            data-keywords="bookmarks,stars,favorites"
+          >
+            <label for="show-favorites">Show Favorites Only</label>
+            <input type="checkbox" id="show-favorites" />
+          </div>
+        </details>
+      </div>
+    </div>
+  </body>
+</html>
