@@ -254,3 +254,84 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+
+const CLIPBOARD_SESSION_KEY = "clipboard-preview-shown";
+
+function getShownClipboardTerms() {
+  try {
+    return JSON.parse(sessionStorage.getItem(CLIPBOARD_SESSION_KEY) || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+
+function markClipboardTermShown(term) {
+  try {
+    const shown = new Set(getShownClipboardTerms());
+    shown.add(term);
+    sessionStorage.setItem(
+      CLIPBOARD_SESSION_KEY,
+      JSON.stringify(Array.from(shown))
+    );
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+function hasShownClipboardTerm(term) {
+  return getShownClipboardTerms().includes(term);
+}
+
+function showClipboardPreview(term) {
+  let panel = document.getElementById("clipboard-preview");
+  if (!panel) {
+    panel = document.createElement("div");
+    panel.id = "clipboard-preview";
+    panel.style.position = "fixed";
+    panel.style.bottom = "1rem";
+    panel.style.right = "1rem";
+    panel.style.background = "#fff";
+    panel.style.border = "1px solid #ccc";
+    panel.style.padding = "1rem";
+    panel.style.maxWidth = "300px";
+    panel.style.zIndex = "1000";
+    panel.style.boxShadow = "0 2px 8px rgba(0,0,0,0.3)";
+    panel.innerHTML =
+      '<button id="clipboard-preview-close" aria-label="Close preview">&times;</button>' +
+      '<h3 id="clipboard-preview-term"></h3>' +
+      '<p id="clipboard-preview-definition"></p>';
+    document.body.appendChild(panel);
+    document
+      .getElementById("clipboard-preview-close")
+      .addEventListener("click", () => panel.remove());
+  }
+  document.getElementById("clipboard-preview-term").textContent = term.term;
+  document.getElementById("clipboard-preview-definition").textContent =
+    term.definition;
+  panel.style.display = "block";
+}
+
+async function handleClipboardCopy() {
+  if (!navigator.clipboard) return;
+  try {
+    const perm = await navigator.permissions.query({ name: "clipboard-read" });
+    if (perm.state === "denied") return;
+  } catch (e) {
+    // Permissions API might not be available
+  }
+  try {
+    const text = (await navigator.clipboard.readText()).trim();
+    if (!text) return;
+    const match = termsData.terms.find(
+      (t) => t.term.toLowerCase() === text.toLowerCase()
+    );
+    if (match && !hasShownClipboardTerm(match.term)) {
+      markClipboardTermShown(match.term);
+      showClipboardPreview(match);
+    }
+  } catch (e) {
+    // Ignore clipboard errors
+  }
+}
+
+document.addEventListener("copy", handleClipboardCopy);
