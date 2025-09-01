@@ -242,6 +242,50 @@ label {
   background-color: #0056b3;
 }
 
+/* Side shelf styles */
+#side-shelf {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+#side-shelf h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+#pinned-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#pinned-list li {
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#pinned-list li:focus {
+  outline: 2px solid #007bff;
+}
+
+.pin-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.pin-btn.pinned {
+  color: #007bff;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
@@ -262,6 +306,25 @@ body.dark-mode #dark-mode-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
+}
+
+body.dark-mode #side-shelf {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark-mode #pinned-list li {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #333;
+  color: #fff;
+}
+
+body.dark-mode .pin-btn {
+  color: #ccc;
+}
+
+body.dark-mode .pin-btn.pinned {
+  color: #ffd700;
 }
 
 body.dark-mode li {

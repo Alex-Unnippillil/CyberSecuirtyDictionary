@@ -6,6 +6,8 @@ const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const pinnedList = document.getElementById("pinned-list");
+const pinned = JSON.parse(sessionStorage.getItem("pinned") || "[]");
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
@@ -41,6 +43,13 @@ function loadTerms() {
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
+      for (let i = pinned.length - 1; i >= 0; i--) {
+        if (!termsData.terms.find((t) => t.term === pinned[i])) {
+          pinned.splice(i, 1);
+        }
+      }
+      savePinned();
+      renderPinned();
 
       if (window.location.hash) {
         const termFromHash = decodeURIComponent(window.location.hash.substring(1));
@@ -94,6 +103,59 @@ function toggleFavorite(term) {
   } catch (e) {
     // Ignore storage errors
   }
+}
+
+function savePinned() {
+  try {
+    sessionStorage.setItem("pinned", JSON.stringify(pinned));
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+function renderPinned() {
+  if (!pinnedList) return;
+  pinnedList.innerHTML = "";
+  pinned.forEach((term, index) => {
+    const li = document.createElement("li");
+    li.textContent = term;
+    li.setAttribute("tabindex", "0");
+    li.addEventListener("click", () => {
+      const matched = termsData.terms.find((t) => t.term === term);
+      if (matched) displayDefinition(matched);
+    });
+    li.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowUp" && index > 0) {
+        [pinned[index - 1], pinned[index]] = [pinned[index], pinned[index - 1]];
+        savePinned();
+        renderPinned();
+        pinnedList.children[index - 1].focus();
+      } else if (e.key === "ArrowDown" && index < pinned.length - 1) {
+        [pinned[index + 1], pinned[index]] = [pinned[index], pinned[index + 1]];
+        savePinned();
+        renderPinned();
+        pinnedList.children[index + 1].focus();
+      } else if (e.key === "Delete" || e.key === "Backspace") {
+        const nextIndex = index === pinned.length - 1 ? index - 1 : index;
+        togglePin(term);
+        const nextItem = pinnedList.children[nextIndex];
+        if (nextItem) nextItem.focus();
+      }
+    });
+    pinnedList.appendChild(li);
+  });
+}
+
+function togglePin(term) {
+  const idx = pinned.indexOf(term);
+  if (idx > -1) {
+    pinned.splice(idx, 1);
+  } else {
+    pinned.push(term);
+  }
+  savePinned();
+  renderPinned();
+  populateTermsList();
 }
 
 function highlightActiveButton(button) {
@@ -165,6 +227,23 @@ function populateTermsList() {
           }
         });
         termHeader.appendChild(star);
+
+        const pinBtn = document.createElement("button");
+        pinBtn.type = "button";
+        pinBtn.classList.add("pin-btn");
+        pinBtn.textContent = "📌";
+        if (pinned.includes(item.term)) {
+          pinBtn.classList.add("pinned");
+          pinBtn.setAttribute("aria-label", "Unpin term");
+        } else {
+          pinBtn.setAttribute("aria-label", "Pin term");
+        }
+        pinBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          togglePin(item.term);
+        });
+        termHeader.appendChild(pinBtn);
+
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
