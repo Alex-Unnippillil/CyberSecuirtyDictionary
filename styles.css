@@ -158,6 +158,23 @@ label {
   margin-right: 5px;
 }
 
+#suggestions-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #fafafa;
+  border-left: 1px solid #ccc;
+  padding: 10px;
+}
+
+body.dark-mode #suggestions-panel {
+  background-color: #1e1e1e;
+  border-left-color: #333;
+}
+
 /* Favorite star styles */
 .favorite-star {
   font-size: 20px;
