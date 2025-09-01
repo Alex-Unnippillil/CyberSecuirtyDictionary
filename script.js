@@ -5,6 +5,9 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const scrollToggle = document.getElementById("scroll-toggle");
+const scrollSpeedSelect = document.getElementById("scroll-speed");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -253,4 +256,78 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+if (scrollToggle && scrollSpeedSelect) {
+  const speedMap = { slow: 80, medium: 40, fast: 20 };
+  let scrollTimer = null;
+
+  const savedSpeed = localStorage.getItem("scrollSpeed") || "medium";
+  scrollSpeedSelect.value = savedSpeed;
+
+  function stepScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    } else {
+      window.scrollBy({ top: 1, left: 0 });
+    }
+  }
+
+  function startScroll() {
+    if (prefersReducedMotion) return;
+    const interval = speedMap[scrollSpeedSelect.value] || 40;
+    scrollToggle.textContent = "Pause Scroll";
+    scrollToggle.setAttribute("aria-pressed", "true");
+    scrollTimer = setInterval(stepScroll, interval);
+    if (document.body.matches(":hover")) {
+      pauseScroll();
+    }
+  }
+
+  function pauseScroll() {
+    if (scrollTimer) {
+      clearInterval(scrollTimer);
+      scrollTimer = null;
+    }
+  }
+
+  function stopScroll() {
+    pauseScroll();
+    scrollToggle.textContent = "Start Scroll";
+    scrollToggle.setAttribute("aria-pressed", "false");
+  }
+
+  function resumeScroll() {
+    if (
+      !scrollTimer &&
+      scrollToggle.getAttribute("aria-pressed") === "true" &&
+      !prefersReducedMotion
+    ) {
+      startScroll();
+    }
+  }
+
+  scrollToggle.addEventListener("click", () => {
+    if (scrollToggle.getAttribute("aria-pressed") === "true") {
+      stopScroll();
+    } else {
+      startScroll();
+    }
+  });
+
+  scrollSpeedSelect.addEventListener("change", () => {
+    localStorage.setItem("scrollSpeed", scrollSpeedSelect.value);
+    if (scrollToggle.getAttribute("aria-pressed") === "true") {
+      pauseScroll();
+      startScroll();
+    }
+  });
+
+  document.body.addEventListener("mouseenter", pauseScroll);
+  document.body.addEventListener("mouseleave", resumeScroll);
+
+  if (prefersReducedMotion) {
+    scrollToggle.disabled = true;
+    scrollSpeedSelect.disabled = true;
+  }
+}
 
