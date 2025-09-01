@@ -1,3 +1,4 @@
+if (!document.getElementById("search-box")) {
 const termsList = document.getElementById("terms-list");
 const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
@@ -253,4 +254,208 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+}
 
+// Advanced search page logic
+(() => {
+  const searchInput = document.getElementById("search-box");
+  const resultsContainer = document.getElementById("results");
+  const chipsContainer = document.getElementById("chips");
+  if (!searchInput || !resultsContainer || !chipsContainer) return;
+
+  const andBtn = document.getElementById("add-and");
+  const orBtn = document.getElementById("add-or");
+  const openBtn = document.getElementById("open-group");
+  const closeBtn = document.getElementById("close-group");
+
+  let terms = [];
+  let tokens = [];
+
+  function init() {
+    const baseUrl = window.__BASE_URL__ || "";
+    fetch(`${baseUrl}/terms.json`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
+      .then((data) => {
+        terms = Array.isArray(data) ? data : data.terms || [];
+        const param = new URLSearchParams(window.location.search).get("expr");
+        if (param) {
+          try {
+            tokens = JSON.parse(decodeURIComponent(param));
+            sync();
+          } catch (e) {
+            console.error("Failed to parse expression", e);
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load terms.json", err);
+      });
+
+    searchInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && searchInput.value.trim()) {
+        tokens.push({ type: "term", value: searchInput.value.trim() });
+        searchInput.value = "";
+        sync();
+      }
+    });
+
+    andBtn.addEventListener("click", () => {
+      tokens.push({ type: "op", value: "AND" });
+      sync();
+    });
+
+    orBtn.addEventListener("click", () => {
+      tokens.push({ type: "op", value: "OR" });
+      sync();
+    });
+
+    openBtn.addEventListener("click", () => {
+      tokens.push({ type: "groupStart" });
+      sync();
+    });
+
+    closeBtn.addEventListener("click", () => {
+      tokens.push({ type: "groupEnd" });
+      sync();
+    });
+  }
+
+  function sync() {
+    renderChips();
+    updateResults();
+    serialize();
+  }
+
+  function renderChips() {
+    chipsContainer.innerHTML = "";
+    tokens.forEach((t, idx) => {
+      const chip = document.createElement("span");
+      chip.className = "chip";
+      chip.textContent =
+        t.type === "term"
+          ? t.value
+          : t.type === "op"
+          ? t.value
+          : t.type === "groupStart"
+          ? "("
+          : ")";
+      chip.addEventListener("click", () => {
+        tokens.splice(idx, 1);
+        sync();
+      });
+      chipsContainer.appendChild(chip);
+    });
+  }
+
+  function updateResults() {
+    resultsContainer.innerHTML = "";
+    if (!tokens.length) return;
+    const ast = buildAST(tokens);
+    terms
+      .filter((term) => evalAST(ast, term))
+      .forEach((term) => resultsContainer.appendChild(renderCard(term)));
+  }
+
+  function buildAST(tokens) {
+    const output = [];
+    const ops = [];
+    const prec = { AND: 2, OR: 1 };
+    tokens.forEach((tok) => {
+      if (tok.type === "term") {
+        output.push(tok);
+      } else if (tok.type === "op") {
+        while (
+          ops.length &&
+          ops[ops.length - 1].type === "op" &&
+          prec[ops[ops.length - 1].value] >= prec[tok.value]
+        ) {
+          output.push(ops.pop());
+        }
+        ops.push(tok);
+      } else if (tok.type === "groupStart") {
+        ops.push(tok);
+      } else if (tok.type === "groupEnd") {
+        while (ops.length && ops[ops.length - 1].type !== "groupStart") {
+          output.push(ops.pop());
+        }
+        ops.pop();
+      }
+    });
+    while (ops.length) output.push(ops.pop());
+    const stack = [];
+    output.forEach((tok) => {
+      if (tok.type === "term") {
+        stack.push({ type: "term", value: tok.value });
+      } else if (tok.type === "op") {
+        const right = stack.pop();
+        const left = stack.pop();
+        stack.push({ type: tok.value.toLowerCase(), left, right });
+      }
+    });
+    return stack[0] || null;
+  }
+
+  function evalAST(node, term) {
+    if (!node) return true;
+    if (node.type === "term") return match(term, node.value);
+    if (node.type === "and")
+      return evalAST(node.left, term) && evalAST(node.right, term);
+    if (node.type === "or")
+      return evalAST(node.left, term) || evalAST(node.right, term);
+    return false;
+  }
+
+  function match(term, query) {
+    const q = query.toLowerCase();
+    const name = (term.name || term.term || "").toLowerCase();
+    const def = (term.definition || "").toLowerCase();
+    const category = (term.category || "").toLowerCase();
+    const syns = (term.synonyms || []).map((s) => s.toLowerCase());
+    return (
+      name.includes(q) ||
+      def.includes(q) ||
+      category.includes(q) ||
+      syns.some((s) => s.includes(q))
+    );
+  }
+
+  function renderCard(term) {
+    const card = document.createElement("div");
+    card.className = "result-card";
+
+    const title = document.createElement("h3");
+    title.textContent = term.name || term.term || "";
+    card.appendChild(title);
+
+    if (term.category) {
+      const cat = document.createElement("p");
+      cat.className = "category";
+      cat.textContent = term.category;
+      card.appendChild(cat);
+    }
+
+    const def = document.createElement("p");
+    def.textContent = term.definition || "";
+    card.appendChild(def);
+
+    if (term.synonyms && term.synonyms.length) {
+      const syn = document.createElement("p");
+      syn.className = "synonyms";
+      syn.textContent = `Synonyms: ${term.synonyms.join(", ")}`;
+      card.appendChild(syn);
+    }
+    return card;
+  }
+
+  function serialize() {
+    const url = new URL(window.location);
+    if (tokens.length) {
+      url.searchParams.set("expr", encodeURIComponent(JSON.stringify(tokens)));
+    } else {
+      url.searchParams.delete("expr");
+    }
+    window.history.replaceState(null, "", url);
+  }
+
+  init();
+})();
