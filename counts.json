@@ -1,0 +1,20 @@
+{
+  "byDomain": {
+    "Vulnerability Management": 2,
+    "Software Weaknesses": 1,
+    "Scoring": 1,
+    "Threat Intelligence": 1,
+    "Application Security": 1
+  },
+  "byDifficulty": {
+    "Intermediate": 2,
+    "Beginner": 2,
+    "Advanced": 2
+  },
+  "byFramework": {
+    "NIST": 2,
+    "OWASP": 2,
+    "FIRST": 1,
+    "MITRE": 1
+  }
+}
