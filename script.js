@@ -25,6 +25,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  initializeProgressBar();
 });
 
 function loadTerms() {
@@ -243,6 +244,58 @@ searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
 });
+
+function initializeProgressBar() {
+  const headings = Array.from(document.querySelectorAll("main h2"));
+  if (headings.length === 0) {
+    return;
+  }
+
+  const progressBar = document.createElement("div");
+  progressBar.id = "progress-bar";
+
+  const segments = headings.map((heading) => {
+    const segment = document.createElement("div");
+    segment.className = "progress-segment";
+    segment.addEventListener("click", () => {
+      window.scrollTo({ top: heading.offsetTop, behavior: "smooth" });
+    });
+    progressBar.appendChild(segment);
+    return { heading, segment };
+  });
+
+  document.body.appendChild(progressBar);
+
+  let boundaries = [];
+
+  function computeBoundaries() {
+    boundaries = segments.map((item, index) => {
+      const start = item.heading.offsetTop;
+      const end =
+        index < segments.length - 1
+          ? segments[index + 1].heading.offsetTop
+          : document.documentElement.scrollHeight;
+      return { start, end };
+    });
+    updateActiveSegment();
+  }
+
+  function updateActiveSegment() {
+    const scrollY = window.scrollY;
+    boundaries.forEach((b, i) => {
+      if (scrollY >= b.start && scrollY < b.end) {
+        segments[i].segment.classList.add("active");
+      } else {
+        segments[i].segment.classList.remove("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveSegment);
+  window.addEventListener("resize", computeBoundaries);
+
+  computeBoundaries();
+}
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
 window.addEventListener("scroll", () => {
