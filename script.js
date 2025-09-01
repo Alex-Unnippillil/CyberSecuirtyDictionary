@@ -181,8 +181,7 @@ function populateTermsList() {
 }
 
 function displayDefinition(term) {
-  definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  document.dispatchEvent(new CustomEvent("definition-show", { detail: term }));
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -193,8 +192,7 @@ function displayDefinition(term) {
 }
 
 function clearDefinition() {
-  definitionContainer.style.display = "none";
-  definitionContainer.innerHTML = "";
+  document.dispatchEvent(new Event("definition-hide"));
   history.replaceState(null, "", window.location.pathname + window.location.search);
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
@@ -253,4 +251,16 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+window.addEventListener("hashchange", () => {
+  const hash = decodeURIComponent(window.location.hash.substring(1));
+  const matched = termsData.terms.find(
+    (t) => t.term.toLowerCase() === hash.toLowerCase()
+  );
+  if (matched) {
+    document.dispatchEvent(new CustomEvent("definition-show", { detail: matched }));
+  } else {
+    document.dispatchEvent(new Event("definition-hide"));
+  }
+});
 
