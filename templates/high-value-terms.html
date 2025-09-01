@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High-Value Terms Board - Cyber Security Dictionary</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="container">
+    <h1>High-Value Terms by Locale</h1>
+    <p>These terms are a priority for translation or definition. Select a term to open a prefilled issue and contribute your knowledge.</p>
+    <ol>
+      <li>Choose a term for your locale.</li>
+      <li>Use the link to open an issue with details prefilled.</li>
+      <li>Add the definition and any relevant sources in the issue.</li>
+    </ol>
+    <p><em>Maintainers update this board periodically based on project needs.</em></p>
+    <div id="terms"></div>
+  </main>
+  <script>
+    fetch('../high_value_terms.json')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById('terms');
+        const repoUrl = 'https://github.com/Alex-Unnippillil/CyberSecuirtyDictionary';
+        for (const [locale, info] of Object.entries(data)) {
+          const section = document.createElement('section');
+          const heading = document.createElement('h2');
+          heading.textContent = `${info.localeName} (${locale})`;
+          section.appendChild(heading);
+          const list = document.createElement('ul');
+          for (const term of info.terms) {
+            const item = document.createElement('li');
+            const link = document.createElement('a');
+            const issueUrl = `${repoUrl}/issues/new?template=new-term.yml&title=${encodeURIComponent('Add ' + term + ' (' + locale + ')')}&body=${encodeURIComponent('Term: ' + term + '\nLocale: ' + locale + '\nDefinition:\nSource:')}`;
+            link.href = issueUrl;
+            link.textContent = term;
+            item.appendChild(link);
+            list.appendChild(item);
+          }
+          section.appendChild(list);
+          container.appendChild(section);
+        }
+      });
+  </script>
+</body>
+</html>
