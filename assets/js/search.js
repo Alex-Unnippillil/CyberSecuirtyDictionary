@@ -13,6 +13,9 @@
       })
       .catch(err => {
         console.error('Failed to load terms.json', err);
+        if (window.haptics) {
+          haptics.error();
+        }
       });
 
     searchInput.addEventListener('input', handleSearch);
@@ -32,6 +35,10 @@
     matches.forEach(({ term }) => {
       resultsContainer.appendChild(renderCard(term));
     });
+
+    if (matches.length && window.haptics) {
+      haptics.success();
+    }
   }
 
   function score(term, query){
