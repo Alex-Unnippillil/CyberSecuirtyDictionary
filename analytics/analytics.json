@@ -1,0 +1,98 @@
+{
+  "generatedAt": "2025-09-01T00:12:22.536Z",
+  "trend": [
+    {
+      "date": "2024-05-01",
+      "impressions": 150,
+      "ctr": 0.16666666666666666,
+      "zeroResults": 10
+    },
+    {
+      "date": "2024-05-02",
+      "impressions": 120,
+      "ctr": 0.08333333333333333,
+      "zeroResults": 40
+    },
+    {
+      "date": "2024-05-03",
+      "impressions": 80,
+      "ctr": 0.1875,
+      "zeroResults": 20
+    }
+  ],
+  "queries": [
+    {
+      "query": "phishing",
+      "impressions": 180,
+      "clicks": 30,
+      "zeroResults": 0,
+      "ctr": 0.16666666666666666
+    },
+    {
+      "query": "malware",
+      "impressions": 50,
+      "clicks": 5,
+      "zeroResults": 10,
+      "ctr": 0.1
+    },
+    {
+      "query": "ransomware",
+      "impressions": 40,
+      "clicks": 0,
+      "zeroResults": 40,
+      "ctr": 0
+    },
+    {
+      "query": "encryption",
+      "impressions": 60,
+      "clicks": 15,
+      "zeroResults": 0,
+      "ctr": 0.25
+    },
+    {
+      "query": "unknownterm",
+      "impressions": 20,
+      "clicks": 0,
+      "zeroResults": 20,
+      "ctr": 0
+    }
+  ],
+  "poorQueries": [
+    {
+      "query": "ransomware",
+      "impressions": 40,
+      "clicks": 0,
+      "zeroResults": 40,
+      "ctr": 0,
+      "suggestions": [
+        "Payload",
+        "Phishing",
+        "Cryptography"
+      ]
+    },
+    {
+      "query": "unknownterm",
+      "impressions": 20,
+      "clicks": 0,
+      "zeroResults": 20,
+      "ctr": 0,
+      "suggestions": [
+        "Phishing",
+        "Payload",
+        "Endpoint Security"
+      ]
+    },
+    {
+      "query": "malware",
+      "impressions": 50,
+      "clicks": 5,
+      "zeroResults": 10,
+      "ctr": 0.1,
+      "suggestions": [
+        "Payload",
+        "Phishing",
+        "Malvertising"
+      ]
+    }
+  ]
+}
