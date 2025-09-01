@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -111,9 +111,10 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
-#random-term {
+#random-term,
+#dark-mode-toggle,
+#capture-section {
   margin-top: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -125,23 +126,9 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-#random-term:hover {
-  background-color: #0056b3;
-}
-
-#dark-mode-toggle {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-}
-
-#dark-mode-toggle:hover {
+#random-term:hover,
+#dark-mode-toggle:hover,
+#capture-section:hover {
   background-color: #0056b3;
 }
 
@@ -206,7 +193,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -258,7 +247,8 @@ body.dark-mode #search {
   border-color: #333;
 }
 
-body.dark-mode #dark-mode-toggle {
+body.dark-mode #dark-mode-toggle,
+body.dark-mode #capture-section {
   background-color: #333;
   color: #fff;
   border-color: #555;
