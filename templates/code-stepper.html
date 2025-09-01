@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Stepper Demo</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Code Stepper Demo</h1>
+    <pre class="code-stepper">
+// Example JavaScript code
+function greet(name) {
+  console.log('Hello, ' + name + '!');
+}
+
+greet('world');
+    </pre>
+    <div class="stepper-controls">
+      <button id="play-pause" type="button">Play</button>
+      <progress id="line-progress" value="1" max="1"></progress>
+      <span id="line-progress-text"></span>
+    </div>
+  </main>
+  <script src="../assets/js/code-stepper.js"></script>
+</body>
+</html>
