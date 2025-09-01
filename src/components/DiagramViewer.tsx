@@ -1,10 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import Hammer from "hammerjs";
 
+interface DiagramPin {
+  /**
+   * Identifier of the element containing the explanation text. When the pin or
+   * matching legend entry is selected the page will scroll to this element.
+   */
+  targetId: string;
+  /** Position along the X axis as a percentage of the image width */
+  x: number;
+  /** Position along the Y axis as a percentage of the image height */
+  y: number;
+  /** Text shown in the generated legend list */
+  label: string;
+}
+
 interface DiagramViewerProps {
   src: string;
   alt?: string;
   onClose: () => void;
+  /** Optional set of pins to render over the diagram */
+  pins?: DiagramPin[];
 }
 
 const MIN_SCALE = 0.5;
@@ -16,7 +32,12 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
-const DiagramViewer: React.FC<DiagramViewerProps> = ({ src, alt, onClose }) => {
+const DiagramViewer: React.FC<DiagramViewerProps> = ({
+  src,
+  alt,
+  onClose,
+  pins,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -101,21 +122,90 @@ const DiagramViewer: React.FC<DiagramViewerProps> = ({ src, alt, onClose }) => {
 
   const transform = `translate(${position.x}px, ${position.y}px) scale(${scale})`;
 
+  const handleSelect = (targetId: string) => {
+    const el = document.getElementById(targetId);
+    el?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div
-      ref={containerRef}
-      style={{
-        touchAction: "none",
-        overflow: "hidden",
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <img
-        src={src}
-        alt={alt}
-        style={{ transform, transformOrigin: "0 0", display: "block" }}
-      />
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <div
+        ref={containerRef}
+        style={{
+          touchAction: "none",
+          overflow: "hidden",
+          width: "100%",
+          height: "100%",
+          position: "relative",
+        }}
+      >
+        <div
+          style={{
+            transform,
+            transformOrigin: "0 0",
+            position: "relative",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <img src={src} alt={alt} style={{ display: "block", width: "100%" }} />
+          {pins && (
+            <svg
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              {pins.map((pin, index) => (
+                <g
+                  key={pin.targetId}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={pin.label}
+                  onClick={() => handleSelect(pin.targetId)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleSelect(pin.targetId);
+                    }
+                  }}
+                  transform={`translate(${pin.x} ${pin.y})`}
+                  style={{ cursor: "pointer" }}
+                >
+                  <circle r={3} fill="red" stroke="white" strokeWidth={1} />
+                  <text
+                    textAnchor="middle"
+                    dy="0.35em"
+                    fill="white"
+                    style={{ fontSize: "5px", pointerEvents: "none" }}
+                  >
+                    {index + 1}
+                  </text>
+                </g>
+              ))}
+            </svg>
+          )}
+        </div>
+      </div>
+      {pins && (
+        <ol style={{ marginTop: "0.5rem" }}>
+          {pins.map((pin, index) => (
+            <li key={pin.targetId}>
+              <button
+                onClick={() => handleSelect(pin.targetId)}
+                style={{ cursor: "pointer" }}
+              >
+                {index + 1}. {pin.label}
+              </button>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 };
