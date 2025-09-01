@@ -1,0 +1,1 @@
+window.env = {"NEXT_PUBLIC_SITE_NAME":"","NEXT_PUBLIC_AI_MODELS":""};
