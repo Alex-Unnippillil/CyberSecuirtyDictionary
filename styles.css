@@ -326,6 +326,11 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+.quiz-options button {
+  display: block;
+  margin: 5px 0;
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;
