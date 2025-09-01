@@ -102,10 +102,14 @@ function highlightActiveButton(button) {
 }
 
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  alphaNav.setAttribute("role", "tablist");
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))
+  ).sort();
 
   const allButton = document.createElement("button");
   allButton.textContent = "All";
+  allButton.setAttribute("role", "tab");
   allButton.addEventListener("click", () => {
     currentLetterFilter = "All";
     highlightActiveButton(allButton);
@@ -116,12 +120,41 @@ function buildAlphaNav() {
   letters.forEach((letter) => {
     const btn = document.createElement("button");
     btn.textContent = letter;
+    btn.setAttribute("role", "tab");
     btn.addEventListener("click", () => {
       currentLetterFilter = letter;
       highlightActiveButton(btn);
       populateTermsList();
     });
     alphaNav.appendChild(btn);
+  });
+
+  alphaNav.addEventListener("keydown", (e) => {
+    const buttons = Array.from(alphaNav.querySelectorAll("button"));
+    const index = buttons.indexOf(document.activeElement);
+    let nextIndex = null;
+
+    switch (e.key) {
+      case "ArrowRight":
+        nextIndex = (index + 1) % buttons.length;
+        break;
+      case "ArrowLeft":
+        nextIndex = (index - 1 + buttons.length) % buttons.length;
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = buttons.length - 1;
+        break;
+      default:
+        break;
+    }
+
+    if (nextIndex !== null) {
+      e.preventDefault();
+      buttons[nextIndex].focus();
+    }
   });
 
   highlightActiveButton(allButton);
@@ -140,6 +173,7 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        termDiv.tabIndex = 0;
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -175,14 +209,27 @@ function populateTermsList() {
           displayDefinition(item);
         });
 
+        termDiv.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            displayDefinition(item);
+          }
+        });
+
         termsList.appendChild(termDiv);
       }
     });
 }
 
+let lastFocusedElement = null;
+
 function displayDefinition(term) {
+  lastFocusedElement = document.activeElement;
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.setAttribute("role", "dialog");
+  definitionContainer.setAttribute("aria-modal", "true");
+  definitionContainer.setAttribute("tabindex", "-1");
+  definitionContainer.innerHTML = `<h3 id="definition-title">${term.term}</h3><p>${term.definition}</p><button id="close-definition" type="button">Close</button>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -190,6 +237,12 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  const closeBtn = document.getElementById("close-definition");
+  closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    clearDefinition();
+  });
+  definitionContainer.focus();
 }
 
 function clearDefinition() {
@@ -198,6 +251,9 @@ function clearDefinition() {
   history.replaceState(null, "", window.location.pathname + window.location.search);
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
+  }
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
   }
 }
 
@@ -253,4 +309,10 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && definitionContainer.style.display === "block") {
+    clearDefinition();
+  }
+});
 
