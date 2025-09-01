@@ -347,3 +347,58 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+.highlight-legend {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.highlight-legend .highlight-color {
+  border: 1px solid #ccc;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  border-radius: 4px;
+}
+
+.highlight-legend .highlight-color .count {
+  position: absolute;
+  bottom: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+}
+
+.highlights-panel {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 150px;
+}
+
+.highlights-panel h2 {
+  font-size: 1rem;
+  margin-top: 0;
+}
+
+.highlights-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.highlights-panel li {
+  margin: 0.25rem 0;
+}
+
+.user-highlight {
+  padding: 0 2px;
+}
