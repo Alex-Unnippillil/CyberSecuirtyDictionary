@@ -4,6 +4,7 @@ const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
+const presentationToggle = document.getElementById("presentation-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
@@ -11,15 +12,30 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let currentTermIndex = -1;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
+}
+
+if (localStorage.getItem("presentationMode") === "true") {
+  document.body.classList.add("presentation-mode");
 }
 
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+if (presentationToggle) {
+  presentationToggle.addEventListener("click", () => {
+    document.body.classList.toggle("presentation-mode");
+    localStorage.setItem(
+      "presentationMode",
+      document.body.classList.contains("presentation-mode")
+    );
   });
 }
 
@@ -49,6 +65,18 @@ function loadTerms() {
         );
         if (matchedTerm) {
           displayDefinition(matchedTerm);
+        }
+      }
+
+      if (definitionContainer.style.display === "block") {
+        const currentHeader = definitionContainer.querySelector("h3");
+        if (currentHeader) {
+          const idx = termsData.terms.findIndex(
+            (t) => t.term === currentHeader.textContent
+          );
+          if (idx !== -1) {
+            currentTermIndex = idx;
+          }
         }
       }
     })
@@ -184,6 +212,7 @@ function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
   window.location.hash = encodeURIComponent(term.term);
+  currentTermIndex = termsData.terms.findIndex((t) => t.term === term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
@@ -253,4 +282,33 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function showTermByIndex(index) {
+  if (!termsData.terms.length) return;
+  const newIndex = (index + termsData.terms.length) % termsData.terms.length;
+  const term = termsData.terms[newIndex];
+  displayDefinition(term);
+}
+
+document.addEventListener("keydown", (e) => {
+  if (!document.body.classList.contains("presentation-mode")) return;
+  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+    e.preventDefault();
+    if (currentTermIndex === -1) {
+      showTermByIndex(0);
+    } else {
+      showTermByIndex(currentTermIndex + 1);
+    }
+  } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+    e.preventDefault();
+    if (currentTermIndex === -1) {
+      showTermByIndex(termsData.terms.length - 1);
+    } else {
+      showTermByIndex(currentTermIndex - 1);
+    }
+  } else if (e.key.toLowerCase() === "b") {
+    e.preventDefault();
+    document.body.classList.toggle("blackout");
+  }
+});
 
