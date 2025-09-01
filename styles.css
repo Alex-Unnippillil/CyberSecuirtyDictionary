@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -111,7 +111,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -181,6 +180,29 @@ label {
   color: #ffd700;
 }
 
+.star-animate {
+  opacity: 0;
+  transform: scale(0.8);
+  animation-name: star-pop;
+  animation-duration: 300ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes star-pop {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star-animate {
+    animation: none;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Category badge styles */
 .badge {
   display: inline-block;
@@ -206,7 +228,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
