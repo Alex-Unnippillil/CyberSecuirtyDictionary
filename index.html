@@ -14,7 +14,11 @@
     <nav class="site-nav" aria-label="Site links"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
     <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
-    <input type="text" id="search" placeholder="Search...">
+    <div id="search-controls">
+      <input type="text" id="search" placeholder="Search...">
+      <button id="prev-match" type="button" aria-label="Previous match">↑</button>
+      <button id="next-match" type="button" aria-label="Next match">↓</button>
+    </div>
 
     <button id="random-term" type="button" aria-label="Show random term">Random Term</button>
 
@@ -28,6 +32,8 @@
     <p><a href="templates/contribute.html">Contribute</a></p>
   </footer>
   <button id="scrollToTopBtn" type="button" aria-label="Scroll to top">↑</button>
+
+  <div id="match-markers" aria-hidden="true"></div>
 
   <footer aria-label="Project contribution">
     <p><a href="CONTRIBUTING.md">Contribute to this project</a></p>
