@@ -158,6 +158,37 @@ label {
   margin-right: 5px;
 }
 
+#preset-controls {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+#preset-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-height: 44px;
+}
+
+#save-preset,
+#delete-preset {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#save-preset:hover,
+#delete-preset:hover {
+  background-color: #0056b3;
+}
+
 /* Favorite star styles */
 .favorite-star {
   font-size: 20px;
@@ -262,6 +293,24 @@ body.dark-mode #dark-mode-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
+}
+
+body.dark-mode #preset-select {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-color: #333;
+}
+
+body.dark-mode #save-preset,
+body.dark-mode #delete-preset {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #save-preset:hover,
+body.dark-mode #delete-preset:hover {
+  background-color: #555;
 }
 
 body.dark-mode li {
