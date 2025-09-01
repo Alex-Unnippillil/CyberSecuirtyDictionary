@@ -7,6 +7,17 @@
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <link rel="canonical" id="canonical-link" href="https://alex-unnippillil.github.io/CyberSecuirtyDictionary/">
+  <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "source": "document",
+          "where": { "href_matches": "templates/.*" },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+  </script>
 </head>
 <body>
   <main class="container">
@@ -35,6 +46,7 @@
   <script src="script.js"></script>
   <script src="assets/js/app.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+  <script src="https://unpkg.com/tti-polyfill@0.2.2/dist/tti-polyfill.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
 </body>
 </html>

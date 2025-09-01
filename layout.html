@@ -15,6 +15,17 @@
   <meta name="twitter:description" content="An interactive dictionary for cyber security terms.">
   <meta name="twitter:url" content="https://alex-unnippillil.github.io/CyberSecuirtyDictionary/">
   <meta name="twitter:image" content="https://github.com/Alex-Unnippillil/CyberSecuirtyDictionary/assets/24538548/c5a54c56-babb-485d-b01c-4fdfb186325b">
+  <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "source": "document",
+          "where": { "href_matches": "templates/.*" },
+          "eagerness": "moderate"
+        }
+      ]
+    }
+  </script>
 </head>
 <body>
   <main class="container">
@@ -35,6 +46,7 @@
 
   <script src="script.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+  <script src="https://unpkg.com/tti-polyfill@0.2.2/dist/tti-polyfill.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
 </body>
 </html>

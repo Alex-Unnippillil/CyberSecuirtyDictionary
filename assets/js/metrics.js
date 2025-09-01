@@ -14,7 +14,7 @@
 
   function init() {
     if (!window.webVitals) return;
-    const sample = { timestamp: Date.now(), lcp: 0, cls: 0, tbt: 0 };
+    const sample = { timestamp: Date.now(), lcp: 0, cls: 0, tbt: 0, tti: 0 };
 
     webVitals.onLCP(({ value }) => {
       sample.lcp = value;
@@ -30,7 +30,20 @@
         (sum, task) => sum + Math.max(0, task.duration - 50),
         0
       );
-      setTimeout(() => storeSample(sample), 0);
+      if (
+        window.ttiPolyfill &&
+        typeof window.ttiPolyfill.getFirstConsistentlyInteractive === 'function'
+      ) {
+        window.ttiPolyfill
+          .getFirstConsistentlyInteractive()
+          .then((tti) => {
+            sample.tti = tti;
+            setTimeout(() => storeSample(sample), 0);
+          })
+          .catch(() => setTimeout(() => storeSample(sample), 0));
+      } else {
+        setTimeout(() => storeSample(sample), 0);
+      }
     });
   }
 

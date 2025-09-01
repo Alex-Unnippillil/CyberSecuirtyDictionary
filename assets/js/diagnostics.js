@@ -17,7 +17,8 @@
       const lcp = s.lcp != null && s.lcp.toFixed ? s.lcp.toFixed(2) : s.lcp;
       const cls = s.cls != null && s.cls.toFixed ? s.cls.toFixed(3) : s.cls;
       const tbt = s.tbt != null && s.tbt.toFixed ? s.tbt.toFixed(2) : s.tbt;
-      tr.innerHTML = `<td>${date}</td><td>${lcp}</td><td>${cls}</td><td>${tbt}</td>`;
+      const tti = s.tti != null && s.tti.toFixed ? s.tti.toFixed(2) : s.tti;
+      tr.innerHTML = `<td>${date}</td><td>${lcp}</td><td>${cls}</td><td>${tbt}</td><td>${tti}</td>`;
       tbody.appendChild(tr);
     });
   }
