@@ -10,7 +10,11 @@
 <body>
   <main class="container">
     <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
+    <div class="search-input-wrapper">
+      <input id="search-box" type="text" placeholder="Search terms...">
+      <button id="toggle-keyboard" type="button" aria-label="Toggle special character keyboard" aria-controls="special-char-keyboard" aria-expanded="false">Ω</button>
+    </div>
+    <div id="special-char-keyboard" class="keyboard" role="group" aria-label="Special characters" hidden></div>
     <section id="alias-manager">
       <h2>Aliases</h2>
       <form id="alias-form">
@@ -25,6 +29,7 @@
   <script nonce="__CSP_NONCE__">
     window.__BASE_URL__ = window.__BASE_URL__ || '';
   </script>
+  <script src="assets/js/keyboard.js"></script>
   <script src="assets/js/search.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
