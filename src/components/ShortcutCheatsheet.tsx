@@ -9,6 +9,8 @@ const SHORTCUTS: Shortcut[] = [
   { keys: "Shift+/", description: "Open shortcut help" },
   { keys: "Ctrl+F", description: "Search" },
   { keys: "Esc", description: "Close overlay" },
+  { keys: "g then t", description: "Go to term list" },
+  { keys: "g then c", description: "Go to collections" },
 ];
 
 export default function ShortcutCheatsheet() {
