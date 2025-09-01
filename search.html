@@ -9,13 +9,20 @@
 <body>
   <main class="container">
     <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
+    <search-bar id="search-bar" placeholder="Search terms..." debounce="300"></search-bar>
+    <prompt-chips></prompt-chips>
     <div id="results"></div>
+    <empty-state></empty-state>
+    <expand-pane></expand-pane>
+    <button id="open-settings" type="button">Settings</button>
+    <settings-sheet>
+      <p>Settings go here.</p>
+    </settings-sheet>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
   </script>
-  <script src="assets/js/search.js"></script>
+  <script type="module" src="assets/js/search.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
 </body>
