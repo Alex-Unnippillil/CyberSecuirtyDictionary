@@ -175,10 +175,15 @@ function populateTermsList() {
           displayDefinition(item);
         });
 
+        // Optimise transition by managing will-change during motion
+        if (typeof attachWillChange === "function") {
+          attachWillChange(termDiv, "transform");
+        }
+
         termsList.appendChild(termDiv);
       }
     });
-}
+  }
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
