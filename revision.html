@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revision Comparison</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <h1 id="term-title">Loading...</h1>
+      <div>
+        <label for="revA">Revision A:</label>
+        <select id="revA"></select>
+        <label for="revB">Revision B:</label>
+        <select id="revB"></select>
+        <button id="compare" type="button">Compare</button>
+      </div>
+      <pre id="diff-output"></pre>
+      <button id="promote-btn" type="button" style="display: none">
+        Promote to Published
+      </button>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/diff@5/dist/diff.min.js"></script>
+    <script src="assets/js/revision.js"></script>
+  </body>
+</html>

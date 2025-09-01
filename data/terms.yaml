@@ -1,5 +1,6 @@
 - name: CVE
   slug: cve
+  status: draft
   definition: >-
     A public catalog of cybersecurity vulnerabilities providing unique identifiers
     for known software flaws.
@@ -12,8 +13,15 @@
     - NVD
   sources:
     - https://cve.mitre.org
+  revisions:
+    - version: 1
+      definition: >-
+        A public catalog of cybersecurity vulnerabilities providing unique identifiers
+        for known software flaws.
+      updated: 2024-01-01
 - name: CWE
   slug: cwe
+  status: published
   definition: >-
     A community-developed list of common software and hardware weakness types.
   category: Weakness Classification
@@ -24,8 +32,14 @@
     - OWASP Top 10
   sources:
     - https://cwe.mitre.org
+  revisions:
+    - version: 1
+      definition: >-
+        A community-developed list of common software and hardware weakness types.
+      updated: 2024-01-01
 - name: CVSS
   slug: cvss
+  status: published
   definition: >-
     A standardized scoring system for rating the severity of security vulnerabilities.
   category: Scoring System
@@ -36,8 +50,14 @@
     - NVD
   sources:
     - https://www.first.org/cvss/
+  revisions:
+    - version: 1
+      definition: >-
+        A standardized scoring system for rating the severity of security vulnerabilities.
+      updated: 2024-01-01
 - name: NVD
   slug: nvd
+  status: published
   definition: >-
     A U.S. government repository of standards-based vulnerability management data.
   category: Database
@@ -48,8 +68,14 @@
     - CVSS
   sources:
     - https://nvd.nist.gov/
+  revisions:
+    - version: 1
+      definition: >-
+        A U.S. government repository of standards-based vulnerability management data.
+      updated: 2024-01-01
 - name: MITRE ATT&CK
   slug: mitre-attack
+  status: published
   definition: >-
     A globally accessible knowledge base of adversary tactics and techniques based
     on real-world observations.
@@ -61,8 +87,15 @@
     - CWE
   sources:
     - https://attack.mitre.org/
+  revisions:
+    - version: 1
+      definition: >-
+        A globally accessible knowledge base of adversary tactics and techniques based
+        on real-world observations.
+      updated: 2024-01-01
 - name: OWASP Top 10
   slug: owasp-top-10
+  status: published
   definition: >-
     A regularly updated report outlining the ten most critical web application
     security risks, published by the Open Web Application Security Project.
@@ -73,3 +106,9 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+  revisions:
+    - version: 1
+      definition: >-
+        A regularly updated report outlining the ten most critical web application
+        security risks, published by the Open Web Application Security Project.
+      updated: 2024-01-01
