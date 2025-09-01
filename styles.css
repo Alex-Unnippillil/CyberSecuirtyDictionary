@@ -347,3 +347,26 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Compare page styles */
+.compare-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.headword-column {
+  flex: 1;
+  max-height: 70vh;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.headword-layout h2 {
+  margin-top: 0;
+}
+
+body.dark-mode .headword-column {
+  border-color: #333;
+}
