@@ -4,6 +4,33 @@
   box-sizing: border-box;
 }
 
+:root {
+  --motion-duration-fast: 100ms;
+  --motion-duration-medium: 300ms;
+}
+
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background-color: #007bff;
+  transition: width var(--motion-duration-medium) ease, opacity var(--motion-duration-fast) ease;
+  opacity: 0;
+  z-index: 1000;
+}
+
+#progress-bar.active {
+  opacity: 1;
+  width: 80%;
+}
+
+#progress-bar.finish {
+  width: 100%;
+  opacity: 0;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
