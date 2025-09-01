@@ -170,6 +170,7 @@ function populateTermsList() {
         const definitionPara = document.createElement("p");
         definitionPara.textContent = item.definition;
         termDiv.appendChild(definitionPara);
+        renderReadTimeForItem(termHeader, definitionPara);
 
         termDiv.addEventListener("click", () => {
           displayDefinition(item);
@@ -190,6 +191,10 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  updateReadTimeBadge();
+  definitionContainer
+    .querySelectorAll("details")
+    .forEach((det) => det.addEventListener("toggle", updateReadTimeBadge));
 }
 
 function clearDefinition() {
@@ -199,6 +204,52 @@ function clearDefinition() {
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
+}
+
+function countVisibleWords(container) {
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+  let count = 0;
+  while (walker.nextNode()) {
+    const parent = walker.currentNode.parentElement;
+    if (parent && parent.offsetParent !== null) {
+      const words = walker.currentNode.textContent
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+      count += words.length;
+    }
+  }
+  return count;
+}
+
+function updateReadTimeBadge() {
+  const header = definitionContainer.querySelector("h3");
+  if (!header) return;
+  const words = countVisibleWords(definitionContainer);
+  const minutes = Math.max(1, Math.ceil(words / 200));
+  let badge = header.querySelector(".read-time-badge");
+  if (!badge) {
+    badge = document.createElement("span");
+    badge.classList.add("read-time-badge");
+    header.appendChild(badge);
+  }
+  badge.textContent = `${minutes} min read`;
+}
+
+function countWords(text) {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function renderReadTimeForItem(header, definitionElement) {
+  if (!header || !definitionElement) {
+    return;
+  }
+  const words = countWords(definitionElement.textContent);
+  const minutes = Math.max(1, Math.ceil(words / 200));
+  const badge = document.createElement("span");
+  badge.classList.add("read-time-badge");
+  badge.textContent = `${minutes} min read`;
+  header.appendChild(badge);
 }
 
 function showRandomTerm() {
