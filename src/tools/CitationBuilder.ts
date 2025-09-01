@@ -13,6 +13,11 @@ export class CitationBuilder {
     private readonly siteUrl: string,
   ) {}
 
+  /** Build the permalink for a given term. */
+  private buildUrl(term: string): string {
+    return `${this.siteUrl}#${encodeURIComponent(term)}`;
+  }
+
   /**
    * Retrieve the last used citation style from `localStorage`.
    * Defaults to "MLA" if nothing has been stored.
@@ -46,7 +51,7 @@ export class CitationBuilder {
     style: CitationStyle,
     date: Date = new Date(),
   ): string {
-    const url = `${this.siteUrl}#${encodeURIComponent(term)}`;
+    const url = this.buildUrl(term);
     const accessDate = date.toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
@@ -70,7 +75,7 @@ export class CitationBuilder {
   async copyCitation(term: string, style: CitationStyle): Promise<void> {
     this.setPreferredStyle(style);
     const citation = this.buildCitation(term, style);
-    const url = `${this.siteUrl}#${encodeURIComponent(term)}`;
+    const url = this.buildUrl(term);
     const html = `<a href="${url}">${citation}</a>`;
 
     try {
