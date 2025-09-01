@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --dir-multiplier: 1;
+}
+
+html[dir="rtl"] {
+  --dir-multiplier: -1;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -90,7 +98,7 @@ body.dark-mode mark {
 }
 
 .dictionary-item:hover {
-  transform: scale(1.02);
+  transform: scale(1.02) translateX(calc(var(--dir-multiplier) * 5px));
 }
 
 #definition-container {
@@ -99,6 +107,14 @@ body.dark-mode mark {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  transform: translateX(calc(var(--dir-multiplier) * -20px));
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#definition-container.visible {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 #search {
@@ -236,6 +252,11 @@ label {
   width: 44px;
   height: 44px;
   border-radius: 50%;
+}
+
+html[dir="rtl"] #scrollToTopBtn {
+  right: auto;
+  left: 20px;
 }
 
 #scrollToTopBtn:hover {
