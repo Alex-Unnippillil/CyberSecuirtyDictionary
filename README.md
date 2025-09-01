@@ -7,6 +7,3 @@ https://alex-unnippillil.github.io/CyberSecuirtyDictionary/
 
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
 
-## RAG Evaluation
-
-Nightly GitHub Actions runs `scripts/rag_eval.py` using the [RAGAS](https://github.com/explodinggradients/ragas) library to measure faithfulness and retrieval precision. Scores are written to `logs/rag-eval.json` and a failing run opens an issue when metrics fall below the configured thresholds.
