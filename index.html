@@ -9,12 +9,18 @@
   <link rel="canonical" id="canonical-link" href="https://alex-unnippillil.github.io/CyberSecuirtyDictionary/">
 </head>
 <body>
-  <main class="container">
+  <a href="#search" class="skip-link">Skip to search</a>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="container">
     <h1>Cyber Security Dictionary</h1>
     <nav class="site-nav" aria-label="Site links"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
+  </header>
+  <main id="main" class="container">
     <div id="definition-container" style="display: none;"></div>
     <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
-    <input type="text" id="search" placeholder="Search...">
+    <div role="search" aria-label="Site search">
+      <input type="text" id="search" placeholder="Search...">
+    </div>
 
     <button id="random-term" type="button" aria-label="Show random term">Random Term</button>
 

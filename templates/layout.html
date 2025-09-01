@@ -30,17 +30,18 @@
     {{ json_ld }}
   </script>
 </head>
-<body>
-  <a href="#main" class="skip-link">Skip to content</a>
-  <header role="banner">
-    <nav role="navigation" aria-label="Primary">
-      {{ navigation }}
-    </nav>
-  </header>
-  <main id="main" role="main">
+  <body>
+    <a href="{{ base_url }}/search.html#search-box" class="skip-link">Skip to search</a>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <header>
+      <nav aria-label="Primary">
+        {{ navigation }}
+      </nav>
+    </header>
+  <main id="main">
     {{ content }}
   </main>
-  <footer role="contentinfo">
+  <footer>
     <ul>
       <li><a href="{{ privacy_url }}">{{ privacy_label }}</a></li>
       <li><a href="{{ contact_url }}">{{ contact_label }}</a></li>

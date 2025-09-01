@@ -7,10 +7,14 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="container">
+  <a href="#search-box" class="skip-link">Skip to search</a>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <main id="main" class="container">
     <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
-    <div id="results"></div>
+    <div role="search" aria-label="Site search">
+      <input id="search-box" type="text" placeholder="Search terms...">
+    </div>
+    <section id="results" aria-live="polite"></section>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
