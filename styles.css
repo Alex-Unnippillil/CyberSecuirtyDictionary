@@ -242,6 +242,26 @@ label {
   background-color: #0056b3;
 }
 
+/* Hovercard styles */
+.hovercard {
+  position: absolute;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 75ms ease-in;
+  z-index: 1000;
+}
+
+.hovercard.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
@@ -324,6 +344,12 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode .hovercard {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
 }
 
 @media (max-width: 480px) {
