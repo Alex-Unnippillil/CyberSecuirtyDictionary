@@ -4,7 +4,7 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "node scripts/generate-terms.js",
     "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
