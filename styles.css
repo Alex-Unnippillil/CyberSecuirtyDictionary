@@ -326,6 +326,16 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+/* Animation A/B test styles */
+body.low-animation * {
+  transition: none !important;
+  animation: none !important;
+}
+
+body.low-animation .dictionary-item:hover {
+  transform: none;
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;

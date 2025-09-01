@@ -12,6 +12,20 @@ const canonicalLink = document.getElementById("canonical-link");
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
+calculateRecommendedAnimation();
+
+const animationGroup = initializeAnimationGroup();
+document.body.classList.add(
+  animationGroup === "high" ? "high-animation" : "low-animation"
+);
+
+const abMetrics = {
+  definitionViews: 0,
+  totalReadingTime: 0,
+  lastDisplayTime: null,
+  startTime: performance.now(),
+};
+
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
@@ -183,6 +197,7 @@ function populateTermsList() {
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  recordDefinitionView();
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -193,6 +208,10 @@ function displayDefinition(term) {
 }
 
 function clearDefinition() {
+  if (abMetrics.lastDisplayTime !== null) {
+    abMetrics.totalReadingTime += performance.now() - abMetrics.lastDisplayTime;
+    abMetrics.lastDisplayTime = null;
+  }
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
   history.replaceState(null, "", window.location.pathname + window.location.search);
@@ -253,4 +272,73 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+window.addEventListener("beforeunload", finalizeMetrics);
+
+function initializeAnimationGroup() {
+  const storedGroup = localStorage.getItem("animationGroup");
+  if (storedGroup) return storedGroup;
+
+  const preferred = localStorage.getItem("preferredAnimation");
+  const group = preferred || (Math.random() < 0.5 ? "high" : "low");
+  localStorage.setItem("animationGroup", group);
+  return group;
+}
+
+function recordDefinitionView() {
+  abMetrics.definitionViews++;
+  const now = performance.now();
+  if (abMetrics.lastDisplayTime !== null) {
+    abMetrics.totalReadingTime += now - abMetrics.lastDisplayTime;
+  }
+  abMetrics.lastDisplayTime = now;
+}
+
+function finalizeMetrics() {
+  const now = performance.now();
+  if (abMetrics.lastDisplayTime !== null) {
+    abMetrics.totalReadingTime += now - abMetrics.lastDisplayTime;
+    abMetrics.lastDisplayTime = null;
+  }
+  abMetrics.sessionDuration = (now - abMetrics.startTime) / 1000;
+  storeMetrics();
+}
+
+function storeMetrics() {
+  const data = {
+    group: animationGroup,
+    definitionViews: abMetrics.definitionViews,
+    totalReadingTime: abMetrics.totalReadingTime / 1000,
+    sessionDuration: abMetrics.sessionDuration,
+  };
+  try {
+    const stored = JSON.parse(localStorage.getItem("ab-metrics") || "[]");
+    stored.push(data);
+    localStorage.setItem("ab-metrics", JSON.stringify(stored));
+    calculateRecommendedAnimation(stored);
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
+function calculateRecommendedAnimation(metrics) {
+  try {
+    const data = metrics || JSON.parse(localStorage.getItem("ab-metrics") || "[]");
+    const groups = { high: { views: 0, sessions: 0 }, low: { views: 0, sessions: 0 } };
+    data.forEach((m) => {
+      if (groups[m.group]) {
+        groups[m.group].views += m.definitionViews;
+        groups[m.group].sessions += 1;
+      }
+    });
+    if (!groups.high.sessions || !groups.low.sessions) return;
+    const highEngagement = groups.high.views / groups.high.sessions;
+    const lowEngagement = groups.low.views / groups.low.sessions;
+    const recommended =
+      highEngagement >= lowEngagement ? "high" : "low";
+    localStorage.setItem("preferredAnimation", recommended);
+  } catch (e) {
+    // Ignore parse errors
+  }
+}
 
