@@ -1,16 +1,28 @@
 import React from "react";
-import terms from "../../../terms.json";
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
 import { FAQBlock } from "../../components/FAQBlock";
 
-function slugify(term: string) {
-  return term
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+interface Term {
+  name: string;
+  slug: string;
+  definition: string;
+  synonyms?: string[];
+}
+
+function loadTerms(): Term[] {
+  const filePath = path.join(process.cwd(), "data", "terms.yaml");
+  const file = fs.readFileSync(filePath, "utf8");
+  return yaml.load(file) as Term[];
+}
+
+export async function generateStaticParams() {
+  return loadTerms().map((term) => ({ slug: term.slug }));
 }
 
 export default function TermPage({ params }: { params: { slug: string } }) {
-  const term = terms.terms.find((t) => slugify(t.term) === params.slug);
+  const term = loadTerms().find((t) => t.slug === params.slug);
 
   if (!term) {
     return <div>Term not found</div>;
@@ -19,22 +31,27 @@ export default function TermPage({ params }: { params: { slug: string } }) {
   const termJsonLd = {
     "@context": "https://schema.org",
     "@type": "DefinedTerm",
-    name: term.term,
+    name: term.name,
     description: term.definition,
     url: `https://example.com/terms/${params.slug}`,
   };
 
   const faqItems = [
     {
-      question: `What is ${term.term}?`,
+      question: `What is ${term.name}?`,
       answer: term.definition,
     },
   ];
 
   return (
     <main>
-      <h1>{term.term}</h1>
+      <h1>{term.name}</h1>
       <p>{term.definition}</p>
+      {term.synonyms && term.synonyms.length > 0 && (
+        <p>
+          <strong>Synonyms:</strong> {term.synonyms.join(", ")}
+        </p>
+      )}
       <FAQBlock items={faqItems} />
       <script
         type="application/ld+json"
