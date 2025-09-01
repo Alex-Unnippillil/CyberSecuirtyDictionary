@@ -1,4 +1,5 @@
 import React from "react";
+import Script from "next/script";
 
 interface FAQItem {
   question: string;
@@ -32,10 +33,9 @@ export function FAQBlock({ items }: FAQBlockProps) {
           <p>{item.answer}</p>
         </div>
       ))}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <Script id="faq-jsonld" type="application/ld+json">
+        {JSON.stringify(jsonLd)}
+      </Script>
     </section>
   );
 }
