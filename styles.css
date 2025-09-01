@@ -242,9 +242,41 @@ label {
   background-color: #0056b3;
 }
 
+/* Term peek modal */
+.term-peek-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  z-index: 999;
+}
+
+.term-peek-modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #000;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+  z-index: 1000;
+  display: none;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
+  color: #fff;
+}
+
+body.dark-mode .term-peek-modal {
+  background-color: #1e1e1e;
   color: #fff;
 }
 
