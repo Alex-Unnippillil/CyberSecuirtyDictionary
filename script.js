@@ -8,6 +8,7 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+let flashcardModal;
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -24,8 +25,55 @@ if (darkModeToggle) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  createFlashcardModal();
   loadTerms();
 });
+
+function createFlashcardModal() {
+  flashcardModal = document.createElement("div");
+  flashcardModal.id = "flashcard-modal";
+  flashcardModal.className = "modal";
+  flashcardModal.style.display = "none";
+  flashcardModal.innerHTML = `
+    <div class="modal-content">
+      <h4>Preview Card</h4>
+      <p><strong>Front:</strong> <span class="modal-front"></span></p>
+      <p><strong>Back:</strong> <span class="modal-back"></span></p>
+      <button id="confirm-add" type="button">Add</button>
+      <button id="cancel-add" type="button">Cancel</button>
+    </div>
+  `;
+  document.body.appendChild(flashcardModal);
+
+  flashcardModal.addEventListener("click", (e) => {
+    if (e.target === flashcardModal) {
+      flashcardModal.style.display = "none";
+    }
+  });
+}
+
+function showFlashcardModal(term) {
+  flashcardModal.querySelector(".modal-front").textContent = term.term;
+  flashcardModal.querySelector(".modal-back").textContent = term.definition;
+  flashcardModal.style.display = "flex";
+
+  const cancelBtn = flashcardModal.querySelector("#cancel-add");
+  const confirmBtn = flashcardModal.querySelector("#confirm-add");
+
+  cancelBtn.onclick = () => {
+    flashcardModal.style.display = "none";
+  };
+
+  confirmBtn.onclick = () => {
+    fetch("/api/flashcards", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ front: term.term, back: term.definition }),
+    }).finally(() => {
+      flashcardModal.style.display = "none";
+    });
+  };
+}
 
 function loadTerms() {
   fetch("terms.json")
@@ -182,7 +230,14 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}<button id="add-to-deck" type="button">Add to deck</button></h3><p>${term.definition}</p>`;
+  const addBtn = document.getElementById("add-to-deck");
+  if (addBtn) {
+    addBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showFlashcardModal(term);
+    });
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
