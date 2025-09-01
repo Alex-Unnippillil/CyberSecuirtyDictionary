@@ -326,6 +326,42 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+#scrollbar-track {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100vh;
+  pointer-events: none;
+}
+
+.scroll-tick {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #007bff;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.scroll-tick.visible {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-tick {
+    transition: none;
+  }
+}
+
+body.dark-mode .scroll-tick {
+  background-color: #1e90ff;
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;
