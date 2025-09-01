@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -345,5 +346,28 @@ body.dark-mode #alpha-nav button.active {
 
   #alpha-nav button {
     font-size: 14px;
+  }
+}
+
+/* Diff highlight styles */
+.diff-added {
+  background-color: #c8e6c9;
+  transition: background-color 0.5s ease;
+}
+
+.diff-removed {
+  background-color: #ffcdd2;
+  transition: background-color 0.5s ease;
+}
+
+.diff-fade .diff-added,
+.diff-fade .diff-removed {
+  background-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diff-added,
+  .diff-removed {
+    transition: none;
   }
 }
