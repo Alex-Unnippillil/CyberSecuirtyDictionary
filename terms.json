@@ -2,11 +2,35 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "examples": {
+        "US": "Phishing attempt targeting US users",
+        "UK": "Phishing attempt targeting UK users",
+        "AUS": "Phishing attempt targeting Australian users"
+      },
+      "spellings": {
+        "US": "Phishing",
+        "UK": "Phishing",
+        "AUS": "Phishing"
+      }
     },
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Unauthorized Access",
+      "definition": "Gaining access to systems or data without proper authorization.",
+      "examples": {
+        "US": "A hacker gained unauthorized access to the server.",
+        "UK": "A hacker gained unauthorised access to the server.",
+        "AUS": "An attacker gained unauthorised access to the server."
+      },
+      "spellings": {
+        "US": "Unauthorized Access",
+        "UK": "Unauthorised Access",
+        "AUS": "Unauthorised Access"
+      }
     },
     {
       "term": "Social Engineering Toolkit (SET)",
