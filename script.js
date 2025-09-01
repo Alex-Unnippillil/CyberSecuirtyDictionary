@@ -12,6 +12,12 @@ const canonicalLink = document.getElementById("canonical-link");
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+function getLayoutId(term) {
+  return `term-${term.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+}
+
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
@@ -150,6 +156,10 @@ function populateTermsList() {
           termHeader.textContent = item.term;
         }
 
+        const layoutId = getLayoutId(item.term);
+        termDiv.dataset.layoutId = layoutId;
+        termHeader.dataset.layoutId = layoutId;
+
         const star = document.createElement("span");
         star.classList.add("favorite-star");
         star.textContent = "★";
@@ -172,7 +182,7 @@ function populateTermsList() {
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
-          displayDefinition(item);
+          displayDefinition(item, termDiv, layoutId);
         });
 
         termsList.appendChild(termDiv);
@@ -180,9 +190,37 @@ function populateTermsList() {
     });
 }
 
-function displayDefinition(term) {
-  definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+function displayDefinition(term, sourceElement = null, layoutId = getLayoutId(term.term)) {
+  const updateContent = () => {
+    definitionContainer.style.display = "block";
+    definitionContainer.innerHTML = "";
+    const header = document.createElement("h3");
+    header.textContent = term.term;
+    header.dataset.layoutId = layoutId;
+    header.style.viewTransitionName = layoutId;
+    const para = document.createElement("p");
+    para.textContent = term.definition;
+    definitionContainer.append(header, para);
+  };
+
+  if (
+    sourceElement &&
+    document.startViewTransition &&
+    !prefersReducedMotion.matches
+  ) {
+    sourceElement.style.viewTransitionName = layoutId;
+    const transition = document.startViewTransition(updateContent);
+    transition.finished.finally(() => {
+      sourceElement.style.viewTransitionName = "";
+      const newHeader = definitionContainer.querySelector("h3");
+      if (newHeader) {
+        newHeader.style.viewTransitionName = "";
+      }
+    });
+  } else {
+    updateContent();
+  }
+
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
