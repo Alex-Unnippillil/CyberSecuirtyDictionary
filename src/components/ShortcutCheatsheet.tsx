@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { startGuidedTour } from "../features/tour/GuidedTour";
 
 interface Shortcut {
   keys: string;
@@ -85,6 +86,9 @@ export default function ShortcutCheatsheet() {
           onChange={(e) => setFilter(e.target.value)}
           ref={inputRef}
         />
+        <button onClick={() => { setOpen(false); startGuidedTour(); }}>
+          Replay tour
+        </button>
         <ul>
           {shortcuts.map((s) => (
             <li key={s.keys}>
