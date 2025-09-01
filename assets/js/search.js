@@ -1,50 +1,79 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
-  let terms = [];
+  const suggestionsContainer = document.getElementById('suggestions');
+  let miniSearch;
+  let suggestions = [];
+  let selectedIndex = -1;
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
     const baseUrl = window.__BASE_URL__ || '';
-    fetch(`${baseUrl}/terms.json`)
-      .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
-      .then(data => {
-        // terms.json may either be an array or object with terms property
-        terms = Array.isArray(data) ? data : (data.terms || []);
-      })
-      .catch(err => {
-        console.error('Failed to load terms.json', err);
+    try {
+      const indexData = await fetch(`${baseUrl}/minisearch-index.json`).then(r => r.json());
+      miniSearch = MiniSearch.loadJSON(indexData, {
+        fields: ['term', 'definition'],
+        storeFields: ['term', 'definition']
       });
-
-    searchInput.addEventListener('input', handleSearch);
-  });
-
-  function handleSearch(){
-    const query = searchInput.value.trim().toLowerCase();
-    resultsContainer.innerHTML = '';
-    if(!query){
+    } catch (err) {
+      console.error('Failed to load MiniSearch index', err);
       return;
     }
-    const matches = terms
-      .map(term => ({ term, score: score(term, query) }))
-      .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
+    searchInput.addEventListener('input', onInput);
+    searchInput.addEventListener('keydown', onKeyDown);
+  });
 
-    matches.forEach(({ term }) => {
-      resultsContainer.appendChild(renderCard(term));
+  function onInput(){
+    const query = searchInput.value.trim();
+    resultsContainer.innerHTML = '';
+    suggestionsContainer.innerHTML = '';
+    selectedIndex = -1;
+    if(!query || !miniSearch){
+      return;
+    }
+    suggestions = miniSearch.autoSuggest(query).slice(0,5);
+    suggestions.forEach((s, i) => {
+      const li = document.createElement('li');
+      li.textContent = s.suggestion;
+      li.addEventListener('mousedown', () => {
+        searchInput.value = s.suggestion;
+        suggestionsContainer.innerHTML = '';
+        displayResults(s.suggestion);
+      });
+      suggestionsContainer.appendChild(li);
+    });
+    displayResults(query);
+  }
+
+  function onKeyDown(e){
+    const items = suggestionsContainer.querySelectorAll('li');
+    if(e.key === 'ArrowDown' && items.length){
+      e.preventDefault();
+      selectedIndex = (selectedIndex + 1) % items.length;
+      updateSelection(items);
+    } else if(e.key === 'ArrowUp' && items.length){
+      e.preventDefault();
+      selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+      updateSelection(items);
+    } else if(e.key === 'Enter' && selectedIndex >= 0){
+      e.preventDefault();
+      const text = items[selectedIndex].textContent;
+      searchInput.value = text;
+      suggestionsContainer.innerHTML = '';
+      displayResults(text);
+    }
+  }
+
+  function updateSelection(items){
+    items.forEach((item, i) => {
+      item.classList.toggle('selected', i === selectedIndex);
     });
   }
 
-  function score(term, query){
-    let s = 0;
-    const name = (term.name || term.term || '').toLowerCase();
-    const def = (term.definition || '').toLowerCase();
-    const category = (term.category || '').toLowerCase();
-    const syns = (term.synonyms || []).map(s=>s.toLowerCase());
-    if(name.includes(query)) s += 3;
-    if(def.includes(query)) s += 1;
-    if(category.includes(query)) s += 1;
-    if(syns.some(syn => syn.includes(query))) s += 2;
-    return s;
+  function displayResults(query){
+    resultsContainer.innerHTML = '';
+    miniSearch.search(query).forEach(result => {
+      resultsContainer.appendChild(renderCard(result));
+    });
   }
 
   function renderCard(term){

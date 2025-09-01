@@ -10,12 +10,14 @@
   <main class="container">
     <h1>Search</h1>
     <input id="search-box" type="text" placeholder="Search terms...">
+    <ul id="suggestions"></ul>
     <div id="results"></div>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
-  </script>
-  <script src="assets/js/search.js"></script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/minisearch@6/dist/umd/index.min.js"></script>
+    <script src="assets/js/search.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
 </body>
