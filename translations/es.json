@@ -1,0 +1,12 @@
+{
+  "Phishing": {
+    "translation": "Suplantación de identidad",
+    "gloss": "Engaño para obtener información personal",
+    "usage": "Se usa para describir correos electrónicos fraudulentos."
+  },
+  "Cyber Espionage": {
+    "translation": "Ciberespionaje",
+    "gloss": "Uso de técnicas digitales para espionaje",
+    "usage": "Término utilizado en contextos gubernamentales."
+  }
+}

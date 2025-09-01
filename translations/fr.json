@@ -1,0 +1,12 @@
+{
+  "Phishing": {
+    "translation": "Hameçonnage",
+    "gloss": "Technique visant à tromper pour obtenir des informations sensibles",
+    "usage": "Utilisé pour décrire des courriels frauduleux."
+  },
+  "Cyber Espionage": {
+    "translation": "Cyber-espionnage",
+    "gloss": "Utilisation de techniques numériques pour l'espionnage",
+    "usage": "Terme utilisé dans des contextes gouvernementaux."
+  }
+}
