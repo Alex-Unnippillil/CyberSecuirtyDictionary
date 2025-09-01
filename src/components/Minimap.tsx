@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 interface MinimapProps {
   /**
    * CSS selector used to collect sections of the document. Each element must
    * have an `id` so that the minimap can link to it.
    *
-   * @default 'section'
+   * @default "section"
    */
   sectionSelector?: string;
 }
@@ -16,16 +16,24 @@ interface MinimapProps {
  * page. The block corresponding to the section currently in view is
  * highlighted. Clicking a block scrolls to the associated section.
  */
-const Minimap: React.FC<MinimapProps> = ({ sectionSelector = 'section' }) => {
+const Minimap: React.FC<MinimapProps> = ({ sectionSelector = "section" }) => {
   const [sections, setSections] = useState<HTMLElement[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [scrollHeight, setScrollHeight] = useState<number>(0);
 
-  // Collect sections on mount.
+  // Collect sections on mount and when the selector changes.
   useEffect(() => {
     const elements = Array.from(
-      document.querySelectorAll<HTMLElement>(sectionSelector)
+      document.querySelectorAll<HTMLElement>(sectionSelector),
     ).filter((el) => el.id);
     setSections(elements);
+
+    // Determine the current height of the page so blocks scale proportionally.
+    const updateScrollHeight = () => {
+      setScrollHeight(document.documentElement.scrollHeight);
+    };
+    updateScrollHeight();
+    window.addEventListener("resize", updateScrollHeight);
 
     // Observer to determine which section is in the viewport.
     const observer = new IntersectionObserver(
@@ -38,32 +46,33 @@ const Minimap: React.FC<MinimapProps> = ({ sectionSelector = 'section' }) => {
       },
       {
         // Trigger as soon as the top of the section enters the viewport
-        rootMargin: '0px 0px -80% 0px',
+        rootMargin: "0px 0px -80% 0px",
         threshold: 0,
-      }
+      },
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener("resize", updateScrollHeight);
+      observer.disconnect();
+    };
   }, [sectionSelector]);
 
-  const scrollHeight = document.body.scrollHeight;
-
   const handleClick = (el: HTMLElement) => {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <div
       className="minimap"
       style={{
-        position: 'fixed',
+        position: "fixed",
         right: 0,
         top: 0,
-        width: '12px',
-        height: '100%',
-        background: 'rgba(0,0,0,0.05)',
+        width: "12px",
+        height: "100%",
+        background: "rgba(0,0,0,0.05)",
       }}
     >
       {sections.map((el) => {
@@ -75,15 +84,15 @@ const Minimap: React.FC<MinimapProps> = ({ sectionSelector = 'section' }) => {
             key={el.id}
             onClick={() => handleClick(el)}
             style={{
-              position: 'absolute',
+              position: "absolute",
               left: 0,
-              width: '100%',
-              cursor: 'pointer',
+              width: "100%",
+              cursor: "pointer",
               top: `${top}%`,
               height: `${height}%`,
               background: isActive
-                ? 'rgba(33,150,243,0.8)'
-                : 'rgba(33,150,243,0.3)',
+                ? "rgba(33,150,243,0.8)"
+                : "rgba(33,150,243,0.3)",
             }}
           />
         );
