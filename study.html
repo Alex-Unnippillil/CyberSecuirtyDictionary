@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study - Cyber Security Dictionary</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <h1>Study</h1>
+      <div id="card" aria-live="polite">
+        <p id="term"></p>
+        <p id="definition" style="display: none"></p>
+        <button id="show-answer" type="button">Show Definition</button>
+        <div id="rating" style="display: none">
+          <p>How well did you remember?</p>
+          <div>
+            <button type="button" data-quality="0">0</button>
+            <button type="button" data-quality="1">1</button>
+            <button type="button" data-quality="2">2</button>
+            <button type="button" data-quality="3">3</button>
+            <button type="button" data-quality="4">4</button>
+            <button type="button" data-quality="5">5</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="study.js"></script>
+  </body>
+</html>
