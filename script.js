@@ -4,6 +4,7 @@ const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
+const reduceMotionToggle = document.getElementById("reduce-motion-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
@@ -16,10 +17,24 @@ if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
 
+if (localStorage.getItem("reduceMotion") === "true") {
+  document.body.classList.add("reduce-motion");
+}
+
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+if (reduceMotionToggle) {
+  reduceMotionToggle.addEventListener("click", () => {
+    document.body.classList.toggle("reduce-motion");
+    localStorage.setItem(
+      "reduceMotion",
+      document.body.classList.contains("reduce-motion")
+    );
   });
 }
 

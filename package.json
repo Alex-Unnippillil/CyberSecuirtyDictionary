@@ -5,18 +5,19 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
+    "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js && playwright test",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
-    "prettier": "^3.6.2",
-    "jsdom": "^26.1.0"
+    "jsdom": "^26.1.0",
+    "prettier": "^3.6.2"
   }
 }
