@@ -13,6 +13,12 @@ body {
   overflow-x: hidden;
 }
 
+input,
+textarea {
+  direction: auto;
+  unicode-bidi: plaintext;
+}
+
 .container {
   max-width: 800px;
   width: 100%;
@@ -156,6 +162,26 @@ label {
   width: 44px;
   height: 44px;
   margin-right: 5px;
+}
+
+[dir="rtl"] label {
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+[dir="rtl"] #show-favorites {
+  margin-left: 5px;
+  margin-right: 0;
+}
+
+[dir="rtl"] .favorite-star {
+  margin-right: 5px;
+  margin-left: 0;
+}
+
+[dir="rtl"] #scrollToTopBtn {
+  left: 20px;
+  right: auto;
 }
 
 /* Favorite star styles */
