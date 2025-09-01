@@ -12,6 +12,8 @@ const canonicalLink = document.getElementById("canonical-link");
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
+let labelMetadata = {};
+
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
 }
@@ -28,15 +30,20 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadTerms() {
-  fetch("terms.json")
-    .then((response) => {
+  Promise.all([
+    fetch("terms.json").then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       return response.json();
-    })
-    .then((data) => {
+    }),
+    fetch("labels.json")
+      .then((response) => (response.ok ? response.json() : {}))
+      .catch(() => ({}))
+  ])
+    .then(([data, labels]) => {
       termsData = data;
+      labelMetadata = labels;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
@@ -164,6 +171,19 @@ function populateTermsList() {
             populateTermsList();
           }
         });
+        if (item.labels && item.labels.length) {
+          const labelsContainer = document.createElement("span");
+          item.labels.forEach((label) => {
+            const chip = document.createElement("span");
+            chip.classList.add("label-chip");
+            chip.textContent = label;
+            if (labelMetadata[label]) {
+              chip.title = labelMetadata[label];
+            }
+            labelsContainer.appendChild(chip);
+          });
+          termHeader.appendChild(labelsContainer);
+        }
         termHeader.appendChild(star);
         termDiv.appendChild(termHeader);
 
@@ -182,7 +202,29 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = "";
+  const title = document.createElement("h3");
+  title.textContent = term.term;
+  definitionContainer.appendChild(title);
+
+  if (term.labels && term.labels.length) {
+    const labelsDiv = document.createElement("div");
+    term.labels.forEach((label) => {
+      const chip = document.createElement("span");
+      chip.classList.add("label-chip");
+      chip.textContent = label;
+      if (labelMetadata[label]) {
+        chip.title = labelMetadata[label];
+      }
+      labelsDiv.appendChild(chip);
+    });
+    definitionContainer.appendChild(labelsDiv);
+  }
+
+  const defPara = document.createElement("p");
+  defPara.textContent = term.definition;
+  definitionContainer.appendChild(defPara);
+
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
