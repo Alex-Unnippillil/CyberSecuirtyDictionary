@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagram Pins Demo</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Diagram with Pins</h1>
+    <div class="diagram" id="network-diagram">
+      <svg class="diagram-image" viewBox="0 0 400 200" role="img" aria-labelledby="diagram-title">
+        <title id="diagram-title">Simple network diagram</title>
+        <rect width="400" height="200" fill="#eef" />
+        <rect x="50" y="60" width="80" height="60" fill="#ccc" />
+        <rect x="270" y="60" width="80" height="60" fill="#ccc" />
+        <line x1="130" y1="90" x2="270" y2="90" stroke="#000" />
+      </svg>
+      <svg class="pin-layer"></svg>
+      <h2 id="legend-title">Diagram legend</h2>
+      <ol class="pin-legend" aria-labelledby="legend-title"></ol>
+    </div>
+
+    <section id="workstation" data-diagram="network-diagram" data-pin="25,50" data-label="Workstation">
+      <h2>Workstation</h2>
+      <p>The end-user machine connected to the network.</p>
+    </section>
+
+    <section id="server" data-diagram="network-diagram" data-pin="75,50" data-label="Server">
+      <h2>Server</h2>
+      <p>Hosts the service used by clients on the network.</p>
+    </section>
+
+    <section id="link" data-diagram="network-diagram" data-pin="50,50" data-label="Network Link">
+      <h2>Network Link</h2>
+      <p>The connection that allows data to flow between devices.</p>
+    </section>
+  </main>
+  <script src="../assets/js/diagram-pins.js"></script>
+</body>
+</html>

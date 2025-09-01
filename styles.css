@@ -347,3 +347,68 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Diagram pin styles */
+.diagram {
+  position: relative;
+  max-width: 100%;
+}
+
+.diagram-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pin-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.diagram-pin {
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.diagram-pin circle {
+  fill: #ff5722;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.diagram-pin text {
+  fill: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  pointer-events: none;
+}
+
+.diagram-pin:focus circle {
+  stroke: #000;
+}
+
+.pin-legend {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.pin-legend li button {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  text-align: left;
+  text-decoration: underline;
+  color: #007bff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.pin-legend li button:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
