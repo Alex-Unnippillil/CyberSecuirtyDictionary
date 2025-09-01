@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --transition-duration: 0.2s;
+}
+
+body.high-refresh {
+  --transition-duration: 0.1s;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -25,7 +33,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -44,7 +52,7 @@ li {
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-duration);
   min-height: 44px;
 }
 
@@ -72,7 +80,7 @@ body.dark-mode mark {
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform var(--transition-duration);
   min-height: 44px;
 }
 
@@ -110,7 +118,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -158,13 +165,19 @@ label {
   margin-right: 5px;
 }
 
+#reduce-motion-toggle {
+  width: 44px;
+  height: 44px;
+  margin-right: 5px;
+}
+
 /* Favorite star styles */
 .favorite-star {
   font-size: 20px;
   color: #ccc;
   cursor: pointer;
   margin-left: 5px;
-  transition: color 0.2s;
+  transition: color var(--transition-duration);
   width: 44px;
   height: 44px;
   display: inline-flex;
@@ -206,7 +219,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color var(--transition-duration),
+    color var(--transition-duration);
   min-width: 44px;
   min-height: 44px;
 }
