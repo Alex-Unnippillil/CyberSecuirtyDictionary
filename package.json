@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
+    "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js && ts-node -O '{\"module\":\"commonjs\"}' scripts/validate-terms.ts",
     "watch": "chokidar \"**/*.html\" -c \"npm run build\""
   },
   "keywords": [],
@@ -17,6 +17,8 @@
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
     "prettier": "^3.6.2",
-    "jsdom": "^26.1.0"
+    "jsdom": "^26.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   }
 }
