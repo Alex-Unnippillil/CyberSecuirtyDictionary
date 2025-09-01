@@ -23,6 +23,18 @@
     <label for="show-favorites">Show Favorites</label>
 
     <ul id="terms-list"></ul>
+
+    <div id="chat-ui">
+      <div id="messages" aria-live="polite"></div>
+      <label class="learn-path-label">
+        <input type="checkbox" id="learn-path-toggle">
+        Learn Path
+      </label>
+      <div class="chat-input">
+        <input type="text" id="chat-input" placeholder="Type a message..." aria-label="Chat input">
+        <button id="send-btn" type="button">Send</button>
+      </div>
+    </div>
   </main>
   <footer class="container" aria-label="Contribute">
     <p><a href="templates/contribute.html">Contribute</a></p>
