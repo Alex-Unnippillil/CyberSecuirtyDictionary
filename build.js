@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const dataPath = path.join(__dirname, 'data.json');
+const dataPath = fs.existsSync(path.join(__dirname, 'data.json'))
+  ? path.join(__dirname, 'data.json')
+  : path.join(__dirname, 'terms.json');
 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
 const termsDir = path.join(__dirname, 'terms');
@@ -21,6 +23,15 @@ function slugify(term) {
 for (const term of data.terms) {
   const slug = slugify(term.term);
   const metaRobots = term.draft ? '<meta name="robots" content="noindex">' : '';
+  let variantHtml = '';
+  if (term.variants) {
+    variantHtml = Object.entries(term.variants)
+      .map(([locale, info]) => {
+        const example = info.example ? `<p><em>${info.example}</em></p>` : '';
+        return `<section><h2>${info.spelling} (${locale})</h2>${example}</section>`;
+      })
+      .join('');
+  }
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +42,7 @@ for (const term of data.terms) {
 <body>
   <h1>${term.term}</h1>
   <p>${term.definition}</p>
+  ${variantHtml}
 </body>
 </html>`;
   fs.writeFileSync(path.join(termsDir, `${slug}.html`), html);

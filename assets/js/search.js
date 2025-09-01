@@ -39,11 +39,17 @@
     const name = (term.name || term.term || '').toLowerCase();
     const def = (term.definition || '').toLowerCase();
     const category = (term.category || '').toLowerCase();
-    const syns = (term.synonyms || []).map(s=>s.toLowerCase());
+    const syns = (term.synonyms || []).map(s => s.toLowerCase());
+    const variantSyns = term.variants
+      ? Object.values(term.variants).flatMap(v =>
+          [v.spelling, ...(v.synonyms || [])].map(s => s.toLowerCase())
+        )
+      : [];
     if(name.includes(query)) s += 3;
     if(def.includes(query)) s += 1;
     if(category.includes(query)) s += 1;
     if(syns.some(syn => syn.includes(query))) s += 2;
+    if(variantSyns.some(syn => syn.includes(query))) s += 2;
     return s;
   }
 

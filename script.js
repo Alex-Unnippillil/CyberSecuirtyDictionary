@@ -133,7 +133,16 @@ function populateTermsList() {
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
-      const matchesSearch = item.term.toLowerCase().includes(searchValue);
+      const searchPool = [item.term, ...(item.synonyms || [])];
+      if (item.variants) {
+        Object.values(item.variants).forEach((v) => {
+          if (v.spelling) searchPool.push(v.spelling);
+          if (v.synonyms) searchPool.push(...v.synonyms);
+        });
+      }
+      const matchesSearch = searchPool.some((t) =>
+        t.toLowerCase().includes(searchValue)
+      );
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
@@ -182,7 +191,18 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  if (term.variants) {
+    html += '<div class="variants">';
+    for (const [locale, info] of Object.entries(term.variants)) {
+      html += `<h4>${info.spelling} (${locale})</h4>`;
+      if (info.example) {
+        html += `<p><em>${info.example}</em></p>`;
+      }
+    }
+    html += '</div>';
+  }
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
