@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -111,7 +111,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -191,6 +190,33 @@ label {
   color: #fff;
 }
 
+.new-feature-badge {
+  margin-left: 4px;
+  transform: scale(0);
+  transform-origin: center;
+  animation: badge-scale-in 0.3s ease-out forwards;
+}
+
+@keyframes badge-scale-in {
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .new-feature-badge {
+    transform: none;
+    opacity: 0;
+    animation: badge-fade-in 0.3s ease-out forwards;
+  }
+
+  @keyframes badge-fade-in {
+    to {
+      opacity: 1;
+    }
+  }
+}
+
 /* Alphabet navigation styles */
 #alpha-nav {
   display: flex;
@@ -206,7 +232,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
