@@ -11,6 +11,13 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let translationConfig = { languagePairs: [], translations: {} };
+try {
+  translationConfig =
+    JSON.parse(localStorage.getItem("translationConfig")) || translationConfig;
+} catch (e) {
+  translationConfig = { languagePairs: [], translations: {} };
+}
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -25,6 +32,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  loadTranslations();
 });
 
 function loadTerms() {
@@ -68,6 +76,27 @@ function loadTerms() {
     });
 }
 
+function loadTranslations() {
+  fetch("translations.json")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      translationConfig = data;
+      try {
+        localStorage.setItem("translationConfig", JSON.stringify(translationConfig));
+      } catch (e) {
+        // Ignore storage errors
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching translations:", error);
+    });
+}
+
 function removeDuplicateTermsAndDefinitions() {
   const uniqueTerms = new Set();
   const uniqueTermsData = [];
@@ -81,6 +110,17 @@ function removeDuplicateTermsAndDefinitions() {
   });
 
   termsData.terms = uniqueTermsData;
+}
+
+function getTranslation(termName, index) {
+  if (!translationConfig.languagePairs.length) {
+    return null;
+  }
+  const pair = translationConfig.languagePairs[0];
+  const key = `${pair.from}-${pair.to}`;
+  const termTranslations = translationConfig.translations[key] || {};
+  const translations = termTranslations[termName];
+  return translations ? translations[index] : null;
 }
 
 function toggleFavorite(term) {
@@ -182,7 +222,41 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3>`;
+  const paragraphs = term.definition.split(/\n+/);
+  paragraphs.forEach((para, index) => {
+    const p = document.createElement("p");
+    p.textContent = para;
+    const translationText = getTranslation(term.term, index);
+    if (translationText) {
+      const toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "translation-toggle";
+      toggle.setAttribute("aria-expanded", "false");
+      const translationId = `translation-${index}`;
+      toggle.setAttribute("aria-controls", translationId);
+      toggle.textContent = "Show translation";
+
+      const small = document.createElement("small");
+      small.className = "translation";
+      small.id = translationId;
+      small.textContent = translationText;
+      small.hidden = true;
+
+      toggle.addEventListener("click", () => {
+        const expanded = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!expanded));
+        small.hidden = expanded;
+        toggle.textContent = expanded ? "Show translation" : "Hide translation";
+      });
+
+      p.appendChild(document.createTextNode(" "));
+      p.appendChild(toggle);
+      p.appendChild(document.createTextNode(" "));
+      p.appendChild(small);
+    }
+    definitionContainer.appendChild(p);
+  });
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
