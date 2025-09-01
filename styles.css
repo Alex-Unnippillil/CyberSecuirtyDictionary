@@ -347,3 +347,20 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+#find-overlay {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  z-index: 1000;
+  display: none;
+}
+#find-overlay input {
+  width: 200px;
+}
+mark.find-focus {
+  background-color: orange;
+  color: #000;
+}
