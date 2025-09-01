@@ -326,6 +326,32 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+/* Lite mode styles */
+body.lite-mode *,
+body.lite-mode *::before,
+body.lite-mode *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+body.lite-mode img,
+body.lite-mode iframe,
+body.lite-mode .playground-preview {
+  display: none !important;
+}
+
+#lite-mode-badge {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: none;
+}
+
+body.lite-mode #lite-mode-badge {
+  display: block;
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;
