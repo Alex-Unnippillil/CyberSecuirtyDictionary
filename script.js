@@ -254,3 +254,31 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+// Ripple effect for buttons
+function createRipple(event) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  const button = event.currentTarget;
+  const rect = button.getBoundingClientRect();
+  const ripple = document.createElement("span");
+  ripple.classList.add("ripple");
+
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = `${size * 2}px`;
+  ripple.style.left = `${event.clientX - rect.left - size}px`;
+  ripple.style.top = `${event.clientY - rect.top - size}px`;
+
+  button.appendChild(ripple);
+  ripple.addEventListener("animationend", () => {
+    ripple.remove();
+  });
+}
+
+document.querySelectorAll("button").forEach((btn) => {
+  const radius = getComputedStyle(btn).borderRadius;
+  btn.style.setProperty("--ripple-clip", `inset(0 round ${radius})`);
+  btn.addEventListener("click", createRipple);
+});
+

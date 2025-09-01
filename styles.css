@@ -347,3 +347,33 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Ripple effect */
+button {
+  position: relative;
+  overflow: hidden;
+  clip-path: var(--ripple-clip);
+}
+
+button .ripple {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0.75;
+  animation: ripple-animation 600ms ease-out;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button .ripple {
+    animation: none;
+  }
+}
