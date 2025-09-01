@@ -337,3 +337,78 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+// Export logic with progress indicator and cancellation
+const exportBtn = document.getElementById("export-terms");
+const exportStatus = document.getElementById("export-status");
+const cancelExportBtn = document.getElementById("cancel-export");
+const toast = document.getElementById("toast");
+let exportController = null;
+
+function showToast(message) {
+  if (!toast) return;
+  toast.textContent = message;
+  toast.hidden = false;
+  toast.classList.add("show");
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.hidden = true;
+  }, 3000);
+}
+
+function exportFinished(success) {
+  exportBtn.disabled = false;
+  exportStatus.hidden = true;
+  exportController = null;
+  if (success) {
+    showToast("Export complete");
+  }
+}
+
+function startExport() {
+  if (exportController) return;
+  exportController = new AbortController();
+  const { signal } = exportController;
+  exportBtn.disabled = true;
+  exportStatus.hidden = false;
+
+  const chunkSize = 20;
+  const total = termsData.terms.length;
+  const data = [];
+
+  function processChunk(index) {
+    if (signal.aborted) {
+      exportFinished(false);
+      return;
+    }
+
+    data.push(...termsData.terms.slice(index, index + chunkSize));
+
+    if (index + chunkSize < total) {
+      setTimeout(() => processChunk(index + chunkSize), 0);
+    } else {
+      const blob = new Blob(
+        [JSON.stringify({ terms: data }, null, 2)],
+        { type: "application/json" }
+      );
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "terms-export.json";
+      a.click();
+      URL.revokeObjectURL(url);
+      exportFinished(true);
+    }
+  }
+
+  processChunk(0);
+}
+
+if (exportBtn && cancelExportBtn) {
+  exportBtn.addEventListener("click", startExport);
+  cancelExportBtn.addEventListener("click", () => {
+    if (exportController) {
+      exportController.abort();
+    }
+  });
+}
+
