@@ -36,7 +36,7 @@ const SwUpdateToast: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <div className="sw-update-toast">
+    <div className="toast sw-update-toast" role="status" aria-live="polite">
       <span>Update available</span>
       <button onClick={refresh}>refresh now</button>
       <button onClick={defer}>remind later</button>
