@@ -50,7 +50,21 @@
     },
     {
       "term": "Cryptography",
-      "definition": "The practice of secure communication by converting plaintext into ciphertext and vice versa."
+      "definition": "The practice of secure communication by converting plaintext into ciphertext and vice versa.",
+      "etymology": [
+        {
+          "language": "Greek",
+          "date": "1460"
+        },
+        {
+          "language": "French",
+          "date": "1800"
+        },
+        {
+          "language": "English",
+          "date": "1844"
+        }
+      ]
     },
     {
       "term": "Social Engineering Attack Vectors",
