@@ -22,7 +22,14 @@ body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
   line-height: 1.6;
 }
 
@@ -53,7 +60,7 @@ a:focus {
 .card {
   background: var(--color-card-bg);
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem;
 }
 
@@ -75,7 +82,7 @@ a:focus {
   background: var(--color-link);
   color: #fff;
   transform: translateY(-100%);
-  transition: transform 0.2s;
+  transition: transform var(--motion-duration-fast) var(--motion-easing-in-out);
 }
 
 .skip-link:focus {
@@ -83,7 +90,12 @@ a:focus {
 }
 
 /* Typography */
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.25;
 }
 
