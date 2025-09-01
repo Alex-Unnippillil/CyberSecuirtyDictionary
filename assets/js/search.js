@@ -24,7 +24,18 @@
     if(!query){
       return;
     }
-    const matches = terms
+    const params = new URLSearchParams(window.location.search);
+    const diff = parseInt(params.get('difficulty') || '0', 10);
+
+    let filtered = terms;
+    if (diff > 0) {
+      filtered = terms.filter(t => {
+        const td = typeof t.difficulty === 'number' ? t.difficulty : 0;
+        return td <= diff;
+      });
+    }
+
+    const matches = filtered
       .map(term => ({ term, score: score(term, query) }))
       .filter(item => item.score > 0)
       .sort((a,b) => b.score - a.score);
@@ -33,6 +44,8 @@
       resultsContainer.appendChild(renderCard(term));
     });
   }
+
+  window.__handleSearch = handleSearch;
 
   function score(term, query){
     let s = 0;
