@@ -145,6 +145,30 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
+#scroll-speed {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-height: 44px;
+}
+
+#scroll-toggle {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#scroll-toggle:hover {
+  background-color: #0056b3;
+}
+
 label {
   margin-left: 10px;
   margin-top: 10px;
@@ -262,6 +286,18 @@ body.dark-mode #dark-mode-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
+}
+
+body.dark-mode #scroll-toggle {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #scroll-speed {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-color: #333;
 }
 
 body.dark-mode li {
