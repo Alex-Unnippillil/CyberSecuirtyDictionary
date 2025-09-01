@@ -2,135 +2,168 @@
   "terms": [
     {
       "term": "Phishing",
-      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages."
+      "definition": "An attempt to trick individuals into revealing sensitive information through fraudulent emails, websites, or messages.",
+      "ipa": "ˈfɪʃɪŋ"
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "ipa": "ˈfɪʃɪŋ ˈiːmeɪl"
     },
     {
       "term": "Social Engineering Toolkit (SET)",
-      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness."
+      "definition": "A framework for simulating social engineering attacks, helping organizations test their security awareness.",
+      "ipa": "ˈsoʊʃəl ˌɛnʤɪˈnɪərɪŋ ˈtuːlkɪt"
     },
     {
       "term": "Advanced Persistent Threat (APT)",
-      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network."
+      "definition": "A prolonged and targeted cyber attack in which attackers gain and maintain unauthorized access to a network.",
+      "ipa": "ædˈvænst pərˈsɪstənt θrɛt"
     },
     {
       "term": "Cyber Espionage",
-      "definition": "The use of cyber techniques to steal sensitive information from governments, organizations, or individuals."
+      "definition": "The use of cyber techniques to steal sensitive information from governments, organizations, or individuals.",
+      "ipa": "ˈsaɪbər ˌɛspijəˈnɑːʒ"
     },
     {
       "term": "Zero-Knowledge Proof",
-      "definition": "A cryptographic method that allows a party to prove knowledge of a secret without revealing the secret itself."
+      "definition": "A cryptographic method that allows a party to prove knowledge of a secret without revealing the secret itself.",
+      "ipa": "ˌzɪəroʊˈnɒlɪdʒ pruːf"
     },
     {
       "term": "Security Operations Center (SOC)",
-      "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time."
+      "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time.",
+      "ipa": "səˈkjʊərɪti ˌɒpəˈreɪʃənz ˈsɛntər"
     },
     {
       "term": "Data Loss Prevention (DLP)",
-      "definition": "A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data."
+      "definition": "A strategy and set of tools to prevent the unauthorized loss or leakage of sensitive data.",
+      "ipa": "ˈdeɪtə lɒs prɪˈvɛnʃən"
     },
     {
       "term": "Endpoint Security",
-      "definition": "The protection of devices like laptops, desktops, and smartphones from various security threats."
+      "definition": "The protection of devices like laptops, desktops, and smartphones from various security threats.",
+      "ipa": ""
     },
     {
       "term": "Security Token",
-      "definition": "A physical or digital device used to authenticate users or provide one-time passwords for secure access."
+      "definition": "A physical or digital device used to authenticate users or provide one-time passwords for secure access.",
+      "ipa": ""
     },
     {
       "term": "Network Security",
-      "definition": "The protection of network infrastructure and data from unauthorized access or attacks."
+      "definition": "The protection of network infrastructure and data from unauthorized access or attacks.",
+      "ipa": ""
     },
     {
       "term": "Payload",
-      "definition": "The part of a malware or exploit that performs malicious actions on a victim's system."
+      "definition": "The part of a malware or exploit that performs malicious actions on a victim's system.",
+      "ipa": ""
     },
     {
       "term": "Cryptography",
-      "definition": "The practice of secure communication by converting plaintext into ciphertext and vice versa."
+      "definition": "The practice of secure communication by converting plaintext into ciphertext and vice versa.",
+      "ipa": ""
     },
     {
       "term": "Social Engineering Attack Vectors",
-      "definition": "Different methods and techniques used in social engineering attacks to manipulate victims."
+      "definition": "Different methods and techniques used in social engineering attacks to manipulate victims.",
+      "ipa": ""
     },
     {
       "term": "Threat Hunting",
-      "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures."
+      "definition": "Proactively searching for and identifying cyber threats that have evaded traditional security measures.",
+      "ipa": ""
     },
     {
       "term": "Incident Response",
-      "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach."
+      "definition": "The process of managing and mitigating the impact of a cybersecurity incident or breach.",
+      "ipa": ""
     },
     {
       "term": "Privilege Escalation",
-      "definition": "The act of gaining higher levels of access or permissions in a system or network than originally granted."
+      "definition": "The act of gaining higher levels of access or permissions in a system or network than originally granted.",
+      "ipa": ""
     },
     {
       "term": "Security Assessment",
-      "definition": "A systematic evaluation of an organization's security measures to identify vulnerabilities and weaknesses."
+      "definition": "A systematic evaluation of an organization's security measures to identify vulnerabilities and weaknesses.",
+      "ipa": ""
     },
     {
       "term": "Data Encryption Standard (DES)",
-      "definition": "An early symmetric key encryption algorithm used to secure electronic data."
+      "definition": "An early symmetric key encryption algorithm used to secure electronic data.",
+      "ipa": ""
     },
     {
       "term": "Advanced Encryption Standard (AES)",
-      "definition": "A widely used symmetric key encryption algorithm known for its security and efficiency."
+      "definition": "A widely used symmetric key encryption algorithm known for its security and efficiency.",
+      "ipa": ""
     },
     {
       "term": "Public Key Infrastructure (PKI)",
-      "definition": "A system for managing digital certificates and public-private key pairs used in asymmetric encryption."
+      "definition": "A system for managing digital certificates and public-private key pairs used in asymmetric encryption.",
+      "ipa": ""
     },
     {
       "term": "Certificate Authority (CA)",
-      "definition": "An entity responsible for issuing and managing digital certificates used in PKI."
+      "definition": "An entity responsible for issuing and managing digital certificates used in PKI.",
+      "ipa": ""
     },
     {
       "term": "Secure Sockets Layer (SSL)",
-      "definition": "An older cryptographic protocol that provides secure communication over a computer network."
+      "definition": "An older cryptographic protocol that provides secure communication over a computer network.",
+      "ipa": ""
     },
     {
       "term": "Transport Layer Security (TLS)",
-      "definition": "A more secure successor to SSL, providing encryption and authentication for secure communication."
+      "definition": "A more secure successor to SSL, providing encryption and authentication for secure communication.",
+      "ipa": ""
     },
     {
       "term": "Key Exchange",
-      "definition": "The process of securely sharing encryption keys between parties to establish a secure communication channel."
+      "definition": "The process of securely sharing encryption keys between parties to establish a secure communication channel.",
+      "ipa": ""
     },
     {
       "term": "Malvertising",
-      "definition": "Malicious online advertisements that deliver malware or lead to malicious websites."
+      "definition": "Malicious online advertisements that deliver malware or lead to malicious websites.",
+      "ipa": ""
     },
     {
       "term": "Eavesdropping",
-      "definition": "Unauthorized interception and monitoring of private communications, often done surreptitiously."
+      "definition": "Unauthorized interception and monitoring of private communications, often done surreptitiously.",
+      "ipa": ""
     },
     {
       "term": "Identity Theft",
-      "definition": "The fraudulent acquisition and use of an individual's personal information to impersonate them for malicious purposes."
+      "definition": "The fraudulent acquisition and use of an individual's personal information to impersonate them for malicious purposes.",
+      "ipa": ""
     },
     {
       "term": "Zero-Day Vulnerability",
-      "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers."
+      "definition": "A software vulnerability that is not yet known to the vendor or the public, making it highly valuable to attackers.",
+      "ipa": ""
     },
     {
       "term": "Security Patch",
-      "definition": "An update released by software vendors to fix security vulnerabilities in their products."
+      "definition": "An update released by software vendors to fix security vulnerabilities in their products.",
+      "ipa": ""
     },
     {
       "term": "Cross-Site Scripting (XSS)",
-      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users."
+      "definition": "A type of web vulnerability where attackers inject malicious scripts into web pages viewed by other users.",
+      "ipa": ""
     },
     {
       "term": "Cross-Site Request Forgery (CSRF)",
-      "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website."
+      "definition": "An attack that tricks a user into unknowingly submitting a malicious request on a trusted website.",
+      "ipa": ""
     },
     {
       "term": "Phishing Email",
-      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+      "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions.",
+      "ipa": ""
     }
   ]
 }
