@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <main class="container">
-    <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
-    <div id="results"></div>
-  </main>
-  <script>
-    window.__BASE_URL__ = window.__BASE_URL__ || '';
-  </script>
-  <script src="assets/js/search.js"></script>
-  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
-  <script src="assets/js/metrics.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Search</title>
+    <link rel="stylesheet" href="styles.css" >
+  </head>
+  <body>
+    <nav class="skip-links" aria-label="Skip links">
+      <a class="skip-link" href="#search-box">Skip to search</a>
+      <a class="skip-link" href="#results">Skip to results</a>
+      <a class="skip-link" href="#main-content">Skip to content</a>
+    </nav>
+    <main id="main-content" class="container">
+      <h1>Search</h1>
+      <input id="search-box" type="text" placeholder="Search terms..." >
+      <aside id="results" aria-label="Search results"></aside>
+    </main>
+    <script>
+      window.__BASE_URL__ = window.__BASE_URL__ || "";
+    </script>
+    <script src="assets/js/search.js"></script>
+    <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+    <script src="assets/js/metrics.js"></script>
+  </body>
 </html>
