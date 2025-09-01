@@ -4,7 +4,9 @@ const URLS_TO_CACHE = [
   '/index.html',
   '/styles.css',
   '/script.js',
-  '/data.json'
+  '/data.json',
+  '/compare.html',
+  '/assets/js/compare.js'
 ];
 
 self.addEventListener('install', event => {
