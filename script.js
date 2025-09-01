@@ -5,7 +5,9 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
-const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]"),
+);
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
@@ -19,7 +21,10 @@ if (localStorage.getItem("darkMode") === "true") {
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode"),
+    );
   });
 }
 
@@ -37,15 +42,17 @@ function loadTerms() {
     })
     .then((data) => {
       termsData = data;
-      removeDuplicateTermsAndDefinitions();
+      groupTermsByHeadword();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
       buildAlphaNav();
       populateTermsList();
 
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1),
+        );
         const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase(),
         );
         if (matchedTerm) {
           displayDefinition(matchedTerm);
@@ -56,7 +63,7 @@ function loadTerms() {
       console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
       definitionContainer.innerHTML =
-        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
+        "<p>Unable to load dictionary data. Please check your connection and try again.</p>" +
         '<button id="retry-fetch">Retry</button>';
       const retryBtn = document.getElementById("retry-fetch");
       if (retryBtn) {
@@ -68,19 +75,21 @@ function loadTerms() {
     });
 }
 
-function removeDuplicateTermsAndDefinitions() {
-  const uniqueTerms = new Set();
-  const uniqueTermsData = [];
+function groupTermsByHeadword() {
+  const termMap = new Map();
 
   termsData.terms.forEach((item) => {
-    const lowerCaseTerm = item.term.toLowerCase();
-    if (!uniqueTerms.has(lowerCaseTerm)) {
-      uniqueTerms.add(lowerCaseTerm);
-      uniqueTermsData.push(item);
+    const key = item.term.toLowerCase();
+    if (!termMap.has(key)) {
+      termMap.set(key, { term: item.term, definitions: [] });
     }
+    termMap.get(key).definitions.push({
+      definition: item.definition,
+      partOfSpeech: item.partOfSpeech || "",
+    });
   });
 
-  termsData.terms = uniqueTermsData;
+  termsData.terms = Array.from(termMap.values());
 }
 
 function toggleFavorite(term) {
@@ -97,12 +106,16 @@ function toggleFavorite(term) {
 }
 
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase())),
+  ).sort();
 
   const allButton = document.createElement("button");
   allButton.textContent = "All";
@@ -134,9 +147,13 @@ function populateTermsList() {
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const matchesFavorites =
+        !showFavoritesToggle ||
+        !showFavoritesToggle.checked ||
+        favorites.has(item.term);
       const matchesLetter =
-        currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
@@ -168,7 +185,7 @@ function populateTermsList() {
         termDiv.appendChild(termHeader);
 
         const definitionPara = document.createElement("p");
-        definitionPara.textContent = item.definition;
+        definitionPara.textContent = item.definitions[0].definition;
         termDiv.appendChild(definitionPara);
 
         termDiv.addEventListener("click", () => {
@@ -182,12 +199,53 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = "";
+
+  const header = document.createElement("h3");
+  header.textContent = term.term;
+  definitionContainer.appendChild(header);
+
+  if (term.definitions.length > 1) {
+    const tabsWrapper = document.createElement("div");
+    tabsWrapper.classList.add("pos-tabs");
+
+    const tabList = document.createElement("div");
+    tabList.setAttribute("role", "tablist");
+    tabsWrapper.appendChild(tabList);
+
+    const defPara = document.createElement("p");
+    definitionContainer.appendChild(tabsWrapper);
+    definitionContainer.appendChild(defPara);
+
+    term.definitions.forEach((defObj, index) => {
+      const tab = document.createElement("button");
+      tab.setAttribute("role", "tab");
+      tab.textContent = defObj.partOfSpeech || `Definition ${index + 1}`;
+      tab.setAttribute("aria-selected", index === 0 ? "true" : "false");
+      tab.addEventListener("click", (e) => {
+        e.stopPropagation();
+        tabList
+          .querySelectorAll('[role="tab"]')
+          .forEach((btn) => btn.setAttribute("aria-selected", "false"));
+        tab.setAttribute("aria-selected", "true");
+        defPara.textContent = defObj.definition;
+      });
+      tabList.appendChild(tab);
+      if (index === 0) {
+        defPara.textContent = defObj.definition;
+      }
+    });
+  } else {
+    const defPara = document.createElement("p");
+    defPara.textContent = term.definitions[0].definition;
+    definitionContainer.appendChild(defPara);
+  }
+
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
-      `${siteUrl}#${encodeURIComponent(term.term)}`
+      `${siteUrl}#${encodeURIComponent(term.term)}`,
     );
   }
 }
@@ -195,19 +253,27 @@ function displayDefinition(term) {
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search,
+  );
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm }),
+    );
   } catch (e) {
     // Ignore storage errors
   }
@@ -249,8 +315,7 @@ window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
 scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  window.scrollTo({ top: 0, behavior: "smooth" }),
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
-

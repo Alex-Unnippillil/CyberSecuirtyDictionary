@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -324,6 +325,36 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+.pos-tabs {
+  margin-top: 10px;
+}
+
+.pos-tabs [role="tab"] {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.pos-tabs [role="tab"][aria-selected="true"] {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+body.dark-mode .pos-tabs [role="tab"] {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .pos-tabs [role="tab"][aria-selected="true"] {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
 }
 
 @media (max-width: 480px) {
