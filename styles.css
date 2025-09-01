@@ -316,6 +316,29 @@ body.dark-mode #alpha-nav button {
   color: #fff;
 }
 
+/* Streaming output and sources sidebar */
+#model-output {
+  min-height: 50px;
+  margin: 20px;
+}
+
+#sources-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  background: #f9f9f9;
+  border-left: 1px solid #ccc;
+  padding: 10px;
+}
+
+body.dark-mode #sources-sidebar {
+  background: #1e1e1e;
+  border-left-color: #333;
+}
+
 body.dark-mode #alpha-nav button:hover,
 body.dark-mode #alpha-nav button:focus {
   background-color: #555;
