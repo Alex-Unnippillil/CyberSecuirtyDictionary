@@ -347,3 +347,16 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+.quiz-option {
+  display: block;
+  margin: 8px 0;
+}
+
+.quiz-option.correct {
+  background-color: #c8e6c9;
+}
+
+.quiz-option.incorrect {
+  background-color: #ffcdd2;
+}
