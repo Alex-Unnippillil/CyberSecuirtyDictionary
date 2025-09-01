@@ -101,6 +101,20 @@ body.dark-mode mark {
   margin-bottom: 20px;
 }
 
+#definition-container button {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#definition-container button:hover {
+  background-color: #0056b3;
+}
+
 #search {
   width: 100%;
   padding: 10px;
@@ -242,6 +256,34 @@ label {
   background-color: #0056b3;
 }
 
+#deck-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#deck-preview .deck-preview-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 90%;
+}
+
+#deck-preview h4 {
+  margin: 0 0 10px;
+}
+
+#deck-preview button {
+  margin-right: 10px;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
@@ -292,6 +334,16 @@ body.dark-mode #definition-container {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
+body.dark-mode #definition-container button {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #definition-container button:hover {
+  background-color: #555;
+}
+
 body.dark-mode .favorite-star {
   color: #888;
 }
@@ -324,6 +376,11 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode #deck-preview .deck-preview-content {
+  background: #1e1e1e;
+  color: #fff;
 }
 
 @media (max-width: 480px) {

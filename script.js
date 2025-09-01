@@ -182,13 +182,61 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><button id="add-to-deck" type="button">Add to deck</button>`;
+  const addBtn = document.getElementById("add-to-deck");
+  if (addBtn) {
+    addBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showDeckPreview(term);
+    });
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
+  }
+}
+
+function showDeckPreview(term) {
+  const overlay = document.createElement("div");
+  overlay.id = "deck-preview";
+  overlay.innerHTML = `<div class="deck-preview-content"><h4>Front</h4><p>${term.term}</p><h4>Back</h4><p>${term.definition}</p><button id="save-card" type="button">Save</button><button id="cancel-card" type="button">Cancel</button></div>`;
+  document.body.appendChild(overlay);
+
+  const content = overlay.querySelector(".deck-preview-content");
+  if (content) {
+    content.addEventListener("click", (e) => e.stopPropagation());
+  }
+
+  overlay.addEventListener("click", () => overlay.remove());
+  const cancelBtn = document.getElementById("cancel-card");
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      overlay.remove();
+    });
+  }
+
+  const saveBtn = document.getElementById("save-card");
+  if (saveBtn) {
+    saveBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      fetch("/api/decks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ front: term.term, back: term.definition }),
+      })
+        .then(() => {
+          overlay.remove();
+          alert("Saved to deck");
+        })
+        .catch(() => {
+          overlay.remove();
+          alert("Failed to save card");
+        });
+    });
   }
 }
 
