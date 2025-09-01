@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -89,7 +89,8 @@ body.dark-mode mark {
   color: #666;
 }
 
-.dictionary-item:hover {
+.dictionary-item:hover,
+.dictionary-item:focus {
   transform: scale(1.02);
 }
 
@@ -111,7 +112,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -125,7 +125,8 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-#random-term:hover {
+#random-term:hover,
+#random-term:focus {
   background-color: #0056b3;
 }
 
@@ -141,7 +142,8 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-#dark-mode-toggle:hover {
+#dark-mode-toggle:hover,
+#dark-mode-toggle:focus {
   background-color: #0056b3;
 }
 
@@ -206,7 +208,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -238,8 +242,32 @@ label {
   border-radius: 50%;
 }
 
-#scrollToTopBtn:hover {
+#scrollToTopBtn:hover,
+#scrollToTopBtn:focus {
   background-color: #0056b3;
+}
+
+/* Focus ring visibility */
+.dictionary-item:focus,
+#alpha-nav button:focus,
+#random-term:focus,
+#dark-mode-toggle:focus,
+.favorite-star:focus,
+#scrollToTopBtn:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .dictionary-item:focus,
+  #alpha-nav button:focus,
+  #random-term:focus,
+  #dark-mode-toggle:focus,
+  .favorite-star:focus,
+  #scrollToTopBtn:focus {
+    outline: 2px solid ButtonText;
+    outline-offset: 2px;
+  }
 }
 
 /* Dark Mode styles */
