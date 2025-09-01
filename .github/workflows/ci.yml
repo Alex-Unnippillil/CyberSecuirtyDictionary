@@ -24,3 +24,20 @@ jobs:
         uses: lycheeverse/lychee-action@v2
         with:
           args: --no-cache terms.json
+      - name: Bundle size budget
+        id: bundle
+        run: node build-budget.js | tee bundle-report.txt
+      - name: Comment bundle report
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('bundle-report.txt', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `### Bundle size report\n\n\`\`\`\n${report}\n\`\`\``
+            });
+
