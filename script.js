@@ -5,6 +5,8 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const checkUpdatesBtn = document.getElementById("check-updates");
+const updateContainer = document.getElementById("update-container");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -28,6 +30,20 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadTerms() {
+  const cached = localStorage.getItem("termsDataCache");
+  if (cached) {
+    try {
+      termsData = JSON.parse(cached);
+      removeDuplicateTermsAndDefinitions();
+      termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      buildAlphaNav();
+      populateTermsList();
+      return;
+    } catch (e) {
+      // If parsing fails, fetch fresh data below
+    }
+  }
+
   fetch("terms.json")
     .then((response) => {
       if (!response.ok) {
@@ -39,6 +55,7 @@ function loadTerms() {
       termsData = data;
       removeDuplicateTermsAndDefinitions();
       termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+      localStorage.setItem("termsDataCache", JSON.stringify(termsData));
       buildAlphaNav();
       populateTermsList();
 
@@ -66,6 +83,79 @@ function loadTerms() {
         });
       }
     });
+}
+
+async function checkForUpdates() {
+  try {
+    const response = await fetch(`${siteUrl}terms.json?cacheBust=${Date.now()}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const remoteData = await response.json();
+    const localMap = new Map(
+      termsData.terms.map((t) => [t.term.toLowerCase(), t])
+    );
+    const diffs = [];
+    remoteData.terms.forEach((rt) => {
+      const lt = localMap.get(rt.term.toLowerCase());
+      if (!lt || lt.definition !== rt.definition) {
+        diffs.push(rt);
+      }
+    });
+    showDiffList(diffs);
+  } catch (e) {
+    console.error("Error checking for updates", e);
+  }
+}
+
+function showDiffList(diffs) {
+  updateContainer.innerHTML = "";
+  if (!diffs.length) {
+    updateContainer.textContent = "No updates available.";
+    updateContainer.style.display = "block";
+    return;
+  }
+  updateContainer.style.display = "block";
+  const refreshAll = document.createElement("button");
+  refreshAll.textContent = "Refresh All";
+  refreshAll.addEventListener("click", () => {
+    diffs.forEach(applyUpdate);
+    updateContainer.style.display = "none";
+    populateTermsList();
+  });
+  updateContainer.appendChild(refreshAll);
+
+  const list = document.createElement("ul");
+  diffs.forEach((diff) => {
+    const li = document.createElement("li");
+    li.textContent = diff.term;
+    const btn = document.createElement("button");
+    btn.textContent = "Refresh";
+    btn.addEventListener("click", () => {
+      applyUpdate(diff);
+      li.remove();
+      if (!list.children.length) {
+        updateContainer.style.display = "none";
+      }
+      populateTermsList();
+    });
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+  updateContainer.appendChild(list);
+}
+
+function applyUpdate(newTerm) {
+  const idx = termsData.terms.findIndex(
+    (t) => t.term.toLowerCase() === newTerm.term.toLowerCase()
+  );
+  if (idx !== -1) {
+    termsData.terms[idx] = newTerm;
+  } else {
+    termsData.terms.push(newTerm);
+  }
+  termsData.terms.sort((a, b) => a.term.localeCompare(b.term));
+  localStorage.setItem("termsDataCache", JSON.stringify(termsData));
 }
 
 function removeDuplicateTermsAndDefinitions() {
@@ -218,6 +308,11 @@ if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
     clearDefinition();
     populateTermsList();
+  });
+}
+if (checkUpdatesBtn) {
+  checkUpdatesBtn.addEventListener("click", () => {
+    checkForUpdates();
   });
 }
 
