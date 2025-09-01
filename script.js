@@ -254,3 +254,77 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+// --- Offline Note Sync ---
+const noteForm = document.getElementById("note-form");
+const noteText = document.getElementById("note-text");
+const syncStatus = document.getElementById("sync-status");
+
+function updateSyncStatus(msg) {
+  if (syncStatus) {
+    syncStatus.textContent = msg;
+  }
+}
+
+function openNotesDB() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open("notes-db", 1);
+    request.onupgradeneeded = (event) => {
+      event.target.result.createObjectStore("notes", { keyPath: "id" });
+    };
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+
+async function saveNoteForSync(note) {
+  const db = await openNotesDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction("notes", "readwrite");
+    tx.objectStore("notes").put(note);
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function sendNote(note) {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(note),
+  });
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+}
+
+if (noteForm) {
+  noteForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const text = noteText.value.trim();
+    if (!text) {
+      return;
+    }
+    const note = { id: Date.now(), text };
+    try {
+      await sendNote(note);
+      updateSyncStatus("Note synced");
+    } catch (err) {
+      await saveNoteForSync(note);
+      updateSyncStatus("Note queued for sync");
+      if (navigator.serviceWorker && "SyncManager" in window) {
+        navigator.serviceWorker.ready.then((reg) => reg.sync.register("sync-notes"));
+      }
+    }
+    noteForm.reset();
+  });
+}
+
+if (navigator.serviceWorker) {
+  navigator.serviceWorker.addEventListener("message", (event) => {
+    if (event.data && event.data.type === "sync") {
+      updateSyncStatus(event.data.message);
+    }
+  });
+}
+
+
