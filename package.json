@@ -18,5 +18,10 @@
     "js-yaml": "^4.1.0",
     "prettier": "^3.6.2",
     "jsdom": "^26.1.0"
+  },
+  "dependencies": {
+    "lottie-web": "^5.12.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
