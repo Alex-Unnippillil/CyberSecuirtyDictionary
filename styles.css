@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -111,7 +111,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -146,7 +145,7 @@ body.dark-mode mark {
 }
 
 label {
-  margin-left: 10px;
+  margin-inline-start: 10px;
   margin-top: 10px;
   display: inline-block;
   line-height: 44px;
@@ -155,7 +154,7 @@ label {
 #show-favorites {
   width: 44px;
   height: 44px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 /* Favorite star styles */
@@ -163,7 +162,7 @@ label {
   font-size: 20px;
   color: #ccc;
   cursor: pointer;
-  margin-left: 5px;
+  margin-inline-start: 5px;
   transition: color 0.2s;
   width: 44px;
   height: 44px;
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -226,8 +227,8 @@ label {
 #scrollToTopBtn {
   display: none;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  inset-block-end: 20px;
+  inset-inline-end: 20px;
   font-size: 20px;
   border: none;
   background-color: #007bff;
