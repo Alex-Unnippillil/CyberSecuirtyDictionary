@@ -4,19 +4,29 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "node build.js",
     "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "prebuild": "tsx scripts/build-search-index.ts",
+    "typecheck": "tsc --noEmit",
+    "start": "http-server -p 3000",
+    "lint": "prettier --check scripts api"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^24.3.0",
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
+    "jsdom": "^26.1.0",
     "prettier": "^3.6.2",
-    "jsdom": "^26.1.0"
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
