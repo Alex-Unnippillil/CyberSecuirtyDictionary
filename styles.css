@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -61,7 +61,7 @@ mark {
   color: inherit;
 }
 
-body.dark-mode mark {
+html.dark mark {
   background-color: #ffeb3b;
   color: #000;
 }
@@ -111,7 +111,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -129,20 +128,16 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
-#dark-mode-toggle {
+#theme-select {
   margin-top: 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-  min-width: 44px;
   min-height: 44px;
 }
 
-#dark-mode-toggle:hover {
-  background-color: #0056b3;
+#theme-select:hover {
+  border-color: #0056b3;
 }
 
 label {
@@ -206,7 +201,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -243,87 +240,119 @@ label {
 }
 
 /* Dark Mode styles */
-body.dark-mode {
+html.dark body {
   background-color: #121212;
   color: #fff;
 }
 
-body.dark-mode .container {
+html.dark .container {
   background-color: #1e1e1e;
 }
 
-body.dark-mode #search {
+html.dark #search {
   background-color: #1e1e1e;
   color: #fff;
   border-color: #333;
 }
 
-body.dark-mode #dark-mode-toggle {
+html.dark #theme-select {
   background-color: #333;
   color: #fff;
   border-color: #555;
 }
 
-body.dark-mode li {
+html.dark li {
   background-color: #1e1e1e;
   border-bottom: 1px solid #333;
 }
 
-body.dark-mode li:hover {
+html.dark li:hover {
   background-color: #333;
 }
 
-body.dark-mode .dictionary-item {
+html.dark .dictionary-item {
   background-color: #1e1e1e;
   border-color: #333;
 }
 
-body.dark-mode .dictionary-item h3 {
+html.dark .dictionary-item h3 {
   color: #fff;
   border-bottom-color: #333;
 }
 
-body.dark-mode .dictionary-item p {
+html.dark .dictionary-item p {
   color: #ccc;
 }
 
-body.dark-mode #definition-container {
+html.dark #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
-body.dark-mode .favorite-star {
+html.dark .favorite-star {
   color: #888;
 }
 
-body.dark-mode .favorite-star:hover,
-body.dark-mode .favorite-star:focus {
+html.dark .favorite-star:hover,
+html.dark .favorite-star:focus {
   color: #bbb;
 }
 
-body.dark-mode .favorited {
+html.dark .favorited {
   color: #ffd700;
 }
 
-body.dark-mode .badge {
+html.dark .badge {
   background-color: #1e90ff;
   color: #000;
 }
 
-body.dark-mode #alpha-nav button {
+html.dark #alpha-nav button {
   background-color: #333;
   border-color: #555;
   color: #fff;
 }
 
-body.dark-mode #alpha-nav button:hover,
-body.dark-mode #alpha-nav button:focus {
+html.dark #alpha-nav button:hover,
+html.dark #alpha-nav button:focus {
   background-color: #555;
 }
 
-body.dark-mode #alpha-nav button.active {
+html.dark #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+/* High contrast overrides */
+html.high-contrast body {
+  background-color: #000;
+  color: #fff;
+}
+
+html.high-contrast a {
+  color: #0ff;
+}
+
+html.high-contrast mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+html.high-contrast .container,
+html.high-contrast #search,
+html.high-contrast #theme-select,
+html.high-contrast li,
+html.high-contrast .dictionary-item,
+html.high-contrast #definition-container,
+html.high-contrast #alpha-nav button {
+  background-color: #000;
+  color: #fff;
+  border-color: #fff;
+}
+
+html.high-contrast #alpha-nav button:hover,
+html.high-contrast #alpha-nav button:focus {
+  background-color: #222;
 }
 
 @media (max-width: 480px) {
