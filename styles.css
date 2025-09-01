@@ -242,6 +242,52 @@ label {
   background-color: #0056b3;
 }
 
+/* Drawer toggle hidden by default */
+#drawer-toggle {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #drawer-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  #drawer-toggle:focus {
+    outline: 2px solid #0056b3;
+  }
+
+  #alpha-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 260px;
+    background-color: #fff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 10px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  #alpha-nav.open {
+    transform: translateX(0);
+  }
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
