@@ -93,6 +93,10 @@ body.dark-mode mark {
   transform: scale(1.02);
 }
 
+.dictionary-item:focus {
+  transform: scale(1.02);
+}
+
 #definition-container {
   padding: 20px;
   background-color: #f2f2f2;
@@ -240,6 +244,16 @@ label {
 
 #scrollToTopBtn:hover {
   background-color: #0056b3;
+}
+
+#random-term:focus,
+#dark-mode-toggle:focus,
+#alpha-nav button:focus,
+.dictionary-item:focus,
+.favorite-star:focus,
+#scrollToTopBtn:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
 }
 
 /* Dark Mode styles */

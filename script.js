@@ -140,6 +140,7 @@ function populateTermsList() {
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
+        termDiv.tabIndex = 0;
 
         const termHeader = document.createElement("h3");
         if (searchValue) {
@@ -153,6 +154,7 @@ function populateTermsList() {
         const star = document.createElement("span");
         star.classList.add("favorite-star");
         star.textContent = "★";
+        star.tabIndex = 0;
         if (favorites.has(item.term)) {
           star.classList.add("favorited");
         }
@@ -164,6 +166,17 @@ function populateTermsList() {
             populateTermsList();
           }
         });
+        star.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.stopPropagation();
+            e.preventDefault();
+            toggleFavorite(item.term);
+            star.classList.toggle("favorited");
+            if (showFavoritesToggle && showFavoritesToggle.checked) {
+              populateTermsList();
+            }
+          }
+        });
         termHeader.appendChild(star);
         termDiv.appendChild(termHeader);
 
@@ -173,6 +186,12 @@ function populateTermsList() {
 
         termDiv.addEventListener("click", () => {
           displayDefinition(item);
+        });
+        termDiv.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            displayDefinition(item);
+          }
         });
 
         termsList.appendChild(termDiv);
