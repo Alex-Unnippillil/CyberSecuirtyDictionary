@@ -13,6 +13,11 @@ body {
   overflow-x: hidden;
 }
 
+body.dyslexic-font,
+body.dyslexic-font * {
+  font-family: "OpenDyslexic", Arial, sans-serif !important;
+}
+
 .container {
   max-width: 800px;
   width: 100%;
@@ -25,7 +30,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -111,7 +116,6 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -129,7 +133,8 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
-#dark-mode-toggle {
+#dark-mode-toggle,
+#dyslexic-font-toggle {
   margin-top: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -141,7 +146,8 @@ body.dark-mode mark {
   min-height: 44px;
 }
 
-#dark-mode-toggle:hover {
+#dark-mode-toggle:hover,
+#dyslexic-font-toggle:hover {
   background-color: #0056b3;
 }
 
@@ -206,7 +212,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
