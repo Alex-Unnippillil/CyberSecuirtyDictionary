@@ -12,9 +12,23 @@
   <main class="container">
     <h1>Cyber Security Dictionary</h1>
     <nav class="site-nav" aria-label="Site links"><a href="templates/guidelines.html">Definition Guidelines</a></nav>
-    <div id="definition-container" style="display: none;"></div>
-    <nav id="alpha-nav" aria-label="Alphabet navigation"></nav>
-    <input type="text" id="search" placeholder="Search...">
+    <!-- Dialog container for displaying selected term definitions -->
+    <div id="definition-container" role="dialog" aria-modal="true" aria-labelledby="definition-title" tabindex="-1" hidden></div>
+    <!-- Drawer toggle for alphabet navigation -->
+    <button id="nav-toggle" type="button" aria-controls="alpha-nav" aria-expanded="false">Alphabet Navigation</button>
+    <nav id="alpha-nav" aria-label="Alphabet navigation" hidden></nav>
+    <!-- Search input enhanced as ARIA combobox controlling the term list -->
+    <!-- html-validate-disable-next prefer-native-element -->
+    <input
+      type="text"
+      id="search"
+      placeholder="Search..."
+      role="combobox"
+      aria-autocomplete="list"
+      aria-controls="terms-list"
+      aria-expanded="false"
+      aria-haspopup="listbox"
+    >
 
     <button id="random-term" type="button" aria-label="Show random term">Random Term</button>
 
