@@ -1,0 +1,10 @@
+{
+  "es": {
+    "localeName": "Spanish",
+    "terms": ["Zero Trust", "Threat Modeling", "Ransomware"]
+  },
+  "fr": {
+    "localeName": "French",
+    "terms": ["Phishing", "Multi-Factor Authentication"]
+  }
+}
