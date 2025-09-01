@@ -8,9 +8,12 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const contextList = document.getElementById("context-list");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let allButton;
+let currentTerm = null;
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -25,6 +28,7 @@ if (darkModeToggle) {
 
 window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
+  updateSidebar();
 });
 
 function loadTerms() {
@@ -104,13 +108,14 @@ function highlightActiveButton(button) {
 function buildAlphaNav() {
   const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
 
-  const allButton = document.createElement("button");
-  allButton.textContent = "All";
-  allButton.addEventListener("click", () => {
-    currentLetterFilter = "All";
-    highlightActiveButton(allButton);
-    populateTermsList();
-  });
+    allButton = document.createElement("button");
+    allButton.textContent = "All";
+    allButton.addEventListener("click", () => {
+      currentLetterFilter = "All";
+      highlightActiveButton(allButton);
+      populateTermsList();
+      updateSidebar();
+    });
   alphaNav.appendChild(allButton);
 
   letters.forEach((letter) => {
@@ -120,6 +125,7 @@ function buildAlphaNav() {
       currentLetterFilter = letter;
       highlightActiveButton(btn);
       populateTermsList();
+      updateSidebar();
     });
     alphaNav.appendChild(btn);
   });
@@ -181,6 +187,7 @@ function populateTermsList() {
 }
 
 function displayDefinition(term) {
+  currentTerm = term.term;
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
   window.location.hash = encodeURIComponent(term.term);
@@ -190,6 +197,7 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  updateSidebar();
 }
 
 function clearDefinition() {
@@ -199,6 +207,8 @@ function clearDefinition() {
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
+  currentTerm = null;
+  updateSidebar();
 }
 
 function showRandomTerm() {
@@ -218,6 +228,7 @@ if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
     clearDefinition();
     populateTermsList();
+    updateSidebar();
   });
 }
 
@@ -242,6 +253,7 @@ if (showFavoritesToggle) {
 searchInput.addEventListener("input", () => {
   clearDefinition();
   populateTermsList();
+  updateSidebar();
 });
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
@@ -253,4 +265,65 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function createContextItem(text, action) {
+  const li = document.createElement("li");
+  li.textContent = text;
+  const btn = document.createElement("button");
+  btn.textContent = "Clear";
+  btn.className = "clear-btn";
+  btn.setAttribute("data-action", action);
+  li.appendChild(btn);
+  return li;
+}
+
+function updateSidebar() {
+  if (!contextList) return;
+  contextList.innerHTML = "";
+  const searchValue = searchInput.value.trim();
+  if (searchValue) {
+    contextList.appendChild(createContextItem(`Search: ${searchValue}`, "clear-search"));
+  }
+  if (currentLetterFilter !== "All") {
+    contextList.appendChild(createContextItem(`Letter: ${currentLetterFilter}`, "clear-letter"));
+  }
+  if (showFavoritesToggle && showFavoritesToggle.checked) {
+    contextList.appendChild(createContextItem("Favorites only", "clear-favorites"));
+  }
+  if (currentTerm) {
+    contextList.appendChild(createContextItem(`Selected: ${currentTerm}`, "clear-term"));
+  }
+  if (contextList.children.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "No active filters";
+    contextList.appendChild(li);
+  }
+}
+
+if (contextList) {
+  contextList.addEventListener("click", (e) => {
+    if (e.target.classList.contains("clear-btn")) {
+      const action = e.target.getAttribute("data-action");
+      switch (action) {
+        case "clear-search":
+          searchInput.value = "";
+          break;
+        case "clear-letter":
+          currentLetterFilter = "All";
+          if (allButton) highlightActiveButton(allButton);
+          break;
+        case "clear-favorites":
+          if (showFavoritesToggle) showFavoritesToggle.checked = false;
+          break;
+        case "clear-term":
+          clearDefinition();
+          break;
+      }
+      populateTermsList();
+      updateSidebar();
+    }
+  });
+}
+
+updateSidebar();
 
