@@ -11,11 +11,22 @@
     <h1>Search</h1>
     <input id="search-box" type="text" placeholder="Search terms...">
     <div id="results"></div>
+
+    <section id="anagrams-panel">
+      <h2>Find Anagrams</h2>
+      <form id="anagram-form">
+        <input id="anagram-word" type="text" placeholder="Word" required>
+        <input id="anagram-length" type="number" min="1" placeholder="Length">
+        <button type="submit">Generate</button>
+      </form>
+      <div id="anagram-results" aria-live="polite"></div>
+    </section>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
   </script>
   <script src="assets/js/search.js"></script>
+  <script src="assets/js/anagrams.js"></script>
   <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
   <script src="assets/js/metrics.js"></script>
 </body>
