@@ -326,6 +326,41 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+/* Accordion styles */
+.accordion-item + .accordion-item {
+  margin-top: 10px;
+}
+
+.accordion-header {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  font-weight: bold;
+  background: #eee;
+  border: none;
+  cursor: pointer;
+}
+
+.accordion-panel {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition: height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.accordion-panel.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-panel {
+    transition: height 0.3s ease, opacity 0.3s ease;
+    transform: none;
+  }
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;

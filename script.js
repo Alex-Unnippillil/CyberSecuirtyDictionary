@@ -180,9 +180,40 @@ function populateTermsList() {
     });
 }
 
+function createAccordionSection(title, content) {
+  return `
+    <div class="accordion-item">
+      <button class="accordion-header" type="button">${title}</button>
+      <div class="accordion-panel" hidden>
+        <p>${content}</p>
+      </div>
+    </div>
+  `;
+}
+
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `
+    <h3>${term.term}</h3>
+    <div class="accordion">
+      ${createAccordionSection("Definition", term.definition)}
+      ${createAccordionSection(
+        "Examples",
+        term.examples || "No examples provided."
+      )}
+      ${createAccordionSection(
+        "Mitigations",
+        term.mitigations || "No mitigations provided."
+      )}
+      ${createAccordionSection(
+        "Standards",
+        term.standards || "No standards provided."
+      )}
+    </div>`;
+  const acc = definitionContainer.querySelector('.accordion');
+  if (acc) {
+    setupAccordion(acc);
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -252,5 +283,9 @@ scrollBtn.addEventListener("click", () =>
   window.scrollTo({ top: 0, behavior: "smooth" })
 );
 
-definitionContainer.addEventListener("click", clearDefinition);
+definitionContainer.addEventListener("click", (e) => {
+  if (e.target === definitionContainer) {
+    clearDefinition();
+  }
+});
 
