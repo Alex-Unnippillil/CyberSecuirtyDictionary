@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --focus-ring-color: #005fcc;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -11,6 +15,34 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color 0.2s ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-color: var(--focus-ring-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    transition: none;
+  }
 }
 
 .container {
@@ -25,7 +57,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +142,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +237,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -246,6 +279,7 @@ label {
 body.dark-mode {
   background-color: #121212;
   color: #fff;
+  --focus-ring-color: #1e90ff;
 }
 
 body.dark-mode .container {
