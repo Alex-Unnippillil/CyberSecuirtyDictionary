@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -239,6 +240,48 @@ label {
 }
 
 #scrollToTopBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Recent slugs sidebar */
+#recent-slugs {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #fff;
+  border-left: 1px solid #ccc;
+  padding: 10px;
+}
+
+#recent-slugs h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+#recent-slug-list li {
+  cursor: pointer;
+  padding: 5px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#recent-slug-list li:last-child {
+  border-bottom: none;
+}
+
+#clear-recent {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#clear-recent:hover {
   background-color: #0056b3;
 }
 
@@ -290,6 +333,22 @@ body.dark-mode .dictionary-item p {
 body.dark-mode #definition-container {
   background-color: #1e1e1e;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode #recent-slugs {
+  background-color: #1e1e1e;
+  border-color: #333;
+  color: #fff;
+}
+
+body.dark-mode #clear-recent {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode #clear-recent:hover {
+  background-color: #555;
 }
 
 body.dark-mode .favorite-star {
