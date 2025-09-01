@@ -242,6 +242,27 @@ label {
   background-color: #0056b3;
 }
 
+/* Pull-to-refresh indicator */
+#pull-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #007bff;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.2s ease;
+  will-change: transform;
+  z-index: 1000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #pull-indicator {
+    transition: none;
+  }
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
