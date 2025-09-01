@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 interface Column<T> {
   key: keyof T;
@@ -39,6 +39,8 @@ export function StandardsTable<T extends Record<string, any>>({
     direction: 'asc',
   });
 
+  const columnKeys = useMemo(() => columns.map((c) => c.key), [columns]);
+
   // Load preferences on mount
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -47,33 +49,40 @@ export function StandardsTable<T extends Record<string, any>>({
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed.visibleColumns)) {
-          setVisibleColumns(parsed.visibleColumns);
+          const valid = parsed.visibleColumns.filter((k: keyof T) =>
+            columnKeys.includes(k)
+          );
+          if (valid.length) setVisibleColumns(valid);
         }
-        if (parsed.sortConfig) {
+        if (parsed.sortConfig && columnKeys.includes(parsed.sortConfig.key)) {
           setSortConfig(parsed.sortConfig);
         }
       }
     } catch {
       // ignore malformed data
     }
-  }, [storageKey]);
+  }, [storageKey, columnKeys]);
 
   // Persist preferences
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    window.localStorage.setItem(
-      storageKey,
-      JSON.stringify({ visibleColumns, sortConfig })
-    );
+    try {
+      window.localStorage.setItem(
+        storageKey,
+        JSON.stringify({ visibleColumns, sortConfig })
+      );
+    } catch {
+      // ignore write errors
+    }
   }, [visibleColumns, sortConfig, storageKey]);
 
-  const toggleColumn = (key: keyof T) => {
+  const toggleColumn = useCallback((key: keyof T) => {
     setVisibleColumns((prev) =>
       prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
     );
-  };
+  }, []);
 
-  const requestSort = (key: keyof T) => {
+  const requestSort = useCallback((key: keyof T) => {
     setSortConfig((prev) => {
       if (prev.key === key) {
         return {
@@ -83,7 +92,7 @@ export function StandardsTable<T extends Record<string, any>>({
       }
       return { key, direction: 'asc' };
     });
-  };
+  }, []);
 
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return data;
@@ -120,11 +129,20 @@ export function StandardsTable<T extends Record<string, any>>({
                   key={String(col.key)}
                   onClick={() => requestSort(col.key)}
                   style={{ cursor: 'pointer' }}
+                  aria-sort={
+                    sortConfig.key === col.key
+                      ? sortConfig.direction === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
                   {col.label}
-                  {sortConfig.key === col.key ? (
-                    sortConfig.direction === 'asc' ? ' \u25B2' : ' \u25BC'
-                  ) : null}
+                  {sortConfig.key === col.key
+                    ? sortConfig.direction === 'asc'
+                      ? ' ▲'
+                      : ' ▼'
+                    : null}
                 </th>
               ) : null
             )}
