@@ -6,7 +6,8 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
