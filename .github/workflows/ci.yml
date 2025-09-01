@@ -5,22 +5,22 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install linters
-        run: npm install --no-save eslint@8 stylelint cspell
-      - name: ESLint
-        run: npx eslint@8 --no-eslintrc --env browser --env es2021 script.js
-      - name: stylelint
-        run: npx stylelint styles.css
-      - name: cSpell
-        run: npx cspell README.md terms.json
-      - name: Link checker
-        uses: lycheeverse/lychee-action@v2
-        with:
-          args: --no-cache terms.json
+          cache: npm
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Tests
+        run: npm test
+      - name: Contentlayer build
+        run: npm run build:contentlayer
+      - name: Search index build
+        run: npm run build:search-index
