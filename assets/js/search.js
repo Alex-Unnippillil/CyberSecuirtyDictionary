@@ -1,15 +1,15 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
-  let terms = [];
+  let index = null;
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
     fetch(`${baseUrl}/terms.json`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
       .then(data => {
-        // terms.json may either be an array or object with terms property
-        terms = Array.isArray(data) ? data : (data.terms || []);
+        const terms = Array.isArray(data) ? data : (data.terms || []);
+        index = searchCore.buildIndex(terms);
       })
       .catch(err => {
         console.error('Failed to load terms.json', err);
@@ -19,32 +19,15 @@
   });
 
   function handleSearch(){
-    const query = searchInput.value.trim().toLowerCase();
+    const query = searchInput.value.trim();
     resultsContainer.innerHTML = '';
-    if(!query){
+    if(!query || !index){
       return;
     }
-    const matches = terms
-      .map(term => ({ term, score: score(term, query) }))
-      .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
-
-    matches.forEach(({ term }) => {
+    const matches = searchCore.search(query, index.text, index.phonetic);
+    matches.forEach(term => {
       resultsContainer.appendChild(renderCard(term));
     });
-  }
-
-  function score(term, query){
-    let s = 0;
-    const name = (term.name || term.term || '').toLowerCase();
-    const def = (term.definition || '').toLowerCase();
-    const category = (term.category || '').toLowerCase();
-    const syns = (term.synonyms || []).map(s=>s.toLowerCase());
-    if(name.includes(query)) s += 3;
-    if(def.includes(query)) s += 1;
-    if(category.includes(query)) s += 1;
-    if(syns.some(syn => syn.includes(query))) s += 2;
-    return s;
   }
 
   function renderCard(term){
@@ -66,11 +49,20 @@
     def.textContent = term.definition || '';
     card.appendChild(def);
 
-    if(term.synonyms && term.synonyms.length){
+    const syns = term.synonyms || [];
+    if(syns.length){
       const syn = document.createElement('p');
       syn.className = 'synonyms';
-      syn.textContent = `Synonyms: ${term.synonyms.join(', ')}`;
+      syn.textContent = `Synonyms: ${syns.join(', ')}`;
       card.appendChild(syn);
+    }
+
+    const acr = term.acronyms || [];
+    if(acr.length){
+      const ac = document.createElement('p');
+      ac.className = 'acronyms';
+      ac.textContent = `Acronyms: ${acr.join(', ')}`;
+      card.appendChild(ac);
     }
     return card;
   }
