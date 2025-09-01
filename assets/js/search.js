@@ -1,5 +1,6 @@
 (function(){
   const resultsContainer = document.getElementById('results');
+  const suggestionsContainer = document.getElementById('suggestions');
   const searchInput = document.getElementById('search-box');
   let terms = [];
 
@@ -21,17 +22,38 @@
   function handleSearch(){
     const query = searchInput.value.trim().toLowerCase();
     resultsContainer.innerHTML = '';
+    suggestionsContainer.innerHTML = '';
     if(!query){
       return;
     }
+
+    const { matches, didYouMean } = searchTerms(query);
+
+    if(didYouMean.length){
+      renderSuggestions(didYouMean);
+    }
+
+    matches.forEach(({ term }) => {
+      resultsContainer.appendChild(renderCard(term));
+    });
+  }
+
+  function searchTerms(query){
     const matches = terms
       .map(term => ({ term, score: score(term, query) }))
       .filter(item => item.score > 0)
       .sort((a,b) => b.score - a.score);
 
-    matches.forEach(({ term }) => {
-      resultsContainer.appendChild(renderCard(term));
-    });
+    let suggestions = [];
+    if (typeof fuzzysort !== 'undefined') {
+      suggestions = fuzzysort.go(query, terms, {
+        key: t => (t.name || t.term || ''),
+        limit: 3
+      }).map(r => r.obj.name || r.obj.term || '')
+        .filter(s => s.toLowerCase() !== query);
+    }
+
+    return { matches, didYouMean: suggestions };
   }
 
   function score(term, query){
@@ -73,5 +95,32 @@
       card.appendChild(syn);
     }
     return card;
+  }
+
+  function renderSuggestions(list){
+    if(!list.length) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'did-you-mean';
+    wrapper.appendChild(document.createTextNode('Did you mean '));
+
+    list.forEach((s, idx) => {
+      const link = document.createElement('a');
+      link.href = '#';
+      link.textContent = s;
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        searchInput.value = s;
+        handleSearch();
+      });
+      wrapper.appendChild(link);
+
+      if(idx < list.length - 1){
+        wrapper.appendChild(document.createTextNode(idx === list.length - 2 ? ' or ' : ', '));
+      } else {
+        wrapper.appendChild(document.createTextNode('?'));
+      }
+    });
+
+    suggestionsContainer.appendChild(wrapper);
   }
 })();
