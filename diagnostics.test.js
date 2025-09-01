@@ -1,24 +1,36 @@
-const fs = require('fs');
-const { JSDOM } = require('jsdom');
+const fs = require("fs");
+const { JSDOM } = require("jsdom");
 
-const html = fs.readFileSync('diagnostics.html', 'utf8');
-const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://example.com' });
-const script = fs.readFileSync('assets/js/diagnostics.js', 'utf8');
+const html = fs.readFileSync("diagnostics.html", "utf8");
+const dom = new JSDOM(html, {
+  runScripts: "dangerously",
+  url: "https://example.com",
+});
+const script = fs.readFileSync("assets/js/diagnostics.js", "utf8");
 dom.window.eval(script);
 
 dom.window.localStorage.setItem(
-  'web-vitals',
+  "web-vitals",
   JSON.stringify([
     { timestamp: 1, lcp: 1.1, cls: 0.1, tbt: 10 },
-    { timestamp: 2, lcp: 2.2, cls: 0.2, tbt: 20 }
-  ])
+    { timestamp: 2, lcp: 2.2, cls: 0.2, tbt: 20 },
+  ]),
+);
+dom.window.localStorage.setItem(
+  "animation-metrics",
+  JSON.stringify({ scrollToTop: { completed: 1, dropped: 1 } }),
 );
 
 dom.window.renderDiagnostics();
 
-const rows = dom.window.document.querySelectorAll('#metrics-body tr');
+const rows = dom.window.document.querySelectorAll("#metrics-body tr");
 if (rows.length !== 2) {
   console.error(`Expected 2 rows, got ${rows.length}`);
   process.exit(1);
 }
-console.log('Diagnostics render test passed');
+const animRows = dom.window.document.querySelectorAll("#animations-body tr");
+if (animRows.length !== 1) {
+  console.error(`Expected 1 animation row, got ${animRows.length}`);
+  process.exit(1);
+}
+console.log("Diagnostics render test passed");
