@@ -6,8 +6,51 @@ const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const queueCountNext = document.getElementById("queue-count-next");
+const queueCountLater = document.getElementById("queue-count-later");
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+
+const QUEUE_KEY = "readingQueue";
+let readingQueue = { nextUp: [], later: [] };
+try {
+  const storedQueue = localStorage.getItem(QUEUE_KEY);
+  if (storedQueue) {
+    const parsed = JSON.parse(storedQueue);
+    if (parsed.nextUp && parsed.later) {
+      readingQueue = {
+        nextUp: Array.isArray(parsed.nextUp) ? parsed.nextUp : [],
+        later: Array.isArray(parsed.later) ? parsed.later : []
+      };
+    }
+  }
+} catch (e) {
+  // ignore parse errors
+}
+
+function saveQueue() {
+  try {
+    localStorage.setItem(QUEUE_KEY, JSON.stringify(readingQueue));
+  } catch (e) {
+    // ignore storage errors
+  }
+}
+
+function updateQueueCounts() {
+  if (queueCountNext) queueCountNext.textContent = readingQueue.nextUp.length;
+  if (queueCountLater) queueCountLater.textContent = readingQueue.later.length;
+}
+
+function addToQueue(list, termName) {
+  const arr = readingQueue[list];
+  if (!arr.includes(termName)) {
+    arr.push(termName);
+    saveQueue();
+    updateQueueCounts();
+  }
+}
+
+updateQueueCounts();
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -182,13 +225,27 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><div class="queue-actions"><button id="queue-add-next" type="button">Next Up</button> <button id="queue-add-later" type="button">Later</button></div>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
+  }
+  const nextBtn = document.getElementById("queue-add-next");
+  const laterBtn = document.getElementById("queue-add-later");
+  if (nextBtn) {
+    nextBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      addToQueue("nextUp", term.term);
+    });
+  }
+  if (laterBtn) {
+    laterBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      addToQueue("later", term.term);
+    });
   }
 }
 
