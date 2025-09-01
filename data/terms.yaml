@@ -73,3 +73,15 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+- name: Attack
+  slug: attack
+  definition: >-
+    An attempt to exploit a system's vulnerability.
+  category: General
+  tenses:
+    "Present": attack
+    "Past": attacked
+    "Present Participle": attacking
+    "Past Participle": attacked
+  plurals:
+    "Plural": attacks

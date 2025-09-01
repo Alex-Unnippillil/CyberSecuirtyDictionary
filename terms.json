@@ -131,6 +131,19 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Attack",
+      "definition": "An attempt to exploit a system's vulnerability.",
+      "tenses": {
+        "Present": "attack",
+        "Past": "attacked",
+        "Present Participle": "attacking",
+        "Past Participle": "attacked"
+      },
+      "plurals": {
+        "Plural": "attacks"
+      }
     }
   ]
 }
