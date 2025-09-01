@@ -1,11 +1,12 @@
 const CACHE_NAME = 'csd-cache-v1';
-const URLS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js',
-  '/data.json'
-];
+  const URLS_TO_CACHE = [
+    '/',
+    '/index.html',
+    '/styles.css',
+    '/assets/js/islands.js',
+    '/assets/js/dictionary.js',
+    '/data.json'
+  ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
