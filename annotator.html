@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Annotator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Image Annotator</h1>
+  <div>
+    <input type="file" id="imageLoader" accept="image/*">
+    <button id="arrowTool" type="button">Arrow</button>
+    <button id="rectTool" type="button">Box</button>
+    <button id="textTool" type="button">Text</button>
+    <button id="saveCanvas" type="button">Save</button>
+    <button id="loadCanvas" type="button">Load</button>
+    <button id="exportPng" type="button">Export PNG</button>
+  </div>
+  <canvas id="annotator-canvas" class="canvas-border" width="800" height="600"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js" integrity="sha512-AUt0jH0TADaBrZEcD3xKhsR4HIX66vepQP9enZ5bY3bT5iAG2wE8xmPKzW0fvkYlEYwH14r2raXIiQunlslqCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="annotator.js"></script>
+</body>
+</html>
