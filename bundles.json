@@ -1,0 +1,19 @@
+{
+  "bundles": [
+    {
+      "name": "Encryption Basics",
+      "terms": [
+        "Data Encryption Standard (DES)",
+        "Advanced Encryption Standard (AES)",
+        "Public Key Infrastructure (PKI)"
+      ]
+    },
+    {
+      "name": "Web Vulnerabilities",
+      "terms": [
+        "Cross-Site Scripting (XSS)",
+        "Cross-Site Request Forgery (CSRF)"
+      ]
+    }
+  ]
+}
