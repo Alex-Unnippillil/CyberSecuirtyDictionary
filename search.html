@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <main class="container">
-    <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
-    <div id="results"></div>
-  </main>
-  <script>
-    window.__BASE_URL__ = window.__BASE_URL__ || '';
-  </script>
-  <script src="assets/js/search.js"></script>
-  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
-  <script src="assets/js/metrics.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Search</title>
+    <link rel="stylesheet" href="styles.css" >
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-ancestors 'none';"
+    >
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" >
+  </head>
+  <body>
+    <main class="container">
+      <h1>Search</h1>
+      <input id="search-box" type="text" placeholder="Search terms..." >
+      <div id="results"></div>
+    </main>
+    <script>
+      window.__BASE_URL__ = window.__BASE_URL__ || "";
+    </script>
+    <script src="assets/js/search.js"></script>
+    <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+    <script src="assets/js/metrics.js"></script>
+  </body>
 </html>
