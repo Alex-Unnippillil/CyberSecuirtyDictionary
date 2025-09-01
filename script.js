@@ -9,6 +9,56 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
+const USER_PROFILE_KEY = "userProfile";
+
+function loadUserProfile() {
+  try {
+    return JSON.parse(localStorage.getItem(USER_PROFILE_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+let userProfile = loadUserProfile();
+
+function saveUserProfile() {
+  try {
+    localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(userProfile));
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+function updateBadges() {
+  if (!Array.isArray(userProfile.badges)) {
+    userProfile.badges = [];
+  }
+  const thresholds = [3, 7, 30];
+  thresholds.forEach((t) => {
+    const id = `${t}-day-streak`;
+    if (userProfile.streak >= t && !userProfile.badges.includes(id)) {
+      userProfile.badges.push(id);
+    }
+  });
+}
+
+function updateDailyStreak() {
+  const today = new Date().toDateString();
+  if (userProfile.lastVisit !== today) {
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (userProfile.lastVisit === yesterday) {
+      userProfile.streak = (userProfile.streak || 0) + 1;
+    } else {
+      userProfile.streak = 1;
+    }
+    userProfile.lastVisit = today;
+    updateBadges();
+    saveUserProfile();
+  }
+}
+
+updateDailyStreak();
+
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
 
