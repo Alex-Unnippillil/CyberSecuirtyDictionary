@@ -4,3 +4,6 @@ https://alex-unnippillil.github.io/CyberSecuirtyDictionary/
 
 ## Security
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
+
+## Code of Conduct
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) to understand the expectations for participation.
