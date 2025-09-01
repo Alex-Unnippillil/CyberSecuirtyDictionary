@@ -326,6 +326,58 @@ body.dark-mode #alpha-nav button.active {
   border-color: #007bff;
 }
 
+/* Presentation mode styles */
+body.presentation-mode {
+  background-color: #000;
+  color: #fff;
+  cursor: none;
+  font-size: 1.5em;
+}
+
+body.presentation-mode .container,
+body.presentation-mode #definition-container,
+body.presentation-mode .dictionary-item {
+  background-color: #000;
+  color: #fff;
+}
+
+body.presentation-mode #alpha-nav button,
+body.presentation-mode #random-term,
+body.presentation-mode #dark-mode-toggle,
+body.presentation-mode #presentation-toggle {
+  background-color: #000;
+  color: #fff;
+  border-color: #fff;
+}
+
+body.presentation-mode #alpha-nav button.active {
+  background-color: #fff;
+  color: #000;
+}
+
+body.presentation-mode h1 {
+  font-size: 72px;
+}
+
+body.presentation-mode .dictionary-item h3 {
+  font-size: 36px;
+}
+
+body.presentation-mode .dictionary-item p,
+body.presentation-mode #alpha-nav button,
+body.presentation-mode #search {
+  font-size: 24px;
+}
+
+/* Blackout screen */
+body.blackout {
+  background-color: #000;
+}
+
+body.blackout * {
+  visibility: hidden;
+}
+
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;
