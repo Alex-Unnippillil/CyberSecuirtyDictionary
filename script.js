@@ -183,6 +183,7 @@ function populateTermsList() {
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  processCitations(definitionContainer);
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -253,4 +254,39 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+function processCitations(container) {
+  const chunks = container.querySelectorAll("p, div");
+  chunks.forEach((chunk) => {
+    const cites = chunk.querySelectorAll("a[data-cite]");
+    if (cites.length === 0) return;
+
+    const list = document.createElement("ol");
+    list.className = "citation-group";
+
+    cites.forEach((cite) => {
+      const label = cite.dataset.cite || cite.textContent;
+      const targetId = cite.getAttribute("href").slice(1);
+
+      const item = document.createElement("li");
+      item.textContent = label;
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = container.querySelector(`#${CSS.escape(targetId)}`);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+          target.classList.add("pulse");
+          setTimeout(() => target.classList.remove("pulse"), 1000);
+        }
+      });
+
+      list.appendChild(item);
+
+      cite.classList.add("citation-highlight");
+      requestAnimationFrame(() => cite.classList.add("revealed"));
+    });
+
+    chunk.appendChild(list);
+  });
+}
 
