@@ -8,6 +8,7 @@ const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const notesStore = window.notesStore;
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -127,13 +128,17 @@ function buildAlphaNav() {
   highlightActiveButton(allButton);
 }
 
-function populateTermsList() {
+async function populateTermsList() {
   termsList.innerHTML = "";
   const searchValue = searchInput.value.trim().toLowerCase();
+  const noteMatches = searchValue
+    ? await notesStore.searchTermsByContentOrTags(searchValue)
+    : new Set();
   termsData.terms
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
-      const matchesSearch = item.term.toLowerCase().includes(searchValue);
+      const matchesSearch =
+        item.term.toLowerCase().includes(searchValue) || noteMatches.has(item.term);
       const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
       const matchesLetter =
         currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;

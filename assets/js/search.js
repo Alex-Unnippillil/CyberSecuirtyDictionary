@@ -1,7 +1,9 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const notesStore = window.notesStore;
   let terms = [];
+  let notesByTerm = {};
 
   document.addEventListener('DOMContentLoaded', () => {
     const baseUrl = window.__BASE_URL__ || '';
@@ -13,6 +15,18 @@
       })
       .catch(err => {
         console.error('Failed to load terms.json', err);
+      });
+
+    notesStore.getAllNotes()
+      .then(allNotes => {
+        notesByTerm = allNotes.reduce((acc, note) => {
+          acc[note.term] = acc[note.term] || [];
+          acc[note.term].push(note);
+          return acc;
+        }, {});
+      })
+      .catch(err => {
+        console.error('Failed to load notes', err);
       });
 
     searchInput.addEventListener('input', handleSearch);
@@ -44,6 +58,9 @@
     if(def.includes(query)) s += 1;
     if(category.includes(query)) s += 1;
     if(syns.some(syn => syn.includes(query))) s += 2;
+    const notes = notesByTerm[term.term || term.name] || [];
+    if(notes.some(n => n.content.toLowerCase().includes(query))) s += 2;
+    if(notes.some(n => n.tags.some(t => t.toLowerCase().includes(query)))) s += 1;
     return s;
   }
 
