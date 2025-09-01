@@ -1,6 +1,8 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  resultsContainer.setAttribute('role', 'list');
+  resultsContainer.setAttribute('aria-live', 'polite');
   let terms = [];
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -50,6 +52,7 @@
   function renderCard(term){
     const card = document.createElement('div');
     card.className = 'result-card';
+    card.setAttribute('role', 'listitem');
 
     const title = document.createElement('h3');
     title.textContent = term.name || term.term || '';
