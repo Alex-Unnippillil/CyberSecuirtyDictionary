@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Daily Review</h1>
+    <div id="card-container">
+      <p id="card-term"></p>
+      <p id="card-definition" hidden></p>
+    </div>
+    <div id="review-controls">
+      <button id="show-answer" type="button">Show Answer</button>
+      <button id="grade-correct" type="button" hidden>Correct</button>
+      <button id="grade-incorrect" type="button" hidden>Incorrect</button>
+    </div>
+  </main>
+  <script src="assets/js/review.js"></script>
+  <script src="https://unpkg.com/web-vitals@3/dist/web-vitals.iife.js"></script>
+  <script src="assets/js/metrics.js"></script>
+</body>
+</html>
