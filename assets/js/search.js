@@ -1,9 +1,21 @@
 (function(){
   const resultsContainer = document.getElementById('results');
   const searchInput = document.getElementById('search-box');
+  const fuzzyToggle = document.getElementById('fuzzy-toggle');
   let terms = [];
+  let isFuzzy = false;
 
   document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const stored = localStorage.getItem('fuzzySearch');
+    if (params.has('fuzzy')) {
+      isFuzzy = params.get('fuzzy') === 'true';
+    } else if (stored) {
+      isFuzzy = stored === 'true';
+    }
+    fuzzyToggle.checked = isFuzzy;
+    updateFuzzyParam(params);
+
     const baseUrl = window.__BASE_URL__ || '';
     fetch(`${baseUrl}/terms.json`)
       .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
@@ -16,7 +28,28 @@
       });
 
     searchInput.addEventListener('input', handleSearch);
+    fuzzyToggle.addEventListener('change', () => {
+      isFuzzy = fuzzyToggle.checked;
+      try {
+        localStorage.setItem('fuzzySearch', String(isFuzzy));
+      } catch (e) {
+        // Ignore storage errors
+      }
+      updateFuzzyParam(params);
+      handleSearch();
+    });
   });
+
+  function updateFuzzyParam(params){
+    if(isFuzzy){
+      params.set('fuzzy','true');
+    } else {
+      params.delete('fuzzy');
+    }
+    const query = params.toString();
+    const newUrl = `${window.location.pathname}${query ? '?' + query : ''}`;
+    history.replaceState(null, '', newUrl);
+  }
 
   function handleSearch(){
     const query = searchInput.value.trim().toLowerCase();
@@ -24,14 +57,32 @@
     if(!query){
       return;
     }
-    const matches = terms
-      .map(term => ({ term, score: score(term, query) }))
-      .filter(item => item.score > 0)
-      .sort((a,b) => b.score - a.score);
+    let matches;
+    if(isFuzzy){
+      matches = terms
+        .map(term => ({ term, score: score(term, query) }))
+        .filter(item => item.score > 0)
+        .sort((a,b) => b.score - a.score)
+        .map(item => item.term);
+    } else {
+      matches = terms.filter(term => exactMatch(term, query));
+    }
 
-    matches.forEach(({ term }) => {
+    matches.forEach(term => {
       resultsContainer.appendChild(renderCard(term));
     });
+  }
+
+  function exactMatch(term, query){
+    const name = (term.name || term.term || '').toLowerCase();
+    const def = (term.definition || '').toLowerCase();
+    const category = (term.category || '').toLowerCase();
+    const syns = (term.synonyms || []).map(s=>s.toLowerCase());
+    if(name.includes(query)) return true;
+    if(def.includes(query)) return true;
+    if(category.includes(query)) return true;
+    if(syns.some(syn => syn.includes(query))) return true;
+    return false;
   }
 
   function score(term, query){
