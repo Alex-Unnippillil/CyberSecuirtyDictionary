@@ -44,6 +44,12 @@ const AlphabetGrid: React.FC<AlphabetGridProps> = ({ terms }) => {
   }, [letterToTerm]);
 
   const [activeIndex, setActiveIndex] = useState(initialIndex);
+  // Whenever the underlying terms list changes we recompute the first
+  // available letter and reset focus to it. This keeps the keyboard
+  // navigation stable if the set of terms is filtered dynamically.
+  useEffect(() => {
+    setActiveIndex(initialIndex);
+  }, [initialIndex]);
   const refs = useRef<(HTMLAnchorElement | HTMLSpanElement | null)[]>([]);
 
   // Focus the active element when activeIndex changes
