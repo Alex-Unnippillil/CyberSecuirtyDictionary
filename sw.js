@@ -4,6 +4,7 @@ const URLS_TO_CACHE = [
   '/index.html',
   '/styles.css',
   '/script.js',
+  '/assets/js/streaks.js',
   '/data.json'
 ];
 
