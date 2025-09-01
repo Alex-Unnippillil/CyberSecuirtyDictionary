@@ -28,6 +28,16 @@
       <button id="cancel-export" type="button" aria-label="Cancel export">Cancel</button>
     </div>
 
+    <div id="cache-controls">
+      <select id="collection-select" aria-label="Select collection">
+        <option value="core">Core assets</option>
+        <option value="terms">Terms</option>
+      </select>
+      <button id="cache-collection" type="button" aria-label="Cache selected collection">Cache</button>
+      <progress id="cache-progress" value="0" max="1" hidden></progress>
+      <div id="cache-meta"></div>
+    </div>
+
     <button id="reset-order" type="button" aria-label="Reset term order">Reset Order</button>
 
     <ul id="terms-list"></ul>
