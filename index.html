@@ -22,6 +22,17 @@
     <input type="checkbox" id="show-favorites" aria-label="Show favorites">
     <label for="show-favorites">Show Favorites</label>
 
+    <button id="open-mapping" type="button" aria-haspopup="dialog" aria-controls="mapping-panel" aria-expanded="false">Tactics</button>
+
+    <aside id="mapping-panel" class="mapping-panel" role="dialog" aria-labelledby="mapping-title" aria-hidden="true" hidden>
+      <button id="close-mapping" type="button">Close</button>
+      <h2 id="mapping-title">Tactics</h2>
+      <nav aria-label="Tactic links">
+        <ul id="tactic-list"></ul>
+      </nav>
+      <button id="clear-tactic-filter" type="button">Clear Filter</button>
+    </aside>
+
     <ul id="terms-list"></ul>
   </main>
   <footer class="container" aria-label="Contribute">
