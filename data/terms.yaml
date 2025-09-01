@@ -73,3 +73,19 @@
     - CWE
   sources:
     - https://owasp.org/www-project-top-ten/
+- name: Security Operations Center (SOC)
+  slug: security-operations-center
+  definition: >-
+    A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real time.
+  category: Operations
+  variants:
+    en-US:
+      spelling: Security Operations Center
+      example: Many companies run a Security Operations Center to monitor threats.
+      synonyms:
+        - SOC
+    en-GB:
+      spelling: Security Operations Centre
+      example: The bank operates a Security Operations Centre for round-the-clock monitoring.
+      synonyms:
+        - SOC

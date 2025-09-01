@@ -26,7 +26,19 @@
     },
     {
       "term": "Security Operations Center (SOC)",
-      "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time."
+      "definition": "A centralized unit that monitors, detects, and responds to cybersecurity incidents and threats in real-time.",
+      "variants": {
+        "en-US": {
+          "spelling": "Security Operations Center",
+          "example": "Many companies run a Security Operations Center to monitor threats.",
+          "synonyms": ["SOC"]
+        },
+        "en-GB": {
+          "spelling": "Security Operations Centre",
+          "example": "The bank operates a Security Operations Centre for round-the-clock monitoring.",
+          "synonyms": ["SOC"]
+        }
+      }
     },
     {
       "term": "Data Loss Prevention (DLP)",
