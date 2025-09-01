@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-const dataPath = path.join(__dirname, 'data.json');
+// Paths are resolved relative to the repository root
+const dataPath = path.join(__dirname, '..', 'terms.json');
 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
-const termsDir = path.join(__dirname, 'terms');
+const termsDir = path.join(__dirname, '..', 'terms');
 fs.mkdirSync(termsDir, { recursive: true });
 
 const baseUrl = 'https://alex-unnippillil.github.io/CyberSecuirtyDictionary/terms';
@@ -45,4 +46,4 @@ ${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
 </urlset>
 `;
 
-fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
+fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), sitemap);
