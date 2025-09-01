@@ -180,9 +180,93 @@ function populateTermsList() {
     });
 }
 
+function findAffixMatches(term) {
+  const lower = term.term.toLowerCase();
+  const prefixes = [];
+  const suffixes = [];
+
+  termsData.terms.forEach((t) => {
+    const other = t.term.toLowerCase();
+    if (other === lower) {
+      return;
+    }
+    if (lower.startsWith(other)) {
+      prefixes.push(t);
+    }
+    if (lower.endsWith(other)) {
+      suffixes.push(t);
+    }
+  });
+
+  return { prefixes, suffixes };
+}
+
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
   definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+
+  const { prefixes, suffixes } = findAffixMatches(term);
+
+  if (prefixes.length || suffixes.length) {
+    const affixContainer = document.createElement("div");
+    affixContainer.classList.add("affix-container");
+
+    if (prefixes.length) {
+      const prefixDiv = document.createElement("div");
+      const prefixLabel = document.createElement("strong");
+      prefixLabel.textContent = "Prefixes: ";
+      prefixDiv.appendChild(prefixLabel);
+      prefixes.forEach((p) => {
+        const link = document.createElement("a");
+        link.href = `#${encodeURIComponent(p.term)}`;
+        link.textContent = p.term;
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          displayDefinition(p);
+        });
+        prefixDiv.appendChild(link);
+      });
+      affixContainer.appendChild(prefixDiv);
+    }
+
+    if (suffixes.length) {
+      const suffixDiv = document.createElement("div");
+      const suffixLabel = document.createElement("strong");
+      suffixLabel.textContent = "Suffixes: ";
+      suffixDiv.appendChild(suffixLabel);
+      suffixes.forEach((s) => {
+        const link = document.createElement("a");
+        link.href = `#${encodeURIComponent(s.term)}`;
+        link.textContent = s.term;
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          displayDefinition(s);
+        });
+        suffixDiv.appendChild(link);
+      });
+      affixContainer.appendChild(suffixDiv);
+    }
+
+    definitionContainer.appendChild(affixContainer);
+
+    const chipContainer = document.createElement("div");
+    chipContainer.classList.add("nav-chips");
+    [...prefixes, ...suffixes].forEach((t) => {
+      const chip = document.createElement("button");
+      chip.classList.add("nav-chip");
+      chip.textContent = t.term;
+      chip.addEventListener("click", (e) => {
+        e.stopPropagation();
+        displayDefinition(t);
+      });
+      chipContainer.appendChild(chip);
+    });
+    if (chipContainer.childElementCount > 0) {
+      definitionContainer.appendChild(chipContainer);
+    }
+  }
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
