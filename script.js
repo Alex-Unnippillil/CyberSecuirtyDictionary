@@ -5,9 +5,12 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
-const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
+const favorites = new Set(
+  JSON.parse(localStorage.getItem("favorites") || "[]"),
+);
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
+const rhymeApiBase = "https://api.datamuse.com/words";
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
@@ -19,7 +22,10 @@ if (localStorage.getItem("darkMode") === "true") {
 if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    localStorage.setItem(
+      "darkMode",
+      document.body.classList.contains("dark-mode"),
+    );
   });
 }
 
@@ -43,9 +49,11 @@ function loadTerms() {
       populateTermsList();
 
       if (window.location.hash) {
-        const termFromHash = decodeURIComponent(window.location.hash.substring(1));
+        const termFromHash = decodeURIComponent(
+          window.location.hash.substring(1),
+        );
         const matchedTerm = termsData.terms.find(
-          (t) => t.term.toLowerCase() === termFromHash.toLowerCase()
+          (t) => t.term.toLowerCase() === termFromHash.toLowerCase(),
         );
         if (matchedTerm) {
           displayDefinition(matchedTerm);
@@ -56,7 +64,7 @@ function loadTerms() {
       console.error("Detailed error fetching data:", error);
       definitionContainer.style.display = "block";
       definitionContainer.innerHTML =
-        '<p>Unable to load dictionary data. Please check your connection and try again.</p>' +
+        "<p>Unable to load dictionary data. Please check your connection and try again.</p>" +
         '<button id="retry-fetch">Retry</button>';
       const retryBtn = document.getElementById("retry-fetch");
       if (retryBtn) {
@@ -96,13 +104,65 @@ function toggleFavorite(term) {
   }
 }
 
+function fetchRhymes(word, near = false) {
+  const rel = near ? "rel_nry" : "rel_rhy";
+  return fetch(`${rhymeApiBase}?${rel}=${encodeURIComponent(word)}&md=s`).then(
+    (res) => res.json(),
+  );
+}
+
+function renderRhymes(word) {
+  const rhymesList = document.getElementById("rhymes-list");
+  const toggle = document.getElementById("near-rhyme-toggle");
+  if (!rhymesList || !toggle) {
+    return;
+  }
+  rhymesList.innerHTML = "Fetching rhymes...";
+  fetchRhymes(word, toggle.checked)
+    .then((data) => {
+      if (!data.length) {
+        rhymesList.innerHTML = "<p>No rhymes found.</p>";
+        return;
+      }
+      const groups = {};
+      data.forEach((item) => {
+        const sylls = item.numSyllables || 0;
+        if (!groups[sylls]) {
+          groups[sylls] = [];
+        }
+        groups[sylls].push(item.word);
+      });
+      const sorted = Object.keys(groups)
+        .map(Number)
+        .sort((a, b) => a - b);
+      rhymesList.innerHTML = "";
+      sorted.forEach((count) => {
+        const section = document.createElement("div");
+        const header = document.createElement("h4");
+        header.textContent = `${count} syllable${count === 1 ? "" : "s"}`;
+        const para = document.createElement("p");
+        para.textContent = groups[count].join(", ");
+        section.appendChild(header);
+        section.appendChild(para);
+        rhymesList.appendChild(section);
+      });
+    })
+    .catch(() => {
+      rhymesList.innerHTML = "<p>Error fetching rhymes.</p>";
+    });
+}
+
 function highlightActiveButton(button) {
-  alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
+  alphaNav
+    .querySelectorAll("button")
+    .forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
 }
 
 function buildAlphaNav() {
-  const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
+  const letters = Array.from(
+    new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase())),
+  ).sort();
 
   const allButton = document.createElement("button");
   allButton.textContent = "All";
@@ -134,9 +194,13 @@ function populateTermsList() {
     .sort((a, b) => a.term.localeCompare(b.term))
     .forEach((item) => {
       const matchesSearch = item.term.toLowerCase().includes(searchValue);
-      const matchesFavorites = !showFavoritesToggle || !showFavoritesToggle.checked || favorites.has(item.term);
+      const matchesFavorites =
+        !showFavoritesToggle ||
+        !showFavoritesToggle.checked ||
+        favorites.has(item.term);
       const matchesLetter =
-        currentLetterFilter === "All" || item.term.charAt(0).toUpperCase() === currentLetterFilter;
+        currentLetterFilter === "All" ||
+        item.term.charAt(0).toUpperCase() === currentLetterFilter;
       if (matchesSearch && matchesFavorites && matchesLetter) {
         const termDiv = document.createElement("div");
         termDiv.classList.add("dictionary-item");
@@ -182,32 +246,45 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><div id="rhyme-section"><label><input type="checkbox" id="near-rhyme-toggle"> Near rhymes</label><div id="rhymes-list"></div></div>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
-      `${siteUrl}#${encodeURIComponent(term.term)}`
+      `${siteUrl}#${encodeURIComponent(term.term)}`,
     );
+  }
+  const rhymeToggle = document.getElementById("near-rhyme-toggle");
+  if (rhymeToggle) {
+    rhymeToggle.addEventListener("change", () => renderRhymes(term.term));
+    renderRhymes(term.term);
   }
 }
 
 function clearDefinition() {
   definitionContainer.style.display = "none";
   definitionContainer.innerHTML = "";
-  history.replaceState(null, "", window.location.pathname + window.location.search);
+  history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search,
+  );
   if (canonicalLink) {
     canonicalLink.setAttribute("href", siteUrl);
   }
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const randomTerm =
+    termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
   try {
-    localStorage.setItem("lastRandomTerm", JSON.stringify({ date: today, term: randomTerm }));
+    localStorage.setItem(
+      "lastRandomTerm",
+      JSON.stringify({ date: today, term: randomTerm }),
+    );
   } catch (e) {
     // Ignore storage errors
   }
@@ -249,8 +326,7 @@ window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
 scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  window.scrollTo({ top: 0, behavior: "smooth" }),
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
-
