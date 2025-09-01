@@ -101,6 +101,15 @@ function highlightActiveButton(button) {
   button.classList.add("active");
 }
 
+function addChipInteractions(chip) {
+  chip.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      chip.click();
+    }
+  });
+}
+
 function buildAlphaNav() {
   const letters = Array.from(new Set(termsData.terms.map((t) => t.term.charAt(0).toUpperCase()))).sort();
 
@@ -111,6 +120,7 @@ function buildAlphaNav() {
     highlightActiveButton(allButton);
     populateTermsList();
   });
+  addChipInteractions(allButton);
   alphaNav.appendChild(allButton);
 
   letters.forEach((letter) => {
@@ -121,6 +131,7 @@ function buildAlphaNav() {
       highlightActiveButton(btn);
       populateTermsList();
     });
+    addChipInteractions(btn);
     alphaNav.appendChild(btn);
   });
 
@@ -213,7 +224,9 @@ function showRandomTerm() {
   }
 }
 
-randomButton.addEventListener("click", showRandomTerm);
+if (randomButton) {
+  randomButton.addEventListener("click", showRandomTerm);
+}
 if (showFavoritesToggle) {
   showFavoritesToggle.addEventListener("change", () => {
     clearDefinition();
