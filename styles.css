@@ -222,6 +222,35 @@ label {
   color: #fff;
 }
 
+/* Affix list and navigation chips */
+.affix-container {
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+.affix-container a {
+  margin-right: 8px;
+}
+
+.nav-chips {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.nav-chip {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.nav-chip:hover {
+  background-color: #ddd;
+}
+
 /* Scroll to Top button styles */
 #scrollToTopBtn {
   display: none;
@@ -324,6 +353,16 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+body.dark-mode .nav-chip {
+  background-color: #333;
+  border-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .nav-chip:hover {
+  background-color: #555;
 }
 
 @media (max-width: 480px) {
