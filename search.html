@@ -9,8 +9,20 @@
 <body>
   <main class="container">
     <h1>Search</h1>
-    <input id="search-box" type="text" placeholder="Search terms...">
-    <div id="results"></div>
+    <input
+      id="search-box"
+      type="text"
+      placeholder="Search terms..."
+      aria-label="Search terms"
+      role="searchbox"
+    >
+    <section
+      id="results-region"
+      aria-live="polite"
+      aria-label="Search results"
+    >
+      <ul id="results"></ul>
+    </section>
   </main>
   <script>
     window.__BASE_URL__ = window.__BASE_URL__ || '';
