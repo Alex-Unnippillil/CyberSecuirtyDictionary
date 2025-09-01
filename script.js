@@ -11,6 +11,7 @@ const canonicalLink = document.getElementById("canonical-link");
 
 let currentLetterFilter = "All";
 let termsData = { terms: [] };
+let showIPA = localStorage.getItem("showIPA") === "true";
 
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
@@ -182,13 +183,36 @@ function populateTermsList() {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let pronunciationHTML = "";
+  if (term.ipa) {
+    pronunciationHTML = `<p class="pronunciation"><span>Pronunciation</span> <label class="ipa-switch"><input type="checkbox" id="ipa-toggle" ${showIPA ? "checked" : ""} aria-label="Toggle IPA display"> IPA</label> <span id="ipa-text" class="ipa-text"${showIPA ? "" : " hidden"}>${term.ipa}</span></p>`;
+  }
+  definitionContainer.innerHTML = `<h3>${term.term}</h3>${pronunciationHTML}<p>${term.definition}</p>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
+  }
+  definitionContainer.focus();
+  const ipaToggle = document.getElementById("ipa-toggle");
+  const ipaText = document.getElementById("ipa-text");
+  if (ipaToggle && ipaText) {
+    const ipaLabel = ipaToggle.parentElement;
+    if (ipaLabel) {
+      ipaLabel.addEventListener("click", (e) => e.stopPropagation());
+    }
+    ipaToggle.addEventListener("click", (e) => e.stopPropagation());
+    ipaToggle.addEventListener("change", () => {
+      showIPA = ipaToggle.checked;
+      ipaText.hidden = !showIPA;
+      try {
+        localStorage.setItem("showIPA", showIPA);
+      } catch (e) {
+        // Ignore storage errors
+      }
+    });
   }
 }
 

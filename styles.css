@@ -100,6 +100,14 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
+.pronunciation {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ipa-text[hidden] {
+  display: none;
+}
 
 #search {
   width: 100%;
