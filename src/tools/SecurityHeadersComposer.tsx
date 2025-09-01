@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import CopyPresetSelect, {
+  CopyPreset,
+  formatForPreset,
+} from "../components/CopyPresetSelect";
 
 interface Directive {
   /**
@@ -63,6 +67,7 @@ function toServerSnippet(header: string): string {
 export default function SecurityHeadersComposer() {
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [copied, setCopied] = useState(false);
+  const [preset, setPreset] = useState<CopyPreset>("slack");
 
   const toggle = (key: string) =>
     setSelected((s) => ({ ...s, [key]: !s[key] }));
@@ -71,13 +76,24 @@ export default function SecurityHeadersComposer() {
   const headerString = headers.join('\n');
 
   const copyToClipboard = async () => {
-    const snippet = headers.map(toServerSnippet).join('\n');
+    const snippet = headers.map(toServerSnippet).join("\n");
+    const { text, html } = formatForPreset(snippet, preset);
     try {
-      await navigator.clipboard.writeText(snippet);
+      const item = new ClipboardItem({
+        "text/plain": new Blob([text], { type: "text/plain" }),
+        "text/html": new Blob([html], { type: "text/html" }),
+      });
+      await navigator.clipboard.write([item]);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (e) {
-      console.error('Clipboard API not available', e);
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error("Clipboard API not available", err);
+      }
     }
   };
 
@@ -102,11 +118,14 @@ export default function SecurityHeadersComposer() {
         readOnly
         value={headerString}
         rows={Math.max(3, headers.length + 1)}
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
       />
-      <button onClick={copyToClipboard} disabled={!headers.length}>
-        {copied ? 'Copied!' : 'Copy server snippet'}
-      </button>
+      <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+        <CopyPresetSelect onChange={setPreset} />
+        <button onClick={copyToClipboard} disabled={!headers.length}>
+          {copied ? "Copied!" : "Copy server snippet"}
+        </button>
+      </div>
     </div>
   );
 }
