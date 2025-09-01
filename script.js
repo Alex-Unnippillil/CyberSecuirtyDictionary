@@ -3,6 +3,7 @@ const definitionContainer = document.getElementById("definition-container");
 const searchInput = document.getElementById("search");
 const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
+const drawerToggle = document.getElementById("drawer-toggle");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
@@ -253,4 +254,43 @@ scrollBtn.addEventListener("click", () =>
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
+
+// Drawer toggle fallback button
+if (drawerToggle && alphaNav) {
+  drawerToggle.addEventListener("click", () => {
+    alphaNav.classList.toggle("open");
+  });
+}
+
+// iOS edge-swipe detection for drawer
+const isiOS = /iP(ad|hone|od)/.test(navigator.userAgent);
+if (isiOS && alphaNav) {
+  let touchStartX = null;
+  const edgeMargin = 20; // allow system back gesture in this zone
+  const swipeThreshold = 70;
+
+  document.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+  });
+
+  document.addEventListener("touchend", (e) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchEndX - touchStartX;
+
+    if (touchStartX > edgeMargin && diffX > swipeThreshold) {
+      // swipe right opens drawer
+      alphaNav.classList.add("open");
+    } else if (
+      alphaNav.classList.contains("open") &&
+      touchStartX > edgeMargin &&
+      diffX < -swipeThreshold
+    ) {
+      // swipe left closes drawer
+      alphaNav.classList.remove("open");
+    }
+    touchStartX = null;
+  });
+}
 
