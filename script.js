@@ -610,3 +610,35 @@ if (exportBtn && cancelExportBtn) {
   });
 }
 
+function buildPrintToc() {
+  if (!definitionContainer) return;
+  const headings = definitionContainer.querySelectorAll("h2, h3");
+  if (headings.length < 2) return;
+  let toc = definitionContainer.querySelector("#print-toc");
+  if (!toc) {
+    toc = document.createElement("nav");
+    toc.id = "print-toc";
+    const heading = document.createElement("h2");
+    heading.textContent = "Table of Contents";
+    toc.appendChild(heading);
+    const list = document.createElement("ol");
+    toc.appendChild(list);
+    definitionContainer.insertBefore(toc, definitionContainer.firstChild);
+  }
+  const list = toc.querySelector("ol");
+  list.innerHTML = "";
+  headings.forEach((h, i) => {
+    if (!h.id) {
+      h.id = `section-${i + 1}`;
+    }
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = h.textContent;
+    a.href = `#${h.id}`;
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+}
+
+window.addEventListener("beforeprint", buildPrintToc);
+

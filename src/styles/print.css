@@ -1,0 +1,40 @@
+#print-toc {
+  display: none;
+}
+
+@media print {
+  #print-toc {
+    display: block;
+    margin-bottom: 1em;
+  }
+
+  #print-toc ol {
+    padding-left: 1.5em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid-page;
+    break-inside: avoid;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  .provenance-footer {
+    font-size: 0.8rem;
+    color: #555;
+    position: running(footer);
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 1in;
+    @bottom-center {
+      content: element(footer);
+    }
+  }
+}
