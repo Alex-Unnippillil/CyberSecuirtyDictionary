@@ -6,7 +6,9 @@
   "scripts": {
     "build": "node scripts/build.js",
     "test": "html-validate index.html search.html diagnostics.html && node diagnostics.test.js",
-    "watch": "chokidar \"**/*.html\" -c \"npm run build\""
+    "watch": "chokidar \"**/*.html\" -c \"npm run build\"",
+    "validate-terms": "tsx scripts/validate-terms.ts",
+    "lint": "npm run validate-terms"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +18,9 @@
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
+    "jsdom": "^26.1.0",
     "prettier": "^3.6.2",
-    "jsdom": "^26.1.0"
+    "tsx": "^4.20.5",
+    "zod": "^4.1.5"
   }
 }
