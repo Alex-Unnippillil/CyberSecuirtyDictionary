@@ -93,6 +93,15 @@ body.dark-mode mark {
   transform: scale(1.02);
 }
 
+body.reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+}
+
+body.reduce-motion .dictionary-item:hover {
+  transform: none;
+}
+
 #definition-container {
   padding: 20px;
   background-color: #f2f2f2;
