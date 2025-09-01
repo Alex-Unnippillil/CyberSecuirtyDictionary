@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+:root {
+  --skeleton-bg: #e5e7eb;
+  --skeleton-fg: #6b7280;
+}
+
+body.dark-mode {
+  --skeleton-bg: #374151;
+  --skeleton-fg: #9ca3af;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -240,6 +250,30 @@ label {
 
 #scrollToTopBtn:hover {
   background-color: #0056b3;
+}
+
+/* Skeleton styles */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--skeleton-bg);
+  border-radius: 4px;
+  color: transparent;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(90deg, transparent, var(--skeleton-fg), transparent);
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Dark Mode styles */

@@ -27,7 +27,19 @@ window.addEventListener("DOMContentLoaded", () => {
   loadTerms();
 });
 
+function showSkeletons() {
+  termsList.innerHTML = "";
+  for (let i = 0; i < 5; i++) {
+    const skel = document.createElement("div");
+    skel.className = "skeleton";
+    skel.style.height = "1.5rem";
+    skel.style.marginBottom = "0.5rem";
+    termsList.appendChild(skel);
+  }
+}
+
 function loadTerms() {
+  showSkeletons();
   fetch("terms.json")
     .then((response) => {
       if (!response.ok) {
