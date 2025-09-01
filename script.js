@@ -65,6 +65,9 @@ function loadTerms() {
           loadTerms();
         });
       }
+      if (window.haptics) {
+        haptics.error();
+      }
     });
 }
 
@@ -93,6 +96,9 @@ function toggleFavorite(term) {
     localStorage.setItem("favorites", JSON.stringify(Array.from(favorites)));
   } catch (e) {
     // Ignore storage errors
+  }
+  if (window.haptics) {
+    haptics.success();
   }
 }
 
@@ -189,6 +195,9 @@ function displayDefinition(term) {
       "href",
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
+  }
+  if (window.haptics) {
+    haptics.success();
   }
 }
 
