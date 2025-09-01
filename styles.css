@@ -9,7 +9,10 @@ body {
   line-height: 1.6;
   background-color: #f8f8f8;
   margin: 0;
-  padding: 0;
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
   overflow-x: hidden;
 }
 
@@ -226,8 +229,8 @@ label {
 #scrollToTopBtn {
   display: none;
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  right: calc(20px + env(safe-area-inset-right));
   font-size: 20px;
   border: none;
   background-color: #007bff;
@@ -240,6 +243,27 @@ label {
 
 #scrollToTopBtn:hover {
   background-color: #0056b3;
+}
+
+/* Toast and bottom sheet styles respecting safe areas */
+.toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: #333;
+  color: #fff;
+}
+
+.bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: #fff;
 }
 
 /* Dark Mode styles */
