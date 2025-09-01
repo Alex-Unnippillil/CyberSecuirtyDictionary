@@ -347,3 +347,12 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+#suggestions {
+  border: 1px solid #ccc;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+#suggestions li.selected {
+  background-color: #e0e0e0;
+}
