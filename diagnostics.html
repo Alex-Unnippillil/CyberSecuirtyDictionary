@@ -10,6 +10,14 @@
 <body>
   <main class="container">
     <h1>Performance Diagnostics</h1>
+    <svg
+      id="frequency-sparkline"
+      width="200"
+      height="40"
+      stroke-width="2"
+    >
+      <title>CVE frequency over time</title>
+    </svg>
     <table>
       <thead>
         <tr><th>Timestamp</th><th>LCP</th><th>CLS</th><th>TBT</th></tr>
@@ -18,5 +26,7 @@
     </table>
   </main>
   <script src="assets/js/diagnostics.js"></script>
+  <script src="https://unpkg.com/@fnando/sparkline@0.3.10/dist/sparkline.js"></script>
+  <script src="assets/js/frequency.js"></script>
 </body>
 </html>
