@@ -145,6 +145,22 @@ body.dark-mode mark {
   background-color: #0056b3;
 }
 
+#focus-line-toggle {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+#focus-line-toggle:hover {
+  background-color: #0056b3;
+}
+
 label {
   margin-left: 10px;
   margin-top: 10px;
@@ -242,6 +258,21 @@ label {
   background-color: #0056b3;
 }
 
+#focus-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #ff0000;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+}
+
+#focus-line.visible {
+  display: block;
+}
+
 /* Dark Mode styles */
 body.dark-mode {
   background-color: #121212;
@@ -259,6 +290,12 @@ body.dark-mode #search {
 }
 
 body.dark-mode #dark-mode-toggle {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+body.dark-mode #focus-line-toggle {
   background-color: #333;
   color: #fff;
   border-color: #555;
@@ -324,6 +361,13 @@ body.dark-mode #alpha-nav button:focus {
 body.dark-mode #alpha-nav button.active {
   background-color: #007bff;
   border-color: #007bff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #focus-line-toggle,
+  #focus-line {
+    display: none !important;
+  }
 }
 
 @media (max-width: 480px) {
