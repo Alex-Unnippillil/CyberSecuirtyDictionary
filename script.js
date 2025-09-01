@@ -254,3 +254,83 @@ scrollBtn.addEventListener("click", () =>
 
 definitionContainer.addEventListener("click", clearDefinition);
 
+const peekModal = document.getElementById("term-peek-modal");
+const peekOverlay = document.getElementById("term-peek-overlay");
+let peekActive = false;
+let longPressTimer = null;
+let activeInlineTerm = null;
+
+function showTermPeek(termName) {
+  if (!peekModal || !peekOverlay) {
+    return;
+  }
+  const term = termsData.terms.find(
+    (t) => t.term.toLowerCase() === termName.toLowerCase()
+  );
+  if (!term) {
+    return;
+  }
+  peekModal.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  peekModal.style.display = "block";
+  peekOverlay.style.display = "block";
+  peekActive = true;
+}
+
+function hideTermPeek() {
+  if (!peekModal || !peekOverlay) {
+    return;
+  }
+  peekModal.style.display = "none";
+  peekOverlay.style.display = "none";
+  peekActive = false;
+  activeInlineTerm = null;
+}
+
+document.addEventListener(
+  "touchstart",
+  (e) => {
+    const termEl = e.target.closest("[data-term]");
+    if (!termEl) {
+      return;
+    }
+    activeInlineTerm = termEl;
+    longPressTimer = setTimeout(() => {
+      showTermPeek(termEl.getAttribute("data-term"));
+    }, 600);
+  },
+  { passive: true }
+);
+
+document.addEventListener(
+  "touchmove",
+  (e) => {
+    if (!activeInlineTerm) {
+      return;
+    }
+    const touch = e.touches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    if (!activeInlineTerm.contains(target)) {
+      clearTimeout(longPressTimer);
+      activeInlineTerm = null;
+    }
+  },
+  { passive: true }
+);
+
+document.addEventListener(
+  "touchend",
+  (e) => {
+    clearTimeout(longPressTimer);
+    if (peekActive) {
+      e.preventDefault();
+      hideTermPeek();
+    }
+  },
+  { passive: false }
+);
+
+if (peekOverlay) {
+  peekOverlay.addEventListener("touchend", hideTermPeek);
+  peekOverlay.addEventListener("click", hideTermPeek);
+}
+
