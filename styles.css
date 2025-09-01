@@ -181,6 +181,29 @@ label {
   color: #ffd700;
 }
 
+/* Rating widget styles */
+.rating-widget {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.rating-star {
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.rating-star:hover,
+.rating-star:focus {
+  color: #999;
+}
+
+.rating-star.rated {
+  color: #ffd700;
+}
+
 /* Category badge styles */
 .badge {
   display: inline-block;
@@ -299,6 +322,19 @@ body.dark-mode .favorite-star {
 body.dark-mode .favorite-star:hover,
 body.dark-mode .favorite-star:focus {
   color: #bbb;
+}
+
+body.dark-mode .rating-star {
+  color: #666;
+}
+
+body.dark-mode .rating-star:hover,
+body.dark-mode .rating-star:focus {
+  color: #bbb;
+}
+
+body.dark-mode .rating-star.rated {
+  color: #ffd700;
 }
 
 body.dark-mode .favorited {

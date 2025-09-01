@@ -119,6 +119,29 @@ function toggleFavorite(term) {
   }
 }
 
+function getRatings() {
+  try {
+    return JSON.parse(localStorage.getItem("ratings") || "{}");
+  } catch (e) {
+    return {};
+  }
+}
+
+function getRating(term) {
+  const ratings = getRatings();
+  return ratings[term] || 0;
+}
+
+function saveRating(term, value) {
+  const ratings = getRatings();
+  ratings[term] = value;
+  try {
+    localStorage.setItem("ratings", JSON.stringify(ratings));
+  } catch (e) {
+    // Ignore storage errors
+  }
+}
+
 function highlightActiveButton(button) {
   alphaNav.querySelectorAll("button").forEach((btn) => btn.classList.remove("active"));
   button.classList.add("active");
@@ -265,7 +288,13 @@ function handleKeyDown(e) {
 
 function displayDefinition(term) {
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  const currentRating = getRating(term.term);
+  const stars = Array.from({ length: 5 }, (_, i) => {
+    const value = i + 1;
+    const rated = value <= currentRating ? "rated" : "";
+    return `<span class="rating-star ${rated}" data-value="${value}" role="radio" aria-label="${value} out of 5">★</span>`;
+  }).join("");
+  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p><div class="rating-widget" role="radiogroup" aria-label="Rate difficulty">${stars}</div>`;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
@@ -273,6 +302,18 @@ function displayDefinition(term) {
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
   }
+  const starElems = definitionContainer.querySelectorAll(".rating-star");
+  starElems.forEach((star) => {
+    star.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const value = parseInt(star.getAttribute("data-value"), 10);
+      saveRating(term.term, value);
+      starElems.forEach((s) => {
+        const v = parseInt(s.getAttribute("data-value"), 10);
+        s.classList.toggle("rated", v <= value);
+      });
+    });
+  });
 }
 
 function clearDefinition() {
@@ -285,7 +326,13 @@ function clearDefinition() {
 }
 
 function showRandomTerm() {
-  const randomTerm = termsData.terms[Math.floor(Math.random() * termsData.terms.length)];
+  const ratings = getRatings();
+  let pool = termsData.terms.slice();
+  const maxRating = Math.max(...pool.map((t) => ratings[t.term] || 0));
+  if (maxRating > 0) {
+    pool = pool.filter((t) => (ratings[t.term] || 0) === maxRating);
+  }
+  const randomTerm = pool[Math.floor(Math.random() * pool.length)];
   displayDefinition(randomTerm);
 
   const today = new Date().toDateString();
