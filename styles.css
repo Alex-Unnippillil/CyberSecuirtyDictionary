@@ -89,6 +89,22 @@ body.dark-mode mark {
   color: #666;
 }
 
+.translation-toggle {
+  margin-left: 5px;
+  font-size: 0.9em;
+}
+
+.translation {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+body.dark-mode .translation {
+  color: #ccc;
+}
+
 .dictionary-item:hover {
   transform: scale(1.02);
 }

@@ -1,0 +1,15 @@
+{
+  "languagePairs": [
+    { "from": "en", "to": "es", "label": "English to Spanish" }
+  ],
+  "translations": {
+    "en-es": {
+      "Phishing": [
+        "Un intento de engañar a individuos para revelar información sensible mediante correos electrónicos, sitios web o mensajes fraudulentos."
+      ],
+      "Phishing Email": [
+        "Un correo electrónico que parece legítimo pero busca engañar a los destinatarios para revelar información sensible o realizar acciones."
+      ]
+    }
+  }
+}
