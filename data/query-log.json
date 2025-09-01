@@ -1,0 +1,8 @@
+[
+  {"date":"2024-05-01","query":"phishing","impressions":100,"clicks":20,"zeroResults":0},
+  {"date":"2024-05-01","query":"malware","impressions":50,"clicks":5,"zeroResults":10},
+  {"date":"2024-05-02","query":"ransomware","impressions":40,"clicks":0,"zeroResults":40},
+  {"date":"2024-05-02","query":"phishing","impressions":80,"clicks":10,"zeroResults":0},
+  {"date":"2024-05-03","query":"encryption","impressions":60,"clicks":15,"zeroResults":0},
+  {"date":"2024-05-03","query":"unknownterm","impressions":20,"clicks":0,"zeroResults":20}
+]
