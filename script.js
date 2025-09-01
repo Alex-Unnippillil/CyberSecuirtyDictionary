@@ -180,15 +180,76 @@ function populateTermsList() {
     });
 }
 
-function displayDefinition(term) {
+function displayDefinition(term, version) {
+  const current =
+    version && term.changelog
+      ? term.changelog.find((v) => v.id === version) || {
+          id: term.versionId,
+          definition: term.definition,
+        }
+      : { id: term.versionId, definition: term.definition };
+
   definitionContainer.style.display = "block";
-  definitionContainer.innerHTML = `<h3>${term.term}</h3><p>${term.definition}</p>`;
+  let html = `<h3>${term.term}</h3><p>${current.definition}</p><p class="version">Version: ${current.id}</p>`;
+
+  if (!version && term.changelog && term.changelog.length) {
+    html += '<a href="#" id="view-changelog">View changelog</a>';
+  } else if (version) {
+    html += '<a href="#" id="view-current">View current version</a>';
+  }
+
+  definitionContainer.innerHTML = html;
   window.location.hash = encodeURIComponent(term.term);
   if (canonicalLink) {
     canonicalLink.setAttribute(
       "href",
       `${siteUrl}#${encodeURIComponent(term.term)}`
     );
+  }
+
+  if (!version && term.changelog && term.changelog.length) {
+    const changelogLink = document.getElementById("view-changelog");
+    if (changelogLink) {
+      changelogLink.addEventListener("click", (e) => {
+        e.stopPropagation();
+        showChangelog(term);
+      });
+    }
+  } else if (version) {
+    const currentLink = document.getElementById("view-current");
+    if (currentLink) {
+      currentLink.addEventListener("click", (e) => {
+        e.stopPropagation();
+        displayDefinition(term);
+      });
+    }
+  }
+}
+
+function showChangelog(term) {
+  let html = `<h3>${term.term} - Changelog</h3><ul>`;
+  term.changelog.forEach((entry) => {
+    html += `<li><a href="#" data-version="${entry.id}">${entry.id}</a></li>`;
+  });
+  html += '</ul><a href="#" id="back-to-term">Back to term</a>';
+  definitionContainer.innerHTML = html;
+
+  definitionContainer
+    .querySelectorAll('a[data-version]')
+    .forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const v = link.getAttribute("data-version");
+        displayDefinition(term, v);
+      });
+    });
+
+  const backLink = document.getElementById("back-to-term");
+  if (backLink) {
+    backLink.addEventListener("click", (e) => {
+      e.stopPropagation();
+      displayDefinition(term);
+    });
   }
 }
 

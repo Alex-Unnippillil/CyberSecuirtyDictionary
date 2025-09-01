@@ -74,4 +74,13 @@
     }
     return card;
   }
+
+  window.chatbotResponse = function(query){
+    const term = terms.find(t => (t.name || t.term || '').toLowerCase() === query.toLowerCase());
+    if(!term){
+      return `I don't have information on "${query}".`;
+    }
+    const v = term.versionId || 'v1';
+    return `${term.definition || ''} (version ${v})`;
+  };
 })();
