@@ -1,0 +1,2 @@
+Welcome to the Cyber Security Dictionary.
+This read-only terminal demonstrates terms with a typewriter effect.

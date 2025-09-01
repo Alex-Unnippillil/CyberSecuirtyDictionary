@@ -347,3 +347,37 @@ body.dark-mode #alpha-nav button.active {
     font-size: 14px;
   }
 }
+
+/* Terminal component */
+.terminal {
+  font-family: monospace;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.terminal.dark {
+  background-color: #000;
+  color: #0f0;
+}
+
+.terminal-controls {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.terminal-controls button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.terminal-controls button:hover {
+  background-color: #0056b3;
+}
