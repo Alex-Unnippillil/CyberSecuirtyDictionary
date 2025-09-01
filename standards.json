@@ -1,0 +1,30 @@
+[
+  {
+    "id": "hipaa-1996",
+    "title": "HIPAA",
+    "year": 1996,
+    "citation": "Health Insurance Portability and Accountability Act of 1996",
+    "url": "https://www.hhs.gov/hipaa/index.html"
+  },
+  {
+    "id": "gdpr-2016",
+    "title": "EU GDPR",
+    "year": 2016,
+    "citation": "Regulation (EU) 2016/679 (General Data Protection Regulation)",
+    "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+  },
+  {
+    "id": "iso-27001-2013",
+    "title": "ISO/IEC 27001",
+    "year": 2013,
+    "citation": "ISO/IEC 27001:2013 Information security management systems",
+    "url": "https://www.iso.org/standard/54534.html"
+  },
+  {
+    "id": "nist-800-53r5",
+    "title": "NIST SP 800-53 Rev. 5",
+    "year": 2020,
+    "citation": "Security and Privacy Controls for Information Systems and Organizations",
+    "url": "https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final"
+  }
+]
