@@ -25,7 +25,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -110,7 +110,6 @@ body.dark-mode mark {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-height: 44px;
 }
-
 
 /* Controls styling */
 #random-term {
@@ -206,7 +205,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -346,4 +347,41 @@ body.dark-mode #alpha-nav button.active {
   #alpha-nav button {
     font-size: 14px;
   }
+}
+
+/* Status indicators */
+.status-indicator {
+  position: fixed;
+  right: 10px;
+  background-color: #ffeb3b;
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.status-indicator.offline {
+  top: 10px;
+}
+
+.status-indicator.low-motion {
+  top: 50px;
+}
+
+body.dark-mode .status-indicator {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Reduced motion theme */
+body.low-motion *,
+body.low-motion *::before,
+body.low-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+body.low-motion .dictionary-item:hover {
+  transform: none;
 }
