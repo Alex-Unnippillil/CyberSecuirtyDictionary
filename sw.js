@@ -1,10 +1,11 @@
-const CACHE_NAME = 'csd-cache-v1';
+const CACHE_NAME = 'csd-cache-v2';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js',
-  '/data.json'
+  '/data.json',
+  '/manifest.json'
 ];
 
 self.addEventListener('install', event => {
