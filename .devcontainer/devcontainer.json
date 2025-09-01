@@ -1,0 +1,19 @@
+{
+  "name": "CyberSecuirtyDictionary",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/playwright:1": {}
+  },
+  "postCreateCommand": "pnpm install",
+  "postStartCommand": "pnpm exec http-server -p 8080 .",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Dev server",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
