@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paste Sanitizer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .diff {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .diff > div {
+      flex: 1 1 45%;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+    }
+    pre {
+      white-space: pre-wrap;
+      word-break: break-all;
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+    }
+    .removed {
+      background: #ffdddd;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Paste Sanitizer</h1>
+    <textarea id="paste-input" placeholder="Paste text here"></textarea>
+    <div class="diff">
+      <div>
+        <h2>Original</h2>
+        <pre id="original"></pre>
+      </div>
+      <div>
+        <h2>Sanitized</h2>
+        <pre id="sanitized"></pre>
+      </div>
+    </div>
+    <button id="copy-clean" type="button" disabled>Copy Cleaned Text</button>
+  </main>
+  <script src="assets/js/sanitize.js"></script>
+</body>
+</html>
