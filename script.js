@@ -245,11 +245,12 @@ searchInput.addEventListener("input", () => {
 });
 
 const scrollBtn = document.getElementById("scrollToTopBtn");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 window.addEventListener("scroll", () => {
   scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
 });
 scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" })
 );
 
 definitionContainer.addEventListener("click", clearDefinition);
