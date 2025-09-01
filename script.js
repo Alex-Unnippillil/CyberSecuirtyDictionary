@@ -5,6 +5,7 @@ const randomButton = document.getElementById("random-term");
 const alphaNav = document.getElementById("alpha-nav");
 const darkModeToggle = document.getElementById("dark-mode-toggle");
 const showFavoritesToggle = document.getElementById("show-favorites");
+const replayTourButton = document.getElementById("replay-tour");
 const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"));
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
@@ -20,6 +21,13 @@ if (darkModeToggle) {
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
     localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+  });
+}
+
+if (replayTourButton) {
+  replayTourButton.addEventListener("click", () => {
+    localStorage.removeItem("hasSeenTour");
+    window.dispatchEvent(new Event("replay-tour"));
   });
 }
 
