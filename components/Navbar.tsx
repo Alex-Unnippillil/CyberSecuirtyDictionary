@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import RecentMenu from "./RecentMenu";
 
 /**
  * Responsive navigation bar using Tailwind CSS.
@@ -40,7 +41,7 @@ export default function Navbar() {
               />
             </svg>
           </button>
-          <div className="hidden md:flex md:space-x-4">
+          <div className="hidden md:flex md:items-center md:space-x-4">
             <button
               type="button"
               onClick={() => router.push("/terms")}
@@ -55,6 +56,7 @@ export default function Navbar() {
             >
               Compare
             </button>
+            <RecentMenu />
           </div>
         </div>
       </div>
@@ -74,6 +76,7 @@ export default function Navbar() {
           >
             Compare
           </button>
+          <RecentMenu />
         </div>
       )}
     </nav>
