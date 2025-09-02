@@ -581,3 +581,26 @@ body.dark-mode #alpha-nav button.active {
 .selection-highlight {
   background-color: yellow;
 }
+
+.selection-tools {
+  position: fixed;
+  background: #333;
+  color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  gap: 4px;
+  z-index: 1000;
+}
+
+.selection-tools button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.selection-tools button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
