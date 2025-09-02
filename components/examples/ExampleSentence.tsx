@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { UnitConverter } from "../UnitConverter";
 
 export interface ExampleSentenceProps {
   /** The example sentence to display */
@@ -28,7 +29,9 @@ export const ExampleSentence: React.FC<ExampleSentenceProps> = ({
 
   return (
     <div className="example-sentence">
-      <p>{text}</p>
+      <p>
+        <UnitConverter text={text} />
+      </p>
       {citation && showCitation && <cite>{citation}</cite>}
       <div className="example-sentence__actions">
         {citation && (
