@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import TagManager from '../TagManager';
 
 interface SourceLinks {
   nist?: string;
@@ -22,6 +23,7 @@ export default function TermPage({ title, body, sources }: TermPageProps) {
     <article className="term">
       <h1>{title}</h1>
       <MDXRemote source={body} />
+      <TagManager term={title} />
       {hasSources && (
         <section className="sources">
           <h2>Sources</h2>

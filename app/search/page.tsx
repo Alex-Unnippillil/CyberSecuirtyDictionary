@@ -4,6 +4,8 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import TagSidebar from '../../components/TagSidebar';
+import { getTermsForTag } from '../../lib/tagDB';
 
 interface Term {
   term: string;
@@ -19,6 +21,8 @@ export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const [data, setData] = useState<SearchResponse | null>(null);
+  const [selectedTag, setSelectedTag] = useState<number | null>(null);
+  const [taggedTerms, setTaggedTerms] = useState<string[]>([]);
 
   useEffect(() => {
     if (!query) return;
@@ -28,7 +32,19 @@ export default function SearchPage() {
       .catch(() => setData({ results: [], suggestions: [] }));
   }, [query]);
 
-  const results = data?.results || [];
+  useEffect(() => {
+    if (selectedTag == null) {
+      setTaggedTerms([]);
+      return;
+    }
+    getTermsForTag(selectedTag).then(setTaggedTerms).catch(() => setTaggedTerms([]));
+  }, [selectedTag]);
+
+  const allResults = data?.results || [];
+  const results =
+    selectedTag == null
+      ? allResults
+      : allResults.filter((r) => taggedTerms.includes(r.term));
   const suggestions = data?.suggestions || [];
 
   return (
@@ -48,7 +64,9 @@ export default function SearchPage() {
           content="Search cybersecurity terms in the dictionary."
         />
       </Head>
-      <div>
+      <div className="search-layout">
+        <TagSidebar onSelect={setSelectedTag} selected={selectedTag} />
+        <div className="results">
         {suggestions.length > 0 && (
           <div className="suggestions">
             <p>Did you mean:</p>
@@ -69,6 +87,7 @@ export default function SearchPage() {
           ))}
           {results.length === 0 && <li>No results found.</li>}
         </ul>
+        </div>
       </div>
     </>
   );
