@@ -2,7 +2,11 @@ import { allTerms } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import RelatedTerms from "./RelatedTerms";
+import dynamic from "next/dynamic";
+
+const RelatedTerms = dynamic(() => import("./RelatedTerms"), {
+  loading: () => <p>Loading related terms...</p>,
+});
 
 interface PageProps {
   params: { slug: string };
@@ -72,7 +76,9 @@ export default function TermPage({ params }: PageProps) {
           </ul>
         </section>
       )}
-      <RelatedTerms slugs={term.seeAlso} />
+      {term.seeAlso && term.seeAlso.length > 0 && (
+        <RelatedTerms slugs={term.seeAlso} />
+      )}
     </article>
   );
 }
