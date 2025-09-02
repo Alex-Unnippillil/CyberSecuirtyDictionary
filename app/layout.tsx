@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
+import ComparePanel from "../components/ComparePanel";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,6 +25,7 @@ export default function RootLayout({
         >
           {children}
         </motion.div>
+        <ComparePanel />
       </body>
     </html>
   );
