@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Hammer from "hammerjs";
+import Image from "next/image";
 
 interface DiagramPin {
   /**
@@ -148,7 +149,12 @@ const DiagramViewer: React.FC<DiagramViewerProps> = ({
             height: "100%",
           }}
         >
-          <img src={src} alt={alt} style={{ display: "block", width: "100%" }} />
+          <Image
+            src={src}
+            alt={alt || ""}
+            fill
+            style={{ display: "block", objectFit: "contain" }}
+          />
           {pins && (
             <svg
               viewBox="0 0 100 100"
