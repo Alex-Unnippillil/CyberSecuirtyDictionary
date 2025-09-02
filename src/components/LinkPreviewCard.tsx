@@ -47,7 +47,7 @@ const LinkPreviewCard: React.FC<LinkPreviewData> = ({
       {image && (
         <img
           src={image}
-          alt=""
+          alt={title ? `Preview image for ${title}` : `Preview image for ${url}`}
           style={{ width: "100%", display: "block" }}
         />
       )}
