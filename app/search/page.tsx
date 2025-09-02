@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { searchPersonalTerms, PersonalTerm } from '../../lib/personalTerms';
 
 interface Term {
   term: string;
@@ -15,10 +16,12 @@ interface SearchResponse {
   suggestions: string[];
 }
 
+
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
   const [data, setData] = useState<SearchResponse | null>(null);
+  const [personal, setPersonal] = useState<PersonalTerm[]>([]);
 
   useEffect(() => {
     if (!query) return;
@@ -26,9 +29,14 @@ export default function SearchPage() {
       .then((res) => res.json())
       .then(setData)
       .catch(() => setData({ results: [], suggestions: [] }));
+    searchPersonalTerms(query).then(setPersonal);
   }, [query]);
 
   const results = data?.results || [];
+  const combined = [
+    ...personal.map((p) => ({ term: p.slug, definition: p.definition, personal: true })),
+    ...results.map((r) => ({ ...r, personal: false })),
+  ];
   const suggestions = data?.suggestions || [];
 
   return (
@@ -62,12 +70,13 @@ export default function SearchPage() {
           </div>
         )}
         <ul>
-          {results.map((r) => (
+          {combined.map((r) => (
             <li key={r.term}>
-              <strong>{r.term}</strong>: {r.definition}
+              <strong>{r.term}</strong>
+              {r.personal && <span className="badge"> Personal</span>}: {r.definition}
             </li>
           ))}
-          {results.length === 0 && <li>No results found.</li>}
+          {combined.length === 0 && <li>No results found.</li>}
         </ul>
       </div>
     </>
