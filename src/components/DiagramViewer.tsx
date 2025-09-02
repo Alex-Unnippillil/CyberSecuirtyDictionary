@@ -17,7 +17,7 @@ interface DiagramPin {
 
 interface DiagramViewerProps {
   src: string;
-  alt?: string;
+  alt: string;
   onClose: () => void;
   /** Optional set of pins to render over the diagram */
   pins?: DiagramPin[];
