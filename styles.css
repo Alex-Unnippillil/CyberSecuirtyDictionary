@@ -581,3 +581,8 @@ body.dark-mode #alpha-nav button.active {
 .selection-highlight {
   background-color: yellow;
 }
+
+body.dragging-to-desktop,
+body.dragging-to-desktop * {
+  cursor: grabbing !important;
+}
