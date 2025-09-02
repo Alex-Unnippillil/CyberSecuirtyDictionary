@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ColorBlindPalette from './ColorBlindPalette';
+import HoverPreview from './HoverPreview';
 import {
   buildSettingsIndex,
   searchSettings,
@@ -74,6 +75,11 @@ export default function SettingsPage() {
             <ColorBlindPalette />
           </div>
         </div>
+      </details>
+
+      <details id="previews" data-setting-section>
+        <summary>Previews</summary>
+        <HoverPreview />
       </details>
     </div>
   );
