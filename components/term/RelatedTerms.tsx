@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 
 export interface RelatedTerm {
   /** Slug used to build link to the term page */
@@ -20,6 +21,7 @@ interface RelatedTermsProps {
  * nothing is rendered.
  */
 const RelatedTerms: React.FC<RelatedTermsProps> = ({ relatedTerms }) => {
+  const router = useRouter();
   if (!relatedTerms || relatedTerms.length === 0) return null;
 
   return (
@@ -28,9 +30,13 @@ const RelatedTerms: React.FC<RelatedTermsProps> = ({ relatedTerms }) => {
       <ul className="related-terms__list">
         {relatedTerms.map((term) => (
           <li key={term.slug} className="related-terms__item">
-            <a href={`/terms/${term.slug}`} className="related-terms__pill">
+            <button
+              type="button"
+              onClick={() => router.push(`/terms/${term.slug}`)}
+              className="related-terms__pill"
+            >
               {term.name}
-            </a>
+            </button>
           </li>
         ))}
       </ul>
