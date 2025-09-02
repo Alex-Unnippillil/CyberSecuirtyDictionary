@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession, signIn } from "next-auth/react";
 
 export default function SettingsPage() {
+  const { data: session, status } = useSession();
   const [darkMode, setDarkMode] = useState(false);
   const [fontSize, setFontSize] = useState("medium");
   const [density, setDensity] = useState("comfortable");
@@ -36,6 +38,19 @@ export default function SettingsPage() {
       prev.includes(src) ? prev.filter((s) => s !== src) : [...prev, src],
     );
   };
+
+  if (status === "loading") {
+    return <main className="p-4">Loading...</main>;
+  }
+
+  if (!session) {
+    return (
+      <main className="p-4 space-y-4">
+        <p>You must be signed in to view this page.</p>
+        <button onClick={() => signIn()}>Sign in</button>
+      </main>
+    );
+  }
 
   return (
     <main className="p-4 space-y-6">

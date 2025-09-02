@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { Providers } from "./providers";
 
 export default function RootLayout({
   children,
@@ -10,7 +11,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Navbar />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
