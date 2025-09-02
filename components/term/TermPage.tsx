@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import RecentTermTracker from './RecentTermTracker';
 
 interface SourceLinks {
   nist?: string;
@@ -20,6 +21,7 @@ export default function TermPage({ title, body, sources }: TermPageProps) {
 
   return (
     <article className="term">
+      <RecentTermTracker term={title} />
       <h1>{title}</h1>
       <MDXRemote source={body} />
       {hasSources && (
