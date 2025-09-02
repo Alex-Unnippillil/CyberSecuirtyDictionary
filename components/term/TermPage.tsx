@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import SessionTimeline from '@/components/SessionTimeline';
 
 interface SourceLinks {
   nist?: string;
@@ -10,12 +11,14 @@ interface TermPageProps {
   title: string;
   body: string;
   sources?: SourceLinks;
+  /** Slug used for navigation and session tracking */
+  slug: string;
 }
 
 /**
  * Renders a security term page including MDX content and optional sources.
  */
-export default function TermPage({ title, body, sources }: TermPageProps) {
+export default function TermPage({ title, body, sources, slug }: TermPageProps) {
   const hasSources = sources && (sources.nist || sources.owasp || sources.attack);
 
   return (
@@ -44,6 +47,7 @@ export default function TermPage({ title, body, sources }: TermPageProps) {
           </ul>
         </section>
       )}
+      <SessionTimeline current={{ slug, title }} />
     </article>
   );
 }
