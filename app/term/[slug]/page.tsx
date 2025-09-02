@@ -17,7 +17,14 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
   const { content, data } = matter(file!);
-  return <TermPage title={data.title ?? params.slug} body={content} sources={data.sources} />;
+  return (
+    <TermPage
+      slug={params.slug}
+      title={data.title ?? params.slug}
+      body={content}
+      sources={data.sources}
+    />
+  );
 }
 
 export async function generateStaticParams() {
