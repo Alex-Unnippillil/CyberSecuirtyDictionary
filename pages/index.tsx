@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import path from 'path';
 import { promises as fs } from 'fs';
+import SelectionTools from '../components/SelectionTools';
 
 interface Term {
   term: string;
@@ -20,6 +21,7 @@ export default function HomePage({ terms }: HomePageProps) {
           <li key={t.term}>{t.term}</li>
         ))}
       </ul>
+      <SelectionTools />
     </main>
   );
 }
