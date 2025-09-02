@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useMemo } from "react";
 import styles from "./page.module.css";
-import termsData from "../../../terms.json";
+import termsData from "../../../public/terms.json";
 
 type Term = { term: string; definition: string };
 

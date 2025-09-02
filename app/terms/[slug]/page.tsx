@@ -1,5 +1,5 @@
 import React from "react";
-import terms from "../../../terms.json";
+import terms from "../../../public/terms.json";
 import { FAQBlock } from "../../components/FAQBlock";
 
 function slugify(term: string) {

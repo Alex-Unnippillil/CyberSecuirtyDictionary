@@ -1,7 +1,6 @@
 const CACHE_NAME = "csd-cache-v1";
 const URLS_TO_CACHE = [
   "/",
-  "/index.html",
   "/styles.css",
   "/script.js",
   "/data.json",
@@ -34,7 +33,7 @@ self.addEventListener("fetch", (event) => {
         response ||
         fetch(event.request).catch(() => {
           if (event.request.mode === "navigate") {
-            return caches.match("/index.html");
+            return caches.match("/");
           }
         }),
     ),

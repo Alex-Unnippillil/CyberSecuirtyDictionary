@@ -12,7 +12,7 @@
 
   if (supportsOffscreen) {
     const offscreen = canvas.transferControlToOffscreen();
-    const worker = new Worker("assets/js/canvas-worker.js");
+    const worker = new Worker("/canvas-worker.js");
     worker.postMessage({ canvas: offscreen }, [offscreen]);
     worker.onmessage = (e) => {
       if (e.data && e.data.avg) {
