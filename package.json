@@ -4,7 +4,8 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js"
+    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js",
+    "build": "next build && npx next-sitemap"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
     "jsdom": "^26.1.0",
+    "next-sitemap": "^4.2.3",
     "prettier": "^3.6.2"
   },
   "dependencies": {
