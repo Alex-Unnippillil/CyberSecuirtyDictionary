@@ -1,5 +1,5 @@
 import React from "react";
-import highlight from "../../lib/highlight";
+import highlight from "@/lib/highlight";
 
 interface DefinitionItemProps {
   term: string;

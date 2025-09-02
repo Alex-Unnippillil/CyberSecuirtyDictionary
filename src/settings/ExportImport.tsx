@@ -5,7 +5,7 @@ import {
   getCurrentData,
   importData,
   parseBackup,
-} from "../utils/exportImport";
+} from "@/src/utils/exportImport";
 import DiffPreview from "./DiffPreview";
 
 export default function ExportImport() {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { startGuidedTour } from "../features/tour/GuidedTour";
+import { startGuidedTour } from "@/src/features/tour/GuidedTour";
 
 interface Shortcut {
   keys: string;

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
-import termsData from '../terms.json' assert { type: 'json' };
-import siteConfig from '../site.config.json' assert { type: 'json' };
+import termsData from '@/terms.json' assert { type: 'json' };
+import siteConfig from '@/site.config.json' assert { type: 'json' };
 
 function slugify(term: string): string {
   return term

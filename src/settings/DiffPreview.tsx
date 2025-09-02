@@ -1,5 +1,5 @@
 import React from "react";
-import { BackupData } from "../utils/exportImport";
+import { BackupData } from "@/src/utils/exportImport";
 
 interface DiffPreviewProps {
   current: BackupData;

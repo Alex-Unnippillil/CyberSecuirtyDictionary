@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import LinkPreviewCard, { LinkPreviewData } from "../../components/LinkPreviewCard";
+import LinkPreviewCard, { LinkPreviewData } from "@/components/LinkPreviewCard";
 
 interface MetaData {
   title?: string;
