@@ -1,19 +1,25 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 /**
  * Responsive navigation bar using Tailwind CSS.
  */
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <nav className="bg-gray-800 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <a href="/" className="text-xl font-semibold">
+          <button
+            type="button"
+            onClick={() => router.push("/")}
+            className="text-xl font-semibold"
+          >
             CyberSec Dictionary
-          </a>
+          </button>
           <button
             className="md:hidden"
             aria-label="Toggle menu"
@@ -35,23 +41,39 @@ export default function Navbar() {
             </svg>
           </button>
           <div className="hidden md:flex md:space-x-4">
-            <a href="/terms" className="hover:underline">
+            <button
+              type="button"
+              onClick={() => router.push("/terms")}
+              className="hover:underline"
+            >
               Terms
-            </a>
-            <a href="/compare" className="hover:underline">
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push("/compare")}
+              className="hover:underline"
+            >
               Compare
-            </a>
+            </button>
           </div>
         </div>
       </div>
       {open && (
         <div className="px-2 pb-3 md:hidden">
-          <a href="/terms" className="block py-1">
+          <button
+            type="button"
+            onClick={() => router.push("/terms")}
+            className="block py-1"
+          >
             Terms
-          </a>
-          <a href="/compare" className="block py-1">
+          </button>
+          <button
+            type="button"
+            onClick={() => router.push("/compare")}
+            className="block py-1"
+          >
             Compare
-          </a>
+          </button>
         </div>
       )}
     </nav>
