@@ -1,4 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import TermToolbar from './TermToolbar';
 
 interface SourceLinks {
   nist?: string;
@@ -20,6 +21,7 @@ export default function TermPage({ title, body, sources }: TermPageProps) {
 
   return (
     <article className="term">
+      <TermToolbar />
       <h1>{title}</h1>
       <MDXRemote source={body} />
       {hasSources && (
