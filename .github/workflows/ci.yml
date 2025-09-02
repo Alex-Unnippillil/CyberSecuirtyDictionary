@@ -13,14 +13,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
+      - name: Install
+        run: npm ci
       - name: Lint
         run: npm run lint
-      - name: Typecheck
-        run: npm run typecheck
-      - name: Tests
+      - name: Test
         run: npm test
-      - name: Contentlayer build
-        run: npm run build:contentlayer
-      - name: Search index build
-        run: npm run build:search-index
+      - name: Build
+        run: npm run build
