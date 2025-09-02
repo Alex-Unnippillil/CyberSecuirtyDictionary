@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "demo";
+
 const nextConfig = {
+  images: {
+    loader: "cloudinary",
+    path: `https://res.cloudinary.com/${cloudName}/image/upload/`,
+  },
   async headers() {
     const csp = [
       "default-src 'self'",

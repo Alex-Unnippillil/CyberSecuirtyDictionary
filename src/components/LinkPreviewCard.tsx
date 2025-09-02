@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 export interface LinkPreviewData {
   /** URL for which preview is shown */
@@ -7,7 +8,7 @@ export interface LinkPreviewData {
   title?: string;
   /** Optional description extracted from meta tags */
   description?: string;
-  /** Optional preview image */
+  /** Optional preview image (Cloudinary public ID or URL) */
   image?: string;
   /** Screen coordinates where the card should be rendered */
   position: { x: number; y: number };
@@ -45,10 +46,12 @@ const LinkPreviewCard: React.FC<LinkPreviewData> = ({
   return (
     <div className="link-preview-card" style={style}>
       {image && (
-        <img
+        <Image
           src={image}
           alt=""
-          style={{ width: "100%", display: "block" }}
+          width={260}
+          height={130}
+          style={{ width: "100%", height: "auto" }}
         />
       )}
       <div style={{ padding: 8 }}>
