@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 interface Rhyme {
   word: string;
@@ -7,27 +8,25 @@ interface Rhyme {
 
 export default function Rhymes({ slug }: { slug: string }) {
   const [groups, setGroups] = useState<Record<number, string[]>>({});
+  const { data } = useSWR<Rhyme[]>(
+    slug ? `/api/rhymes?slug=${encodeURIComponent(slug)}` : null,
+    { refreshInterval: 0 }
+  );
 
   useEffect(() => {
-    if (!slug) {
+    if (!data) {
       setGroups({});
       return;
     }
-
-    fetch(`/api/rhymes?slug=${encodeURIComponent(slug)}`)
-      .then((res) => res.json())
-      .then((data: Rhyme[]) => {
-        const grouped: Record<number, string[]> = {};
-        data.forEach(({ word, numSyllables = 0 }) => {
-          if (!grouped[numSyllables]) {
-            grouped[numSyllables] = [];
-          }
-          grouped[numSyllables].push(word);
-        });
-        setGroups(grouped);
-      })
-      .catch(() => setGroups({}));
-  }, [slug]);
+    const grouped: Record<number, string[]> = {};
+    data.forEach(({ word, numSyllables = 0 }) => {
+      if (!grouped[numSyllables]) {
+        grouped[numSyllables] = [];
+      }
+      grouped[numSyllables].push(word);
+    });
+    setGroups(grouped);
+  }, [data]);
 
   return (
     <div>

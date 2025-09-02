@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useSWR from "swr";
 
 interface SideDrawerProps {
   /** Word currently selected; when null the drawer is hidden */
@@ -12,37 +13,16 @@ interface SideDrawerProps {
  * It is shown whenever `word` is not null.
  */
 const SideDrawer: React.FC<SideDrawerProps> = ({ word, onClose }) => {
-  const [definition, setDefinition] = useState<string>("");
-
-  useEffect(() => {
-    if (!word) {
-      setDefinition("");
-      return;
-    }
-
-    let cancelled = false;
-    // Fetch the mini definition for the selected word
-    fetch(`/api/word/summary?word=${encodeURIComponent(word)}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (!cancelled) {
-          setDefinition(
-            data.summary || data.definition || "No definition available.",
-          );
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setDefinition("Failed to fetch definition.");
-        }
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [word]);
+  const { data, error } = useSWR(
+    word ? `/api/word/summary?word=${encodeURIComponent(word)}` : null,
+    { refreshInterval: 300000 }
+  );
 
   if (!word) return null;
+
+  const definition = error
+    ? "Failed to fetch definition."
+    : data?.summary || data?.definition || "No definition available.";
 
   return (
     <aside className="side-drawer">

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 
 interface RelatedWordsPanelProps {
   /**
@@ -14,7 +15,6 @@ const RelatedWordsPanel: React.FC<RelatedWordsPanelProps> = ({
   endpoint = "/api/related",
 }) => {
   const [currentWord, setCurrentWord] = useState<string>("");
-  const [related, setRelated] = useState<string[]>([]);
   const [error, setError] = useState<string>("");
 
   // Determine which dictionary term is closest to the top of the viewport
@@ -46,35 +46,16 @@ const RelatedWordsPanel: React.FC<RelatedWordsPanelProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [currentWord]);
 
-  // Fetch related words whenever the current word changes
-  useEffect(() => {
-    if (!currentWord) return;
+  const { data } = useSWR<{ related: string[] }>(
+    currentWord ? `${endpoint}?word=${encodeURIComponent(currentWord)}` : null,
+    {
+      refreshInterval: 300000,
+      onError: () => setError("Unable to load related words"),
+      onSuccess: () => setError(""),
+    },
+  );
 
-    const controller = new AbortController();
-
-    const fetchRelated = async () => {
-      try {
-        const res = await fetch(
-          `${endpoint}?word=${encodeURIComponent(currentWord)}`,
-          {
-            signal: controller.signal,
-          },
-        );
-        if (!res.ok) throw new Error("Network response was not ok");
-        const data = (await res.json()) as { related: string[] };
-        setRelated(data.related);
-        setError("");
-      } catch (err) {
-        if ((err as Error).name !== "AbortError") {
-          setError("Unable to load related words");
-          setRelated([]);
-        }
-      }
-    };
-
-    fetchRelated();
-    return () => controller.abort();
-  }, [currentWord, endpoint]);
+  const related = data?.related || [];
 
   return (
     <aside className="related-words-panel">

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useSWR from 'swr';
 
 type Term = {
   term?: string;
@@ -9,17 +10,11 @@ type Term = {
  * Renders a button that navigates the user to a random term from `terms.json`.
  */
 const RandomTerm: React.FC = () => {
-  const [terms, setTerms] = useState<Term[]>([]);
-
-  useEffect(() => {
-    fetch('/terms.json')
-      .then(res => res.json())
-      .then(data => {
-        const list = Array.isArray(data) ? data : data.terms || [];
-        setTerms(list);
-      })
-      .catch(() => setTerms([]));
-  }, []);
+  const { data } = useSWR<Term[] | { terms: Term[] }>(
+    '/terms.json',
+    { refreshInterval: 86400000 }
+  );
+  const terms = Array.isArray(data) ? data : data?.terms || [];
 
   const handleClick = () => {
     if (!terms.length) return;

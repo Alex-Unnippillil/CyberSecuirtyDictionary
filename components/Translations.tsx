@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useSWR from "swr";
 
 interface TranslationMap {
   [language: string]: string;
@@ -9,57 +10,24 @@ interface TranslationsProps {
 }
 
 const Translations: React.FC<TranslationsProps> = ({ slug }) => {
-  const [translations, setTranslations] = useState<TranslationMap>({});
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const { data, error, isLoading } = useSWR<TranslationMap>(
+    slug ? `/api/translate?slug=${encodeURIComponent(slug)}` : null,
+    { refreshInterval: 300000 }
+  );
 
-  useEffect(() => {
-    if (!slug) {
-      return;
-    }
-
-    let isCurrent = true;
-    setLoading(true);
-
-    fetch(`/api/translate?slug=${encodeURIComponent(slug)}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Request failed with status ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data: TranslationMap) => {
-        if (!isCurrent) return;
-        setTranslations(data || {});
-        setError(null);
-      })
-      .catch((err) => {
-        if (!isCurrent) return;
-        console.error(err);
-        setError("Failed to load translations");
-      })
-      .finally(() => {
-        if (isCurrent) setLoading(false);
-      });
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [slug]);
-
-  if (loading) {
+  if (isLoading) {
     return <p>Loading translations…</p>;
   }
 
   if (error) {
     return (
       <p role="alert" className="translations-error">
-        {error}
+        Failed to load translations
       </p>
     );
   }
 
-  const entries = Object.entries(translations);
+  const entries = Object.entries(data || {});
   if (!entries.length) {
     return null;
   }

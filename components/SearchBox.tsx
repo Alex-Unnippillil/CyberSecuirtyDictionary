@@ -1,31 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import AutocompleteList from './AutocompleteList';
+import useSWR from 'swr';
 
 const SearchBox: React.FC = () => {
   const [value, setValue] = useState('');
-  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const { data: suggestions = [] } = useSWR<string[]>(
+    value.trim() ? `/api/suggest?q=${encodeURIComponent(value)}` : null,
+    { refreshInterval: 0 }
+  );
+
   useEffect(() => {
-    if (value.trim() === '') {
-      setSuggestions([]);
+    if (!value.trim() || suggestions.length === 0) {
       setShowSuggestions(false);
       return;
     }
-    fetch(`/api/suggest?q=${encodeURIComponent(value)}`)
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
-      .then((data: string[]) => {
-        setSuggestions(data);
-        setHighlightedIndex(-1);
-        setShowSuggestions(true);
-      })
-      .catch(() => {
-        setSuggestions([]);
-        setShowSuggestions(false);
-      });
-  }, [value]);
+    setShowSuggestions(true);
+    setHighlightedIndex(-1);
+  }, [value, suggestions]);
 
   const selectSuggestion = (suggestion: string) => {
     setValue(suggestion);

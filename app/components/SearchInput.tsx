@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import useSWR from "swr";
 
 interface Term {
   term: string;
@@ -9,19 +10,13 @@ interface Term {
 
 export default function SearchInput() {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Term[]>([]);
+  const { data: results = [] } = useSWR<Term[]>(
+    query ? `/api/search?q=${encodeURIComponent(query)}` : null,
+    { refreshInterval: 0 }
+  );
 
-  const handleChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = e.target.value;
-    setQuery(value);
-
-    const res = await fetch(`/api/search?q=${encodeURIComponent(value)}`);
-    if (res.ok) {
-      const data: Term[] = await res.json();
-      setResults(data);
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
   return (
