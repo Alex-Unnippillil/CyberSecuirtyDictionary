@@ -9,6 +9,19 @@
   --skeleton-fg: #6b7280;
 }
 
+.bookmark-highlight {
+  animation: bookmark-flash 1s ease-out;
+}
+
+@keyframes bookmark-flash {
+  from {
+    background-color: yellow;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
 body.dark-mode {
   --skeleton-bg: #374151;
   --skeleton-fg: #9ca3af;
