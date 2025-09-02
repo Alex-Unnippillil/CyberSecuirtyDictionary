@@ -581,3 +581,22 @@ body.dark-mode #alpha-nav button.active {
 .selection-highlight {
   background-color: yellow;
 }
+
+/* Related term chips */
+.related-terms__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.related-terms__reason {
+  background-color: #ccc;
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 0.75rem;
+}
