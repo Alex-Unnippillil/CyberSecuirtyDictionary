@@ -18,6 +18,16 @@ https://alex-unnippillil.github.io/CyberSecuirtyDictionary/
    npx http-server
    ```
 
+## Environment Variables
+
+Runtime configuration is provided through a local `.env.local` file. Create this file in the project root and add any needed keys:
+
+```env
+NEXT_PUBLIC_DICTIONARY_API_BASE=https://api.dictionaryapi.dev/api/v2/entries/en
+```
+
+Variables prefixed with `NEXT_PUBLIC_` are exposed to the client and can be accessed in code via `process.env.NEXT_PUBLIC_*`.
+
 ## Deployment
 
 The project is a static site published with GitHub Pages. After updating content, ensure tests pass and push changes to the default branch. GitHub Pages will rebuild and deploy the site automatically. When changing security contact details, regenerate `.well-known/security.txt` by running:

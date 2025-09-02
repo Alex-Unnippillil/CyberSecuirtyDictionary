@@ -14,6 +14,10 @@ interface EntryPageProps {
   entry: Entry;
 }
 
+const DICTIONARY_API_BASE =
+  process.env.NEXT_PUBLIC_DICTIONARY_API_BASE ||
+  'https://api.dictionaryapi.dev/api/v2/entries/en';
+
 function syllabify(word: string): string {
   return word
     .toLowerCase()
@@ -40,7 +44,7 @@ export default function EntryPage({ entry }: EntryPageProps) {
 
 export const getServerSideProps: GetServerSideProps<EntryPageProps> = async (context) => {
   const { slug } = context.params as { slug: string };
-  const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${slug}`);
+  const res = await fetch(`${DICTIONARY_API_BASE}/${slug}`);
 
   if (!res.ok) {
     return { notFound: true };
