@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import data from "../../../terms.json";
+import data from "@/terms.json";
 
 interface Term {
   term: string;

@@ -4,7 +4,7 @@ import {
   buildSettingsIndex,
   searchSettings,
   SettingEntry,
-} from '../features/settings/SettingsIndex';
+} from '@src/features/settings/SettingsIndex';
 
 /**
  * Settings page with client side search. Results update as the user types and
