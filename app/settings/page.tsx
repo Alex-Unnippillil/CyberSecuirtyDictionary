@@ -7,6 +7,7 @@ export default function SettingsPage() {
   const [fontSize, setFontSize] = useState("medium");
   const [density, setDensity] = useState("comfortable");
   const [preferredSources, setPreferredSources] = useState<string[]>([]);
+  const [enhancedHinting, setEnhancedHinting] = useState(true);
 
   useEffect(() => {
     const saved = localStorage.getItem("settings");
@@ -17,6 +18,7 @@ export default function SettingsPage() {
         setFontSize(parsed.fontSize ?? "medium");
         setDensity(parsed.density ?? "comfortable");
         setPreferredSources(parsed.preferredSources ?? []);
+        setEnhancedHinting(parsed.enhancedHinting ?? true);
       } catch {
         // ignore parse errors
       }
@@ -24,12 +26,13 @@ export default function SettingsPage() {
   }, []);
 
   useEffect(() => {
-    const data = { darkMode, fontSize, density, preferredSources };
+    const data = { darkMode, fontSize, density, preferredSources, enhancedHinting };
     localStorage.setItem("settings", JSON.stringify(data));
     document.documentElement.classList.toggle("dark", darkMode);
     document.documentElement.style.fontSize =
       fontSize === "small" ? "14px" : fontSize === "large" ? "18px" : "16px";
-  }, [darkMode, fontSize, density, preferredSources]);
+    window.dispatchEvent(new Event("storage"));
+  }, [darkMode, fontSize, density, preferredSources, enhancedHinting]);
 
   const toggleSource = (src: string) => {
     setPreferredSources((prev) =>
@@ -49,6 +52,17 @@ export default function SettingsPage() {
             onChange={(e) => setDarkMode(e.target.checked)}
           />
           Dark mode
+        </label>
+      </section>
+
+      <section>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={enhancedHinting}
+            onChange={(e) => setEnhancedHinting(e.target.checked)}
+          />
+          Enhanced font hinting
         </label>
       </section>
 
