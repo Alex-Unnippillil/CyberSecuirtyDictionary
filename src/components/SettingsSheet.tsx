@@ -1,5 +1,5 @@
 import React from "react";
-import useSettings from "../hooks/useSettings";
+import useSettings from "@src/hooks/useSettings";
 
 /**
  * SettingsSheet renders toggle controls for each user setting.

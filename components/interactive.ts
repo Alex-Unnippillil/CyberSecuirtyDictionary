@@ -1,4 +1,4 @@
-import { durations, easing, distances } from '../styles/animations';
+import { durations, easing, distances } from '@styles/animations';
 
 function applyHover(el: HTMLElement) {
   el.style.transform = `translateY(-${distances.hover})`;

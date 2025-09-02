@@ -1,4 +1,4 @@
-import termsData from "../../terms.json";
+import termsData from "@/terms.json";
 
 interface Term {
   term: string;
