@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import { FAQBlock } from "../../components/FAQBlock";
+import TermToolbar from "../../../components/term/TermToolbar";
 
 interface Term {
   name: string;
@@ -45,6 +46,7 @@ export default function TermPage({ params }: { params: { slug: string } }) {
 
   return (
     <main>
+      <TermToolbar />
       <h1>{term.name}</h1>
       <p>{term.definition}</p>
       {term.synonyms && term.synonyms.length > 0 && (
