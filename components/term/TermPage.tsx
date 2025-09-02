@@ -1,4 +1,5 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { MDXRemote } from "next-mdx-remote/rsc";
+import TermSummary from "./Summary";
 
 interface SourceLinks {
   nist?: string;
@@ -10,17 +11,25 @@ interface TermPageProps {
   title: string;
   body: string;
   sources?: SourceLinks;
+  summary?: string[];
 }
 
 /**
  * Renders a security term page including MDX content and optional sources.
  */
-export default function TermPage({ title, body, sources }: TermPageProps) {
-  const hasSources = sources && (sources.nist || sources.owasp || sources.attack);
+export default function TermPage({
+  title,
+  body,
+  sources,
+  summary,
+}: TermPageProps) {
+  const hasSources =
+    sources && (sources.nist || sources.owasp || sources.attack);
 
   return (
     <article className="term">
       <h1>{title}</h1>
+      <TermSummary title={title} points={summary || []} />
       <MDXRemote source={body} />
       {hasSources && (
         <section className="sources">
