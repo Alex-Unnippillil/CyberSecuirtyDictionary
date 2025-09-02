@@ -1,4 +1,6 @@
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import useEndOfContent from '@/hooks/useEndOfContent';
+import NextInQueueBanner from './NextInQueueBanner';
 
 interface SourceLinks {
   nist?: string;
@@ -10,13 +12,15 @@ interface TermPageProps {
   title: string;
   body: string;
   sources?: SourceLinks;
+  slug: string;
 }
 
 /**
  * Renders a security term page including MDX content and optional sources.
  */
-export default function TermPage({ title, body, sources }: TermPageProps) {
+export default function TermPage({ title, body, sources, slug }: TermPageProps) {
   const hasSources = sources && (sources.nist || sources.owasp || sources.attack);
+  const { endRef, reachedEnd } = useEndOfContent<HTMLDivElement>();
 
   return (
     <article className="term">
@@ -44,6 +48,8 @@ export default function TermPage({ title, body, sources }: TermPageProps) {
           </ul>
         </section>
       )}
+      <div ref={endRef} />
+      {reachedEnd && <NextInQueueBanner slug={slug} />}
     </article>
   );
 }
