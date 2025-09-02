@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import termsData from '../../terms.json';
+import UnderstandingTracker from '../../components/UnderstandingTracker';
 
 interface Term {
   term: string;
@@ -24,6 +25,7 @@ export default function TermPage({ params }: { params: { term: string } }) {
     <main>
       <h1>{term.term}</h1>
       <p>{term.definition}</p>
+      <UnderstandingTracker term={term.term} />
     </main>
   );
 }

@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import { FAQBlock } from "../../components/FAQBlock";
+import UnderstandingTracker from "../../components/UnderstandingTracker";
 
 interface Term {
   name: string;
@@ -53,6 +54,7 @@ export default function TermPage({ params }: { params: { slug: string } }) {
         </p>
       )}
       <FAQBlock items={faqItems} />
+      <UnderstandingTracker term={term.name} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(termJsonLd) }}
