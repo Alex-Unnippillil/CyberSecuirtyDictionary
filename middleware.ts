@@ -5,6 +5,7 @@ import type { NextRequest } from 'next/server';
 const allowedOrigin = process.env.ALLOWED_ORIGIN || 'https://alex-unnippillil.github.io';
 
 export function middleware(request: NextRequest) {
+  console.log(`Incoming request: ${request.method} ${request.url}`);
   const { pathname } = request.nextUrl;
   const origin = request.headers.get('origin');
 
@@ -39,5 +40,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/api/:path*',
+  matcher: ['/api/:path*'],
 };
