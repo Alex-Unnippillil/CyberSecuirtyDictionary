@@ -1,4 +1,4 @@
-import { chipsForTags } from '../../lib/prompts';
+import { chipsForTags } from '@lib/prompts';
 
 /**
  * Return prompt chips for the provided comma separated `tags` query parameter.
