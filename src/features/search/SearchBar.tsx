@@ -1,29 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from "react";
+import { useSearch } from "../../hooks/useSearch";
 
-export interface SearchBarProps {
-  onSearch?: (value: string) => void;
-}
-
-export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [query, setQuery] = useState('');
+export const SearchBar: React.FC = () => {
+  const { query, setQuery } = useSearch();
   const inputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     const SpeechRecognition =
-      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
     if (SpeechRecognition) {
       recognitionRef.current = new SpeechRecognition();
-      recognitionRef.current.addEventListener('result', (e: SpeechRecognitionEvent) => {
-        const transcript = e.results[0][0].transcript;
-        setQuery(transcript);
-        onSearch?.(transcript);
-      });
+      recognitionRef.current.addEventListener(
+        "result",
+        (e: SpeechRecognitionEvent) => {
+          const transcript = e.results[0][0].transcript;
+          setQuery(transcript);
+        },
+      );
     } else {
       // Web Speech API unsupported, focus the text input
       inputRef.current?.focus();
     }
-  }, [onSearch]);
+  }, []);
 
   const startListening = () => {
     if (recognitionRef.current) {
@@ -36,7 +36,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
-    onSearch?.(value);
   };
 
   return (
@@ -48,7 +47,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         onChange={handleChange}
         placeholder="Search terms..."
       />
-      <button type="button" onClick={startListening} aria-label="Use microphone">
+      <button
+        type="button"
+        onClick={startListening}
+        aria-label="Use microphone"
+      >
         🎤
       </button>
     </div>
