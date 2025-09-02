@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useAnimation, useInView } from "framer-motion";
 
 interface TermCardProps {
   term: string;
   definition: string;
+  imageUrl?: string;
 }
 
-const TermCard: React.FC<TermCardProps> = ({ term, definition }) => {
+const TermCard: React.FC<TermCardProps> = ({ term, definition, imageUrl }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
   const inView = useInView(ref);
@@ -30,6 +32,7 @@ const TermCard: React.FC<TermCardProps> = ({ term, definition }) => {
       }}
       transition={{ duration: 0.4 }}
     >
+      {imageUrl && <Image src={imageUrl} alt={term} width={64} height={64} />}
       <h3>{term}</h3>
       <p>{definition}</p>
     </motion.div>

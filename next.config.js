@@ -1,25 +1,34 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+  },
   async headers() {
     const csp = [
       "default-src 'self'",
       "script-src 'self'",
       "style-src 'self' 'unsafe-inline'",
       "object-src 'none'",
-      "base-uri 'none'"
-    ].join('; ');
+      "base-uri 'none'",
+    ].join("; ");
 
-    const cspHeader = process.env.CSP_ENFORCE === 'true'
-      ? { key: 'Content-Security-Policy', value: csp }
-      : { key: 'Content-Security-Policy-Report-Only', value: csp };
+    const cspHeader =
+      process.env.CSP_ENFORCE === "true"
+        ? { key: "Content-Security-Policy", value: csp }
+        : { key: "Content-Security-Policy-Report-Only", value: csp };
 
     return [
       {
-        source: '/(.*)',
-        headers: [cspHeader]
-      }
+        source: "/(.*)",
+        headers: [cspHeader],
+      },
     ];
-  }
+  },
 };
 
 module.exports = nextConfig;
