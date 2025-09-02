@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import termsData from '../../terms.json';
+import termsData from '@/terms.json';
 
 interface Term {
   term: string;

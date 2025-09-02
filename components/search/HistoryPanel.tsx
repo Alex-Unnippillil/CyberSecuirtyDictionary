@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useSearchHistory from "../../hooks/useSearchHistory";
+import useSearchHistory from "@hooks/useSearchHistory";
 
 type Props = {
   authenticated?: boolean;

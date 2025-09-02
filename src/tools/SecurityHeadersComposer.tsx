@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CopyPresetSelect, {
   CopyPreset,
   formatForPreset,
-} from "../components/CopyPresetSelect";
+} from "@src/components/CopyPresetSelect";
 
 interface Directive {
   /**

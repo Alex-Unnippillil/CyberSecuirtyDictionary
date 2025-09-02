@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useSettings } from '../../../lib/settings';
+import { useSettings } from '@lib/settings';
 
 const SettingsPage: React.FC = () => {
   const { settings, update } = useSettings();
