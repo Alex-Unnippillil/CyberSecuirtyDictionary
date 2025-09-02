@@ -56,27 +56,47 @@ const SettingsPage: React.FC = () => {
             <option value="community">Community</option>
           </select>
         </label>
-      </section>
-      <section>
-        <label>
-          <input
-            type="checkbox"
-            checked={settings.history}
-            onChange={(e) => update({ history: e.target.checked })}
-          />
-          Enable history
-        </label>
-      </section>
-      <section>
-        <label>
-          <input
-            type="checkbox"
-            checked={settings.favorites}
-            onChange={(e) => update({ favorites: e.target.checked })}
-          />
-          Enable favorites
-        </label>
-      </section>
+        </section>
+        <section>
+          <label>
+            <input
+              type="checkbox"
+              checked={settings.dataSaver}
+              onChange={(e) => update({ dataSaver: e.target.checked })}
+            />
+            Data saver
+          </label>
+        </section>
+        <section>
+          <label>
+            <input
+              type="checkbox"
+              checked={settings.reducedMotion}
+              onChange={(e) => update({ reducedMotion: e.target.checked })}
+            />
+            Reduced motion
+          </label>
+        </section>
+        <section>
+          <label>
+            <input
+              type="checkbox"
+              checked={settings.history}
+              onChange={(e) => update({ history: e.target.checked })}
+            />
+            Enable history
+          </label>
+        </section>
+        <section>
+          <label>
+            <input
+              type="checkbox"
+              checked={settings.favorites}
+              onChange={(e) => update({ favorites: e.target.checked })}
+            />
+            Enable favorites
+          </label>
+        </section>
     </main>
   );
 };
