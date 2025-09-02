@@ -21,7 +21,7 @@ export default function Navbar() {
             CyberSec Dictionary
           </button>
           <button
-            className="md:hidden"
+            className="md:hidden icon-button"
             aria-label="Toggle menu"
             onClick={() => setOpen((o) => !o)}
           >

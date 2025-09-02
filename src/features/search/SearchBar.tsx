@@ -48,7 +48,12 @@ export const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         onChange={handleChange}
         placeholder="Search terms..."
       />
-      <button type="button" onClick={startListening} aria-label="Use microphone">
+      <button
+        type="button"
+        onClick={startListening}
+        aria-label="Use microphone"
+        className="icon-button"
+      >
         🎤
       </button>
     </div>

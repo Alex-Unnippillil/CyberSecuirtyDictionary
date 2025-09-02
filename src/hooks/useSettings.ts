@@ -1,15 +1,17 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
-export type SettingKey = "darkMode" | "showFavorites";
+export type SettingKey = "darkMode" | "showFavorites" | "showIconLabels";
 
 export interface Settings {
   darkMode: boolean;
   showFavorites: boolean;
+  showIconLabels: boolean;
 }
 
 const DEFAULT_SETTINGS: Settings = {
   darkMode: false,
   showFavorites: false,
+  showIconLabels: false,
 };
 
 const STORAGE_KEY = "settings";
@@ -28,6 +30,15 @@ export function useSettings() {
       return DEFAULT_SETTINGS;
     }
   });
+
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.classList.toggle(
+        "show-icon-labels",
+        settings.showIconLabels,
+      );
+    }
+  }, [settings.showIconLabels]);
 
   const updateSetting = useCallback(
     <K extends SettingKey>(key: K, value: Settings[K]) => {

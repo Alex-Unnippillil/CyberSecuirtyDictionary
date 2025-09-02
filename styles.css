@@ -581,3 +581,16 @@ body.dark-mode #alpha-nav button.active {
 .selection-highlight {
   background-color: yellow;
 }
+
+/* Reveal icon labels when enabled */
+body.show-icon-labels .icon-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.show-icon-labels .icon-button::after {
+  content: attr(aria-label);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}

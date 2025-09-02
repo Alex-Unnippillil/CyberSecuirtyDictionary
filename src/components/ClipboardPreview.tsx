@@ -80,6 +80,7 @@ const ClipboardPreview: React.FC = () => {
         <button
           onClick={() => setTerm(null)}
           aria-label="Close preview"
+          className="icon-button"
           style={{ float: 'right' }}
         >
           ×
