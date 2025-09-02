@@ -35,7 +35,7 @@ body {
 
 h1 {
   text-align: center;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 48px;
   margin-bottom: 20px;
@@ -169,7 +169,6 @@ body.dark-mode #search-help {
   border-color: #555;
 }
 
-
 /* Controls styling */
 #random-term {
   margin-top: 10px;
@@ -291,7 +290,9 @@ label {
   border-radius: 4px;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
   min-width: 44px;
   min-height: 44px;
 }
@@ -341,7 +342,12 @@ label {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background-image: linear-gradient(90deg, transparent, var(--skeleton-fg), transparent);
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--skeleton-fg),
+    transparent
+  );
   animation: skeleton-shimmer 1.5s infinite;
 }
 
@@ -394,6 +400,20 @@ body.dark-mode .dictionary-item h3 {
 
 body.dark-mode .dictionary-item p {
   color: #ccc;
+}
+
+body.definition-high-contrast .dictionary-item p,
+body.definition-high-contrast #definition-container p,
+body.definition-high-contrast .definition-item p,
+body.definition-high-contrast main > p {
+  color: #000;
+}
+
+body.dark-mode.definition-high-contrast .dictionary-item p,
+body.dark-mode.definition-high-contrast #definition-container p,
+body.dark-mode.definition-high-contrast .definition-item p,
+body.dark-mode.definition-high-contrast main > p {
+  color: #fff;
 }
 
 body.dark-mode #definition-container {
@@ -472,7 +492,7 @@ body.dark-mode #alpha-nav button.active {
 }
 
 .history-fold::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
