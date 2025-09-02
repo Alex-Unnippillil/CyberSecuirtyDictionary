@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import BacklinksPanel from "../components/BacklinksPanel";
 
 interface Term {
   term: string;
@@ -111,6 +112,7 @@ export default function TermPage({ term }: TermPageProps) {
           </div>
         </div>
       </div>
+      <BacklinksPanel term={term.term} />
     </div>
   );
 }
