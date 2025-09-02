@@ -5,9 +5,13 @@ interface AutocompleteProps {
    * Called when a suggestion is committed via selection or pressing Enter.
    */
   onCommit?: (value: string) => void;
+  /**
+   * Pinned queries to render above fetched suggestions.
+   */
+  pinned?: string[];
 }
 
-const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit }) => {
+const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit, pinned = [] }) => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -17,7 +21,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit }) => {
   useEffect(() => {
     if (!query) {
       setSuggestions([]);
-      setOpen(false);
+      setOpen(pinned.length > 0);
       return;
     }
 
@@ -36,7 +40,15 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit }) => {
       });
 
     return () => controller.abort();
-  }, [query]);
+  }, [query, pinned.length]);
+
+  const filteredPinned = pinned.filter((p) =>
+    p.toLowerCase().startsWith(query.toLowerCase()),
+  );
+  const combined = [
+    ...filteredPinned,
+    ...suggestions.filter((s) => !filteredPinned.includes(s)),
+  ];
 
   const commit = (value: string) => {
     setQuery(value);
@@ -46,19 +58,19 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit }) => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!open && e.key === 'ArrowDown' && suggestions.length) {
+    if (!open && e.key === 'ArrowDown' && combined.length) {
       setOpen(true);
       return;
     }
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setActiveIndex((i) => (i + 1) % suggestions.length);
+      setActiveIndex((i) => (i + 1) % combined.length);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setActiveIndex((i) => (i - 1 + suggestions.length) % suggestions.length);
+      setActiveIndex((i) => (i - 1 + combined.length) % combined.length);
     } else if (e.key === 'Enter' && activeIndex >= 0) {
       e.preventDefault();
-      commit(suggestions[activeIndex]);
+      commit(combined[activeIndex]);
     }
   };
 
@@ -77,9 +89,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit }) => {
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
       />
-      {open && suggestions.length > 0 && (
+      {open && combined.length > 0 && (
         <ul className="suggestions">
-          {suggestions.map((s, i) => (
+          {combined.map((s, i) => (
             <li
               key={s + i}
               className={i === activeIndex ? 'active' : ''}
