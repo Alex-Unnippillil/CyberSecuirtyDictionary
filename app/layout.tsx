@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import { Inter } from "next/font/google";
+import useCopyToast from "../hooks/useCopyToast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,6 +13,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useCopyToast();
   return (
     <html lang="en" className={inter.className}>
       <body>
