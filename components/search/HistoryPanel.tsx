@@ -1,38 +1,33 @@
-import React, { useState } from "react";
-import useSearchHistory from "../../hooks/useSearchHistory";
+import React from "react";
+import { SearchEntry } from "../../src/hooks/useSearchHistory";
 
 type Props = {
-  authenticated?: boolean;
+  entries: SearchEntry[];
   onSelect?: (query: string) => void;
+  onPinToggle?: (query: string) => void;
+  onClear?: () => void;
 };
 
-export function HistoryPanel({ authenticated = false, onSelect }: Props) {
-  const { history, clearHistory } = useSearchHistory(authenticated);
-  const [open, setOpen] = useState(false);
-
-  if (!history.length) return null;
+export function HistoryPanel({ entries, onSelect, onPinToggle, onClear }: Props) {
+  if (!entries.length) return null;
 
   return (
     <div className="history-panel">
-      <button className="toggle" onClick={() => setOpen((v) => !v)}>
-        {open ? "Hide" : "Show"} Search History
+      <ul>
+        {entries.map((item) => (
+          <li key={item.query}>
+            <button type="button" onClick={() => onSelect?.(item.query)}>
+              {item.query}
+            </button>
+            <button type="button" onClick={() => onPinToggle?.(item.query)}>
+              {item.pinned ? "Unpin" : "Pin"}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <button className="clear" onClick={onClear}>
+        Clear
       </button>
-      {open && (
-        <div className="history-list">
-          <ul>
-            {history.map((item, i) => (
-              <li key={i}>
-                <button type="button" onClick={() => onSelect?.(item)}>
-                  {item}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <button className="clear" onClick={clearHistory}>
-            Clear
-          </button>
-        </div>
-      )}
     </div>
   );
 }
