@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
 
 const STORAGE_KEY = "searchHistory";
 
@@ -24,20 +26,28 @@ export function useSearchHistory(authenticated: boolean = false) {
     }
   }, []);
 
+  const { data } = useSWR<{ history: string[] }>(
+    authenticated ? "/api/history" : null,
+    { refreshInterval: 0 }
+  );
+
+  const { trigger: sync } = useSWRMutation(
+    "/api/history",
+    async (url, { arg }: { arg: { history: string[] } }) => {
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(arg),
+      });
+    }
+  );
+
   // If authenticated, merge server history
   useEffect(() => {
-    if (!authenticated) return;
-    fetch("/api/history")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data && Array.isArray(data.history)) {
-          setHistory((prev) => unique([...data.history, ...prev]));
-        }
-      })
-      .catch(() => {
-        /* ignore network errors */
-      });
-  }, [authenticated]);
+    if (data && Array.isArray(data.history)) {
+      setHistory((prev) => unique([...data.history, ...prev]));
+    }
+  }, [data]);
 
   // Persist and optionally sync to server
   useEffect(() => {
@@ -47,14 +57,10 @@ export function useSearchHistory(authenticated: boolean = false) {
       /* ignore */
     }
     if (!authenticated) return;
-    fetch("/api/history", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ history }),
-    }).catch(() => {
+    sync({ history }).catch(() => {
       /* ignore network errors */
     });
-  }, [history, authenticated]);
+  }, [history, authenticated, sync]);
 
   const addQuery = (query: string) => {
     const q = query.trim();

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useSWR from 'swr';
 
 interface AutocompleteProps {
   /**
@@ -9,34 +10,23 @@ interface AutocompleteProps {
 
 const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit }) => {
   const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [open, setOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const { data: suggestions = [] } = useSWR<string[]>(
+    query ? `/api/suggestions?q=${encodeURIComponent(query)}` : null,
+    { refreshInterval: 0 }
+  );
+
   useEffect(() => {
-    if (!query) {
-      setSuggestions([]);
+    if (!query || suggestions.length === 0) {
       setOpen(false);
       return;
     }
-
-    const controller = new AbortController();
-    fetch(`/api/suggestions?q=${encodeURIComponent(query)}`, {
-      signal: controller.signal,
-    })
-      .then((res) => (res.ok ? res.json() : []))
-      .then((data: string[]) => {
-        setSuggestions(data);
-        setOpen(true);
-        setActiveIndex(-1);
-      })
-      .catch(() => {
-        /* ignore network errors */
-      });
-
-    return () => controller.abort();
-  }, [query]);
+    setOpen(true);
+    setActiveIndex(-1);
+  }, [query, suggestions]);
 
   const commit = (value: string) => {
     setQuery(value);

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import useSWR from "swr";
 
 interface Entry {
   id: string;
@@ -12,24 +13,11 @@ interface Entry {
  * save entries for later reference.
  */
 const WordOfDay: React.FC = () => {
-  const [entry, setEntry] = useState<Entry | null>(null);
   const [offset, setOffset] = useState(0);
-
-  const fetchEntry = async (dayOffset: number) => {
-    try {
-      const res = await fetch(`/api/word-of-day?offset=${dayOffset}`);
-      if (!res.ok) throw new Error("Failed to fetch word of day");
-      const data = await res.json();
-      setEntry(data);
-    } catch (err) {
-      console.error(err);
-      setEntry(null);
-    }
-  };
-
-  useEffect(() => {
-    fetchEntry(offset);
-  }, [offset]);
+  const { data: entry } = useSWR<Entry>(
+    `/api/word-of-day?offset=${offset}`,
+    { refreshInterval: 86400000 }
+  );
 
   const handlePrev = () => setOffset((o) => o - 1);
   const handleNext = () => setOffset((o) => o + 1);

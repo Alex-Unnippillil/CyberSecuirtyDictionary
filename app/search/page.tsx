@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import useSWR from 'swr';
 
 interface Term {
   term: string;
@@ -17,15 +17,10 @@ interface SearchResponse {
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('q') || '';
-  const [data, setData] = useState<SearchResponse | null>(null);
-
-  useEffect(() => {
-    if (!query) return;
-    fetch(`/api/search?q=${encodeURIComponent(query)}`)
-      .then((res) => res.json())
-      .then(setData)
-      .catch(() => setData({ results: [], suggestions: [] }));
-  }, [query]);
+  const { data } = useSWR<SearchResponse>(
+    query ? `/api/search?q=${encodeURIComponent(query)}` : null,
+    { refreshInterval: 0 }
+  );
 
   const results = data?.results || [];
   const suggestions = data?.suggestions || [];

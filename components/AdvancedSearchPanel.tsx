@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useSWRMutation from "swr/mutation";
 
 interface AdvancedSearchPanelProps {
   /** API endpoint to call when applying filters */
@@ -41,6 +42,12 @@ export default function AdvancedSearchPanel({
     onClose();
   }
 
+  const { trigger } = useSWRMutation(endpoint, async (url, { arg }: { arg: URLSearchParams }) => {
+    const resp = await fetch(`${url}?${arg.toString()}`);
+    if (!resp.ok) throw new Error("Advanced search request failed");
+    return resp.json();
+  });
+
   async function apply() {
     const params = new URLSearchParams();
     if (selectedPOS.length) params.set("pos", selectedPOS.join(","));
@@ -49,10 +56,8 @@ export default function AdvancedSearchPanel({
     if (frequency) params.set("frequency", frequency);
     if (date) params.set("date", date);
 
-    const url = `${endpoint}?${params.toString()}`;
     try {
-      const resp = await fetch(url);
-      const data = await resp.json();
+      const data = await trigger(params);
       onResults?.(data);
     } catch (err) {
       console.error("Advanced search request failed", err);
