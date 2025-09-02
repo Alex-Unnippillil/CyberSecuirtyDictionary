@@ -69,7 +69,11 @@ const SideDrawer: React.FC<SideDrawerProps> = ({ word, onClose }) => {
 
   return (
     <aside className="side-drawer">
-      <button className="close" onClick={onClose} aria-label="Close">
+      <button
+        className="close icon-button"
+        onClick={onClose}
+        aria-label="Close"
+      >
         ×
       </button>
       <h2>{word}</h2>

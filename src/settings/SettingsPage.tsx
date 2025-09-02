@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ColorBlindPalette from './ColorBlindPalette';
+import Accessibility from './Accessibility';
 import {
   buildSettingsIndex,
   searchSettings,
@@ -74,6 +75,11 @@ export default function SettingsPage() {
             <ColorBlindPalette />
           </div>
         </div>
+      </details>
+
+      <details id="accessibility" data-setting-section>
+        <summary>Accessibility</summary>
+        <Accessibility />
       </details>
     </div>
   );

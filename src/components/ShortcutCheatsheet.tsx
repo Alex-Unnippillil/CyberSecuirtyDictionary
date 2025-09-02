@@ -76,7 +76,11 @@ export default function ShortcutCheatsheet() {
       ref={overlayRef}
     >
       <div className="shortcut-cheatsheet">
-        <button onClick={() => setOpen(false)} aria-label="Close">
+        <button
+          onClick={() => setOpen(false)}
+          aria-label="Close"
+          className="icon-button"
+        >
           ×
         </button>
         <input

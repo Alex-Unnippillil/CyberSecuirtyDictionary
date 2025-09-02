@@ -55,7 +55,7 @@ export const HighlightsDrawer: React.FC<HighlightsDrawerProps> = ({
         {colors.map((color) => (
           <button
             key={color}
-            className={filter === color ? 'active' : ''}
+            className={`icon-button ${filter === color ? 'active' : ''}`}
             style={{ backgroundColor: color }}
             onClick={() => setFilter(color)}
             aria-label={`Filter ${color} highlights`}

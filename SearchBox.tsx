@@ -41,6 +41,7 @@ export default function SearchBox() {
         type="button"
         onClick={handleMicClick}
         aria-label="Use voice search"
+        className="icon-button"
       >
         🎤
       </button>
