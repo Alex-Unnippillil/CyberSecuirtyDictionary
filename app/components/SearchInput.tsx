@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { searchPersonalTerms, PersonalTerm } from "../../lib/personalTerms";
 
 interface Term {
   term: string;
@@ -15,6 +16,7 @@ interface SearchResponse {
 export default function SearchInput() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Term[]>([]);
+  const [personal, setPersonal] = useState<PersonalTerm[]>([]);
 
   const handleChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -29,6 +31,8 @@ export default function SearchInput() {
     } else {
       setResults([]);
     }
+    const p = await searchPersonalTerms(value);
+    setPersonal(p);
   };
 
   return (
@@ -40,9 +44,13 @@ export default function SearchInput() {
         placeholder="Search terms..."
       />
       <ul>
-        {results.map((item) => (
+        {[
+          ...personal.map((p) => ({ term: p.slug, definition: p.definition, personal: true })),
+          ...results.map((r) => ({ ...r, personal: false })),
+        ].map((item) => (
           <li key={item.term}>
-            <strong>{item.term}:</strong> {item.definition}
+            <strong>{item.term}</strong>
+            {item.personal && <span className="badge"> Personal</span>}: {item.definition}
           </li>
         ))}
       </ul>
