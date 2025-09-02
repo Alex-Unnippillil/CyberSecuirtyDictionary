@@ -24,12 +24,12 @@ export function FAQBlock({ items }: FAQBlockProps) {
   };
 
   return (
-    <section>
-      <h2>FAQ</h2>
+    <section className="mt-8 rounded-lg bg-gray-100 p-4 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
+      <h2 className="mb-4 text-2xl font-semibold">FAQ</h2>
       {items.map((item, idx) => (
-        <div key={idx}>
-          <h3>{item.question}</h3>
-          <p>{item.answer}</p>
+        <div key={idx} className="mb-4">
+          <h3 className="font-medium">{item.question}</h3>
+          <p className="text-gray-700 dark:text-gray-300">{item.answer}</p>
         </div>
       ))}
       <script

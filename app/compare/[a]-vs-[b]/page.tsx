@@ -62,8 +62,8 @@ export default function ComparePage({ params }: { params: Params }) {
   const defB = termB?.definition || "Term not found.";
 
   return (
-    <div>
-      <h1>
+    <div className="min-h-screen bg-white p-4 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+      <h1 className="mb-4 text-3xl font-bold">
         Compare {termA?.term || a} vs {termB?.term || b}
       </h1>
       <div className={styles.controls}>
@@ -86,12 +86,16 @@ export default function ComparePage({ params }: { params: Params }) {
       </div>
       <div className={styles.compareGrid}>
         <div>
-          <h2>{termA?.term || a}</h2>
-          <p>{highlight(defA, defB, showDiff, showSame)}</p>
+          <h2 className="mb-2 text-2xl font-semibold">{termA?.term || a}</h2>
+          <p className="text-gray-700 dark:text-gray-300">
+            {highlight(defA, defB, showDiff, showSame)}
+          </p>
         </div>
         <div>
-          <h2>{termB?.term || b}</h2>
-          <p>{highlight(defB, defA, showDiff, showSame)}</p>
+          <h2 className="mb-2 text-2xl font-semibold">{termB?.term || b}</h2>
+          <p className="text-gray-700 dark:text-gray-300">
+            {highlight(defB, defA, showDiff, showSame)}
+          </p>
         </div>
       </div>
     </div>
