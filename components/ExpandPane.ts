@@ -1,4 +1,4 @@
-import type { PromptChip } from '../lib/prompts';
+import type { PromptChip } from '@lib/prompts';
 
 /**
  * Basic UI component that renders prompt chips and displays the expanded
