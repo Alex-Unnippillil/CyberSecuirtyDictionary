@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import useBatterySaver from '../hooks/useBatterySaver';
 
 export type Settings = {
   darkMode: boolean;
@@ -7,6 +8,17 @@ export type Settings = {
   source: string;
   history: boolean;
   favorites: boolean;
+  /**
+   * Enables reduced data usage for features that load external resources.
+   * Automatically toggled on by `useBatterySaver` when the device enters
+   * a low-power state.
+   */
+  dataSaver: boolean;
+  /**
+   * Disables non-essential animations and transitions for a lighter
+   * experience. Also controlled by `useBatterySaver`.
+   */
+  reducedMotion: boolean;
 };
 
 const defaultSettings: Settings = {
@@ -16,6 +28,8 @@ const defaultSettings: Settings = {
   source: 'all',
   history: true,
   favorites: true,
+  dataSaver: false,
+  reducedMotion: false,
 };
 
 type SettingsContextValue = {
@@ -62,11 +76,14 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } else {
       root.classList.remove('dark');
     }
+    root.classList.toggle('reduced-motion', settings.reducedMotion);
   }, [settings]);
 
   const update = (changes: Partial<Settings>) => {
     setSettings((prev) => ({ ...prev, ...changes }));
   };
+
+  useBatterySaver(settings, update);
 
   return (
     <SettingsContext.Provider value={{ settings, update }}>
