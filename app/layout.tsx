@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import MobileTocButton from "../components/MobileTocButton";
 import { Inter } from "next/font/google";
+import useFontHinting from "../hooks/useFontHinting";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  useFontHinting();
   return (
     <html lang="en" className={inter.className}>
       <body>
