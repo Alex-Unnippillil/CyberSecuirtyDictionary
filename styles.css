@@ -581,3 +581,23 @@ body.dark-mode #alpha-nav button.active {
 .selection-highlight {
   background-color: yellow;
 }
+
+.find-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.find-bar input[type="text"] {
+  margin-right: 0.5rem;
+}
+
+.find-bar label {
+  margin-right: 0.5rem;
+}
+
