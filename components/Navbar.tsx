@@ -40,6 +40,9 @@ export default function Navbar() {
             <a href="/compare" className="hover:underline">
               Compare
             </a>
+            <a href="/github" className="hover:underline">
+              Repo Info
+            </a>
           </div>
         </div>
       </div>
@@ -50,6 +53,9 @@ export default function Navbar() {
           </a>
           <a href="/compare" className="block py-1">
             Compare
+          </a>
+          <a href="/github" className="block py-1">
+            Repo Info
           </a>
         </div>
       )}
