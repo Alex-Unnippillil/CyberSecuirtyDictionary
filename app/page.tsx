@@ -1,4 +1,9 @@
-import SearchBar from "../components/search/SearchBar";
+import dynamic from "next/dynamic";
+
+const SearchBar = dynamic(
+  () => import("../components/search/SearchBar"),
+  { loading: () => <p>Loading search...</p>, ssr: false },
+);
 
 export default function Home() {
   return (
