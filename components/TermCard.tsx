@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import useDragToDesktop from "../hooks/useDragToDesktop";
 
 interface TermCardProps {
   term: string;
@@ -12,6 +13,8 @@ const TermCard: React.FC<TermCardProps> = ({ term, definition }) => {
   const inView = useInView(ref);
   const [hasAnimated, setHasAnimated] = useState(false);
 
+  useDragToDesktop(ref, term);
+
   useEffect(() => {
     if (inView && !hasAnimated) {
       controls.start("visible");
@@ -22,6 +25,7 @@ const TermCard: React.FC<TermCardProps> = ({ term, definition }) => {
   return (
     <motion.div
       ref={ref}
+      style={{ cursor: "grab" }}
       initial="hidden"
       animate={hasAnimated ? "visible" : controls}
       variants={{
