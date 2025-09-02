@@ -21,45 +21,22 @@ const SideDrawer: React.FC<SideDrawerProps> = ({ word, onClose }) => {
     }
 
     let cancelled = false;
-    const storageKey = `definition:${word}`;
-
-    async function load() {
-      try {
-        const res = await fetch(
-          `/api/word/summary?word=${encodeURIComponent(word)}`,
-        );
-        if (!res.ok) throw new Error("Failed to fetch definition");
-        const data = await res.json();
+    // Fetch the mini definition for the selected word
+    fetch(`/api/word/summary?word=${encodeURIComponent(word)}`)
+      .then((res) => res.json())
+      .then((data) => {
         if (!cancelled) {
-          const def =
-            data.summary || data.definition || "No definition available.";
-          setDefinition(def);
-          try {
-            localStorage.setItem(storageKey, JSON.stringify(data));
-          } catch {
-            /* ignore storage errors */
-          }
+          setDefinition(
+            data.summary || data.definition || "No definition available.",
+          );
         }
-      } catch {
+      })
+      .catch(() => {
         if (!cancelled) {
-          const cached = localStorage.getItem(storageKey);
-          if (cached) {
-            try {
-              const data = JSON.parse(cached);
-              setDefinition(
-                data.summary || data.definition || "No definition available.",
-              );
-              return;
-            } catch {
-              /* ignore parse errors */
-            }
-          }
           setDefinition("Failed to fetch definition.");
         }
-      }
-    }
+      });
 
-    load();
     return () => {
       cancelled = true;
     };

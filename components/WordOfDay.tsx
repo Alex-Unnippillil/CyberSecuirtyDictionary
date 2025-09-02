@@ -16,28 +16,13 @@ const WordOfDay: React.FC = () => {
   const [offset, setOffset] = useState(0);
 
   const fetchEntry = async (dayOffset: number) => {
-    const storageKey = `word-of-day:${dayOffset}`;
     try {
       const res = await fetch(`/api/word-of-day?offset=${dayOffset}`);
       if (!res.ok) throw new Error("Failed to fetch word of day");
       const data = await res.json();
       setEntry(data);
-      try {
-        localStorage.setItem(storageKey, JSON.stringify(data));
-      } catch {
-        /* ignore storage errors */
-      }
     } catch (err) {
       console.error(err);
-      const cached = localStorage.getItem(storageKey);
-      if (cached) {
-        try {
-          setEntry(JSON.parse(cached));
-          return;
-        } catch {
-          /* ignore parse errors */
-        }
-      }
       setEntry(null);
     }
   };
