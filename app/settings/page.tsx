@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import PersonalTermsManager from "../../components/PersonalTermsManager";
 
 export default function SettingsPage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -95,6 +96,8 @@ export default function SettingsPage() {
           External
         </label>
       </section>
+
+      <PersonalTermsManager />
     </main>
   );
 }
