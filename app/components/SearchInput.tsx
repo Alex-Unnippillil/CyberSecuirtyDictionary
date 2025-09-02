@@ -7,6 +7,11 @@ interface Term {
   definition: string;
 }
 
+interface SearchResponse {
+  results: Term[];
+  suggestions: string[];
+}
+
 export default function SearchInput() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Term[]>([]);
@@ -19,8 +24,10 @@ export default function SearchInput() {
 
     const res = await fetch(`/api/search?q=${encodeURIComponent(value)}`);
     if (res.ok) {
-      const data: Term[] = await res.json();
-      setResults(data);
+      const data: SearchResponse = await res.json();
+      setResults(data.results);
+    } else {
+      setResults([]);
     }
   };
 
