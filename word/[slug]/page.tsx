@@ -1,4 +1,4 @@
-import PosTabs from '../../components/PosTabs';
+import PosTabs from '@/components/PosTabs';
 
 interface WordPageProps {
   params: {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import termsData from "../../../terms.json";
+import termsData from "@/terms.json";
 import CompareClient, { Term } from "./CompareClient";
 
 type Params = { a: string; b: string };

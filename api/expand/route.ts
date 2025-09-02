@@ -1,4 +1,4 @@
-import { expandTopic } from '../../lib/ai';
+import { expandTopic } from '@/lib/ai';
 
 /**
  * API route that expands a topic using the configured AI provider.

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import termsData from '../../terms.json';
+import termsData from '@/terms.json';
 
 interface Term {
   term: string;

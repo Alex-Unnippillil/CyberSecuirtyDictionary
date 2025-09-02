@@ -2,7 +2,7 @@ import React from "react";
 import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
-import { FAQBlock } from "../../components/FAQBlock";
+import { FAQBlock } from "@/components/FAQBlock";
 
 interface Term {
   name: string;
