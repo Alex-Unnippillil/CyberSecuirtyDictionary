@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 interface Phonetic {
   text?: string;
@@ -38,9 +38,15 @@ export default function EntryPage({ entry }: EntryPageProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<EntryPageProps> = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return { paths: [], fallback: 'blocking' };
+};
+
+export const getStaticProps: GetStaticProps<EntryPageProps> = async (context) => {
   const { slug } = context.params as { slug: string };
-  const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${slug}`);
+  const res = await fetch(
+    `https://api.dictionaryapi.dev/api/v2/entries/en/${slug}`
+  );
 
   if (!res.ok) {
     return { notFound: true };
@@ -53,5 +59,6 @@ export const getServerSideProps: GetServerSideProps<EntryPageProps> = async (con
     props: {
       entry,
     },
+    revalidate: 86400,
   };
 };

@@ -86,7 +86,7 @@ function slugify(text: string): string {
 export const getStaticPaths: GetStaticPaths = async () => {
   const terms = loadTerms();
   const paths = terms.map((t) => ({ params: { slug: t.slug } }));
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 };
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
@@ -116,5 +116,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
       term,
       related,
     },
+    revalidate: 86400,
   };
 };
