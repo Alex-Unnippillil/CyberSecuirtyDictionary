@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
+import { parseQuery, emptyQuerySchema } from "../../../src/utils/queryParser";
 
 const dataFile = path.join(process.cwd(), "terms.json");
 
@@ -20,7 +21,14 @@ async function writeTerms(terms: Term[]): Promise<void> {
   await fs.writeFile(dataFile, data);
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const parsed = parseQuery(request.url, emptyQuerySchema);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Unexpected query parameters" },
+      { status: 400 }
+    );
+  }
   const terms = await readTerms();
   return NextResponse.json(terms);
 }
