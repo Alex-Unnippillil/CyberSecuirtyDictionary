@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Highlight } from './HighlightsDrawer';
 
 export interface HighlightResolverProps {
@@ -20,27 +20,18 @@ export const HighlightResolver: React.FC<HighlightResolverProps> = ({
   onMerge,
   onSplit,
 }) => {
-  // Find overlapping highlights with different colours
-  const overlaps = useMemo(() => {
-    const res: Highlight[][] = [];
-    for (let i = 0; i < highlights.length; i++) {
-      for (let j = i + 1; j < highlights.length; j++) {
-        const a = highlights[i];
-        const b = highlights[j];
-        if (
-          a.elementId === b.elementId &&
-          a.start !== undefined &&
-          b.start !== undefined &&
-          a.end !== undefined &&
-          b.end !== undefined &&
-          Math.max(a.start, b.start) < Math.min(a.end, b.end) &&
-          a.color !== b.color
-        ) {
-          res.push([a, b]);
-        }
-      }
-    }
-    return res;
+  const [overlaps, setOverlaps] = useState<Highlight[][]>([]);
+
+  // Heavy overlap detection can block the UI when many highlights are present.
+  // Offload this work to a Web Worker so the main thread stays responsive.
+  useEffect(() => {
+    const worker = new Worker(new URL('./overlapWorker.ts', import.meta.url));
+    worker.postMessage(highlights);
+    worker.onmessage = (e) => {
+      setOverlaps(e.data as Highlight[][]);
+      worker.terminate();
+    };
+    return () => worker.terminate();
   }, [highlights]);
 
   if (overlaps.length === 0) return null;
