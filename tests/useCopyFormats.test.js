@@ -1,4 +1,5 @@
-require("ts-node/register");
+process.env.TS_NODE_COMPILER_OPTIONS = '{"module":"commonjs"}';
+require("ts-node/register/transpile-only");
 const assert = require("assert").strict;
 const useCopyFormats =
   require("../src/features/selection/useCopyFormats").default;
