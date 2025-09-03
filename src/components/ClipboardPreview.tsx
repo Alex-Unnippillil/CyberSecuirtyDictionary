@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import useFocusTrap from '../../hooks/useFocusTrap';
 import termsData from '../../terms.json';
 
 interface Term {
@@ -17,6 +18,7 @@ const STORAGE_KEY = 'clipboardPreviewShown';
  */
 const ClipboardPreview: React.FC = () => {
   const [term, setTerm] = useState<Term | null>(null);
+  const overlayRef = useFocusTrap(Boolean(term), () => setTerm(null));
 
   useEffect(() => {
     const handleCopy = async () => {
@@ -57,6 +59,8 @@ const ClipboardPreview: React.FC = () => {
       className="clipboard-preview-overlay"
       role="dialog"
       aria-modal="true"
+      ref={overlayRef}
+      tabIndex={-1}
       style={{
         position: 'fixed',
         inset: 0,
