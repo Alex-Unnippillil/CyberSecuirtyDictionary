@@ -2,6 +2,13 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
+// Log unhandled promise rejections during development to aid debugging
+if (process.env.NODE_ENV !== 'production') {
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  });
+}
+
 // In-memory token buckets keyed by IP
 const buckets = new Map();
 const MAX_TOKENS = 100; // max requests per interval
