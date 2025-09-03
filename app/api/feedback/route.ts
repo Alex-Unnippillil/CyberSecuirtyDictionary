@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { safeParse } from '../../src/utils/safeJson';
 
 interface Feedback {
   message: string;
@@ -26,7 +27,7 @@ export async function POST(request: Request) {
     let feedback: Feedback[] = [];
     try {
       const existing = await fs.readFile(feedbackFile, 'utf8');
-      feedback = JSON.parse(existing);
+      feedback = safeParse<Feedback[]>(existing, []);
     } catch (err: any) {
       if (err.code !== 'ENOENT') {
         throw err;

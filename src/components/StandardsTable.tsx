@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { safeParse } from '../utils/safeJson';
 
 interface Column<T> {
   key: keyof T;
@@ -44,22 +45,16 @@ export function StandardsTable<T extends Record<string, any>>({
   // Load preferences on mount
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    try {
-      const saved = window.localStorage.getItem(storageKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed.visibleColumns)) {
-          const valid = parsed.visibleColumns.filter((k: keyof T) =>
-            columnKeys.includes(k)
-          );
-          if (valid.length) setVisibleColumns(valid);
-        }
-        if (parsed.sortConfig && columnKeys.includes(parsed.sortConfig.key)) {
-          setSortConfig(parsed.sortConfig);
-        }
-      }
-    } catch {
-      // ignore malformed data
+    const saved = window.localStorage.getItem(storageKey);
+    const parsed = safeParse<any>(saved, {});
+    if (Array.isArray(parsed.visibleColumns)) {
+      const valid = parsed.visibleColumns.filter((k: keyof T) =>
+        columnKeys.includes(k)
+      );
+      if (valid.length) setVisibleColumns(valid);
+    }
+    if (parsed.sortConfig && columnKeys.includes(parsed.sortConfig.key)) {
+      setSortConfig(parsed.sortConfig);
     }
   }, [storageKey, columnKeys]);
 

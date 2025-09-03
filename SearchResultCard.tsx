@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { safeParse } from "./src/utils/safeJson";
 
 interface SearchResultCardProps {
   /** Term to display in the result */
@@ -19,8 +20,9 @@ export default function SearchResultCard({
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
   const addToCollection = () => {
-    const collection: string[] = JSON.parse(
-      localStorage.getItem("collection") || "[]",
+    const collection: string[] = safeParse(
+      localStorage.getItem("collection"),
+      [],
     );
     if (!collection.includes(term)) {
       collection.push(term);
@@ -32,8 +34,9 @@ export default function SearchResultCard({
   };
 
   const undo = () => {
-    const collection: string[] = JSON.parse(
-      localStorage.getItem("collection") || "[]",
+    const collection: string[] = safeParse(
+      localStorage.getItem("collection"),
+      [],
     );
     const idx = collection.indexOf(term);
     if (idx !== -1) {

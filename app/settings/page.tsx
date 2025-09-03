@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PersonalTermsManager from "../../components/PersonalTermsManager";
+import { safeParse } from "../../src/utils/safeJson";
 
 export default function SettingsPage() {
   const [darkMode, setDarkMode] = useState(false);
@@ -12,18 +13,12 @@ export default function SettingsPage() {
 
   useEffect(() => {
     const saved = localStorage.getItem("settings");
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        setDarkMode(parsed.darkMode ?? false);
-        setFontSize(parsed.fontSize ?? "medium");
-        setDensity(parsed.density ?? "comfortable");
-        setPreferredSources(parsed.preferredSources ?? []);
-        setEnhancedHinting(parsed.enhancedHinting ?? true);
-      } catch {
-        // ignore parse errors
-      }
-    }
+    const parsed = safeParse<any>(saved, {});
+    setDarkMode(parsed.darkMode ?? false);
+    setFontSize(parsed.fontSize ?? "medium");
+    setDensity(parsed.density ?? "comfortable");
+    setPreferredSources(parsed.preferredSources ?? []);
+    setEnhancedHinting(parsed.enhancedHinting ?? true);
   }, []);
 
   useEffect(() => {

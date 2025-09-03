@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import useBatterySaver from '../hooks/useBatterySaver';
+import { safeParse } from '../src/utils/safeJson';
 
 export type Settings = {
   darkMode: boolean;
@@ -45,12 +46,10 @@ const SettingsContext = createContext<SettingsContextValue>({
 function useLocalStorageSettings(): [Settings, React.Dispatch<React.SetStateAction<Settings>>] {
   const [settings, setSettings] = useState<Settings>(() => {
     if (typeof window === 'undefined') return defaultSettings;
-    try {
-      const raw = localStorage.getItem('settings');
-      return raw ? { ...defaultSettings, ...JSON.parse(raw) } : defaultSettings;
-    } catch {
-      return defaultSettings;
-    }
+    const raw = localStorage.getItem('settings');
+    return raw
+      ? { ...defaultSettings, ...safeParse<Partial<Settings>>(raw, {}) }
+      : defaultSettings;
   });
 
   useEffect(() => {

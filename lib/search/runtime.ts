@@ -1,5 +1,6 @@
 import { readFileSync } from "fs";
 import path from "path";
+import { safeParse } from "../../src/utils/safeJson";
 
 interface TermEntry {
   term?: string;
@@ -15,7 +16,7 @@ function loadIndex(): TermEntry[] {
   if (!cache) {
     const indexPath = path.resolve(__dirname, "../../index.json");
     const raw = readFileSync(indexPath, "utf8");
-    const data = JSON.parse(raw);
+    const data = safeParse<any>(raw, []);
     cache = Array.isArray(data) ? data : data.terms || [];
   }
   return cache;

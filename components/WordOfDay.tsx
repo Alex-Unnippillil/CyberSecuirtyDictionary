@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { safeParse } from "../src/utils/safeJson";
 
 interface Entry {
   id: string;
@@ -30,13 +31,10 @@ const WordOfDay: React.FC = () => {
     } catch (err) {
       console.error(err);
       const cached = localStorage.getItem(storageKey);
-      if (cached) {
-        try {
-          setEntry(JSON.parse(cached));
-          return;
-        } catch {
-          /* ignore parse errors */
-        }
+      const parsed = safeParse<Entry | null>(cached, null);
+      if (parsed) {
+        setEntry(parsed);
+        return;
       }
       setEntry(null);
     }
@@ -51,8 +49,9 @@ const WordOfDay: React.FC = () => {
 
   const handleSave = () => {
     if (!entry) return;
-    const saved: Entry[] = JSON.parse(
-      localStorage.getItem("savedWords") || "[]",
+    const saved: Entry[] = safeParse(
+      localStorage.getItem("savedWords"),
+      [],
     );
     if (!saved.find((e) => e.id === entry.id)) {
       saved.push(entry);

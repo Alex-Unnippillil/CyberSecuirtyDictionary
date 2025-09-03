@@ -6,6 +6,8 @@ export type State = unknown;
 
 type ApplyFn<T> = (id: string, state: T) => void;
 
+import { safeParse } from '../../utils/safeJson';
+
 export class UndoManager<T = State> {
   private states: Map<string, T> = new Map();
   private order: string[] = [];
@@ -21,7 +23,7 @@ export class UndoManager<T = State> {
   private clone(state: T): T {
     return typeof structuredClone === "function"
       ? structuredClone(state)
-      : JSON.parse(JSON.stringify(state));
+      : safeParse(JSON.stringify(state), state);
   }
 
   private onKeyDown(e: KeyboardEvent) {

@@ -1,3 +1,5 @@
+import { safeParse } from '../../utils/safeJson';
+
 // Utilities for encoding/decoding text when working with the Web Crypto API.
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -91,7 +93,8 @@ export async function loadEncryptedNote(id: string): Promise<string | null> {
   }
 
   try {
-    const payload: EncryptedPayload = JSON.parse(stored);
+    const payload = safeParse<EncryptedPayload | null>(stored, null);
+    if (!payload) throw new Error('Invalid payload');
     const passphrase = await promptPassphrase(
       "Enter passphrase to decrypt note",
     );

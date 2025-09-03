@@ -1,6 +1,7 @@
 import { GetStaticProps } from 'next';
 import path from 'path';
 import { promises as fs } from 'fs';
+import { safeParse } from '../src/utils/safeJson';
 
 interface Term {
   term: string;
@@ -27,7 +28,7 @@ export default function HomePage({ terms }: HomePageProps) {
 export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
   const filePath = path.join(process.cwd(), 'terms.json');
   const json = await fs.readFile(filePath, 'utf-8');
-  const data = JSON.parse(json);
+  const data = safeParse<{ terms?: Term[] }>(json, { terms: [] });
   const terms: Term[] = data.terms || [];
   return {
     props: {

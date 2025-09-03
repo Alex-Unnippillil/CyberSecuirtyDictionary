@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { safeParse } from "../utils/safeJson";
 
 export interface SearchEntry {
   query: string;
@@ -11,19 +12,16 @@ const LIMIT = 20;
 
 function load(): SearchEntry[] {
   if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      return parsed.filter((e) => typeof e.query === "string").map((e) => ({
+  const raw = window.localStorage.getItem(STORAGE_KEY);
+  const parsed = safeParse<unknown>(raw, []);
+  if (Array.isArray(parsed)) {
+    return parsed
+      .filter((e: any) => typeof e.query === "string")
+      .map((e: any) => ({
         query: e.query,
         timestamp: typeof e.timestamp === "number" ? e.timestamp : Date.now(),
         pinned: !!e.pinned,
       }));
-    }
-  } catch {
-    /* ignore */
   }
   return [];
 }

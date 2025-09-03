@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { safeParse } from "../src/utils/safeJson";
 
 interface ShortcutManagerProps {
   /** The term this manager controls a shortcut for */
@@ -14,12 +15,8 @@ interface TermHotkeys {
 const STORAGE_KEY = "term-hotkeys";
 
 function loadHotkeys(): TermHotkeys {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as TermHotkeys) : {};
-  } catch {
-    return {};
-  }
+  const raw = localStorage.getItem(STORAGE_KEY);
+  return safeParse<TermHotkeys>(raw, {});
 }
 
 function saveHotkeys(hotkeys: TermHotkeys) {

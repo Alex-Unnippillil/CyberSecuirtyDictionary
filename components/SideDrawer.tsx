@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { safeParse } from "../src/utils/safeJson";
 
 interface SideDrawerProps {
   /** Word currently selected; when null the drawer is hidden */
@@ -43,16 +44,12 @@ const SideDrawer: React.FC<SideDrawerProps> = ({ word, onClose }) => {
       } catch {
         if (!cancelled) {
           const cached = localStorage.getItem(storageKey);
-          if (cached) {
-            try {
-              const data = JSON.parse(cached);
-              setDefinition(
-                data.summary || data.definition || "No definition available.",
-              );
-              return;
-            } catch {
-              /* ignore parse errors */
-            }
+          const data = safeParse<any>(cached, null);
+          if (data) {
+            setDefinition(
+              data.summary || data.definition || "No definition available.",
+            );
+            return;
           }
           setDefinition("Failed to fetch definition.");
         }

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { safeParse } from '../../utils/safeJson';
 
 type SelectionEntry = { id: string; timestamp: number };
 
@@ -16,18 +17,16 @@ const STORAGE_KEY = 'selection';
 const EXPIRY_MS = 5 * 60 * 1000; // 5 minutes
 
 function loadFromStorage(): SelectionEntry[] {
-  try {
-    const raw = sessionStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    const data = JSON.parse(raw);
-    if (data.expires && Date.now() > data.expires) {
-      sessionStorage.removeItem(STORAGE_KEY);
-      return [];
-    }
-    return data.items ?? [];
-  } catch {
+  const raw = sessionStorage.getItem(STORAGE_KEY);
+  const data = safeParse<{ items?: SelectionEntry[]; expires?: number }>(raw, {
+    items: [],
+    expires: 0,
+  });
+  if (data.expires && Date.now() > data.expires) {
+    sessionStorage.removeItem(STORAGE_KEY);
     return [];
   }
+  return data.items ?? [];
 }
 
 export const SelectionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
