@@ -1,5 +1,6 @@
 import React from "react";
 import highlight from "../../lib/highlight";
+import sanitize from "../../src/utils/sanitize";
 
 interface DefinitionItemProps {
   term: string;
@@ -12,8 +13,8 @@ export default function DefinitionItem({
   definition,
   match,
 }: DefinitionItemProps) {
-  const title = match ? highlight(term, match) : term;
-  const body = match ? highlight(definition, match) : definition;
+  const title = sanitize(match ? highlight(term, match) : term);
+  const body = sanitize(match ? highlight(definition, match) : definition);
 
   return (
     <div className="definition-item">

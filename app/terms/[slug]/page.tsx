@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import yaml from "js-yaml";
 import { FAQBlock } from "../../components/FAQBlock";
+import sanitize from "../../../src/utils/sanitize";
 
 interface Term {
   name: string;
@@ -43,6 +44,8 @@ export default function TermPage({ params }: { params: { slug: string } }) {
     },
   ];
 
+  const termJsonLdString = sanitize(JSON.stringify(termJsonLd));
+
   return (
     <main>
       <h1>{term.name}</h1>
@@ -55,7 +58,7 @@ export default function TermPage({ params }: { params: { slug: string } }) {
       <FAQBlock items={faqItems} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(termJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: termJsonLdString }}
       />
     </main>
   );
