@@ -9,21 +9,24 @@ const nextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self'",
+      "script-src 'self' 'nonce-__CSP_NONCE__'",
       "style-src 'self' 'unsafe-inline'",
       "object-src 'none'",
-      "base-uri 'none'"
+      "base-uri 'none'",
+      "frame-ancestors 'none'",
     ].join('; ');
 
-    const cspHeader = process.env.CSP_ENFORCE === 'true'
-      ? { key: 'Content-Security-Policy', value: csp }
-      : { key: 'Content-Security-Policy-Report-Only', value: csp };
+    const isProd = process.env.VERCEL_ENV === 'production';
+    const cspHeader = {
+      key: isProd ? 'Content-Security-Policy' : 'Content-Security-Policy-Report-Only',
+      value: csp,
+    };
 
     return [
       {
         source: '/(.*)',
-        headers: [cspHeader]
-      }
+        headers: [cspHeader],
+      },
     ];
   }
 };
