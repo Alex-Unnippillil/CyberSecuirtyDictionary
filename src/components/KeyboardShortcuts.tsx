@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
+import useHotkeys from "../hooks/useHotkeys";
 
 /**
  * KeyboardShortcuts listens for the `?` key and displays a help overlay
@@ -7,19 +8,22 @@ import React, { useEffect, useState } from "react";
 export const KeyboardShortcuts: React.FC = () => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      const key = e.key;
-      if ((key === "?" || (key === "/" && e.shiftKey)) && !open) {
+  const hotkeys = useMemo(
+    () => ({
+      "shift+?": (e: KeyboardEvent) => {
         e.preventDefault();
         setOpen(true);
-      } else if (key === "Escape" && open) {
-        setOpen(false);
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [open]);
+      },
+      "shift+/": (e: KeyboardEvent) => {
+        e.preventDefault();
+        setOpen(true);
+      },
+      escape: () => setOpen(false),
+    }),
+    [],
+  );
+
+  useHotkeys("keyboard-shortcuts", hotkeys);
 
   if (!open) return null;
 
