@@ -4,7 +4,7 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js"
+    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js && TS_NODE_COMPILER_OPTIONS=\"{\\\"module\\\":\\\"commonjs\\\"}\" c8 --check-coverage --lines 85 --branches 75 --functions 85 --statements 85 node --test -r ts-node/register/transpile-only __tests__/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +12,7 @@
   "devDependencies": {
     "@playwright/test": "^1.55.0",
     "chokidar-cli": "^3.0.0",
+    "c8": "^9.1.0",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
@@ -29,5 +30,9 @@
     "react-joyride": "^2.9.3",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1"
+  },
+  "c8": {
+    "include": ["lib/**/*.ts"],
+    "exclude": ["lib/settings.ts"]
   }
 }
