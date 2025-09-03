@@ -9,19 +9,27 @@ interface Term {
 
 export default function AdminPanel() {
   const [terms, setTerms] = useState<Term[]>([]);
+  const [offset, setOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
   const [term, setTerm] = useState("");
   const [definition, setDefinition] = useState("");
   const [editing, setEditing] = useState<string | null>(null);
   const [editingDefinition, setEditingDefinition] = useState("");
 
   useEffect(() => {
-    fetchTerms();
+    fetchTerms(true);
   }, []);
 
-  async function fetchTerms() {
-    const res = await fetch("/api/terms");
-    const data = await res.json();
-    setTerms(data);
+  const LIMIT = 50;
+
+  async function fetchTerms(reset = false) {
+    const res = await fetch(
+      `/api/terms?offset=${reset ? 0 : offset}&limit=${LIMIT}`
+    );
+    const data: Term[] = await res.json();
+    setTerms((prev) => (reset ? data : [...prev, ...data]));
+    setOffset((prev) => (reset ? data.length : prev + data.length));
+    setHasMore(data.length === LIMIT);
   }
 
   async function addTerm() {
@@ -32,7 +40,7 @@ export default function AdminPanel() {
     });
     setTerm("");
     setDefinition("");
-    fetchTerms();
+    fetchTerms(true);
   }
 
   function startEdit(t: Term) {
@@ -49,12 +57,12 @@ export default function AdminPanel() {
     });
     setEditing(null);
     setEditingDefinition("");
-    fetchTerms();
+    fetchTerms(true);
   }
 
   async function deleteTerm(t: string) {
     await fetch(`/api/terms/${encodeURIComponent(t)}`, { method: "DELETE" });
-    fetchTerms();
+    fetchTerms(true);
   }
 
   return (
@@ -96,7 +104,9 @@ export default function AdminPanel() {
             )}
           </li>
         ))}
+        {terms.length === 0 && <li>No terms found.</li>}
       </ul>
+      {hasMore && <button onClick={() => fetchTerms()}>Load More</button>}
     </div>
   );
 }

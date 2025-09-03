@@ -24,7 +24,9 @@ export default function SearchInput() {
     const value = e.target.value;
     setQuery(value);
 
-    const res = await fetch(`/api/search?q=${encodeURIComponent(value)}`);
+    const res = await fetch(
+      `/api/search?q=${encodeURIComponent(value)}&limit=10&offset=0`
+    );
     if (res.ok) {
       const data: SearchResponse = await res.json();
       setResults(data.results);
