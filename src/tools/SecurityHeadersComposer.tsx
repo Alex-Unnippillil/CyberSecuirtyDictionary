@@ -3,6 +3,7 @@ import CopyPresetSelect, {
   CopyPreset,
   formatForPreset,
 } from "../components/CopyPresetSelect";
+import copyToClipboard from "../../lib/copyToClipboard";
 
 interface Directive {
   /**
@@ -88,7 +89,7 @@ export default function SecurityHeadersComposer() {
       setTimeout(() => setCopied(false), 2000);
     } catch (e) {
       try {
-        await navigator.clipboard.writeText(text);
+        await copyToClipboard(text);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       } catch (err) {

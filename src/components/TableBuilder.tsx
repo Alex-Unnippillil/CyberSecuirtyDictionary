@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import copyToClipboard from '../../lib/copyToClipboard';
 
 interface TableBuilderProps {
   paragraphs: string[];
@@ -44,14 +45,14 @@ const TableBuilder: React.FC<TableBuilderProps> = ({ paragraphs }) => {
     const csv = tableData
       .map((row) => row.map((c) => `"${c.replace(/"/g, '""')}"`).join(','))
       .join('\n');
-    await navigator.clipboard.writeText(csv);
+    await copyToClipboard(csv);
   };
 
   const copyMd = async () => {
     if (!tableData) return;
     const header = '| Column 1 | Column 2 |\n| --- | --- |\n';
     const body = tableData.map(([a, b]) => `| ${a} | ${b} |`).join('\n');
-    await navigator.clipboard.writeText(header + body);
+    await copyToClipboard(header + body);
   };
 
   const undo = () => {

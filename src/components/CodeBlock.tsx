@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import copyToClipboard from '../../lib/copyToClipboard';
 
 interface CodeBlockProps {
   /** CLI command to display */
@@ -22,9 +23,9 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
     prerequisites.map(() => false),
   );
 
-  const copyToClipboard = async () => {
+  const copyCommand = async () => {
     try {
-      await navigator.clipboard.writeText(command);
+      await copyToClipboard(command);
     } catch {
       // Clipboard API not available or permission denied.
     }
@@ -45,7 +46,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           <code>{command}</code>
         </pre>
         <button
-          onClick={copyToClipboard}
+          onClick={copyCommand}
           aria-label="Copy command"
           style={{ position: 'absolute', top: 0, right: 0 }}
         >

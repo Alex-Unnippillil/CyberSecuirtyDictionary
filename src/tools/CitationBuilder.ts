@@ -1,3 +1,4 @@
+import copyToClipboard from "../../lib/copyToClipboard";
 export type CitationStyle = "MLA" | "APA";
 
 /**
@@ -86,7 +87,7 @@ export class CitationBuilder {
       await navigator.clipboard.write([item]);
     } catch {
       // Fallback for browsers without ClipboardItem support
-      await navigator.clipboard.writeText(citation);
+      await copyToClipboard(citation);
     }
   }
 }
