@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom";
 import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
 
 // Define the steps for the tour
@@ -64,7 +64,7 @@ export default GuidedTour;
 export function mountGuidedTour(): void {
   const container = document.createElement("div");
   document.body.appendChild(container);
-  ReactDOM.render(<GuidedTour />, container);
+  (ReactDOM as any).render(<GuidedTour />, container);
 }
 
 if (typeof document !== "undefined") {

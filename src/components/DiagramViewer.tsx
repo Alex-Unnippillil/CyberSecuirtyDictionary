@@ -66,7 +66,7 @@ const DiagramViewer: React.FC<DiagramViewerProps> = ({
     hammer.on("pinchstart", () => {
       startScale = scaleRef.current;
     });
-    hammer.on("pinchmove", (e) => {
+    hammer.on("pinchmove", (e: any) => {
       setScale(clamp(startScale * e.scale, MIN_SCALE, MAX_SCALE));
     });
 
@@ -76,7 +76,7 @@ const DiagramViewer: React.FC<DiagramViewerProps> = ({
       startX = positionRef.current.x;
       startY = positionRef.current.y;
     });
-    hammer.on("panmove", (e) => {
+    hammer.on("panmove", (e: any) => {
       setPosition({ x: startX + e.deltaX, y: startY + e.deltaY });
     });
 

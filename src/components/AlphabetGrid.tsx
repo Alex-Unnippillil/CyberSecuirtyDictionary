@@ -102,8 +102,9 @@ const AlphabetGrid: React.FC<AlphabetGridProps> = ({ terms }) => {
         const isDisabled = !term;
         const commonProps = {
           key: letter,
-          ref: (el: HTMLAnchorElement | HTMLSpanElement | null) =>
-            (refs.current[idx] = el),
+          ref: (el: HTMLAnchorElement | HTMLSpanElement | null) => {
+            refs.current[idx] = el;
+          },
           tabIndex: idx === activeIndex ? 0 : -1,
           onKeyDown: (e: React.KeyboardEvent) => handleKeyDown(e, idx),
           onFocus: () => setActiveIndex(idx),

@@ -51,7 +51,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
     fetch(`/api/search?q=${encodeURIComponent(query)}&fuzziness=${fuzziness}`)
-      .then((res) => (res.ok ? res.json() : { results: [] }))
+      .then((res) => (res.ok ? res.json() : { results: [] as SearchResult[] }))
       .then((data) => setResults(data.results || []))
       .catch(() => setResults([]));
   }, [query, fuzziness]);

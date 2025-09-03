@@ -16,7 +16,7 @@ export default function useHoverPreview<T extends HTMLElement>(
   show: (e: React.MouseEvent<T>) => void,
   hide: () => void,
 ) {
-  const timer = useRef<number>();
+  const timer = useRef<number | undefined>(undefined);
 
   const handleEnter = (e: React.MouseEvent<T>) => {
     if (isTouch) return;

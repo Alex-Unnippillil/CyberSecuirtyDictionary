@@ -20,7 +20,11 @@ export function fleschKincaid(text: string): number {
   if (words === 0) {
     return 0;
   }
-  const syllables = (text.match(/\b\w+\b/g) || []).reduce((sum, w) => sum + countSyllables(w), 0);
+  const wordMatches: string[] = text.match(/\b\w+\b/g) || [];
+  const syllables = wordMatches.reduce(
+    (sum: number, w: string) => sum + countSyllables(w),
+    0,
+  );
   const score = 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words);
   // Clamp score to 0-100 for meter display
   return Math.max(0, Math.min(100, score));
