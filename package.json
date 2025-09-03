@@ -4,14 +4,17 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js"
+    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js",
+    "lint": "eslint \"app/**/route.ts\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.55.0",
+    "@typescript-eslint/parser": "^8.42.0",
     "chokidar-cli": "^3.0.0",
+    "eslint": "^8.57.1",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",
     "js-yaml": "^4.1.0",
