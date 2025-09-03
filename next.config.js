@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "demo";
 
+const legacyRedirects = [
+  { source: "/term/:slug*", destination: "/:slug*", permanent: true },
+  { source: "/terms/:slug*", destination: "/:slug*", permanent: true },
+  { source: "/word/:slug*", destination: "/:slug*", permanent: false },
+];
+
 const nextConfig = {
   images: {
     loader: "cloudinary",
@@ -25,6 +31,9 @@ const nextConfig = {
         headers: [cspHeader]
       }
     ];
+  },
+  async redirects() {
+    return legacyRedirects;
   }
 };
 
