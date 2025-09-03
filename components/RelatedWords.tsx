@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import SideDrawer from "./SideDrawer";
 
 interface RelatedWordsProps {
@@ -24,7 +24,9 @@ const RelatedWords: React.FC<RelatedWordsProps> = ({ words }) => {
           </button>
         ))}
       </div>
-      <SideDrawer word={selected} onClose={() => setSelected(null)} />
+      <Suspense fallback={<aside className="side-drawer" aria-busy="true" />}> 
+        <SideDrawer word={selected} onClose={() => setSelected(null)} />
+      </Suspense>
     </div>
   );
 };

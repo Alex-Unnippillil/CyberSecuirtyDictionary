@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 interface SideDrawerProps {
   /** Word currently selected; when null the drawer is hidden */
@@ -11,62 +11,65 @@ interface SideDrawerProps {
  * SideDrawer fetches and displays a mini definition for a given word.
  * It is shown whenever `word` is not null.
  */
-const SideDrawer: React.FC<SideDrawerProps> = ({ word, onClose }) => {
-  const [definition, setDefinition] = useState<string>("");
+type CacheEntry = {
+  promise: Promise<string>;
+  value?: string;
+  error?: unknown;
+};
 
-  useEffect(() => {
-    if (!word) {
-      setDefinition("");
-      return;
-    }
+const cache = new Map<string, CacheEntry>();
 
-    let cancelled = false;
-    const storageKey = `definition:${word}`;
-
-    async function load() {
+function fetchDefinition(word: string): Promise<string> {
+  const storageKey = `definition:${word}`;
+  return fetch(`/api/word/summary?word=${encodeURIComponent(word)}`)
+    .then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch definition");
+      return res.json();
+    })
+    .then((data) => {
+      const def = data.summary || data.definition || "No definition available.";
       try {
-        const res = await fetch(
-          `/api/word/summary?word=${encodeURIComponent(word)}`,
-        );
-        if (!res.ok) throw new Error("Failed to fetch definition");
-        const data = await res.json();
-        if (!cancelled) {
-          const def =
-            data.summary || data.definition || "No definition available.";
-          setDefinition(def);
-          try {
-            localStorage.setItem(storageKey, JSON.stringify(data));
-          } catch {
-            /* ignore storage errors */
-          }
-        }
+        localStorage.setItem(storageKey, JSON.stringify(data));
       } catch {
-        if (!cancelled) {
-          const cached = localStorage.getItem(storageKey);
-          if (cached) {
-            try {
-              const data = JSON.parse(cached);
-              setDefinition(
-                data.summary || data.definition || "No definition available.",
-              );
-              return;
-            } catch {
-              /* ignore parse errors */
-            }
-          }
-          setDefinition("Failed to fetch definition.");
+        /* ignore storage errors */
+      }
+      return def;
+    })
+    .catch((err) => {
+      const cached = localStorage.getItem(storageKey);
+      if (cached) {
+        try {
+          const data = JSON.parse(cached);
+          return data.summary || data.definition || "No definition available.";
+        } catch {
+          /* ignore parse errors */
         }
       }
-    }
+      throw err;
+    });
+}
 
-    load();
-    return () => {
-      cancelled = true;
-    };
-  }, [word]);
+function readDefinition(word: string): string {
+  let entry = cache.get(word);
+  if (!entry) {
+    const promise = fetchDefinition(word)
+      .then((val) => {
+        entry!.value = val;
+      })
+      .catch((err) => {
+        entry!.error = err;
+      });
+    entry = { promise };
+    cache.set(word, entry);
+  }
+  if (entry.error) throw entry.error;
+  if (entry.value !== undefined) return entry.value;
+  throw entry.promise;
+}
 
+const SideDrawer: React.FC<SideDrawerProps> = ({ word, onClose }) => {
   if (!word) return null;
-
+  const definition = readDefinition(word);
   return (
     <aside className="side-drawer">
       <button className="close" onClick={onClose} aria-label="Close">
