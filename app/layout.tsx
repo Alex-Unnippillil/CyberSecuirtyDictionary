@@ -17,6 +17,9 @@ export default function RootLayout({
   useFontHinting();
   return (
     <html lang="en" className={inter.className}>
+      <head>
+        <link rel="stylesheet" href="/styles/print.css" media="print" />
+      </head>
       <body>
         <Navbar />
         <motion.div
