@@ -1,5 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Paths are resolved relative to the repository root
 const dataPath = path.join(__dirname, '..', 'terms.json');
@@ -47,3 +51,4 @@ ${urls.map(u => `  <url><loc>${u}</loc></url>`).join('\n')}
 `;
 
 fs.writeFileSync(path.join(__dirname, '..', 'sitemap.xml'), sitemap);
+
