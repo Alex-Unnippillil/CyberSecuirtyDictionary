@@ -1,4 +1,5 @@
 const csvInput = document.getElementById("csvFile");
+const MAX_UPLOAD_SIZE = 5 * 1024 * 1024; // 5 MB limit
 const mappingDiv = document.getElementById("mapping");
 const previewDiv = document.getElementById("preview");
 const summaryDiv = document.getElementById("summary");
@@ -22,6 +23,11 @@ function slugify(text) {
 csvInput.addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
+  if (file.size > MAX_UPLOAD_SIZE) {
+    alert(`File is too large. Maximum size is ${Math.round(MAX_UPLOAD_SIZE / (1024 * 1024))} MB.`);
+    e.target.value = "";
+    return;
+  }
   Papa.parse(file, {
     complete: (results) => {
       const isRowFilled = (row) => row.some((cell) => cell && cell.trim());
