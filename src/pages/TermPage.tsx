@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import BacklinksPanel from "../components/BacklinksPanel";
 
 interface Term {
@@ -112,7 +112,9 @@ export default function TermPage({ term }: TermPageProps) {
           </div>
         </div>
       </div>
-      <BacklinksPanel term={term.term} />
+      <Suspense fallback={<aside style={{ marginTop: "1rem", minHeight: "2rem" }} />}> 
+        <BacklinksPanel term={term.term} />
+      </Suspense>
     </div>
   );
 }
