@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { searchPersonalTerms, PersonalTerm } from "../../lib/personalTerms";
+import safeUrl from "../../src/utils/safeUrl";
 
 interface Term {
   term: string;
@@ -24,7 +25,9 @@ export default function SearchInput() {
     const value = e.target.value;
     setQuery(value);
 
-    const res = await fetch(`/api/search?q=${encodeURIComponent(value)}`);
+    const res = await fetch(
+      safeUrl(`/api/search?q=${encodeURIComponent(value)}`).toString(),
+    );
     if (res.ok) {
       const data: SearchResponse = await res.json();
       setResults(data.results);

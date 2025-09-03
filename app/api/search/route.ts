@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import data from "../../../terms.json";
+import safeUrl from "../../../src/utils/safeUrl";
 
 interface Term {
   term: string;
@@ -40,7 +41,7 @@ function levenshtein(a: string, b: string): number {
 }
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+  const { searchParams } = safeUrl(request.url);
   const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
 
   const terms: Term[] = (data as any).terms || [];
