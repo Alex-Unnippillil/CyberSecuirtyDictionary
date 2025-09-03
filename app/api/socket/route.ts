@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import { Server } from "socket.io";
 
 let io: Server | undefined;
@@ -12,5 +13,5 @@ export async function GET() {
   }
 
   // The server is ready; return an empty 200 response.
-  return new Response(null, { status: 200 });
+  return new NextResponse(null, { status: 200 });
 }

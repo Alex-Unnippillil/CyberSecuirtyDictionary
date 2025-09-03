@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "overrides": [
+    {
+      "files": ["app/**/route.ts"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 2020
+      },
+      "rules": {
+        "no-restricted-syntax": [
+          "error",
+          {
+            "selector": "ReturnStatement[argument.type='ObjectExpression']",
+            "message": "Handlers must return NextResponse.json() or new NextResponse(), not bare objects."
+          }
+        ]
+      }
+    }
+  ]
+}

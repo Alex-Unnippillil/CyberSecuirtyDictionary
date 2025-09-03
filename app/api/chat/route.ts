@@ -1,5 +1,6 @@
 import { streamText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
+import { NextResponse } from 'next/server';
 
 // Initialize OpenAI client using the API key from environment variables.
 const openai = createOpenAI({
@@ -24,6 +25,6 @@ export async function POST(req: Request): Promise<Response> {
     return result.toDataStreamResponse();
   } catch (error) {
     console.error('Chat streaming failed', error);
-    return new Response('Failed to generate chat response', { status: 500 });
+    return new NextResponse('Failed to generate chat response', { status: 500 });
   }
 }
