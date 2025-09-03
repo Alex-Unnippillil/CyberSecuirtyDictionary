@@ -10,6 +10,28 @@ const favorites = new Set(JSON.parse(localStorage.getItem("favorites") || "[]"))
 const siteUrl = "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/";
 const canonicalLink = document.getElementById("canonical-link");
 
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    const successful = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    if (!successful) {
+      throw err;
+    }
+  }
+}
+
 // --- Search token overlay and help popover setup ---
 const searchWrapper = document.createElement("div");
 searchWrapper.id = "search-wrapper";
@@ -582,8 +604,7 @@ selectionLinkBtn.addEventListener("click", (e) => {
   url.searchParams.set("term", currentTerm.term);
   url.searchParams.set("start", start);
   url.searchParams.set("end", end);
-  navigator.clipboard
-    .writeText(url.toString())
+  copyText(url.toString())
     .then(() => showToast("Link copied!"))
     .catch(() => {});
   selectionLinkBtn.style.display = "none";

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import copyToClipboard from "../../lib/copyToClipboard";
 
 export interface ExampleSentenceProps {
   /** The example sentence to display */
@@ -18,7 +19,7 @@ export const ExampleSentence: React.FC<ExampleSentenceProps> = ({
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(text);
+      await copyToClipboard(text);
       // eslint-disable-next-line no-alert
       alert("Example sentence copied");
     } catch (err) {

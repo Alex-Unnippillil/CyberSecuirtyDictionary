@@ -1,4 +1,5 @@
 import React from "react";
+import copyToClipboard from "../lib/copyToClipboard";
 
 interface Entry {
   inflections?: Record<string, string>;
@@ -15,10 +16,12 @@ export default function InflectionTable({ entry }: Props) {
     return null;
   }
 
-  const copyToClipboard = (value: string) => {
-    navigator.clipboard.writeText(value).catch(() => {
+  const copyValue = async (value: string) => {
+    try {
+      await copyToClipboard(value);
+    } catch {
       /* ignore errors */
-    });
+    }
   };
 
   return (
@@ -31,7 +34,7 @@ export default function InflectionTable({ entry }: Props) {
               {value}
               <button
                 type="button"
-                onClick={() => copyToClipboard(value)}
+                onClick={() => copyValue(value)}
                 aria-label={`Copy ${value}`}
               >
                 Copy

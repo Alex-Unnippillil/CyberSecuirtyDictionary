@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import copyToClipboard from '../../lib/copyToClipboard';
 
 interface HistoryItem {
   text: string;
@@ -62,7 +63,7 @@ const ClipboardHistory: React.FC = () => {
 
   const handleCopy = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(text);
+      await copyToClipboard(text);
       addItem(text);
     } catch {
       // ignore
