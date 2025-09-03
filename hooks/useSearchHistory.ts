@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const STORAGE_KEY = "searchHistory";
 
@@ -8,6 +8,7 @@ function unique(arr: string[]): string[] {
 
 export function useSearchHistory(authenticated: boolean = false) {
   const [history, setHistory] = useState<string[]>([]);
+  const hasFetchedRef = useRef(false);
 
   // Load from localStorage on first mount
   useEffect(() => {
@@ -26,7 +27,8 @@ export function useSearchHistory(authenticated: boolean = false) {
 
   // If authenticated, merge server history
   useEffect(() => {
-    if (!authenticated) return;
+    if (!authenticated || hasFetchedRef.current) return;
+    hasFetchedRef.current = true;
     fetch("/api/history")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
