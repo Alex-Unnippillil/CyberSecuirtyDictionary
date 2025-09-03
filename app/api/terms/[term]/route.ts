@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 
+export const runtime = "node";
+
 const dataFile = path.join(process.cwd(), "terms.json");
 
 interface Term {
@@ -22,7 +24,7 @@ async function writeTerms(terms: Term[]): Promise<void> {
 
 export async function PUT(
   request: Request,
-  { params }: { params: { term: string } }
+  { params }: { params: { term: string } },
 ) {
   const { definition } = await request.json();
   const terms = await readTerms();
@@ -37,7 +39,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { term: string } }
+  { params }: { params: { term: string } },
 ) {
   const terms = await readTerms();
   const idx = terms.findIndex((t) => t.term === params.term);
