@@ -49,7 +49,8 @@ export const KeyboardReader: React.FC<KeyboardReaderProps> = ({
             paddingLeft: "1em",
             maxHeight: collapsed[idx] ? 0 : "none",
             overflow: "hidden",
-            transition: "max-height 0.2s ease",
+            opacity: collapsed[idx] ? 0 : 1,
+            transition: "opacity 0.2s ease",
             margin: collapsed[idx] ? 0 : undefined,
           }}
         >

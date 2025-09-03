@@ -37,7 +37,7 @@ const TermHeader: React.FC<TermHeaderProps> = ({ title, contentRef }) => {
   }, [contentRef]);
 
   const barColor = getColor(score);
-  const width = `${Math.max(0, Math.min(100, score))}%`;
+  const scale = Math.max(0, Math.min(100, score)) / 100;
 
   return (
     <header className="term-header" style={{ marginBottom: '1rem' }}>
@@ -54,10 +54,12 @@ const TermHeader: React.FC<TermHeaderProps> = ({ title, contentRef }) => {
         >
           <div
             style={{
-              width,
+              width: '100%',
               height: '100%',
               background: barColor,
-              transition: 'width 0.3s ease, background 0.3s ease',
+              transform: `scaleX(${scale})`,
+              transformOrigin: 'left',
+              transition: 'transform 0.3s ease, background 0.3s ease',
             }}
           />
         </div>

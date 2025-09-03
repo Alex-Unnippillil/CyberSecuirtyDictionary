@@ -135,7 +135,7 @@ const MiniMap: React.FC<MiniMapProps> = ({ selector = "h2, h3", offset = 0 }) =>
             left: 0,
             width: "4px",
             background: "#0070f3",
-            transition: "transform 0.2s, height 0.2s",
+            transition: "transform 0.2s",
           }}
         />
         {items.map((item) => (
