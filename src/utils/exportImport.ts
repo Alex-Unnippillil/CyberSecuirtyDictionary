@@ -1,3 +1,5 @@
+import { safeParse } from './safeJson';
+
 export interface BackupData {
   settings: Record<string, string>;
   notes: Record<string, string>;
@@ -36,5 +38,5 @@ export function importData(data: BackupData): void {
 }
 
 export function parseBackup(json: string): BackupData {
-  return JSON.parse(json) as BackupData;
+  return safeParse<BackupData>(json, { settings: {}, notes: {} });
 }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { safeParse } from "../src/utils/safeJson";
 
 interface RecentItem {
   term: string;
@@ -11,18 +12,9 @@ interface RecentItem {
 const STORAGE_KEY = "recentTerms";
 
 function loadFromStorage(): RecentItem[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        return parsed;
-      }
-    }
-  } catch {
-    /* ignore */
-  }
-  return [];
+  const raw = localStorage.getItem(STORAGE_KEY);
+  const parsed = safeParse<unknown>(raw, []);
+  return Array.isArray(parsed) ? (parsed as RecentItem[]) : [];
 }
 
 export default function RecentMenu() {

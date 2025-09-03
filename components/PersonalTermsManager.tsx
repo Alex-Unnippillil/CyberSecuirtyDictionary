@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { safeParse } from "../src/utils/safeJson";
 
 interface PersonalTerm {
   slug: string;
@@ -26,12 +27,8 @@ export default function PersonalTermsManager() {
 
   // Load stored personal terms on first render
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("personalTerms");
-      if (raw) setTerms(JSON.parse(raw));
-    } catch {
-      // ignore invalid data
-    }
+    const raw = localStorage.getItem("personalTerms");
+    setTerms(safeParse<PersonalTerm[]>(raw, []));
   }, []);
 
   // Helper to persist changes
@@ -57,7 +54,7 @@ export default function PersonalTermsManager() {
     if (!file) return;
     try {
       const text = await file.text();
-      const incoming = JSON.parse(text) as PersonalTerm[];
+      const incoming = safeParse<PersonalTerm[]>(text, []);
       const map = new Map(terms.map((t) => [t.slug, t]));
       const duplicates: ImportPreview["duplicates"] = [];
       const newTerms: PersonalTerm[] = [];

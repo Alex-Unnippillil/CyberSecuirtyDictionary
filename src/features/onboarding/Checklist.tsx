@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { safeParse } from '../../utils/safeJson';
 
 /** Structure of a checklist task. If `event` is provided the checklist
  * will listen for that custom event on the window object and
@@ -35,15 +36,8 @@ interface Props {
 const Checklist: React.FC<Props> = ({ tasks = DEFAULT_TASKS }) => {
   // Load completion information from localStorage on first render
   const [completed, setCompleted] = useState<Record<string, boolean>>(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        return JSON.parse(raw);
-      }
-    } catch {
-      // ignore parsing/storage issues
-    }
-    return {};
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return safeParse<Record<string, boolean>>(raw, {});
   });
 
   // Persist completion state whenever it changes

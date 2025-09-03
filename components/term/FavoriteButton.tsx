@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { safeParse } from "../../src/utils/safeJson";
 
 interface FavoriteButtonProps {
   term: string;
@@ -27,8 +28,9 @@ export default function FavoriteButton({ term }: FavoriteButtonProps) {
   };
 
   const addToFavorites = () => {
-    const favorites: string[] = JSON.parse(
-      localStorage.getItem("favorites") || "[]",
+    const favorites: string[] = safeParse(
+      localStorage.getItem("favorites"),
+      [],
     );
     if (!favorites.includes(term)) {
       favorites.push(term);

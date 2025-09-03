@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { safeParse } from "../src/utils/safeJson";
 
 function detectOS(): "mac" | "windows" | "linux" | "other" {
   const ua = navigator.userAgent.toLowerCase();
@@ -25,14 +26,10 @@ export function useFontHinting() {
   useEffect(() => {
     const apply = () => {
       let features = "";
-      try {
-        const raw = localStorage.getItem("settings");
-        const disabled = raw && JSON.parse(raw).enhancedHinting === false;
-        if (!disabled) {
-          features = featureSettings(detectOS());
-        }
-      } catch {
-        /* ignore */
+      const raw = localStorage.getItem("settings");
+      const settings = safeParse<any>(raw, {});
+      if (settings.enhancedHinting !== false) {
+        features = featureSettings(detectOS());
       }
       document.documentElement.style.fontFeatureSettings = features;
     };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { safeParse } from "../src/utils/safeJson";
 
 const STORAGE_KEY = "searchHistory";
 
@@ -11,16 +12,10 @@ export function useSearchHistory(authenticated: boolean = false) {
 
   // Load from localStorage on first mount
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          setHistory(parsed);
-        }
-      }
-    } catch {
-      /* ignore */
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const parsed = safeParse<unknown>(raw, []);
+    if (Array.isArray(parsed)) {
+      setHistory(parsed as string[]);
     }
   }, []);
 

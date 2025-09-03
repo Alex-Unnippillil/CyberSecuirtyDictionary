@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { safeParse } from "../utils/safeJson";
 
 /**
  * WorkbenchLayout provides a simple two-pane workbench with a resizable divider.
@@ -25,12 +26,7 @@ const WorkbenchLayout: React.FC<WorkbenchLayoutProps> = ({ left, right }) => {
   // Load presets from localStorage on mount
   useEffect(() => {
     const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (!raw) return;
-    try {
-      setPresets(JSON.parse(raw));
-    } catch {
-      // ignore parse errors
-    }
+    setPresets(safeParse<Record<string, number>>(raw, {}));
   }, []);
 
   // Persist presets on change

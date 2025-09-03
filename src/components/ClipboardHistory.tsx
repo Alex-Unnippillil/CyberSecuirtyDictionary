@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { safeParse } from '../utils/safeJson';
 
 interface HistoryItem {
   text: string;
@@ -25,13 +26,7 @@ const ClipboardHistory: React.FC = () => {
   // Load existing history on mount
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        setHistory(JSON.parse(stored));
-      } catch {
-        /* ignore malformed storage */
-      }
-    }
+    setHistory(safeParse<HistoryItem[]>(stored, []));
   }, []);
 
   const addItem = React.useCallback((text: string) => {

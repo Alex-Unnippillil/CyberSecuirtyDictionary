@@ -1,9 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const { safeParse } = require('../src/utils/safeJson.js');
 
 // Paths are resolved relative to the repository root
 const dataPath = path.join(__dirname, '..', 'terms.json');
-const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
+const raw = fs.readFileSync(dataPath, 'utf8');
+const data = safeParse(raw, { terms: [] });
 
 const termsDir = path.join(__dirname, '..', 'terms');
 fs.mkdirSync(termsDir, { recursive: true });

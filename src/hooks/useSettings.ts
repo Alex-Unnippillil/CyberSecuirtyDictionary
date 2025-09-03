@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { safeParse } from "../utils/safeJson";
 
 export type SettingKey = "darkMode" | "showFavorites";
 
@@ -19,14 +20,10 @@ export function useSettings() {
     if (typeof window === "undefined") {
       return DEFAULT_SETTINGS;
     }
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      return raw
-        ? { ...DEFAULT_SETTINGS, ...JSON.parse(raw) }
-        : DEFAULT_SETTINGS;
-    } catch {
-      return DEFAULT_SETTINGS;
-    }
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    return raw
+      ? { ...DEFAULT_SETTINGS, ...safeParse<Partial<Settings>>(raw, {}) }
+      : DEFAULT_SETTINGS;
   });
 
   const updateSetting = useCallback(

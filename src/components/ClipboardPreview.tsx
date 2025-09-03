@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import termsData from '../../terms.json';
+import { safeParse } from '../utils/safeJson';
 
 interface Term {
   term: string;
@@ -31,8 +32,9 @@ const ClipboardPreview: React.FC = () => {
         );
         if (!match) return;
 
-        const shown: string[] = JSON.parse(
-          sessionStorage.getItem(STORAGE_KEY) || '[]',
+        const shown: string[] = safeParse(
+          sessionStorage.getItem(STORAGE_KEY),
+          [],
         );
         if (shown.includes(match.term)) return;
 

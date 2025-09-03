@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
+import { safeParse } from "../../../../src/utils/safeJson";
 
 const dataFile = path.join(process.cwd(), "terms.json");
 
@@ -11,7 +12,7 @@ interface Term {
 
 async function readTerms(): Promise<Term[]> {
   const data = await fs.readFile(dataFile, "utf8");
-  const parsed = JSON.parse(data);
+  const parsed = safeParse<{ terms?: Term[] }>(data, { terms: [] });
   return parsed.terms || [];
 }
 
