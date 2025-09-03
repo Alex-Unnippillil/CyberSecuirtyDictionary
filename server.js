@@ -1,6 +1,7 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
+const logger = require('./src/utils/logger');
 
 // In-memory token buckets keyed by IP
 const buckets = new Map();
@@ -23,7 +24,7 @@ function rateLimit(req, res) {
   }
 
   if (bucket.tokens < 1) {
-    console.log(`Rate limit exceeded for IP ${ip}`);
+    logger.warn(`Rate limit exceeded for IP ${ip}`);
     res.writeHead(429, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Too Many Requests' }));
     return false;
@@ -55,5 +56,5 @@ const server = http.createServer((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info(`Server running on port ${PORT}`);
 });

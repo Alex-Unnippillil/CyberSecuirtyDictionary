@@ -1,4 +1,5 @@
 import { Server } from "socket.io";
+import logger from "../../../src/utils/logger";
 
 let io: Server | undefined;
 
@@ -7,7 +8,7 @@ export async function GET() {
   if (!io) {
     io = new Server({ path: "/api/socket" });
     io.on("connection", (socket) => {
-      console.log("Client connected", socket.id);
+      logger.info("Client connected", socket.id);
     });
   }
 
