@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Entry {
   id: string;
@@ -42,7 +42,10 @@ const WordOfDay: React.FC = () => {
     }
   };
 
+  const prevOffsetRef = useRef<number | null>(null);
   useEffect(() => {
+    if (prevOffsetRef.current === offset) return;
+    prevOffsetRef.current = offset;
     fetchEntry(offset);
   }, [offset]);
 

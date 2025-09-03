@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ResponsiveContainer, LineChart, Line } from "recharts";
 
 interface FrequencyMeterProps {
@@ -8,7 +8,10 @@ interface FrequencyMeterProps {
 const FrequencyMeter: React.FC<FrequencyMeterProps> = ({ term }) => {
   const [data, setData] = useState<number[]>([]);
 
+  const prevTermRef = useRef<string | null>(null);
   useEffect(() => {
+    if (prevTermRef.current === term) return;
+    prevTermRef.current = term;
     async function fetchFrequency() {
       try {
         const response = await fetch(
