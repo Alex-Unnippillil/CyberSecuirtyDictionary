@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { searchPersonalTerms, PersonalTerm } from '../../lib/personalTerms';
+import safeUrl from '../../src/utils/safeUrl';
 
 interface Term {
   term: string;
@@ -25,7 +26,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (!query) return;
-    fetch(`/api/search?q=${encodeURIComponent(query)}`)
+    fetch(safeUrl(`/api/search?q=${encodeURIComponent(query)}`).toString())
       .then((res) => res.json())
       .then(setData)
       .catch(() => setData({ results: [], suggestions: [] }));

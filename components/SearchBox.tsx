@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import AutocompleteList from './AutocompleteList';
+import safeUrl from '../src/utils/safeUrl';
 
 const SearchBox: React.FC = () => {
   const [value, setValue] = useState('');
@@ -14,7 +15,7 @@ const SearchBox: React.FC = () => {
       setShowSuggestions(false);
       return;
     }
-    fetch(`/api/suggest?q=${encodeURIComponent(value)}`)
+    fetch(safeUrl(`/api/suggest?q=${encodeURIComponent(value)}`).toString())
       .then((r) => (r.ok ? r.json() : Promise.reject(r.statusText)))
       .then((data: string[]) => {
         setSuggestions(data);

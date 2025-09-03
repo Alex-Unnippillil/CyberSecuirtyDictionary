@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import safeUrl from '../../src/utils/safeUrl';
 
 interface AutocompleteProps {
   /**
@@ -26,9 +27,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ onCommit, pinned = [] }) =>
     }
 
     const controller = new AbortController();
-    fetch(`/api/suggestions?q=${encodeURIComponent(query)}`, {
-      signal: controller.signal,
-    })
+    fetch(
+      safeUrl(`/api/suggestions?q=${encodeURIComponent(query)}`).toString(),
+      {
+        signal: controller.signal,
+      },
+    )
       .then((res) => (res.ok ? res.json() : []))
       .then((data: string[]) => {
         setSuggestions(data);
