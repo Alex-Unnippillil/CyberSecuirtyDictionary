@@ -1,4 +1,5 @@
 (function () {
+  const logger = (typeof window !== "undefined" && window.logger) || console;
   const STORAGE_KEY = "host-usage";
   const MAX_PRECONNECTS = 5;
 
@@ -37,7 +38,7 @@
       link.crossOrigin = "";
       document.head.appendChild(link);
       preconnected.push(host);
-      console.log("preconnecting to", host);
+      logger.debug("preconnecting to", host);
     });
     return preconnected;
   }
@@ -76,7 +77,7 @@
     const totalPreconnects = totals.wins + totals.losses;
     if (totalPreconnects > 0) {
       const efficiency = (totals.wins / totalPreconnects).toFixed(2);
-      console.log(
+      logger.info(
         `Preconnect efficiency: ${efficiency} (wins: ${totals.wins}, losses: ${totals.losses})`,
       );
     }
