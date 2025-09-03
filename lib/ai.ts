@@ -6,20 +6,20 @@ export type AIProvider = 'openai' | 'anthropic';
  */
 export async function expandTopic(
   topic: string,
-  provider: AIProvider = (process.env.AI_PROVIDER as AIProvider) || 'openai'
+  provider: AIProvider,
+  apiKey: string
 ): Promise<string> {
   switch (provider) {
     case 'openai':
-      return openAIExpand(topic);
+      return openAIExpand(topic, apiKey);
     case 'anthropic':
-      return anthropicExpand(topic);
+      return anthropicExpand(topic, apiKey);
     default:
       throw new Error(`Unsupported AI provider: ${provider}`);
   }
 }
 
-async function openAIExpand(topic: string): Promise<string> {
-  const apiKey = process.env.OPENAI_API_KEY;
+async function openAIExpand(topic: string, apiKey: string): Promise<string> {
   if (!apiKey) throw new Error('Missing OPENAI_API_KEY');
 
   const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -39,8 +39,7 @@ async function openAIExpand(topic: string): Promise<string> {
   return typeof text === 'string' ? text.trim() : '';
 }
 
-async function anthropicExpand(topic: string): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+async function anthropicExpand(topic: string, apiKey: string): Promise<string> {
   if (!apiKey) throw new Error('Missing ANTHROPIC_API_KEY');
 
   const res = await fetch('https://api.anthropic.com/v1/messages', {
