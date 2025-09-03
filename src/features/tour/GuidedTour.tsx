@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Joyride, { CallBackProps, STATUS, Step } from "react-joyride";
@@ -67,7 +69,10 @@ export function mountGuidedTour(): void {
   ReactDOM.render(<GuidedTour />, container);
 }
 
-if (typeof document !== "undefined") {
-  mountGuidedTour();
+export function GuidedTourMount(): null {
+  useEffect(() => {
+    mountGuidedTour();
+  }, []);
+  return null;
 }
 

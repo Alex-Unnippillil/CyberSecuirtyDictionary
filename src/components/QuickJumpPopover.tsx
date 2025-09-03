@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
@@ -108,6 +110,9 @@ export function mountQuickJumpPopover(): void {
   ReactDOM.render(<QuickJumpPopover />, container);
 }
 
-if (typeof document !== "undefined") {
-  mountQuickJumpPopover();
+export function QuickJumpPopoverMount(): null {
+  useEffect(() => {
+    mountQuickJumpPopover();
+  }, []);
+  return null;
 }
