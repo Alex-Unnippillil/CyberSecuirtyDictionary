@@ -20,9 +20,24 @@ async function writeTerms(terms: Term[]): Promise<void> {
   await fs.writeFile(dataFile, data);
 }
 
-export async function GET() {
-  const terms = await readTerms();
-  return NextResponse.json(terms);
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const rawLimit = parseInt(searchParams.get("limit") ?? "50", 10);
+  const rawOffset = parseInt(searchParams.get("offset") ?? "0", 10);
+  const limit = Math.min(isNaN(rawLimit) ? 50 : rawLimit, 100);
+  const offset = Math.max(isNaN(rawOffset) ? 0 : rawOffset, 0);
+
+  const allTerms = await readTerms();
+  let page = allTerms.slice(offset, offset + limit);
+
+  const MAX_BYTES = 1024 * 1024; // 1MB
+  let body = JSON.stringify(page);
+  while (Buffer.byteLength(body) > MAX_BYTES && page.length > 0) {
+    page = page.slice(0, -1);
+    body = JSON.stringify(page);
+  }
+
+  return NextResponse.json(page);
 }
 
 export async function POST(request: Request) {
