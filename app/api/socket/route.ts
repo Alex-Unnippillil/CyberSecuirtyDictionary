@@ -1,5 +1,7 @@
 import { Server } from "socket.io";
 
+export const runtime = "node";
+
 let io: Server | undefined;
 
 export async function GET() {
