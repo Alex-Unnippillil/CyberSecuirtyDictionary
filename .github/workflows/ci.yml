@@ -15,9 +15,13 @@ jobs:
           cache: npm
       - name: Install
         run: npm ci
+      - name: Install Playwright
+        run: npx playwright install --with-deps
       - name: Lint
         run: npm run lint
       - name: Test
-        run: npm test
+        run: |
+          npm test
+          npx playwright test
       - name: Build
         run: npm run build
