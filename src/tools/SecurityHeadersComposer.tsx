@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CopyPresetSelect, {
   CopyPreset,
   formatForPreset,
@@ -68,12 +68,29 @@ export default function SecurityHeadersComposer() {
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [copied, setCopied] = useState(false);
   const [preset, setPreset] = useState<CopyPreset>("slack");
+  const timerRef = useRef<number | null>(null);
 
   const toggle = (key: string) =>
     setSelected((s) => ({ ...s, [key]: !s[key] }));
 
   const headers = DIRECTIVES.filter((d) => selected[d.key]).map((d) => d.header);
   const headerString = headers.join('\n');
+
+  useEffect(
+    () => () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    },
+    [],
+  );
+
+  const scheduleReset = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = window.setTimeout(() => setCopied(false), 2000);
+  };
 
   const copyToClipboard = async () => {
     const snippet = headers.map(toServerSnippet).join("\n");
@@ -85,12 +102,12 @@ export default function SecurityHeadersComposer() {
       });
       await navigator.clipboard.write([item]);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      scheduleReset();
     } catch (e) {
       try {
         await navigator.clipboard.writeText(text);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+        scheduleReset();
       } catch (err) {
         console.error("Clipboard API not available", err);
       }
