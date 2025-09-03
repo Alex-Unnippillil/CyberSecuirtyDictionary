@@ -16,6 +16,7 @@ export default function SettingsPage() {
   const indexRef = useRef<SettingEntry[]>([]);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SettingEntry[]>([]);
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (rootRef.current) {
@@ -27,6 +28,15 @@ export default function SettingsPage() {
     setResults(searchSettings(indexRef.current, query));
   }, [query]);
 
+  useEffect(
+    () => () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    },
+    [],
+  );
+
   const handleResultClick = (entry: SettingEntry): void => {
     const section = document.getElementById(entry.sectionId) as HTMLDetailsElement | null;
     if (section && section.tagName.toLowerCase() === 'details') {
@@ -36,7 +46,13 @@ export default function SettingsPage() {
     el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     if (el) {
       el.classList.add('setting-highlight');
-      setTimeout(() => el.classList.remove('setting-highlight'), 2000);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      timerRef.current = window.setTimeout(
+        () => el.classList.remove('setting-highlight'),
+        2000,
+      );
     }
   };
 
