@@ -4,13 +4,16 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js"
+    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.55.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
     "chokidar-cli": "^3.0.0",
     "html-validate": "^10.0.0",
     "http-server": "^14.1.1",

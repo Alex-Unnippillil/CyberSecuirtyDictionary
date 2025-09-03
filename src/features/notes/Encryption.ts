@@ -29,7 +29,7 @@ function base64ToBuffer(base64: string): Uint8Array {
 
 async function deriveKey(
   passphrase: string,
-  salt: Uint8Array,
+  salt: ArrayBuffer,
 ): Promise<CryptoKey> {
   const keyMaterial = await crypto.subtle.importKey(
     "raw",
@@ -68,7 +68,7 @@ export async function saveEncryptedNote(
   const passphrase = await promptPassphrase("Enter passphrase to secure note");
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const iv = crypto.getRandomValues(new Uint8Array(12));
-  const key = await deriveKey(passphrase, salt);
+  const key = await deriveKey(passphrase, salt.buffer);
   const cipherBuffer = await crypto.subtle.encrypt(
     { name: "AES-GCM", iv },
     key,
@@ -77,8 +77,8 @@ export async function saveEncryptedNote(
 
   const payload: EncryptedPayload = {
     cipherText: bufferToBase64(cipherBuffer),
-    iv: bufferToBase64(iv),
-    salt: bufferToBase64(salt),
+    iv: bufferToBase64(iv.buffer),
+    salt: bufferToBase64(salt.buffer),
   };
 
   localStorage.setItem(id, JSON.stringify(payload));
@@ -97,13 +97,13 @@ export async function loadEncryptedNote(id: string): Promise<string | null> {
     );
     const salt = base64ToBuffer(payload.salt);
     const iv = base64ToBuffer(payload.iv);
-    const key = await deriveKey(passphrase, salt);
+    const key = await deriveKey(passphrase, salt.buffer as ArrayBuffer);
     const cipherText = base64ToBuffer(payload.cipherText);
 
     const plainBuffer = await crypto.subtle.decrypt(
-      { name: "AES-GCM", iv },
+      { name: "AES-GCM", iv: iv.buffer as ArrayBuffer },
       key,
-      cipherText,
+      cipherText.buffer as ArrayBuffer,
     );
 
     return decoder.decode(plainBuffer);

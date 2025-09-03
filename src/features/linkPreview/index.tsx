@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom";
 import LinkPreviewCard, { LinkPreviewData } from "../../components/LinkPreviewCard";
 
 interface MetaData {
@@ -40,10 +40,10 @@ export function initLinkPreview(): void {
 
   const render = (data: LinkPreviewData | null) => {
     if (!data) {
-      ReactDOM.unmountComponentAtNode(container);
+      (ReactDOM as any).unmountComponentAtNode(container);
       return;
     }
-    ReactDOM.render(<LinkPreviewCard {...data} />, container);
+    (ReactDOM as any).render(<LinkPreviewCard {...data} />, container);
   };
 
   const handleMouseOver = async (e: MouseEvent) => {

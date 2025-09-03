@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom";
 
 interface Heading {
   id: string;
@@ -105,7 +105,7 @@ export default QuickJumpPopover;
 export function mountQuickJumpPopover(): void {
   const container = document.createElement("div");
   document.body.appendChild(container);
-  ReactDOM.render(<QuickJumpPopover />, container);
+  (ReactDOM as any).render(<QuickJumpPopover />, container);
 }
 
 if (typeof document !== "undefined") {
