@@ -1,0 +1,17 @@
+repository:
+  allow_merge_commit: false
+  allow_squash_merge: true
+  allow_rebase_merge: true
+
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        strict: true
+        contexts:
+          - "CI / lint"
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+      required_linear_history: true
+      required_signatures: true
+      enforce_admins: false
