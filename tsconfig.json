@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "next/server": ["types/next-server"],
+      "next/image": ["types/next-image"]
+    },
+    "types": ["undici-types"]
+  },
+  "include": [
+    "lib/settings.tsx",
+    "src/features/linkPreview/index.tsx",
+    "src/components/LinkPreviewCard.tsx"
+  ]
+}
