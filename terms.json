@@ -131,6 +131,162 @@
     {
       "term": "Phishing Email",
       "definition": "An email sent by attackers that appears legitimate but aims to trick recipients into revealing sensitive information or performing actions."
+    },
+    {
+      "term": "Malware",
+      "definition": "Malicious software designed to damage, disrupt, or gain unauthorized access to systems."
+    },
+    {
+      "term": "Virus",
+      "definition": "Malware that replicates by infecting other programs or files."
+    },
+    {
+      "term": "Worm",
+      "definition": "Self-replicating malware that spreads across networks without user interaction."
+    },
+    {
+      "term": "Trojan Horse",
+      "definition": "Malware disguised as legitimate software to trick users into executing it."
+    },
+    {
+      "term": "Backdoor",
+      "definition": "A hidden method of bypassing normal authentication to gain remote access to a system."
+    },
+    {
+      "term": "Rootkit",
+      "definition": "Malware that hides its presence and provides privileged access to a compromised system."
+    },
+    {
+      "term": "Ransomware",
+      "definition": "Malware that encrypts files or systems and demands payment for restoration."
+    },
+    {
+      "term": "Spyware",
+      "definition": "Malware that covertly collects information about a user or organization."
+    },
+    {
+      "term": "Adware",
+      "definition": "Software that displays unwanted advertisements and may track user behavior."
+    },
+    {
+      "term": "Botnet",
+      "definition": "A network of compromised computers controlled by an attacker."
+    },
+    {
+      "term": "Command and Control (C2)",
+      "definition": "Infrastructure used by attackers to issue commands to and receive data from compromised systems."
+    },
+    {
+      "term": "Keylogger",
+      "definition": "Malware that records keystrokes to capture sensitive information such as passwords."
+    },
+    {
+      "term": "Dropper",
+      "definition": "Malware designed to install additional malicious payloads on a target system."
+    },
+    {
+      "term": "Exploit Kit",
+      "definition": "A collection of tools that deliver malware by exploiting vulnerabilities in software."
+    },
+    {
+      "term": "Remote Access Trojan (RAT)",
+      "definition": "Malware that provides an attacker with remote control over an infected system."
+    },
+    {
+      "term": "Fileless Malware",
+      "definition": "Malware that operates in memory without writing files to disk, making detection harder."
+    },
+    {
+      "term": "Polymorphic Malware",
+      "definition": "Malware that continually changes its code to evade signature-based detection."
+    },
+    {
+      "term": "Macro Virus",
+      "definition": "Malware that spreads through documents containing malicious macros."
+    },
+    {
+      "term": "Logic Bomb",
+      "definition": "Malicious code that triggers harmful actions when specific conditions are met."
+    },
+    {
+      "term": "Bootkit",
+      "definition": "Malware that infects the master boot record or bootloader to run before the operating system."
+    },
+    {
+      "term": "Browser Hijacker",
+      "definition": "Malware that alters a web browser's settings to redirect traffic or display unwanted content."
+    },
+    {
+      "term": "Potentially Unwanted Program (PUP)",
+      "definition": "Software that users may find undesirable, often bundled with other downloads."
+    },
+    {
+      "term": "Scareware",
+      "definition": "Malware that frightens users with fake alerts to coerce them into taking a specific action."
+    },
+    {
+      "term": "Screen Locker",
+      "definition": "Malware that locks a user's screen and demands payment or action to restore access."
+    },
+    {
+      "term": "Stealer",
+      "definition": "Malware focused on stealing data such as credentials, cookies, or documents."
+    },
+    {
+      "term": "Skimmer",
+      "definition": "Malware that captures payment card data from point-of-sale systems or ATMs."
+    },
+    {
+      "term": "Crypto-mining Malware",
+      "definition": "Malware that hijacks system resources to mine cryptocurrency for the attacker."
+    },
+    {
+      "term": "Wiper Malware",
+      "definition": "Malware that destroys data on infected systems, rendering them unusable."
+    },
+    {
+      "term": "Loader",
+      "definition": "Malware that fetches and executes additional malicious modules after initial infection."
+    },
+    {
+      "term": "Drive-by Download",
+      "definition": "Unintentional installation of malware when visiting a compromised website."
+    },
+    {
+      "term": "Stalkerware",
+      "definition": "Spyware used to monitor an individual's activities without their consent."
+    },
+    {
+      "term": "Rogue Security Software",
+      "definition": "Fake security software that claims to remove threats but actually extorts money or installs malware."
+    },
+    {
+      "term": "Static Analysis",
+      "definition": "Examining malware without executing it, often using tools like IDA Pro or Ghidra."
+    },
+    {
+      "term": "Dynamic Analysis",
+      "definition": "Analyzing malware behavior during execution with debuggers or sandboxes such as x64dbg or Cuckoo Sandbox."
+    },
+    {
+      "term": "IDA Pro",
+      "definition": "A commercial interactive disassembler widely used for static malware analysis."
+    },
+    {
+      "term": "Ghidra",
+      "definition": "An open-source reverse engineering suite for static analysis developed by the NSA."
+    },
+    {
+      "term": "x64dbg",
+      "definition": "An open-source Windows debugger commonly used for dynamic malware analysis."
+    },
+    {
+      "term": "OllyDbg",
+      "definition": "A classic 32-bit Windows debugger useful for analyzing malware behavior at runtime."
+    },
+    {
+      "term": "Cuckoo Sandbox",
+      "definition": "An automated sandbox environment for dynamic malware analysis."
     }
   ]
 }
