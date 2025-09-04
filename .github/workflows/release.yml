@@ -1,0 +1,35 @@
+name: Release data package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'packages/cyber-dictionary-data/package.json'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+      - name: Detect version bump
+        id: bump
+        run: |
+          PREV_SHA="${{ github.event.before }}"
+          CURR_SHA="${{ github.sha }}"
+          if git diff $PREV_SHA $CURR_SHA -- packages/cyber-dictionary-data/package.json | grep '"version"'; then
+            echo "publish=true" >> $GITHUB_OUTPUT
+          else
+            echo "publish=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Publish
+        if: steps.bump.outputs.publish == 'true'
+        run: npm publish packages/cyber-dictionary-data --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
