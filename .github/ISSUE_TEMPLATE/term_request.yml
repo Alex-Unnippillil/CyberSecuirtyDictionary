@@ -1,0 +1,26 @@
+name: Term Request
+description: Request a new cybersecurity term for the dictionary.
+title: "[Term]: "
+labels:
+  - term request
+body:
+  - type: input
+    id: term-name
+    attributes:
+      label: Term Name
+      description: What term should be added?
+    validations:
+      required: true
+  - type: textarea
+    id: definition
+    attributes:
+      label: Definition
+      description: Provide a clear, concise definition.
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Cite any sources for the definition.
+
