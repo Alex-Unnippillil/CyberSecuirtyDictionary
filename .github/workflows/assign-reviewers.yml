@@ -1,0 +1,34 @@
+name: Assign Reviewers
+
+on:
+  pull_request:
+    types: [opened, labeled]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Assign reviewers based on label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labelReviewers = {
+              'domain:security': ['octocat'],
+              'domain:docs': ['octocat']
+            };
+            const fallbackReviewers = ['octocat'];
+
+            const labels = context.payload.pull_request.labels.map(l => l.name);
+            let reviewers = labels.flatMap(label => labelReviewers[label] || []);
+            if (reviewers.length === 0) reviewers = fallbackReviewers;
+
+            await github.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              reviewers
+            });
