@@ -1,0 +1,15 @@
+{
+  "name": "@yourscope/cyber-dictionary-data",
+  "version": "0.0.1",
+  "description": "Versioned cybersecurity dictionary terms as JSON",
+  "license": "ISC",
+  "main": "terms.json",
+  "files": [
+    "terms.json",
+    "LICENSE",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
