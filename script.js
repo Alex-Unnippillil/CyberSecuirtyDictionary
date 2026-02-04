@@ -780,3 +780,18 @@ if (params.get("motionDebug") === "1") {
   document.head.appendChild(debugScript);
 }
 
+// Global keyboard shortcuts
+window.addEventListener("keydown", (e) => {
+  if (e.key === "/" && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+  }
+
+  if (e.key === "Escape") {
+    searchInput.value = "";
+    clearDefinition();
+    populateTermsList();
+    searchInput.blur();
+  }
+});
+

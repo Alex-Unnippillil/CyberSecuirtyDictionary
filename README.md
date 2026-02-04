@@ -34,3 +34,7 @@ The project is a static site published with GitHub Pages. After updating content
 
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
 
+## Keyboard Shortcuts
+
+- `/` focuses the search bar.
+- `Escape` clears the search and closes the definition display.
