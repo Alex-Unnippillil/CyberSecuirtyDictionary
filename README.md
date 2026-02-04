@@ -34,3 +34,10 @@ The project is a static site published with GitHub Pages. After updating content
 
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
 
+## Search Engine Indexing
+
+The `robots.txt` file only controls how crawlers access your site; it does not
+prevent pages from appearing in search results. To explicitly exclude a page
+from indexing, add a `<meta name="robots" content="noindex">` tag to the page
+itself.
+
