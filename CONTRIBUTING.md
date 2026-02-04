@@ -50,4 +50,10 @@ Avoid copying text directly; if you quote, use quotation marks and attribute the
 - Follow the [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
 - Keep descriptions concise and clear.
 
+## Branch policies
+
+- **Signed commits** are required. Configure your Git client to sign commits with GPG.
+- **Linear history** is enforced. Rebase or squash before merging; merge commits are not allowed.
+- **Status checks** must pass before merging. The `CI / lint` workflow is required, and merges are blocked until it succeeds.
+
 If you have questions, feel free to open an issue.
