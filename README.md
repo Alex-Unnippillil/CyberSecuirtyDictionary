@@ -34,3 +34,6 @@ The project is a static site published with GitHub Pages. After updating content
 
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
 
+
+## Code of Conduct
+Please read the [Code of Conduct](CODE_OF_CONDUCT.md) before contributing to this project.
