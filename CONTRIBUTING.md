@@ -50,4 +50,6 @@ Avoid copying text directly; if you quote, use quotation marks and attribute the
 - Follow the [pull request template](.github/PULL_REQUEST_TEMPLATE.md).
 - Keep descriptions concise and clear.
 
+See the [runbook](docs/runbook.md) for deployment, rollback, and hotfix guidance.
+
 If you have questions, feel free to open an issue.
