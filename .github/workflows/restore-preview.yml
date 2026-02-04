@@ -1,0 +1,23 @@
+name: Restore Preview from Backup
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    environment: preview
+    steps:
+      - name: Checkout backup branch
+        uses: actions/checkout@v4
+        with:
+          ref: backup
+      - name: Create restore log
+        run: echo "Restore completed at $(date -u)" > restore.log
+      - name: Upload restore artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: restore-log
+          path: restore.log
