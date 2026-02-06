@@ -1,9 +1,11 @@
-import { streamText } from 'ai';
-import { createOpenAI } from '@ai-sdk/openai';
+import { streamText } from "ai";
+import { createOpenAI } from "@ai-sdk/openai";
+
+export const runtime = "edge";
 
 // Initialize OpenAI client using the API key from environment variables.
 const openai = createOpenAI({
-  apiKey: process.env.OPENAI_API_KEY || ''
+  apiKey: process.env.OPENAI_API_KEY || "",
 });
 
 // Handle POST requests to the chat endpoint. This uses the `streamText`
@@ -14,7 +16,7 @@ export async function POST(req: Request): Promise<Response> {
     const { messages } = await req.json();
 
     const result = await streamText({
-      model: openai('gpt-4o-mini'),
+      model: openai("gpt-4o-mini"),
       messages,
     });
 
@@ -23,7 +25,7 @@ export async function POST(req: Request): Promise<Response> {
     // render tokens incrementally.
     return result.toDataStreamResponse();
   } catch (error) {
-    console.error('Chat streaming failed', error);
-    return new Response('Failed to generate chat response', { status: 500 });
+    console.error("Chat streaming failed", error);
+    return new Response("Failed to generate chat response", { status: 500 });
   }
 }

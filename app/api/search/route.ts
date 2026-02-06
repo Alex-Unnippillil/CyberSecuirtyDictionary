@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import data from "../../../terms.json";
 
+export const runtime = "edge";
+
 interface Term {
   term: string;
   definition: string;
@@ -30,7 +32,7 @@ function levenshtein(a: string, b: string): number {
         matrix[i][j] = Math.min(
           matrix[i - 1][j - 1] + 1,
           matrix[i][j - 1] + 1,
-          matrix[i - 1][j] + 1
+          matrix[i - 1][j] + 1,
         );
       }
     }
@@ -46,20 +48,26 @@ export async function GET(request: Request) {
   const terms: Term[] = (data as any).terms || [];
 
   if (!query) {
-    return NextResponse.json({ results: [], suggestions: [] } as SearchResponse);
+    return NextResponse.json({
+      results: [],
+      suggestions: [],
+    } as SearchResponse);
   }
 
   const results = terms.filter(
     (t) =>
       t.term.toLowerCase().includes(query) ||
-      t.definition.toLowerCase().includes(query)
+      t.definition.toLowerCase().includes(query),
   );
   const exact = terms.find((t) => t.term.toLowerCase() === query);
 
   let suggestions: string[] = [];
   if (!exact) {
     suggestions = terms
-      .map((t) => ({ term: t.term, distance: levenshtein(query, t.term.toLowerCase()) }))
+      .map((t) => ({
+        term: t.term,
+        distance: levenshtein(query, t.term.toLowerCase()),
+      }))
       .sort((a, b) => a.distance - b.distance)
       .slice(0, 5)
       .map((s) => s.term);

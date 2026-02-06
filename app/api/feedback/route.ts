@@ -1,6 +1,8 @@
-import { NextResponse } from 'next/server';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import { NextResponse } from "next/server";
+import fs from "node:fs/promises";
+import path from "node:path";
+
+export const runtime = "node";
 
 interface Feedback {
   message: string;
@@ -8,7 +10,7 @@ interface Feedback {
   timestamp: string;
 }
 
-const feedbackFile = path.join(process.cwd(), 'feedback.json');
+const feedbackFile = path.join(process.cwd(), "feedback.json");
 
 export async function POST(request: Request) {
   try {
@@ -18,17 +20,17 @@ export async function POST(request: Request) {
 
     if (!message) {
       return NextResponse.json(
-        { success: false, error: 'Message is required' },
-        { status: 400 }
+        { success: false, error: "Message is required" },
+        { status: 400 },
       );
     }
 
     let feedback: Feedback[] = [];
     try {
-      const existing = await fs.readFile(feedbackFile, 'utf8');
+      const existing = await fs.readFile(feedbackFile, "utf8");
       feedback = JSON.parse(existing);
     } catch (err: any) {
-      if (err.code !== 'ENOENT') {
+      if (err.code !== "ENOENT") {
         throw err;
       }
     }
@@ -44,11 +46,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Failed to save feedback', error);
+    console.error("Failed to save feedback", error);
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+      { success: false, error: "Internal server error" },
+      { status: 500 },
     );
   }
 }
-

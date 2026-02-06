@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 
+export const runtime = "node";
+
 const dataFile = path.join(process.cwd(), "terms.json");
 
 interface Term {
@@ -30,16 +32,13 @@ export async function POST(request: Request) {
   if (!term || !definition) {
     return NextResponse.json(
       { error: "term and definition are required" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   const terms = await readTerms();
   if (terms.some((t) => t.term === term)) {
-    return NextResponse.json(
-      { error: "term already exists" },
-      { status: 409 }
-    );
+    return NextResponse.json({ error: "term already exists" }, { status: 409 });
   }
 
   terms.push({ term, definition });
