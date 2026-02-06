@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { startGuidedTour } from "../features/tour/GuidedTour";
+import useFocusTrap from "../../hooks/useFocusTrap";
 
 interface Shortcut {
   keys: string;
@@ -16,7 +17,8 @@ export default function ShortcutCheatsheet() {
   const [open, setOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useFocusTrap(open, () => setOpen(false));
+  const prevFocused = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     function handleGlobalKey(e: KeyboardEvent) {
@@ -32,32 +34,12 @@ export default function ShortcutCheatsheet() {
   }, []);
 
   useEffect(() => {
-    if (!open) return;
-    const prevFocused = document.activeElement as HTMLElement;
-    inputRef.current?.focus();
-
-    const trap = (e: KeyboardEvent) => {
-      if (e.key !== "Tab") return;
-      const focusable = overlayRef.current?.querySelectorAll<HTMLElement>(
-        'input, button, [href], select, textarea, [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusable || focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener("keydown", trap);
-    return () => {
-      document.removeEventListener("keydown", trap);
-      prevFocused?.focus();
-    };
+    if (open) {
+      prevFocused.current = document.activeElement as HTMLElement;
+      inputRef.current?.focus();
+    } else if (prevFocused.current) {
+      prevFocused.current.focus();
+    }
   }, [open]);
 
   const shortcuts = SHORTCUTS.filter(
@@ -74,6 +56,7 @@ export default function ShortcutCheatsheet() {
       aria-modal="true"
       className="shortcut-cheatsheet-overlay"
       ref={overlayRef}
+      tabIndex={-1}
     >
       <div className="shortcut-cheatsheet">
         <button onClick={() => setOpen(false)} aria-label="Close">

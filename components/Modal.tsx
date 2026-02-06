@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import useFocusTrap from "../hooks/useFocusTrap";
 
 interface ModalProps {
   /** Controls whether the modal is visible */
@@ -34,7 +35,7 @@ export default function Modal({
   tooltip,
   tooltipId = id + "-tooltip",
 }: ModalProps) {
-  const dialogRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useFocusTrap(isOpen, onClose);
   const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -43,52 +44,12 @@ export default function Modal({
     // Remember the element that triggered the modal
     triggerRef.current = document.activeElement as HTMLElement;
 
-    const dialogNode = dialogRef.current;
-    if (!dialogNode) return;
-
     // Optionally wire tooltip to the trigger
     if (tooltip && triggerRef.current) {
       triggerRef.current.setAttribute("aria-describedby", tooltipId);
     }
 
-    // Collect focusable elements for trapping
-    const focusableSelectors = [
-      "a[href]",
-      "area[href]",
-      "input:not([disabled])",
-      "select:not([disabled])",
-      "textarea:not([disabled])",
-      "button:not([disabled])",
-      "iframe",
-      '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]',
-    ];
-    const focusable = Array.from(
-      dialogNode.querySelectorAll<HTMLElement>(focusableSelectors.join(",")),
-    );
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    function trapFocus(e: KeyboardEvent) {
-      if (e.key === "Tab") {
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          (last || first)?.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          (first || last)?.focus();
-        }
-      } else if (e.key === "Escape") {
-        onClose();
-      }
-    }
-
-    dialogNode.addEventListener("keydown", trapFocus);
-    first?.focus();
-
     return () => {
-      dialogNode.removeEventListener("keydown", trapFocus);
-
       // Clean up tooltip wiring
       if (tooltip && triggerRef.current) {
         triggerRef.current.removeAttribute("aria-describedby");
@@ -97,7 +58,7 @@ export default function Modal({
       // Restore focus to the trigger
       triggerRef.current?.focus();
     };
-  }, [isOpen, onClose, tooltip, tooltipId]);
+  }, [isOpen, tooltip, tooltipId]);
 
   if (!isOpen) return null;
 
@@ -109,6 +70,7 @@ export default function Modal({
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
       ref={dialogRef}
+      tabIndex={-1}
     >
       {tooltip && (
         <div role="tooltip" id={tooltipId}>

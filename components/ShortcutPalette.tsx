@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import useFocusTrap from '../hooks/useFocusTrap';
 
 interface Shortcut {
   keys: string;
@@ -18,6 +19,7 @@ const shortcuts: Shortcut[] = [
  */
 export default function ShortcutPalette(): JSX.Element | null {
   const [open, setOpen] = useState(false);
+  const paletteRef = useFocusTrap(open, () => setOpen(false));
 
   useEffect(() => {
     function handler(e: KeyboardEvent) {
@@ -43,7 +45,13 @@ export default function ShortcutPalette(): JSX.Element | null {
   if (!open) return null;
 
   return (
-    <div className="shortcut-palette" role="dialog" aria-modal="true">
+    <div
+      className="shortcut-palette"
+      role="dialog"
+      aria-modal="true"
+      ref={paletteRef}
+      tabIndex={-1}
+    >
       <div className="shortcut-palette__content">
         <h2>Keyboard Shortcuts</h2>
         <ul>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useFocusTrap from "../../hooks/useFocusTrap";
 import { useNavigate } from "react-router-dom";
 
 interface Command {
@@ -25,6 +26,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const [query, setQuery] = useState("");
+  const overlayRef = useFocusTrap(visible, () => setVisible(false));
   const navigate = useNavigate();
 
   const commands: Command[] = [
@@ -70,7 +72,13 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
   if (!visible) return null;
 
   return (
-    <div className="command-palette-overlay" role="dialog" aria-modal="true">
+    <div
+      className="command-palette-overlay"
+      role="dialog"
+      aria-modal="true"
+      ref={overlayRef}
+      tabIndex={-1}
+    >
       <div className="command-palette">
         <input
           autoFocus
