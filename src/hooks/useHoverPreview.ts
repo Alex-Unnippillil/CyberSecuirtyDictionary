@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const DEFAULT_DELAY = 500;
 
@@ -17,6 +17,15 @@ export default function useHoverPreview<T extends HTMLElement>(
   hide: () => void,
 ) {
   const timer = useRef<number>();
+
+  useEffect(
+    () => () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+    },
+    [],
+  );
 
   const handleEnter = (e: React.MouseEvent<T>) => {
     if (isTouch) return;

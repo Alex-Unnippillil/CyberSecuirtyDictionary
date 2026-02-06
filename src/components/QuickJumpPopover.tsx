@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 
 interface Heading {
@@ -19,6 +19,7 @@ function findFirstInteractive(root: HTMLElement): HTMLElement | null {
 const QuickJumpPopover: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [headings, setHeadings] = useState<Heading[]>([]);
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
     const nodes = Array.from(
@@ -45,10 +46,22 @@ const QuickJumpPopover: React.FC = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
+  useEffect(
+    () => () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    },
+    [],
+  );
+
   const jumpTo = (heading: Heading) => {
     setOpen(false);
     heading.element.scrollIntoView({ behavior: "smooth", block: "start" });
-    setTimeout(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = window.setTimeout(() => {
       const target =
         findFirstInteractive(heading.element) ||
         (heading.element.nextElementSibling
