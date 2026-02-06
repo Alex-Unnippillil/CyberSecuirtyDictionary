@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import copyToClipboard from "../../lib/copyToClipboard";
 
 /**
  * ShareButton copies the current page's canonical URL to the clipboard
@@ -14,7 +15,7 @@ const ShareButton: React.FC = () => {
     const url = canonical?.href || window.location.href;
 
     try {
-      await navigator.clipboard.writeText(url);
+      await copyToClipboard(url);
       setVisible(true);
       setTimeout(() => setVisible(false), 2000);
     } catch (err) {

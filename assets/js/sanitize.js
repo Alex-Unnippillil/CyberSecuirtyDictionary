@@ -3,6 +3,28 @@ const originalPre = document.getElementById('original');
 const sanitizedPre = document.getElementById('sanitized');
 const copyBtn = document.getElementById('copy-clean');
 
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.top = '0';
+    textarea.style.left = '0';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    const successful = document.execCommand('copy');
+    document.body.removeChild(textarea);
+    if (!successful) {
+      throw err;
+    }
+  }
+}
+
 function stripHidden(text) {
   // Remove control characters except tab, newline, and carriage return
   return text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
@@ -36,5 +58,5 @@ textarea.addEventListener('paste', (e) => {
 });
 
 copyBtn.addEventListener('click', () => {
-  navigator.clipboard.writeText(sanitizedPre.textContent);
+  copyText(sanitizedPre.textContent);
 });
