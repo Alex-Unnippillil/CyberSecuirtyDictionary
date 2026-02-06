@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
 import data from "../../../terms.json";
+import {
+  parseQuery,
+  searchQuerySchema,
+} from "../../../src/utils/queryParser";
 
 interface Term {
   term: string;
@@ -40,14 +44,16 @@ function levenshtein(a: string, b: string): number {
 }
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
+  const parsed = parseQuery(request.url, searchQuerySchema);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Invalid query parameters" },
+      { status: 400 }
+    );
+  }
+  const { q: query } = parsed.data;
 
   const terms: Term[] = (data as any).terms || [];
-
-  if (!query) {
-    return NextResponse.json({ results: [], suggestions: [] } as SearchResponse);
-  }
 
   const results = terms.filter(
     (t) =>
