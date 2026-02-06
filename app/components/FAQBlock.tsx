@@ -1,4 +1,5 @@
 import React from "react";
+import sanitize from "../../src/utils/sanitize";
 
 interface FAQItem {
   question: string;
@@ -23,6 +24,8 @@ export function FAQBlock({ items }: FAQBlockProps) {
     })),
   };
 
+  const jsonLdString = sanitize(JSON.stringify(jsonLd));
+
   return (
     <section>
       <h2>FAQ</h2>
@@ -34,7 +37,7 @@ export function FAQBlock({ items }: FAQBlockProps) {
       ))}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString }}
       />
     </section>
   );

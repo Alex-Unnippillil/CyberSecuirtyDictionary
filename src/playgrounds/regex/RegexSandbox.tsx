@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import sanitize from "../../utils/sanitize";
 
 const FLAG_OPTIONS = ["g", "i", "m", "s", "u", "y"] as const;
 type Flag = (typeof FLAG_OPTIONS)[number];
@@ -110,7 +111,9 @@ export default function RegexSandbox() {
       <div>
         {results.map((res, idx) => (
           <div key={idx} style={{ color: res.match ? "inherit" : "red" }}>
-            <div dangerouslySetInnerHTML={{ __html: res.highlighted }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: sanitize(res.highlighted) }}
+            />
             {!res.match && res.error && <small>{res.error}</small>}
           </div>
         ))}
