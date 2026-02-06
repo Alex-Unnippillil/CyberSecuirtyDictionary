@@ -1,7 +1,7 @@
 require("ts-node/register");
 const assert = require("assert").strict;
 const useCopyFormats =
-  require("../src/features/selection/useCopyFormats").default;
+  require("../archive/selection/useCopyFormats").default;
 
 const build = useCopyFormats();
 const text = "Example text";
