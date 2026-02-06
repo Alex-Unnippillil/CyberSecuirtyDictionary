@@ -1,6 +1,9 @@
 'use client';
 
-import { useState, FormEvent, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { PersonalTerm, savePersonalTerm } from '../lib/personalTerms';
 
 interface PersonalTermFormProps {
@@ -8,79 +11,85 @@ interface PersonalTermFormProps {
   onSave?: (term: PersonalTerm) => void;
 }
 
+const schema = z.object({
+  slug: z.string().min(1, 'Slug is required'),
+  definition: z.string().min(1, 'Definition is required'),
+  tags: z.string().optional(),
+  source: z.string().optional(),
+});
+
+type FormValues = z.infer<typeof schema>;
+
 export default function PersonalTermForm({ initial, onSave }: PersonalTermFormProps) {
-  const [slug, setSlug] = useState(initial?.slug || '');
-  const [definition, setDefinition] = useState(initial?.definition || '');
-  const [tags, setTags] = useState(initial?.tags.join(', ') || '');
-  const [source, setSource] = useState(initial?.source || '');
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      slug: initial?.slug ?? '',
+      definition: initial?.definition ?? '',
+      tags: initial?.tags.join(', ') ?? '',
+      source: initial?.source ?? '',
+    },
+  });
 
   useEffect(() => {
     if (initial) {
-      setSlug(initial.slug);
-      setDefinition(initial.definition);
-      setTags(initial.tags.join(', '));
-      setSource(initial.source);
+      reset({
+        slug: initial.slug,
+        definition: initial.definition,
+        tags: initial.tags.join(', '),
+        source: initial.source ?? '',
+      });
     }
-  }, [initial]);
+  }, [initial, reset]);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (values: FormValues) => {
     const term: PersonalTerm = {
-      slug,
-      definition,
-      tags: tags.split(',').map(t => t.trim()).filter(Boolean),
-      source,
+      slug: values.slug,
+      definition: values.definition,
+      tags: values.tags
+        ? values.tags.split(',').map((t) => t.trim()).filter(Boolean)
+        : [],
+      source: values.source || '',
     };
     await savePersonalTerm(term);
     onSave?.(term);
-    setSlug('');
-    setDefinition('');
-    setTags('');
-    setSource('');
+    reset({ slug: '', definition: '', tags: '', source: '' });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>
         <label>
           Slug
-          <input
-            type="text"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-            required
-          />
+          <input type="text" {...register('slug')} />
         </label>
+        {errors.slug && <p>{errors.slug.message}</p>}
       </div>
       <div>
         <label>
           Definition
-          <textarea
-            value={definition}
-            onChange={(e) => setDefinition(e.target.value)}
-            required
-          />
+          <textarea {...register('definition')} />
         </label>
+        {errors.definition && <p>{errors.definition.message}</p>}
       </div>
       <div>
         <label>
           Tags (comma separated)
-          <input
-            type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-          />
+          <input type="text" {...register('tags')} />
         </label>
+        {errors.tags && <p>{errors.tags.message}</p>}
       </div>
       <div>
         <label>
           Source
-          <input
-            type="text"
-            value={source}
-            onChange={(e) => setSource(e.target.value)}
-          />
+          <input type="text" {...register('source')} />
         </label>
+        {errors.source && <p>{errors.source.message}</p>}
       </div>
       <button type="submit">Save</button>
     </form>
