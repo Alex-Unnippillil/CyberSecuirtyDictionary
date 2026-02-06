@@ -1,7 +1,5 @@
-require("ts-node/register");
-const assert = require("assert").strict;
-const useCopyFormats =
-  require("../src/features/selection/useCopyFormats").default;
+import { strict as assert } from 'node:assert';
+import useCopyFormats from '../src/features/selection/useCopyFormats.ts';
 
 const build = useCopyFormats();
 const text = "Example text";

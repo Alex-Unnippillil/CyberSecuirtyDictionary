@@ -1,6 +1,10 @@
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
+import http from 'node:http';
+import path from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // In-memory token buckets keyed by IP
 const buckets = new Map();
