@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import MobileTocButton from "../components/MobileTocButton";
 import { Inter } from "next/font/google";
 import useFontHinting from "../hooks/useFontHinting";
+import useScrollRestoration from "../src/hooks/useScrollRestoration";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   useFontHinting();
+  useScrollRestoration();
   return (
     <html lang="en" className={inter.className}>
       <body>
