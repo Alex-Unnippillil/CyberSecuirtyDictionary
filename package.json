@@ -23,6 +23,7 @@
     "undici-types": "^7.15.0"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.1",
     "framer-motion": "^12.23.12",
     "hammerjs": "^2.0.8",
     "idb": "^7.1.1",

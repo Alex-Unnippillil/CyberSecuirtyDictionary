@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
 
 interface PronunciationPlayerProps {
   /**
@@ -45,7 +46,11 @@ export const PronunciationPlayer: React.FC<PronunciationPlayerProps> = ({
       {sources.map((src, idx) => (
         <span key={idx} className="pronunciation-source">
           <button type="button" onClick={() => toggle(idx)}>
-            {playing[idx] ? "⏸" : "▶"}
+            {playing[idx] ? (
+              <PauseIcon className="h-4 w-4" />
+            ) : (
+              <PlayIcon className="h-4 w-4" />
+            )}
           </button>
           <audio ref={(el) => (audioRefs.current[idx] = el)} src={src} />
         </span>
