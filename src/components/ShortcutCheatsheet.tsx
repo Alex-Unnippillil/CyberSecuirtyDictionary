@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { startGuidedTour } from "../features/tour/GuidedTour";
+import useHotkeys from "../hooks/useHotkeys";
 
 interface Shortcut {
   keys: string;
@@ -18,18 +19,18 @@ export default function ShortcutCheatsheet() {
   const inputRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleGlobalKey(e: KeyboardEvent) {
-      if (e.key === "?" && e.shiftKey) {
+  const hotkeys = useMemo(
+    () => ({
+      "shift+?": (e: KeyboardEvent) => {
         e.preventDefault();
         setOpen(true);
-      } else if (e.key === "Escape") {
-        setOpen(false);
-      }
-    }
-    window.addEventListener("keydown", handleGlobalKey);
-    return () => window.removeEventListener("keydown", handleGlobalKey);
-  }, []);
+      },
+      escape: () => setOpen(false),
+    }),
+    [],
+  );
+
+  useHotkeys("shortcut-cheatsheet", hotkeys);
 
   useEffect(() => {
     if (!open) return;
@@ -86,7 +87,12 @@ export default function ShortcutCheatsheet() {
           onChange={(e) => setFilter(e.target.value)}
           ref={inputRef}
         />
-        <button onClick={() => { setOpen(false); startGuidedTour(); }}>
+        <button
+          onClick={() => {
+            setOpen(false);
+            startGuidedTour();
+          }}
+        >
           Replay tour
         </button>
         <ul>

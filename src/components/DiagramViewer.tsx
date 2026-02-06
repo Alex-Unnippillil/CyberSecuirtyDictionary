@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Hammer from "hammerjs";
 import Image from "next/image";
+import useHotkeys from "../hooks/useHotkeys";
 
 interface DiagramPin {
   /**
@@ -85,41 +86,22 @@ const DiagramViewer: React.FC<DiagramViewerProps> = ({
     };
   }, []);
 
-  // Keyboard controls for zoom/pan and exit
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      switch (e.key) {
-        case "+":
-        case "=":
-          setScale((s) => clamp(s + SCALE_STEP, MIN_SCALE, MAX_SCALE));
-          break;
-        case "-":
-        case "_":
-          setScale((s) => clamp(s - SCALE_STEP, MIN_SCALE, MAX_SCALE));
-          break;
-        case "ArrowUp":
-          setPosition((p) => ({ ...p, y: p.y + PAN_STEP }));
-          break;
-        case "ArrowDown":
-          setPosition((p) => ({ ...p, y: p.y - PAN_STEP }));
-          break;
-        case "ArrowLeft":
-          setPosition((p) => ({ ...p, x: p.x + PAN_STEP }));
-          break;
-        case "ArrowRight":
-          setPosition((p) => ({ ...p, x: p.x - PAN_STEP }));
-          break;
-        case "Escape":
-          onClose();
-          break;
-        default:
-          return;
-      }
-    };
+  const hotkeys = useMemo(
+    () => ({
+      "+": () => setScale((s) => clamp(s + SCALE_STEP, MIN_SCALE, MAX_SCALE)),
+      "=": () => setScale((s) => clamp(s + SCALE_STEP, MIN_SCALE, MAX_SCALE)),
+      "-": () => setScale((s) => clamp(s - SCALE_STEP, MIN_SCALE, MAX_SCALE)),
+      _: () => setScale((s) => clamp(s - SCALE_STEP, MIN_SCALE, MAX_SCALE)),
+      arrowup: () => setPosition((p) => ({ ...p, y: p.y + PAN_STEP })),
+      arrowdown: () => setPosition((p) => ({ ...p, y: p.y - PAN_STEP })),
+      arrowleft: () => setPosition((p) => ({ ...p, x: p.x + PAN_STEP })),
+      arrowright: () => setPosition((p) => ({ ...p, x: p.x - PAN_STEP })),
+      escape: () => onClose(),
+    }),
+    [onClose],
+  );
 
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [onClose]);
+  useHotkeys("diagram-viewer", hotkeys);
 
   const transform = `translate(${position.x}px, ${position.y}px) scale(${scale})`;
 

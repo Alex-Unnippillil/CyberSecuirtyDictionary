@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import useHotkeys from "../src/hooks/useHotkeys";
 
 interface ShortcutManagerProps {
   /** The term this manager controls a shortcut for */
@@ -31,29 +32,33 @@ function saveHotkeys(hotkeys: TermHotkeys) {
  * mappings persist in `localStorage`. Conflicts with existing shortcuts are
  * detected and can be resolved with one click.
  */
-export default function ShortcutManager({ term, onTrigger }: ShortcutManagerProps) {
+export default function ShortcutManager({
+  term,
+  onTrigger,
+}: ShortcutManagerProps) {
   const [hotkeys, setHotkeys] = useState<TermHotkeys>(() => loadHotkeys());
   const [currentKey, setCurrentKey] = useState(hotkeys[term] || "");
-  const [conflict, setConflict] = useState<{ key: string; term: string } | null>(
-    null,
-  );
+  const [conflict, setConflict] = useState<{
+    key: string;
+    term: string;
+  } | null>(null);
 
   useEffect(() => {
     saveHotkeys(hotkeys);
   }, [hotkeys]);
 
-  useEffect(() => {
-    function handler(e: KeyboardEvent) {
-      const key = e.key;
-      const match = Object.entries(hotkeys).find(([, k]) => k === key);
-      if (match) {
+  const bindings = useMemo(() => {
+    const map: Record<string, (e: KeyboardEvent) => void> = {};
+    for (const [term, key] of Object.entries(hotkeys)) {
+      map[key.toLowerCase()] = (e: KeyboardEvent) => {
         e.preventDefault();
-        onTrigger?.(match[0]);
-      }
+        onTrigger?.(term);
+      };
     }
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
+    return map;
   }, [hotkeys, onTrigger]);
+
+  useHotkeys("shortcut-manager", bindings);
 
   const assignKey = (key: string) => {
     const conflictEntry = Object.entries(hotkeys).find(
@@ -119,4 +124,3 @@ export default function ShortcutManager({ term, onTrigger }: ShortcutManagerProp
     </div>
   );
 }
-

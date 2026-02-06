@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useHotkeys from "../hooks/useHotkeys";
 
 interface Command {
   label: string;
@@ -46,19 +47,25 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
     },
   ];
 
-  useEffect(() => {
-    const listener = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+  const hotkeys = useMemo(
+    () => ({
+      "ctrl+k": (e: KeyboardEvent) => {
         e.preventDefault();
         setVisible((v) => !v);
-      }
-    };
-    window.addEventListener("keydown", listener);
-    return () => window.removeEventListener("keydown", listener);
-  }, []);
+      },
+      "meta+k": (e: KeyboardEvent) => {
+        e.preventDefault();
+        setVisible((v) => !v);
+      },
+      escape: () => setVisible(false),
+    }),
+    [],
+  );
+
+  useHotkeys("command-palette", hotkeys);
 
   const filtered = commands.filter((c) =>
-    c.label.toLowerCase().includes(query.toLowerCase())
+    c.label.toLowerCase().includes(query.toLowerCase()),
   );
 
   const execute = (action: () => void) => {

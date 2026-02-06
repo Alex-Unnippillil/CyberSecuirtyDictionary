@@ -4,7 +4,7 @@
   "description": "https://alex-unnippillil.github.io/CyberSecuirtyDictionary/",
   "main": "script.js",
   "scripts": {
-    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js"
+    "test": "html-validate index.html search.html diagnostics.html import.html && node diagnostics.test.js && node tests/useCopyFormats.test.js && TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' node -r ts-node/register/transpile-only tests/useHotkeys.test.ts"
   },
   "keywords": [],
   "author": "",

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ReactDOM from "react-dom";
+import useHotkeys from "../hooks/useHotkeys";
 
 interface Heading {
   id: string;
@@ -32,18 +33,18 @@ const QuickJumpPopover: React.FC = () => {
     setHeadings(list);
   }, []);
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.altKey && e.shiftKey && e.key.toLowerCase() === "j") {
+  const hotkeys = useMemo(
+    () => ({
+      "alt+shift+j": (e: KeyboardEvent) => {
         e.preventDefault();
         setOpen((o) => !o);
-      } else if (open && e.key === "Escape") {
-        setOpen(false);
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+      },
+      escape: () => setOpen(false),
+    }),
+    [],
+  );
+
+  useHotkeys("quick-jump", hotkeys);
 
   const jumpTo = (heading: Heading) => {
     setOpen(false);
