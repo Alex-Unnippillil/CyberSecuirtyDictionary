@@ -3,6 +3,7 @@ import path from 'node:path';
 import { notFound } from 'next/navigation';
 import matter from 'gray-matter';
 import TermPage from '@/components/term/TermPage';
+import { mdxSchema } from '@/lib/mdxSchema';
 
 interface PageProps {
   params: { slug: string };
@@ -17,6 +18,7 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
   const { content, data } = matter(file!);
+  mdxSchema.parse(data);
   return <TermPage title={data.title ?? params.slug} body={content} sources={data.sources} />;
 }
 
