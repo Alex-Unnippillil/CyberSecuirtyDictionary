@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type Term = {
   term?: string;
@@ -11,7 +11,10 @@ type Term = {
 const RandomTerm: React.FC = () => {
   const [terms, setTerms] = useState<Term[]>([]);
 
+  const hasFetchedRef = useRef(false);
   useEffect(() => {
+    if (hasFetchedRef.current) return;
+    hasFetchedRef.current = true;
     fetch('/terms.json')
       .then(res => res.json())
       .then(data => {

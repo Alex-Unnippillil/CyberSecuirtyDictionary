@@ -1,7 +1,7 @@
 'use client';
 
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { searchPersonalTerms, PersonalTerm } from '../../lib/personalTerms';
@@ -23,8 +23,10 @@ export default function SearchPage() {
   const [data, setData] = useState<SearchResponse | null>(null);
   const [personal, setPersonal] = useState<PersonalTerm[]>([]);
 
+  const prevQueryRef = useRef<string | null>(null);
   useEffect(() => {
-    if (!query) return;
+    if (!query || prevQueryRef.current === query) return;
+    prevQueryRef.current = query;
     fetch(`/api/search?q=${encodeURIComponent(query)}`)
       .then((res) => res.json())
       .then(setData)

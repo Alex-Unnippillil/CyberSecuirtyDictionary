@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Term {
   term: string;
@@ -14,7 +14,10 @@ export default function AdminPanel() {
   const [editing, setEditing] = useState<string | null>(null);
   const [editingDefinition, setEditingDefinition] = useState("");
 
+  const hasFetchedRef = useRef(false);
   useEffect(() => {
+    if (hasFetchedRef.current) return;
+    hasFetchedRef.current = true;
     fetchTerms();
   }, []);
 
