@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import safeUrl from "../utils/safeUrl";
 
 interface SearchResult {
   term: string;
@@ -50,7 +51,11 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({
       setResults([]);
       return;
     }
-    fetch(`/api/search?q=${encodeURIComponent(query)}&fuzziness=${fuzziness}`)
+    fetch(
+      safeUrl(
+        `/api/search?q=${encodeURIComponent(query)}&fuzziness=${fuzziness}`,
+      ).toString(),
+    )
       .then((res) => (res.ok ? res.json() : { results: [] }))
       .then((data) => setResults(data.results || []))
       .catch(() => setResults([]));
