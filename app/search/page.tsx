@@ -25,7 +25,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     if (!query) return;
-    fetch(`/api/search?q=${encodeURIComponent(query)}`)
+    fetch(`/api/search?q=${encodeURIComponent(query)}&limit=50&offset=0`)
       .then((res) => res.json())
       .then(setData)
       .catch(() => setData({ results: [], suggestions: [] }));

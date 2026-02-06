@@ -42,6 +42,10 @@ function levenshtein(a: string, b: string): number {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
+  const rawLimit = parseInt(searchParams.get("limit") ?? "50", 10);
+  const rawOffset = parseInt(searchParams.get("offset") ?? "0", 10);
+  const limit = Math.min(isNaN(rawLimit) ? 50 : rawLimit, 100);
+  const offset = Math.max(isNaN(rawOffset) ? 0 : rawOffset, 0);
 
   const terms: Term[] = (data as any).terms || [];
 
@@ -54,6 +58,7 @@ export async function GET(request: Request) {
       t.term.toLowerCase().includes(query) ||
       t.definition.toLowerCase().includes(query)
   );
+  let page = results.slice(offset, offset + limit);
   const exact = terms.find((t) => t.term.toLowerCase() === query);
 
   let suggestions: string[] = [];
@@ -65,5 +70,13 @@ export async function GET(request: Request) {
       .map((s) => s.term);
   }
 
-  return NextResponse.json({ results, suggestions } as SearchResponse);
+  const MAX_BYTES = 1024 * 1024; // 1MB
+  let payload: SearchResponse = { results: page, suggestions };
+  let body = JSON.stringify(payload);
+  while (Buffer.byteLength(body) > MAX_BYTES && payload.results.length > 0) {
+    payload.results = payload.results.slice(0, -1);
+    body = JSON.stringify(payload);
+  }
+
+  return NextResponse.json(payload);
 }
