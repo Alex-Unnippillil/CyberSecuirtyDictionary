@@ -67,7 +67,7 @@ export default function FocusSpotlight() {
   };
 
   if (!reducedMotion) {
-    baseStyle.transition = 'all 0.2s ease';
+    baseStyle.transition = 'opacity 0.2s ease';
   }
 
   return (

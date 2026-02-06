@@ -52,7 +52,7 @@ export const MediaCaption: React.FC<MediaCaptionProps> = ({
   return (
     <div
       className="media-caption"
-      style={{ height, overflow: "hidden", transition: "height 0.3s ease" }}
+      style={{ height, overflow: "hidden" }}
     >
       <div ref={contentRef}>{children}</div>
       {needsToggle && (
