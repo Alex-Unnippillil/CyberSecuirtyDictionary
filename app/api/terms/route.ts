@@ -21,28 +21,38 @@ async function writeTerms(terms: Term[]): Promise<void> {
 }
 
 export async function GET() {
-  const terms = await readTerms();
-  return NextResponse.json(terms);
+  try {
+    const terms = await readTerms();
+    return NextResponse.json(terms);
+  } catch (error) {
+    console.error('Failed to load terms', error);
+    return NextResponse.json({ error: 'Failed to load terms' }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
-  const { term, definition } = await request.json();
-  if (!term || !definition) {
-    return NextResponse.json(
-      { error: "term and definition are required" },
-      { status: 400 }
-    );
-  }
+  try {
+    const { term, definition } = await request.json();
+    if (!term || !definition) {
+      return NextResponse.json(
+        { error: 'term and definition are required' },
+        { status: 400 }
+      );
+    }
 
-  const terms = await readTerms();
-  if (terms.some((t) => t.term === term)) {
-    return NextResponse.json(
-      { error: "term already exists" },
-      { status: 409 }
-    );
-  }
+    const terms = await readTerms();
+    if (terms.some((t) => t.term === term)) {
+      return NextResponse.json(
+        { error: 'term already exists' },
+        { status: 409 }
+      );
+    }
 
-  terms.push({ term, definition });
-  await writeTerms(terms);
-  return NextResponse.json({ term, definition }, { status: 201 });
+    terms.push({ term, definition });
+    await writeTerms(terms);
+    return NextResponse.json({ term, definition }, { status: 201 });
+  } catch (error) {
+    console.error('Failed to create term', error);
+    return NextResponse.json({ error: 'Failed to create term' }, { status: 500 });
+  }
 }

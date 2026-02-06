@@ -40,30 +40,35 @@ function levenshtein(a: string, b: string): number {
 }
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const query = searchParams.get("q")?.trim().toLowerCase() ?? "";
+  try {
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('q')?.trim().toLowerCase() ?? '';
 
-  const terms: Term[] = (data as any).terms || [];
+    const terms: Term[] = (data as any).terms || [];
 
-  if (!query) {
-    return NextResponse.json({ results: [], suggestions: [] } as SearchResponse);
+    if (!query) {
+      return NextResponse.json({ results: [], suggestions: [] } as SearchResponse);
+    }
+
+    const results = terms.filter(
+      (t) =>
+        t.term.toLowerCase().includes(query) ||
+        t.definition.toLowerCase().includes(query)
+    );
+    const exact = terms.find((t) => t.term.toLowerCase() === query);
+
+    let suggestions: string[] = [];
+    if (!exact) {
+      suggestions = terms
+        .map((t) => ({ term: t.term, distance: levenshtein(query, t.term.toLowerCase()) }))
+        .sort((a, b) => a.distance - b.distance)
+        .slice(0, 5)
+        .map((s) => s.term);
+    }
+
+    return NextResponse.json({ results, suggestions } as SearchResponse);
+  } catch (error) {
+    console.error('Search failed', error);
+    return NextResponse.json({ error: 'Search failed' }, { status: 500 });
   }
-
-  const results = terms.filter(
-    (t) =>
-      t.term.toLowerCase().includes(query) ||
-      t.definition.toLowerCase().includes(query)
-  );
-  const exact = terms.find((t) => t.term.toLowerCase() === query);
-
-  let suggestions: string[] = [];
-  if (!exact) {
-    suggestions = terms
-      .map((t) => ({ term: t.term, distance: levenshtein(query, t.term.toLowerCase()) }))
-      .sort((a, b) => a.distance - b.distance)
-      .slice(0, 5)
-      .map((s) => s.term);
-  }
-
-  return NextResponse.json({ results, suggestions } as SearchResponse);
 }

@@ -24,27 +24,37 @@ export async function PUT(
   request: Request,
   { params }: { params: { term: string } }
 ) {
-  const { definition } = await request.json();
-  const terms = await readTerms();
-  const idx = terms.findIndex((t) => t.term === params.term);
-  if (idx === -1) {
-    return NextResponse.json({ error: "not found" }, { status: 404 });
+  try {
+    const { definition } = await request.json();
+    const terms = await readTerms();
+    const idx = terms.findIndex((t) => t.term === params.term);
+    if (idx === -1) {
+      return NextResponse.json({ error: 'not found' }, { status: 404 });
+    }
+    terms[idx].definition = definition;
+    await writeTerms(terms);
+    return NextResponse.json(terms[idx]);
+  } catch (error) {
+    console.error('Failed to update term', error);
+    return NextResponse.json({ error: 'Failed to update term' }, { status: 500 });
   }
-  terms[idx].definition = definition;
-  await writeTerms(terms);
-  return NextResponse.json(terms[idx]);
 }
 
 export async function DELETE(
   request: Request,
   { params }: { params: { term: string } }
 ) {
-  const terms = await readTerms();
-  const idx = terms.findIndex((t) => t.term === params.term);
-  if (idx === -1) {
-    return NextResponse.json({ error: "not found" }, { status: 404 });
+  try {
+    const terms = await readTerms();
+    const idx = terms.findIndex((t) => t.term === params.term);
+    if (idx === -1) {
+      return NextResponse.json({ error: 'not found' }, { status: 404 });
+    }
+    const removed = terms.splice(idx, 1)[0];
+    await writeTerms(terms);
+    return NextResponse.json(removed);
+  } catch (error) {
+    console.error('Failed to delete term', error);
+    return NextResponse.json({ error: 'Failed to delete term' }, { status: 500 });
   }
-  const removed = terms.splice(idx, 1)[0];
-  await writeTerms(terms);
-  return NextResponse.json(removed);
 }
