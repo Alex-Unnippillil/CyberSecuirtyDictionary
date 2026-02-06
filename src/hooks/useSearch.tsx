@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import useOffline from "./useOffline";
 
 interface SearchResult {
   term: string;
@@ -34,6 +35,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({
     const parsed = parseInt(raw ?? "0", 10);
     return Number.isNaN(parsed) ? 0 : parsed;
   });
+  const offline = useOffline();
 
   // Persist fuzziness
   useEffect(() => {
@@ -46,7 +48,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Refresh results when query or fuzziness change
   useEffect(() => {
-    if (!query) {
+    if (!query || offline) {
       setResults([]);
       return;
     }
@@ -54,7 +56,7 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({
       .then((res) => (res.ok ? res.json() : { results: [] }))
       .then((data) => setResults(data.results || []))
       .catch(() => setResults([]));
-  }, [query, fuzziness]);
+  }, [query, fuzziness, offline]);
 
   const setFuzziness = useCallback((f: number) => {
     setFuzzinessState(f);

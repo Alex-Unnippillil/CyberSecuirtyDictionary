@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { searchPersonalTerms, PersonalTerm } from "../../lib/personalTerms";
+import useOffline from "../../src/hooks/useOffline";
 
 interface Term {
   term: string;
@@ -17,12 +18,16 @@ export default function SearchInput() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Term[]>([]);
   const [personal, setPersonal] = useState<PersonalTerm[]>([]);
+  const offline = useOffline();
 
-  const handleChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
+    if (offline) {
+      setResults([]);
+      setPersonal([]);
+      return;
+    }
 
     const res = await fetch(`/api/search?q=${encodeURIComponent(value)}`);
     if (res.ok) {
@@ -42,15 +47,24 @@ export default function SearchInput() {
         value={query}
         onChange={handleChange}
         placeholder="Search terms..."
+        disabled={offline}
       />
+      {offline && (
+        <p className="text-red-600 text-sm">Search unavailable offline</p>
+      )}
       <ul>
         {[
-          ...personal.map((p) => ({ term: p.slug, definition: p.definition, personal: true })),
+          ...personal.map((p) => ({
+            term: p.slug,
+            definition: p.definition,
+            personal: true,
+          })),
           ...results.map((r) => ({ ...r, personal: false })),
         ].map((item) => (
           <li key={item.term}>
             <strong>{item.term}</strong>
-            {item.personal && <span className="badge"> Personal</span>}: {item.definition}
+            {item.personal && <span className="badge"> Personal</span>}:{" "}
+            {item.definition}
           </li>
         ))}
       </ul>
