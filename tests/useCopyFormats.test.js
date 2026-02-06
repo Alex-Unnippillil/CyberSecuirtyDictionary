@@ -1,5 +1,6 @@
 require("ts-node/register");
 const assert = require("assert").strict;
+const logger = require("../src/utils/logger");
 const useCopyFormats =
   require("../src/features/selection/useCopyFormats").default;
 
@@ -23,4 +24,4 @@ assert.equal(
   '<blockquote>Example text</blockquote><p><a href="https://example.com/page#heading">Heading</a></p>',
 );
 
-console.log("useCopyFormats tests passed");
+logger.info("useCopyFormats tests passed");

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { JSDOM } = require('jsdom');
+const logger = require('./src/utils/logger');
 
 const html = fs.readFileSync('diagnostics.html', 'utf8');
 const dom = new JSDOM(html, { runScripts: 'dangerously', url: 'https://example.com' });
@@ -35,4 +36,4 @@ if (hiddenRows.length !== 2) {
   process.exit(1);
 }
 
-console.log('Diagnostics render test passed');
+logger.info('Diagnostics render test passed');

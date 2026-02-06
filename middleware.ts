@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import logger from './src/utils/logger';
 
 // Define the allowed origin for CORS
 const allowedOrigin = process.env.ALLOWED_ORIGIN || 'https://alex-unnippillil.github.io';
 
 export function middleware(request: NextRequest) {
-  console.log(`Incoming request: ${request.method} ${request.url}`);
+  logger.info(`Incoming request: ${request.method} ${request.url}`);
   const { pathname } = request.nextUrl;
   const origin = request.headers.get('origin');
 
