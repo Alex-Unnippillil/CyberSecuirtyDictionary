@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { loadBacklinks } from '../utils/backlinks';
+import React from 'react';
+import { loadBacklinks, BacklinkMap } from '../utils/backlinks';
 
 interface Props {
   term: string;
 }
 
-export default function BacklinksPanel({ term }: Props) {
-  const [refs, setRefs] = useState<string[]>([]);
+let cache: BacklinkMap | null = null;
+let promise: Promise<BacklinkMap> | null = null;
+let error: unknown = null;
 
-  useEffect(() => {
-    let cancelled = false;
-    loadBacklinks()
+function useBacklinks(): BacklinkMap {
+  if (cache) return cache;
+  if (error) throw error;
+  if (!promise) {
+    promise = loadBacklinks()
       .then((map) => {
-        if (!cancelled) {
-          setRefs(map[term] || []);
-        }
+        cache = map;
+        return map;
       })
       .catch((err) => {
-        console.error('Failed to load backlinks', err);
+        error = err;
+        throw err;
       });
-    return () => {
-      cancelled = true;
-    };
-  }, [term]);
+  }
+  throw promise;
+}
+
+export default function BacklinksPanel({ term }: Props) {
+  const map = useBacklinks();
+  const refs = map[term] || [];
 
   const openSplitView = (other: string) => {
     const url = `/compare/${encodeURIComponent(other)}-vs-${encodeURIComponent(term)}`;
