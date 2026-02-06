@@ -17,6 +17,12 @@ const securityHeaders = [
   },
 ];
 
+const legacyRedirects = [
+  { source: "/term/:slug*", destination: "/:slug*", permanent: true },
+  { source: "/terms/:slug*", destination: "/:slug*", permanent: true },
+  { source: "/word/:slug*", destination: "/:slug*", permanent: false },
+];
+
 const nextConfig = {
   async headers() {
     return [
@@ -25,6 +31,9 @@ const nextConfig = {
         headers: securityHeaders,
       },
     ];
+  },
+  async redirects() {
+    return legacyRedirects;
   },
 };
 
