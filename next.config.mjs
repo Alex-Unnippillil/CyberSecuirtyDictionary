@@ -17,7 +17,23 @@ const securityHeaders = [
   },
 ];
 
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "demo";
+
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: `/${cloudName}/image/upload/**`,
+      },
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+        pathname: "/s2/favicons",
+      },
+    ],
+  },
   async headers() {
     return [
       {

@@ -5,6 +5,18 @@ const nextConfig = {
   images: {
     loader: "cloudinary",
     path: `https://res.cloudinary.com/${cloudName}/image/upload/`,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: `/${cloudName}/image/upload/**`,
+      },
+      {
+        protocol: "https",
+        hostname: "www.google.com",
+        pathname: "/s2/favicons",
+      },
+    ],
   },
   async headers() {
     const csp = [
