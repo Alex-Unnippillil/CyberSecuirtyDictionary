@@ -1,3 +1,5 @@
+import { apiError, apiOptions } from '../_lib/http';
+import { log } from '../_lib/logger';
 import { streamText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 
@@ -23,7 +25,12 @@ export async function POST(req: Request): Promise<Response> {
     // render tokens incrementally.
     return result.toDataStreamResponse();
   } catch (error) {
-    console.error('Chat streaming failed', error);
-    return new Response('Failed to generate chat response', { status: 500 });
+    log('error', 'Chat streaming failed', { error: error instanceof Error ? error.message : 'unknown' });
+    return apiError('Failed to generate chat response', 500);
   }
+}
+
+
+export function OPTIONS() {
+  return apiOptions();
 }

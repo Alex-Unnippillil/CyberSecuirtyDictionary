@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { apiError, apiJson, apiOptions } from "../../_lib/http";
 import { promises as fs } from "fs";
 import path from "path";
 
@@ -28,11 +28,11 @@ export async function PUT(
   const terms = await readTerms();
   const idx = terms.findIndex((t) => t.term === params.term);
   if (idx === -1) {
-    return NextResponse.json({ error: "not found" }, { status: 404 });
+    return apiError("not found", 404);
   }
   terms[idx].definition = definition;
   await writeTerms(terms);
-  return NextResponse.json(terms[idx]);
+  return apiJson(terms[idx]);
 }
 
 export async function DELETE(
@@ -42,9 +42,14 @@ export async function DELETE(
   const terms = await readTerms();
   const idx = terms.findIndex((t) => t.term === params.term);
   if (idx === -1) {
-    return NextResponse.json({ error: "not found" }, { status: 404 });
+    return apiError("not found", 404);
   }
   const removed = terms.splice(idx, 1)[0];
   await writeTerms(terms);
-  return NextResponse.json(removed);
+  return apiJson(removed);
+}
+
+
+export function OPTIONS() {
+  return apiOptions();
 }

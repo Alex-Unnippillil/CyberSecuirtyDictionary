@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { apiJson, apiOptions } from '../_lib/http';
 import data from "../../../terms.json";
 
 interface Term {
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
   const terms: Term[] = (data as any).terms || [];
 
   if (!query) {
-    return NextResponse.json({ results: [], suggestions: [] } as SearchResponse);
+    return apiJson({ results: [], suggestions: [] } as SearchResponse);
   }
 
   const results = terms.filter(
@@ -65,5 +65,10 @@ export async function GET(request: Request) {
       .map((s) => s.term);
   }
 
-  return NextResponse.json({ results, suggestions } as SearchResponse);
+  return apiJson({ results, suggestions } as SearchResponse);
+}
+
+
+export function OPTIONS() {
+  return apiOptions();
 }

@@ -1,3 +1,5 @@
+import { apiOptions } from '../_lib/http';
+import { log } from '../_lib/logger';
 import { Server } from "socket.io";
 
 let io: Server | undefined;
@@ -7,10 +9,15 @@ export async function GET() {
   if (!io) {
     io = new Server({ path: "/api/socket" });
     io.on("connection", (socket) => {
-      console.log("Client connected", socket.id);
+      log('info', 'Socket client connected', { socketId: socket.id });
     });
   }
 
   // The server is ready; return an empty 200 response.
   return new Response(null, { status: 200 });
+}
+
+
+export function OPTIONS() {
+  return apiOptions();
 }

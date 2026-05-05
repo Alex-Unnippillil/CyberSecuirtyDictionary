@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { apiError, apiJson, apiOptions } from "../_lib/http";
 import { promises as fs } from "fs";
 import path from "path";
 
@@ -22,27 +22,26 @@ async function writeTerms(terms: Term[]): Promise<void> {
 
 export async function GET() {
   const terms = await readTerms();
-  return NextResponse.json(terms);
+  return apiJson(terms);
 }
 
 export async function POST(request: Request) {
   const { term, definition } = await request.json();
   if (!term || !definition) {
-    return NextResponse.json(
-      { error: "term and definition are required" },
-      { status: 400 }
-    );
+    return apiError("term and definition are required", 400);
   }
 
   const terms = await readTerms();
   if (terms.some((t) => t.term === term)) {
-    return NextResponse.json(
-      { error: "term already exists" },
-      { status: 409 }
-    );
+    return apiError("term already exists", 409);
   }
 
   terms.push({ term, definition });
   await writeTerms(terms);
-  return NextResponse.json({ term, definition }, { status: 201 });
+  return apiJson({ term, definition }, 201);
+}
+
+
+export function OPTIONS() {
+  return apiOptions();
 }
