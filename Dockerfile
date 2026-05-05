@@ -1,18 +1,13 @@
-# Use Node 20 LTS base image
 FROM node:20-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Install dependencies defined in package.json
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
-# Copy source files
 COPY . .
+RUN npm run build
 
-# Expose port 3000 for the development server
 EXPOSE 3000
 
-# Run the application
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]
