@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server';
+import { apiError, apiJson, apiOptions } from '../_lib/http';
+import { log } from '../_lib/logger';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -17,10 +18,7 @@ export async function POST(request: Request) {
     const email: string | undefined = body.email?.trim();
 
     if (!message) {
-      return NextResponse.json(
-        { success: false, error: 'Message is required' },
-        { status: 400 }
-      );
+      return apiJson({ success: false, error: 'Message is required' }, 400);
     }
 
     let feedback: Feedback[] = [];
@@ -42,13 +40,15 @@ export async function POST(request: Request) {
     feedback.push(entry);
     await fs.writeFile(feedbackFile, JSON.stringify(feedback, null, 2));
 
-    return NextResponse.json({ success: true });
+    return apiJson({ success: true });
   } catch (error) {
-    console.error('Failed to save feedback', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
+    log('error', 'Failed to save feedback', { error: error instanceof Error ? error.message : 'unknown' });
+    return apiError('Internal server error', 500);
   }
 }
 
+
+
+export function OPTIONS() {
+  return apiOptions();
+}
