@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "checkJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "next/server": ["types/next-server"],
+      "next/image": ["types/next-image"]
+    }
+  },
+  "include": [
+    "app/**/*",
+    "components/**/*",
+    "lib/**/*",
+    "hooks/**/*",
+    "types/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -14,6 +14,14 @@
    npx http-server
    ```
 
+
+## Supported Runtime Matrix
+
+| Runtime mode | Command | Status | Notes |
+|---|---|---|---|
+| Static-only (GitHub Pages) | `npm test` and `npm run build:static` | Supported | Primary deployment target; uses HTML pages and static assets. |
+| Next.js build (`app/`, API routes, server components) | `npm run check:imports` (dependency/import validation) | Best-effort / source-only | The repository includes active Next.js code paths for local development and future migration. Import resolution is enforced in CI, but no production Next build is currently deployed. |
+
 ## Deployment
 
 The project is a static site published with GitHub Pages. After updating content, ensure tests pass and push changes to the default branch. GitHub Pages will rebuild and deploy the site automatically. When changing security contact details, regenerate `.well-known/security.txt` by running:

@@ -19,7 +19,6 @@ export const ExampleSentence: React.FC<ExampleSentenceProps> = ({
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(text);
-      // eslint-disable-next-line no-alert
       alert("Example sentence copied");
     } catch (err) {
       console.error("Failed to copy", err);
