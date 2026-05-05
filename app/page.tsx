@@ -1,10 +1,11 @@
+"use client";
+
 import Head from "next/head";
 import SearchBar from "../components/search/SearchBar";
 import useSocket from "../hooks/useSocket";
 
 export default function Home() {
-  // Establish a Socket.IO connection when the home page mounts.
-  useSocket();
+  const { state, reconnectAttempt } = useSocket();
 
   return (
     <>
@@ -26,6 +27,12 @@ export default function Home() {
       <main>
         <h1>Cyber Security Dictionary</h1>
         <SearchBar />
+        {state !== "connected" ? (
+          <p aria-live="polite">
+            Realtime status: {state}
+            {reconnectAttempt > 0 ? ` (retry ${reconnectAttempt})` : ""}
+          </p>
+        ) : null}
       </main>
     </>
   );
