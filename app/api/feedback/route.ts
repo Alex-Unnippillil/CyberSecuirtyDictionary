@@ -1,54 +1,30 @@
 import { NextResponse } from 'next/server';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import type { NextRequest } from 'next/server';
+import { errorResponse } from '../../../lib/api/errors';
+import { feedbackSchema } from '../../../lib/schemas/api-schemas';
+import { appendAuditLog } from '../../../lib/storage/audit-storage';
+import { addFeedback } from '../../../lib/storage/feedback-storage';
 
-interface Feedback {
-  message: string;
-  email?: string;
-  timestamp: string;
-}
-
-const feedbackFile = path.join(process.cwd(), 'feedback.json');
-
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const message: string | undefined = body.message?.trim();
-    const email: string | undefined = body.email?.trim();
-
-    if (!message) {
-      return NextResponse.json(
-        { success: false, error: 'Message is required' },
-        { status: 400 }
-      );
+    const parsed = feedbackSchema.safeParse(await request.json());
+    if (!parsed.success) {
+      return errorResponse(400, 'VALIDATION_ERROR', 'Invalid feedback payload.', parsed.error.flatten());
     }
 
-    let feedback: Feedback[] = [];
-    try {
-      const existing = await fs.readFile(feedbackFile, 'utf8');
-      feedback = JSON.parse(existing);
-    } catch (err: any) {
-      if (err.code !== 'ENOENT') {
-        throw err;
-      }
-    }
+    const saved = await addFeedback(parsed.data);
+    const actor = request.headers.get('x-actor') || 'anonymous';
 
-    const entry: Feedback = {
-      message,
-      email,
-      timestamp: new Date().toISOString(),
-    };
+    await appendAuditLog({
+      actor,
+      action: 'feedback.create',
+      target: 'feedback',
+      details: { hasEmail: Boolean(parsed.data.email) },
+    });
 
-    feedback.push(entry);
-    await fs.writeFile(feedbackFile, JSON.stringify(feedback, null, 2));
-
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, data: saved });
   } catch (error) {
     console.error('Failed to save feedback', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
+    return errorResponse(500, 'INTERNAL_ERROR', 'Internal server error');
   }
 }
-

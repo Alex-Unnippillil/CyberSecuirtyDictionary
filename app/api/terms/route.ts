@@ -1,48 +1,37 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-
-const dataFile = path.join(process.cwd(), "terms.json");
-
-interface Term {
-  term: string;
-  definition: string;
-}
-
-async function readTerms(): Promise<Term[]> {
-  const data = await fs.readFile(dataFile, "utf8");
-  const parsed = JSON.parse(data);
-  return parsed.terms || [];
-}
-
-async function writeTerms(terms: Term[]): Promise<void> {
-  const data = JSON.stringify({ terms }, null, 2);
-  await fs.writeFile(dataFile, data);
-}
+import { errorResponse } from "../../../lib/api/errors";
+import { termCreateSchema } from "../../../lib/schemas/api-schemas";
+import { appendAuditLog } from "../../../lib/storage/audit-storage";
+import { createTerm, listTerms } from "../../../lib/storage/terms-storage";
+import type { NextRequest } from "next/server";
 
 export async function GET() {
-  const terms = await readTerms();
+  const terms = await listTerms();
   return NextResponse.json(terms);
 }
 
-export async function POST(request: Request) {
-  const { term, definition } = await request.json();
-  if (!term || !definition) {
-    return NextResponse.json(
-      { error: "term and definition are required" },
-      { status: 400 }
-    );
+export async function POST(request: NextRequest) {
+  const parsed = termCreateSchema.safeParse(await request.json());
+  if (!parsed.success) {
+    return errorResponse(400, "VALIDATION_ERROR", "Invalid term payload.", parsed.error.flatten());
   }
 
-  const terms = await readTerms();
-  if (terms.some((t) => t.term === term)) {
-    return NextResponse.json(
-      { error: "term already exists" },
-      { status: 409 }
-    );
-  }
+  try {
+    const created = await createTerm(parsed.data);
+    await appendAuditLog({
+      actor: request.headers.get("x-actor") || "api-key-client",
+      action: "term.create",
+      target: parsed.data.term,
+      details: { version: created.version },
+    });
 
-  terms.push({ term, definition });
-  await writeTerms(terms);
-  return NextResponse.json({ term, definition }, { status: 201 });
+    return NextResponse.json(created, { status: 201 });
+  } catch (error: any) {
+    if (error?.message === "TERM_EXISTS") {
+      return errorResponse(409, "TERM_EXISTS", "A term with this name already exists.");
+    }
+
+    console.error("Failed to create term", error);
+    return errorResponse(500, "INTERNAL_ERROR", "Internal server error");
+  }
 }
