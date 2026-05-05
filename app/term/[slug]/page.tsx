@@ -1,29 +1,21 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
 import { notFound } from 'next/navigation';
-import matter from 'gray-matter';
 import TermPage from '@/components/term/TermPage';
+import { getAllTerms, getTermBySlug } from '@/lib/content/api';
 
 interface PageProps {
   params: { slug: string };
 }
 
 export default async function Page({ params }: PageProps) {
-  const filePath = path.join(process.cwd(), 'terms', `${params.slug}.mdx`);
-  let file: string;
-  try {
-    file = await fs.readFile(filePath, 'utf8');
-  } catch {
+  const term = getTermBySlug(params.slug);
+
+  if (!term) {
     notFound();
   }
-  const { content, data } = matter(file!);
-  return <TermPage title={data.title ?? params.slug} body={content} sources={data.sources} />;
+
+  return <TermPage title={term.title} body={term.body} />;
 }
 
 export async function generateStaticParams() {
-  const dir = path.join(process.cwd(), 'terms');
-  const entries = await fs.readdir(dir, { withFileTypes: true });
-  return entries
-    .filter((e) => e.isFile() && e.name.endsWith('.mdx'))
-    .map((e) => ({ slug: e.name.replace(/\.mdx$/, '') }));
+  return getAllTerms().map((term) => ({ slug: term.slug }));
 }
