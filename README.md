@@ -34,3 +34,20 @@ The project is a static site published with GitHub Pages. After updating content
 
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
 
+
+## Security headers / CSP
+
+Security policy headers for the Next.js runtime are defined in `next.config.mjs`.
+
+- `Strict-Transport-Security` is set to `max-age=63072000; includeSubDomains; preload`.
+- `Referrer-Policy` is set to `no-referrer`.
+- `X-Content-Type-Options` is set to `nosniff`.
+- `Permissions-Policy` disables `geolocation`, `microphone`, and `camera`.
+- The Content Security Policy (CSP) uses:
+  - `default-src 'self'`
+  - `script-src 'self'`
+  - `style-src 'self' 'unsafe-inline'`
+  - `object-src 'none'`
+  - `base-uri 'none'`
+
+Set `CSP_ENFORCE=true` to send CSP as the enforced `Content-Security-Policy` header. If `CSP_ENFORCE` is unset or not `true`, the same policy is sent as `Content-Security-Policy-Report-Only` so contributors can validate policy impact before enforcing it.
