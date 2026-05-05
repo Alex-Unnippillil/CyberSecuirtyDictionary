@@ -2,6 +2,21 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
+const WEB_ROOT = path.resolve(__dirname);
+const ALLOWED_EXTENSIONS = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.mdx': 'text/plain; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.ico': 'image/x-icon'
+};
+
 // In-memory token buckets keyed by IP
 const buckets = new Map();
 const MAX_TOKENS = 100; // max requests per interval
@@ -24,8 +39,7 @@ function rateLimit(req, res) {
 
   if (bucket.tokens < 1) {
     console.log(`Rate limit exceeded for IP ${ip}`);
-    res.writeHead(429, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ error: 'Too Many Requests' }));
+    sendError(res, 429, 'Too Many Requests');
     return false;
   }
 
@@ -33,16 +47,69 @@ function rateLimit(req, res) {
   return true;
 }
 
+function sendError(res, statusCode, message) {
+  res.writeHead(statusCode, { 'Content-Type': 'application/json; charset=utf-8' });
+  res.end(JSON.stringify({ error: message }));
+}
+
+function resolveRequestedPath(urlPath) {
+  const rawPath = String(urlPath || '').split('?')[0].split('#')[0];
+
+  if (!rawPath.startsWith('/')) {
+    return { error: 'Invalid path', statusCode: 400 };
+  }
+
+  let decodedPath;
+  try {
+    decodedPath = decodeURIComponent(rawPath);
+  } catch {
+    return { error: 'Invalid path', statusCode: 400 };
+  }
+
+  if (decodedPath.includes('\0')) {
+    return { error: 'Invalid path', statusCode: 400 };
+  }
+
+  const rawSegments = decodedPath.split('/').filter(Boolean);
+  if (rawSegments.includes('..') || decodedPath.startsWith('//')) {
+    return { error: 'Invalid path', statusCode: 400 };
+  }
+
+  const normalizedPath = path.posix.normalize(decodedPath);
+  const relativePath = normalizedPath === '/' ? 'index.html' : normalizedPath.replace(/^\/+/,'');
+  const resolvedPath = path.resolve(WEB_ROOT, relativePath);
+
+  if (resolvedPath !== WEB_ROOT && !resolvedPath.startsWith(`${WEB_ROOT}${path.sep}`)) {
+    return { error: 'Invalid path', statusCode: 400 };
+  }
+
+  const ext = path.extname(resolvedPath).toLowerCase();
+  const contentType = ALLOWED_EXTENSIONS[ext];
+
+  if (!contentType) {
+    return { error: 'Unsupported file type', statusCode: 403 };
+  }
+
+  return { resolvedPath, contentType };
+}
+
+
 function serveStatic(req, res) {
-  let filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
-  fs.readFile(filePath, (err, data) => {
+  const pathResult = resolveRequestedPath(req.url);
+
+  if (pathResult.error) {
+    sendError(res, pathResult.statusCode, pathResult.error);
+    return;
+  }
+
+  fs.readFile(pathResult.resolvedPath, (err, data) => {
     if (err) {
-      res.writeHead(404);
-      res.end('Not Found');
-    } else {
-      res.writeHead(200);
-      res.end(data);
+      sendError(res, 404, 'Not Found');
+      return;
     }
+
+    res.writeHead(200, { 'Content-Type': pathResult.contentType });
+    res.end(data);
   });
 }
 
@@ -54,6 +121,17 @@ const server = http.createServer((req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = {
+  ALLOWED_EXTENSIONS,
+  WEB_ROOT,
+  rateLimit,
+  resolveRequestedPath,
+  serveStatic,
+  server
+};
