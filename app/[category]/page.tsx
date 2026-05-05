@@ -1,14 +1,5 @@
 import React from "react";
-import fs from "fs";
-import path from "path";
-import yaml from "js-yaml";
-
-interface Term {
-  name: string;
-  slug?: string;
-  definition: string;
-  category?: string;
-}
+import { getAllTerms } from "@/lib/content/api";
 
 function slugify(value: string) {
   return value
@@ -17,17 +8,9 @@ function slugify(value: string) {
     .replace(/^-+|-+$/g, "");
 }
 
-function getTerms(): Term[] {
-  const filePath = path.join(process.cwd(), "data", "terms.yaml");
-  const file = fs.readFileSync(filePath, "utf8");
-  return yaml.load(file) as Term[];
-}
-
 export async function generateStaticParams() {
-  const terms = getTerms();
-  const categories = Array.from(
-    new Set(terms.map((t) => t.category).filter(Boolean)),
-  );
+  const terms = getAllTerms();
+  const categories = Array.from(new Set(terms.map((t) => t.category).filter(Boolean)));
   return categories.map((category) => ({
     category: slugify(category as string),
   }));
@@ -38,7 +21,7 @@ export default function CategoryPage({
 }: {
   params: { category: string };
 }) {
-  const terms = getTerms();
+  const terms = getAllTerms();
   const categoryTerms = terms.filter(
     (t) => t.category && slugify(t.category) === params.category,
   );
@@ -54,8 +37,8 @@ export default function CategoryPage({
       <h1>{categoryName}</h1>
       <ul>
         {categoryTerms.map((term) => (
-          <li key={term.slug || slugify(term.name)}>
-            <strong>{term.name}</strong>: {term.definition}
+          <li key={term.slug}>
+            <strong>{term.title}</strong>: {term.definition}
           </li>
         ))}
       </ul>
