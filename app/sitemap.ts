@@ -13,7 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = (siteConfig.siteUrl || '').replace(/\/$/, '');
 
   const termEntries = (termsData.terms || []).map((t: { term: string }) => ({
-    url: `${baseUrl}/terms/${slugify(t.term)}`,
+    url: `${baseUrl}/term/${slugify(t.term)}`,
     lastModified: new Date(),
   }));
 

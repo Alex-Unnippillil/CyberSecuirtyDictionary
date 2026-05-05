@@ -34,3 +34,7 @@ The project is a static site published with GitHub Pages. After updating content
 
 For information on reporting vulnerabilities, please see our [Security Policy](SECURITY.md).
 
+
+## Routing
+
+- Canonical term route and migration notes: `docs/term-routing-migration.md`.
