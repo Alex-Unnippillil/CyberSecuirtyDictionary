@@ -1,0 +1,19 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+
+# Legacy static entrypoints (not used in Next.js production runtime)
+index.html
+search.html
+categories.html
+diagnostics.html
+import.html
+settings.html
+audio-quiz.html
+canvas.html
+chat.html
+cidr.html
+author.html
+sanitize.html
+layout.html

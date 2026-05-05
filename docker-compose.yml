@@ -2,11 +2,8 @@ version: "3.9"
 services:
   web:
     build: .
-    command: node server.js
+    command: npm run start
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
