@@ -1,16 +1,13 @@
-import { Server } from "socket.io";
-
-let io: Server | undefined;
-
+/**
+ * Realtime Socket.IO is hosted by the custom Node server, not in route handlers.
+ * This endpoint intentionally returns 410 to prevent accidental initialization here.
+ */
 export async function GET() {
-  // Lazily initialize the Socket.IO server so it only runs once per server.
-  if (!io) {
-    io = new Server({ path: "/api/socket" });
-    io.on("connection", (socket) => {
-      console.log("Client connected", socket.id);
-    });
-  }
-
-  // The server is ready; return an empty 200 response.
-  return new Response(null, { status: 200 });
+  return Response.json(
+    {
+      error:
+        "Socket.IO is served by the custom Node server layer. Configure NEXT_PUBLIC_SOCKET_URL/NEXT_PUBLIC_SOCKET_PATH on clients.",
+    },
+    { status: 410 },
+  );
 }
